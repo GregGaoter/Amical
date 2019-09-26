@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MaquetteController {
 
-	@RequestMapping(value = "/maquette_login")
-	public String maquetteLogin() {
-		return "maquette_login";
+	@RequestMapping(value = "/login")
+	public String login() {
+		return "login";
 
 	}
 }
