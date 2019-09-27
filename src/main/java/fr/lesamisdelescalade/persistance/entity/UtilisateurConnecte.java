@@ -15,6 +15,10 @@ public class UtilisateurConnecte extends Utilisateur implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	public UtilisateurConnecte() {
+		super();
+	}
+
 	public UtilisateurConnecte(@NotNull String email, @NotNull String motDePasse, @NotNull String prenom,
 			@NotNull String nom, @NotNull Boolean actifQ, @NotNull Set<Role> listeRoles) {
 		super(email, motDePasse, prenom, nom, actifQ, listeRoles);

@@ -36,6 +36,10 @@ public abstract class Utilisateur implements Serializable {
 	@JoinTable(name = "profil")
 	private Set<Role> listeRoles;
 
+	public Utilisateur() {
+		super();
+	}
+
 	public Utilisateur(@NotNull String email, @NotNull String motDePasse, @NotNull String prenom, @NotNull String nom,
 			@NotNull Boolean actifQ, @NotNull Set<Role> listeRoles) {
 		super();
