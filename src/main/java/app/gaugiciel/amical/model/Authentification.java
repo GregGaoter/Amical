@@ -1,54 +1,51 @@
-package fr.lesamisdelescalade.persistance.entity;
+package app.gaugiciel.amical.model;
 
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Utilisateur implements Serializable {
+public class Authentification implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@NotNull
+	@Column(length = 64)
 	private String email;
 	@NotNull
-	@Column(name = "mot_de_passe")
+	@Column(name = "mot_de_passe", length = 128)
 	private String motDePasse;
 	@NotNull
-	private String prenom;
-	@NotNull
-	private String nom;
-	@NotNull
 	@Column(name = "actif_q")
-	private Boolean actifQ;
-	@NotNull
+	private boolean actifQ;
 	@ManyToMany
-	@JoinTable(name = "profil")
+	@NotNull
+	@JoinTable(name = "profil", joinColumns = @JoinColumn(name = "authentification_email"), inverseJoinColumns = @JoinColumn(name = "role_role"))
 	private Set<Role> listeRoles;
+	@OneToOne(mappedBy = "authentification", cascade = CascadeType.ALL)
+	private Utilisateur utilisateur;
 
-	public Utilisateur() {
+	public Authentification() {
 		super();
 	}
 
-	public Utilisateur(@NotNull String email, @NotNull String motDePasse, @NotNull String prenom, @NotNull String nom,
-			@NotNull Boolean actifQ, @NotNull Set<Role> listeRoles) {
+	public Authentification(@NotNull String motDePasse, @NotNull boolean actifQ, @NotNull Set<Role> listeRoles,
+			Utilisateur utilisateur) {
 		super();
-		this.email = email;
 		this.motDePasse = motDePasse;
-		this.prenom = prenom;
-		this.nom = nom;
 		this.actifQ = actifQ;
 		this.listeRoles = listeRoles;
+		this.utilisateur = utilisateur;
 	}
 
 	public String getEmail() {
@@ -67,27 +64,11 @@ public abstract class Utilisateur implements Serializable {
 		this.motDePasse = motDePasse;
 	}
 
-	public String getPrenom() {
-		return prenom;
-	}
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public Boolean getActifQ() {
+	public boolean isActifQ() {
 		return actifQ;
 	}
 
-	public void setActifQ(Boolean actifQ) {
+	public void setActifQ(boolean actifQ) {
 		this.actifQ = actifQ;
 	}
 
@@ -97,6 +78,14 @@ public abstract class Utilisateur implements Serializable {
 
 	public void setListeRoles(Set<Role> listeRoles) {
 		this.listeRoles = listeRoles;
+	}
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 }

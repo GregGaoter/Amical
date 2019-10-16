@@ -1,4 +1,4 @@
-package fr.lesamisdelescalade;
+package app.gaugiciel.amical;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

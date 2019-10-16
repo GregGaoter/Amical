@@ -1,4 +1,4 @@
-package fr.lesamisdelescalade.persistance.securite;
+package app.gaugiciel.amical.configuration;
 
 import javax.sql.DataSource;
 
@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class SecuriteConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	// Spécifié dans le fichier application.properties
 	@Autowired
@@ -23,11 +23,10 @@ public class SecuriteConfiguration extends WebSecurityConfigurerAdapter {
 
 		// La requête de la méthode usersByUsernameQuery doit obligatoirement contenir
 		// un username (principal), un mot de passe (credentials) et un booléen (actif)
-		auth.jdbcAuthentication().dataSource(dataSource)
-				.usersByUsernameQuery(
-						"SELECT email AS principal,mot_de_passe AS credentials,actif_q FROM utilisateur WHERE email=?")
+		auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery(
+				"SELECT email AS principal,mot_de_passe AS credentials,actif_q FROM authentification WHERE email=?")
 				.authoritiesByUsernameQuery(
-						"SELECT liste_utilisateurs_email AS principal, liste_roles_role AS role FROM profil WHERE liste_utilisateurs_email=?")
+						"SELECT authentification_email AS principal, role_role AS role FROM profil WHERE authentification_email=?")
 				.passwordEncoder(new BCryptPasswordEncoder()).rolePrefix("ROLE_");
 	}
 
@@ -35,9 +34,9 @@ public class SecuriteConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// Indique que l'authentification passe par un formulaire d'authentification
 		http.formLogin().loginPage("/login");
-		http.authorizeRequests().antMatchers("/visiteur/**").hasRole("VISITEUR");
-		http.authorizeRequests().antMatchers("/ami/**").hasRole("AMI");
-		http.authorizeRequests().antMatchers("/administrateur/**").hasRole("ADMINISTRATEUR");
+		http.authorizeRequests().antMatchers("/").permitAll();
+		// http.authorizeRequests().antMatchers("/ami/**").hasRole("AMI");
+		// http.authorizeRequests().antMatchers("/administrateur/**").hasRole("ADMINISTRATEUR");
 		http.exceptionHandling().accessDeniedPage("/403");
 	}
 

@@ -19,7 +19,7 @@
 					<a class="navbar-brand" href="#">Les amis de l'escalade</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Accueil</a></li>
+					<li class="active"><a th:href="@{/visiteur/accueil}">Accueil</a></li>
 					<li><a href="#">Spots</a></li>
 					<li><a href="#">Topos</a></li>
 				</ul>
@@ -42,8 +42,14 @@
 		</nav>
 	</header>
 
-	<!-- layout:fragment="content" signifie que c'est le contenu de la page active qui est affichée -->
-	<section layout:fragment="content"></section>
+	<div class="row">
+		<div class="col-lg-2">
+			<nav layout:fragment="navigation"></nav>
+		</div>
+		<div class="col-lg-10">
+			<section layout:fragment="content"></section>
+		</div>
+	</div>
 
 	<footer></footer>
 

@@ -1,4 +1,4 @@
-package fr.lesamisdelescalade;
+package app.gaugiciel.amical;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
