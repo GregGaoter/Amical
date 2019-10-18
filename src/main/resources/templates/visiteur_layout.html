@@ -7,47 +7,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <title>Layout</title>
 </head>
 <body>
 
-	<!-- L'entête est toujours affichée sur toutes les pages -->
 	<header>
 		<nav class="navbar navbar-default">
-			<div class="container-fluid">
+			<div class="container">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Les amis de l'escalade</a>
+					<a class="navbar-brand" href="#"><img
+						alt="Les amis de l'escalade"
+						th:src="@{/img/logo_amical_montagne.png}"></a>
 				</div>
 				<ul class="nav navbar-nav">
 					<li class="active"><a th:href="@{/visiteur/accueil}">Accueil</a></li>
 					<li><a href="#">Spots</a></li>
-					<li><a href="#">Topos</a></li>
+					<li class="disabled" data-toggle="popover" data-trigger="hover"
+						data-placement="bottom" title="Accès réservé !"
+						data-content="La recherche et le partage de topos sont réservés aux membres inscrit."><a
+						href="#">Topos</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
 							S'inscrire</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
 							S'authentifier</a></li>
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#">Grégory <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Mes topos</a></li>
-							<li><a href="#">Topos disponibles</a></li>
-							<li><a href="#">Mes réservations</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Me déconnecter</a></li>
-						</ul></li>
 				</ul>
 			</div>
 		</nav>
 	</header>
 
-	<div class="row">
-		<div class="col-lg-2">
-			<nav layout:fragment="navigation"></nav>
-		</div>
-		<div class="col-lg-10">
-			<section layout:fragment="content"></section>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-2">
+				<nav layout:fragment="navigation"></nav>
+			</div>
+			<div class="col-lg-10">
+				<section layout:fragment="content"></section>
+			</div>
 		</div>
 	</div>
 
@@ -55,6 +53,11 @@
 
 	<script th:src="@{/js/jquery-3.4.1.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script>
+		$(document).ready(function() {
+			$('[data-toggle="popover"]').popover();
+		});
+	</script>
 
 </body>
 </html>

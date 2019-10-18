@@ -8,3 +8,11 @@
 	/* 	-ms-transform: translate(-50%, -50%); */
 	transform: translate(-50%, -75%);
 }
+
+.navbar-brand {
+	padding: 0;
+}
+
+.navbar-brand>img {
+	margin: -10px auto auto auto;
+}
