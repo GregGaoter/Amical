@@ -13,10 +13,11 @@
 <body>
 
 	<header>
-		<nav class="navbar navbar-default">
+		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#"><img
+					<a class="navbar-brand" data-toggle="tooltip"
+						title="Les amis de l'escalade" data-placement="bottom" href="#"><img
 						alt="Les amis de l'escalade"
 						th:src="@{/img/logo_amical_montagne.png}"></a>
 				</div>
@@ -25,28 +26,30 @@
 					<li><a href="#">Spots</a></li>
 					<li class="disabled" data-toggle="popover" data-trigger="hover"
 						data-placement="bottom" title="Accès réservé !"
-						data-content="La recherche et le partage de topos sont réservés aux membres inscrit."><a
-						href="#">Topos</a></li>
+						data-content="La recherche et le partage de topos sont réservés aux membres inscrits."><a
+						href="#"><span class="text-muted">Topos</span></a></li>
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-							S'inscrire</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
-							S'authentifier</a></li>
-				</ul>
+				<div class="navbar-right">
+					<a class="btn btn-primary navbar-btn" role="button" href="#"> <span
+						class="glyphicon glyphicon-user"></span> S'inscrire
+					</a> <a class="btn btn-primary navbar-btn" role="button" href="#">
+						<span class="glyphicon glyphicon-log-in"></span> S'authentifier
+					</a> <a class="navbar-btn" style="margin-left: 10px;"
+						data-toggle="tooltip" title="Français" data-placement="bottom"
+						href="#"><img alt="Drapeau France"
+						th:src="@{/img/france_flag_icon_24_20.png}"></a> <a
+						class="navbar-btn" data-toggle="tooltip" title="English"
+						data-placement="bottom" href="#"><img
+						alt="Drapeau Royaume-Uni"
+						th:src="@{/img/united_kingdom_flag_icon_24_20.png}"></a>
+				</div>
 			</div>
 		</nav>
 	</header>
 
 	<div class="container">
-		<div class="row">
-			<div class="col-lg-2">
-				<nav layout:fragment="navigation"></nav>
-			</div>
-			<div class="col-lg-10">
-				<section layout:fragment="content"></section>
-			</div>
-		</div>
+		<div layout:fragment="navigation"></div>
+		<section layout:fragment="content"></section>
 	</div>
 
 	<footer></footer>
@@ -56,6 +59,11 @@
 	<script>
 		$(document).ready(function() {
 			$('[data-toggle="popover"]').popover();
+		});
+	</script>
+	<script>
+		$(document).ready(function() {
+			$('[data-toggle="tooltip"]').tooltip();
 		});
 	</script>
 

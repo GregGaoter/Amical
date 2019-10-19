@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+body {
+	padding-top: 56px;
+}
+
 .screen-center {
 	margin: 0;
 	position: absolute;
@@ -15,4 +19,16 @@
 
 .navbar-brand>img {
 	margin: -10px auto auto auto;
+}
+
+.pad-bottom {
+	padding-bottom: 20px;
+}
+
+.texte-noir {
+	color: black;
+}
+
+.fond-blanc {
+	background-color: white;
 }
