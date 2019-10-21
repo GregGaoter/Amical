@@ -1,0 +1,63 @@
+package app.gaugiciel.amical.model;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
+
+//Persistance
+@Entity
+@Table(name = "cotation_france")
+//Lombok
+@NoArgsConstructor
+@Data
+public class CotationFrance implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	// Persistance
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	// Lombok
+	@Setter(AccessLevel.PROTECTED)
+	private long id;
+
+	// Persistance
+	@Column(name = "unite_principale", nullable = false, length = 1)
+	// Validation constraints
+	@NotNull(message = "{validation.notnull}")
+	@Size(min = 1, max = 1, message = "{validation.size.exact}")
+	// Lombok
+	@NonNull
+	private String unitePrincipale;
+
+	// Persistance
+	@Column(name = "unite_secondaire", length = 3)
+	// Validation constraints
+	@Size(max = 3, message = "{validation.size.max}")
+	private String uniteSecondaire;
+
+	// Persistance
+	@Column(name = "unite_tertiaire", length = 1)
+	// Validation constraints
+	@Size(min = 1, max = 1, message = "{validation.size.exact}")
+	private String uniteTertiaire;
+
+	@Override
+	public String toString() {
+		return unitePrincipale + uniteSecondaire + uniteTertiaire;
+	}
+
+}

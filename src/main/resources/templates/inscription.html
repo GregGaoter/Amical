@@ -9,7 +9,7 @@ Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-<title>Login</title>
+<title>Inscription</title>
 </head>
 <body>
 
@@ -28,7 +28,7 @@ Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 			<div class="col-lg-5 vertical-align">
 				<div class="panel panel-default">
 					<div class="panel-heading text-center">
-						<h3 class="panel-title">Authentification</h3>
+						<h3 class="panel-title">Inscription</h3>
 					</div>
 					<div class="panel-body">
 						<div class="alert alert-danger alert-dismissible" role="alert"
@@ -39,43 +39,63 @@ Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 									class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>
 							</button>
 							<span class="glyphicon glyphicon-exclamation-sign"
-								aria-hidden="true"></span> Le nom d'utilisateur ou le mot de
-							passe est incorrect.
+								aria-hidden="true"></span> Cette adresse email est déjà inscrite
+							!
 						</div>
 						<form th:action="
-							@{/login}" method="post">
+							@{/inscription}" method="post">
 							<div class="form-group">
-								<!-- Pour un formulaire d'authentification, l'input du nom d'utilisateur doit obligatoirement s'appeler username -->
-								<label class="control-label">Adresse e-mail</label>
+								<label class="control-label">Prénom</label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
-										class="glyphicon glyphicon-envelope"></i></span> <input type="email"
-										class="form-control" name="username"
-										placeholder="Entrez votre adresse e-mail">
+										class="glyphicon glyphicon-user"></i></span> <input type="text"
+										class="form-control" name="prenom">
 								</div>
 							</div>
 							<div class="form-group">
-								<!-- Pour un formulaire d'authentification, l'input du mot de passe doit obligatoirement s'appeler password -->
+								<label class="control-label">Nom</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i
+										class="glyphicon glyphicon-user"></i></span> <input type="text"
+										class="form-control" name="nom" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">Adresse email</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i
+										class="glyphicon glyphicon-envelope"></i></span> <input type="email"
+										class="form-control" name="email" />
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="control-label">Mot de passe</label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-lock"></i></span> <input type="password"
-										class="form-control" name="password"
-										placeholder="Entrez votre mot de passe" />
+										class="form-control" name="mot_de_passe" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">Confirmation mot de passe</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i
+										class="glyphicon glyphicon-lock"></i></span> <input type="password"
+										class="form-control" name="confirmation_mot_de_passe" />
 								</div>
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon"><i
 									class="glyphicon glyphicon-log-in"></i></span>
-								<button type="submit" class="btn btn-primary btn-block btn-lg">S'authentifier</button>
+								<button type="submit" class="btn btn-primary btn-block btn-lg">S'inscrire</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-5 vertical-align">
-				<img class="img-responsive" src="img/undraw_authentication_fsn5.svg"
-					alt="Les amis de l'escalade">
+				<img class="img-responsive" src="img/undraw_runner_start_x0uu.svg"
+					alt="Runner start">
 			</div>
 			<div class="col-lg-1"></div>
 		</div>

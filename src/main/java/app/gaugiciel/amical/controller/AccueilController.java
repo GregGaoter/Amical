@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class AccueilController {
 
-	// Action par défaut appelée après le login
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		return "redirect:/visiteur/accueil";
@@ -18,9 +17,9 @@ public class AccueilController {
 		return "visiteur_accueil";
 	}
 
-	@RequestMapping(value = "/login")
-	public String login() {
-		return "login";
+	@RequestMapping(value = "/ami/accueil")
+	public String amiAccueil() {
+		return "ami_accueil";
 	}
 
 	@RequestMapping(value = "/403")

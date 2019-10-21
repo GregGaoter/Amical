@@ -8,44 +8,36 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.ToString;
+
+//Persistance
 @Entity
+//Lombok
+@NoArgsConstructor
+@ToString(onlyExplicitlyIncluded = true)
+@Data
 public abstract class Role implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	// Persistance
 	@Id
-	@NotNull
-	@Column(length = 64)
+	@Column(nullable = false, length = 64)
+	// Validation constraints
+	@NotNull(message = "{validation.notnull}")
+	@Size(min = 1, max = 64, message = "{validation.size.interval}")
+	// Lombok
+	@NonNull
+	@ToString.Include
 	private String role;
+
+	// Persistance
 	@ManyToMany(mappedBy = "listeRoles")
-	@NotNull
 	private Set<Authentification> listeAuthentifications;
-
-	public Role() {
-		super();
-	}
-
-	public Role(@NotNull String role, @NotNull Set<Authentification> listeAuthentifications) {
-		super();
-		this.role = role;
-		this.listeAuthentifications = listeAuthentifications;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public Set<Authentification> getListeAuthentifications() {
-		return listeAuthentifications;
-	}
-
-	public void setListeAuthentifications(Set<Authentification> listeAuthentifications) {
-		this.listeAuthentifications = listeAuthentifications;
-	}
 
 }

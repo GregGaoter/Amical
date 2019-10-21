@@ -11,81 +11,62 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.ToString;
+
+// Persistance
 @Entity
+// Lombok
+@NoArgsConstructor
+@ToString(onlyExplicitlyIncluded = true)
+@Data
 public class Authentification implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	// Persistance
 	@Id
-	@NotNull
-	@Column(length = 64)
+	@Column(nullable = false, length = 64)
+	// Validation constraints
+	@NotNull(message = "{validation.notnull}")
+	@Email(message = "{validation.email}")
+	@Size(max = 64, message = "{validation.size.max}")
+	// Lombok
+	@NonNull
+	@ToString.Include
 	private String email;
-	@NotNull
-	@Column(name = "mot_de_passe", length = 128)
+
+	// Persistance
+	@Column(name = "mot_de_passe", nullable = false, length = 128)
+	// Validation constraints
+	@NotNull(message = "{validation.notnull}")
+	@Size(min = 8, max = 128, message = "{validation.size.interval}")
+	// Lombok
+	@NonNull
 	private String motDePasse;
-	@NotNull
-	@Column(name = "actif_q")
+
+	// Persistance
+	@Column(name = "actif_q", nullable = false)
+	// Validation constraints
+	@NotNull(message = "{validation.notnull}")
+	// Lombok
+	@NonNull
+	@ToString.Include
 	private boolean actifQ;
+
+	// Persistance
 	@ManyToMany
-	@NotNull
 	@JoinTable(name = "profil", joinColumns = @JoinColumn(name = "authentification_email"), inverseJoinColumns = @JoinColumn(name = "role_role"))
 	private Set<Role> listeRoles;
+
+	// Persistance
 	@OneToOne(mappedBy = "authentification", cascade = CascadeType.ALL)
 	private Utilisateur utilisateur;
-
-	public Authentification() {
-		super();
-	}
-
-	public Authentification(@NotNull String motDePasse, @NotNull boolean actifQ, @NotNull Set<Role> listeRoles,
-			Utilisateur utilisateur) {
-		super();
-		this.motDePasse = motDePasse;
-		this.actifQ = actifQ;
-		this.listeRoles = listeRoles;
-		this.utilisateur = utilisateur;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getMotDePasse() {
-		return motDePasse;
-	}
-
-	public void setMotDePasse(String motDePasse) {
-		this.motDePasse = motDePasse;
-	}
-
-	public boolean isActifQ() {
-		return actifQ;
-	}
-
-	public void setActifQ(boolean actifQ) {
-		this.actifQ = actifQ;
-	}
-
-	public Set<Role> getListeRoles() {
-		return listeRoles;
-	}
-
-	public void setListeRoles(Set<Role> listeRoles) {
-		this.listeRoles = listeRoles;
-	}
-
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
-
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
 
 }

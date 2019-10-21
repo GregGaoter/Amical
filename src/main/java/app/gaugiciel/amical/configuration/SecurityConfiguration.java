@@ -50,14 +50,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// Specifies the URL to validate the credentials.
 		// http.formLogin().loginProcessingUrl("/perform_login");
 		// Specifies where users will go after authenticating successfully
-		// http.formLogin().defaultSuccessUrl("homepage.html", true);
+		http.formLogin().defaultSuccessUrl("/ami/accueil", true);
 		// The URL to send users if authentication fails.
 		// http.formLogin().failureUrl("/login.html?error=true");
 		// Specifies the AuthenticationFailureHandler to use when authenticationfails.
 		// The default is redirecting to "/login?error"
 		// http.formLogin().failureHandler(authenticationFailureHandler());
 
-		// http.logout().logoutUrl("/perform_logout");
+		http.logout().logoutSuccessUrl("/visiteur/accueil");
 		http.logout().deleteCookies("JSESSIONID");
 
 		http.exceptionHandling().accessDeniedPage("/403");
