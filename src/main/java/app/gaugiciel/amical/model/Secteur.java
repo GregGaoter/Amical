@@ -1,8 +1,6 @@
 package app.gaugiciel.amical.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,9 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
 import lombok.AccessLevel;
@@ -29,7 +25,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
 @Data
-public class Manuel implements Serializable {
+public class Secteur implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,26 +37,12 @@ public class Manuel implements Serializable {
 	private long id;
 
 	// Persistance
-	@Column(nullable = false, length = 128)
-	// Validation constraints
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 128, message = "{validation.size.interval}")
-	// Lombok
-	@NonNull
-	@ToString.Include
-	private String nom;
-
-	// Persistance
-	@Column(name = "date_parution")
-	// Validation constraints
-	@PastOrPresent(message = "{validation.pastorpresent}")
-	private Timestamp dateParution;
-
-	// Persistance
 	@Column(length = 128)
 	// Validation constraints
-	@Size(max = 128, message = "{validation.size.max}")
-	private String auteur;
+	@Size(max = 128, message = "{validation.size.interval}")
+	// Lombok
+	@ToString.Include
+	private String nom;
 
 	// Persistance
 	@Column(length = 2000)
@@ -75,30 +57,17 @@ public class Manuel implements Serializable {
 	private String remarque;
 
 	// Persistance
-	@Column(nullable = false, length = 64)
+	@ManyToOne
+	@JoinColumn(name = "spot_id", nullable = false)
 	// Validation constraints
 	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 64, message = "{validation.size.interval}")
 	// Lombok
 	@NonNull
-	private String etat;
-
-	// Persistance
-	@Column(nullable = false, length = 64)
-	// Validation constraints
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 64, message = "{validation.size.interval}")
-	// Lombok
-	@NonNull
-	private String categorie;
-
-	// Persistance
-	@OneToMany(mappedBy = "manuel")
-	private Set<PretManuel> listePretsManuels;
+	private Spot spot;
 
 	// Persistance
 	@ManyToOne
-	@JoinColumn(name = "lieu_france_id")
-	private LieuFrance lieuFrance;
+	@JoinColumn(name = "plan_id")
+	private Plan plan;
 
 }
