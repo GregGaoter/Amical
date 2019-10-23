@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -19,7 +20,8 @@ import lombok.NonNull;
 
 //Persistance
 @Entity
-@Table(name = "pret_manuel")
+@Table(name = "pret_manuel", indexes = { @Index(columnList = "utilisateur_authentification_email"),
+		@Index(columnList = "manuel_id") })
 //Lombok
 @NoArgsConstructor
 @Data

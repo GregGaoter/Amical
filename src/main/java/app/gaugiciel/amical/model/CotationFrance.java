@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -19,7 +21,10 @@ import lombok.Setter;
 
 //Persistance
 @Entity
-@Table(name = "cotation_france")
+@Table(name = "cotation_france", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "unite_principale", "unite_secondaire", "unite_tertiaire" }) }, indexes = {
+				@Index(columnList = "unite_principale"), @Index(columnList = "unite_secondaire"),
+				@Index(columnList = "unite_principale,unite_secondaire") })
 //Lombok
 @NoArgsConstructor
 @Data

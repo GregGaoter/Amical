@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,7 +24,9 @@ import lombok.ToString;
 
 //Persistance
 @Entity
-@Table(name = "lieu_france")
+@Table(name = "lieu_france", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "departement", "code_postal", "ville" }) }, indexes = {
+				@Index(columnList = "departement"), @Index(columnList = "code_postal"), @Index(columnList = "ville") })
 //Lombok
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
@@ -62,7 +66,7 @@ public class LieuFrance implements Serializable {
 	@Column(name = "code_postal", nullable = false, length = 5)
 	// Validation constraints
 	@NotNull(message = "{validation.notnull}")
-	@Size(min = 5, max = 5, message = "{validation.size.exact}")
+	@Size(min = 1, max = 5, message = "{validation.size.interval}")
 	// Lombok
 	@NonNull
 	@ToString.Include

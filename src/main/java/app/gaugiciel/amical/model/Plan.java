@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import lombok.AccessLevel;
@@ -17,6 +19,7 @@ import lombok.ToString;
 
 //Persistance
 @Entity
+@Table(indexes = { @Index(columnList = "plan") })
 //Lombok
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
