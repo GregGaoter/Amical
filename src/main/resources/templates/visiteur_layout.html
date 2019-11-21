@@ -7,13 +7,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/style_navbar.css}" />
 <title>Layout</title>
 </head>
 <body>
 
 	<header>
-		<nav class="navbar navbar-default navbar-fixed-top">
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand" data-toggle="tooltip"
@@ -22,8 +23,9 @@
 						th:src="@{/img/logo_amical_montagne.png}"></a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a th:href="@{/visiteur/accueil}">Accueil</a></li>
-					<li><a href="#">Spots</a></li>
+					<li th:class="${accueilActive}"><a
+						th:href="@{/visiteur/accueil}">Accueil</a></li>
+					<li th:class="${spotActive}"><a th:href="@{/recherche_spot}">Spots</a></li>
 					<li class="disabled" data-toggle="popover" data-trigger="hover"
 						data-placement="bottom" title="Accès réservé !"
 						data-content="La recherche et le partage de topos sont réservés aux membres inscrits."><a
@@ -50,7 +52,6 @@
 	</header>
 
 	<div class="container">
-		<div layout:fragment="navigation"></div>
 		<section layout:fragment="content"></section>
 	</div>
 

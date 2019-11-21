@@ -1,21 +1,9 @@
 @charset "UTF-8";
 
-body {
-	padding-top: 56px;
-}
-
 .vertical-align {
 	display: inline-block;
 	vertical-align: middle;
 	float: none;
-}
-
-.navbar-brand {
-	padding: 0;
-}
-
-.navbar-brand>img {
-	margin: -10px auto auto auto;
 }
 
 .pad-bottom {
@@ -28,4 +16,9 @@ body {
 
 .fond-blanc {
 	background-color: white;
+}
+
+.select-no-left-right-padding {
+	padding-left: 0px;
+	padding-right: 0px;
 }

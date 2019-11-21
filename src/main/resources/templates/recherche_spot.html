@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{visiteur_layout.html}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title>Rechercher des spots</title>
+</head>
+<body class="body-without-nav-pills">
+
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-lg-12">
+				<form th:action="@{/resultat_spot}" method="post">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Critères de recherche des sites de
+								grimpe</h3>
+						</div>
+						<div class="list-group">
+							<div class="list-group-item">
+								<h4 class="list-group-item-heading">Spots</h4>
+								<div class="list-group-item-text">
+									<div class="row">
+										<div class="col-lg-4">
+											<div class="form-group">
+												<label class="control-label">Nom</label> <input type="text"
+													class="form-control" name="nomSpot">
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div class="form-group">
+												<label class="control-label">Lieu</label> <input type="text"
+													class="form-control"
+													placeholder="Région, département, code postal, ville"
+													name="lieuSpot">
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div class="form-group">
+												<label for="officielSpot">Officiel</label> <select
+													class="form-control" name="officielSpot">
+													<option>Indifférent</option>
+													<option>Oui</option>
+													<option>Non</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="list-group-item">
+								<h4 class="list-group-item-heading">Secteurs</h4>
+								<div class="list-group-item-text">
+									<div class="row">
+										<div class="col-lg-4">
+											<div class="form-group">
+												<label class="control-label">Nom</label> <input type="text"
+													class="form-control" name="nomSecteur">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="list-group-item">
+								<h4 class="list-group-item-heading">Voies</h4>
+								<div class="list-group-item-text">
+									<div class="row">
+										<div class="col-lg-4">
+											<div class="form-group">
+												<label class="control-label">Nom</label> <input type="text"
+													class="form-control" name="nomVoie">
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div class="form-group">
+												<label class="control-label">Cotation</label>
+												<div class="row">
+													<div class="col-lg-6">
+														<div class="input-group">
+															<span class="input-group-addon">min</span>
+															<div class="row row-no-gutters">
+																<div class="col-lg-4">
+																	<select
+																		class="form-control select-no-left-right-padding"
+																		name="cotPrinMin">
+																		<option>3</option>
+																		<option>4</option>
+																		<option>5</option>
+																		<option>6</option>
+																		<option>7</option>
+																		<option>8</option>
+																		<option>9</option>
+																	</select>
+																</div>
+																<div class="col-lg-4">
+																	<select
+																		class="form-control select-no-left-right-padding"
+																		name="cotSecMin">
+																		<option></option>
+																		<option>a</option>
+																		<option>b</option>
+																		<option>c</option>
+																	</select>
+																</div>
+																<div class="col-lg-4">
+																	<select
+																		class="form-control select-no-left-right-padding"
+																		name="cotTerMin">
+																		<option></option>
+																		<option>+</option>
+																	</select>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-lg-6">
+														<div class="input-group">
+															<span class="input-group-addon">max</span>
+															<div class="row row-no-gutters">
+																<div class="col-lg-4">
+																	<select
+																		class="form-control select-no-left-right-padding"
+																		name="cotPrinMax">
+																		<option>3</option>
+																		<option>4</option>
+																		<option>5</option>
+																		<option>6</option>
+																		<option>7</option>
+																		<option>8</option>
+																		<option>9</option>
+																	</select>
+																</div>
+																<div class="col-lg-4">
+																	<select
+																		class="form-control select-no-left-right-padding"
+																		name="cotSecMax">
+																		<option></option>
+																		<option>a</option>
+																		<option>b</option>
+																		<option>c</option>
+																	</select>
+																</div>
+																<div class="col-lg-4">
+																	<select
+																		class="form-control select-no-left-right-padding"
+																		name="cotTerMax">
+																		<option></option>
+																		<option>+</option>
+																	</select>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div class="form-group">
+												<label class="control-label">Hauteur [m]</label>
+												<div class="row">
+													<div class="col-lg-6">
+														<div class="input-group">
+															<span class="input-group-addon">min</span> <input
+																type="number" class="form-control" name="hauteurMinVoie">
+														</div>
+													</div>
+													<div class="col-lg-6">
+														<div class="input-group">
+															<span class="input-group-addon">max</span> <input
+																type="number" class="form-control" name="hauteurMaxVoie">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="list-group-item">
+								<div class="list-group-item-text text-center">
+									<button type="submit" class="btn btn-primary btn-lg">Trouver</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Résultat de recherche des sites de grimpe <span class="badge">1</span>
+						</h3>
+					</div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Spot</th>
+								<th>Région</th>
+								<th>Département</th>
+								<th>Code postal</th>
+								<th>Ville</th>
+								<th>Officiel</th>
+								<th>Secteur</th>
+								<th>Voie</th>
+								<th>Cotation</th>
+								<th>Hauteur</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>COLIMA'100</td>
+								<td>La Réunion</td>
+								<td>La Réunion</td>
+								<td>97436</td>
+								<td>Saint-Leu</td>
+								<td>Oui</td>
+								<td>Dunes</td>
+								<td>Jabba the Hutt</td>
+								<td>6b+</td>
+								<td>-</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- layout:fragment -->
+
+	<script th:src="@{/js/jquery-3.4.1.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

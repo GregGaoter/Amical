@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.body-with-nav-pills {
+	padding-top: 56px;
+}
+
+.body-without-nav-pills {
+	padding-top: 70px;
+}
+
+.navbar-brand {
+	padding: 0;
+}
+
+.navbar-brand>img {
+	margin: -10px auto auto auto;
+}

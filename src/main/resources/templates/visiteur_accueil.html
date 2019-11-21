@@ -8,18 +8,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <title>Accueil</title>
 </head>
-<body>
-
-	<ul class="nav nav-pills pad-bottom" layout:fragment="navigation">
-		<li class="active"><a data-toggle="pill" href="#qui_sommes_nous">Qui
-				sommes-nous ?</a></li>
-		<li><a data-toggle="pill" href="#comment_ca_marche">Comment
-				ça marche ?</a></li>
-	</ul>
+<body class="body-with-nav-pills">
 
 	<div class="tab-content" layout:fragment="content">
+		<ul class="nav nav-pills pad-bottom">
+			<li class="active"><a data-toggle="pill" href="#qui_sommes_nous">Qui
+					sommes-nous ?</a></li>
+			<li><a data-toggle="pill" href="#comment_ca_marche">Comment
+					ça marche ?</a></li>
+		</ul>
 		<div id="qui_sommes_nous" class="tab-pane fade in active">
 			<div class="well well-sm">
 				<h1 class="text-center">Bienvenue sur le site communautaire !</h1>
