@@ -16,7 +16,8 @@
 	<div layout:fragment="content">
 		<div class="row">
 			<div class="col-lg-12">
-				<form th:action="@{/resultat_spot}" method="post">
+				<form th:action="@{/visiteur/spot/recherche}"
+					th:object="${spotForm}" method="post">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">Critères de recherche des sites de
@@ -30,7 +31,9 @@
 										<div class="col-lg-4">
 											<div class="form-group">
 												<label class="control-label">Nom</label> <input type="text"
-													class="form-control" name="nomSpot">
+													class="form-control" th:field="*{nomSpot}"> <span
+													th:if="${#fields.hasErrors('nomSpot')}"
+													th:errors="*{nomSpot}"></span>
 											</div>
 										</div>
 										<div class="col-lg-4">
@@ -38,17 +41,20 @@
 												<label class="control-label">Lieu</label> <input type="text"
 													class="form-control"
 													placeholder="Région, département, code postal, ville"
-													name="lieuSpot">
+													th:field="*{lieuFranceSpot}"> <span
+													th:if="${#fields.hasErrors('lieuFranceSpot')}"
+													th:errors="*{lieuFranceSpot}"></span>
 											</div>
 										</div>
 										<div class="col-lg-4">
 											<div class="form-group">
 												<label for="officielSpot">Officiel</label> <select
-													class="form-control" name="officielSpot">
-													<option>Indifférent</option>
-													<option>Oui</option>
-													<option>Non</option>
-												</select>
+													class="form-control" th:field="*{isOfficielSpot}">
+													<option value=""></option>
+													<option value="true">Oui</option>
+													<option value="false">Non</option>
+												</select> <span th:if="${#fields.hasErrors('isOfficielSpot')}"
+													th:errors="*{isOfficielSpot}"></span>
 											</div>
 										</div>
 									</div>
@@ -61,7 +67,9 @@
 										<div class="col-lg-4">
 											<div class="form-group">
 												<label class="control-label">Nom</label> <input type="text"
-													class="form-control" name="nomSecteur">
+													class="form-control" th:field="*{nomSecteur}"> <span
+													th:if="${#fields.hasErrors('nomSecteur')}"
+													th:errors="*{nomSecteur}"></span>
 											</div>
 										</div>
 									</div>
@@ -74,7 +82,9 @@
 										<div class="col-lg-4">
 											<div class="form-group">
 												<label class="control-label">Nom</label> <input type="text"
-													class="form-control" name="nomVoie">
+													class="form-control" th:field="*{nomVoie}"> <span
+													th:if="${#fields.hasErrors('nomVoie')}"
+													th:errors="*{nomVoie}"></span>
 											</div>
 										</div>
 										<div class="col-lg-4">
@@ -88,33 +98,40 @@
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
-																		name="cotPrinMin">
-																		<option>3</option>
-																		<option>4</option>
-																		<option>5</option>
-																		<option>6</option>
-																		<option>7</option>
-																		<option>8</option>
-																		<option>9</option>
-																	</select>
+																		th:field="*{cotationMinVoieUnitePrincipale}">
+																		<option value=""></option>
+																		<option value="3"></option>
+																		<option value="4"></option>
+																		<option value="5"></option>
+																		<option value="6"></option>
+																		<option value="7"></option>
+																		<option value="8"></option>
+																		<option value="9"></option>
+																	</select> <span
+																		th:if="${#fields.hasErrors('cotationMinVoieUnitePrincipale')}"
+																		th:errors="*{cotationMinVoieUnitePrincipale}"></span>
 																</div>
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
-																		name="cotSecMin">
-																		<option></option>
-																		<option>a</option>
-																		<option>b</option>
-																		<option>c</option>
-																	</select>
+																		th:field="*{cotationMinVoieUniteSecondaire}">
+																		<option value=""></option>
+																		<option value="a"></option>
+																		<option value="b"></option>
+																		<option value="c"></option>
+																	</select> <span
+																		th:if="${#fields.hasErrors('cotationMinVoieUniteSecondaire')}"
+																		th:errors="*{cotationMinVoieUniteSecondaire}"></span>
 																</div>
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
-																		name="cotTerMin">
-																		<option></option>
-																		<option>+</option>
-																	</select>
+																		th:field="*{cotationMinVoieUniteTertiaire}">
+																		<option value=""></option>
+																		<option value="+"></option>
+																	</select> <span
+																		th:if="${#fields.hasErrors('cotationMinVoieUniteTertiaire')}"
+																		th:errors="*{cotationMinVoieUniteTertiaire}"></span>
 																</div>
 															</div>
 														</div>
@@ -126,33 +143,40 @@
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
-																		name="cotPrinMax">
-																		<option>3</option>
-																		<option>4</option>
-																		<option>5</option>
-																		<option>6</option>
-																		<option>7</option>
-																		<option>8</option>
-																		<option>9</option>
-																	</select>
+																		th:field="*{cotationMaxVoieUnitePrincipale}">
+																		<option value=""></option>
+																		<option value="3"></option>
+																		<option value="4"></option>
+																		<option value="5"></option>
+																		<option value="6"></option>
+																		<option value="7"></option>
+																		<option value="8"></option>
+																		<option value="9"></option>
+																	</select> <span
+																		th:if="${#fields.hasErrors('cotationMaxVoieUnitePrincipale')}"
+																		th:errors="*{cotationMaxVoieUnitePrincipale}"></span>
 																</div>
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
-																		name="cotSecMax">
-																		<option></option>
-																		<option>a</option>
-																		<option>b</option>
-																		<option>c</option>
-																	</select>
+																		th:field="*{cotationMaxVoieUniteSecondaire}">
+																		<option value=""></option>
+																		<option value="a"></option>
+																		<option value="b"></option>
+																		<option value="c"></option>
+																	</select> <span
+																		th:if="${#fields.hasErrors('cotationMaxVoieUniteSecondaire')}"
+																		th:errors="*{cotationMaxVoieUniteSecondaire}"></span>
 																</div>
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
-																		name="cotTerMax">
-																		<option></option>
-																		<option>+</option>
-																	</select>
+																		th:field="*{cotationMaxVoieUniteTertiaire}">
+																		<option value=""></option>
+																		<option value="+"></option>
+																	</select> <span
+																		th:if="${#fields.hasErrors('cotationMaxVoieUniteTertiaire')}"
+																		th:errors="*{cotationMaxVoieUniteTertiaire}"></span>
 																</div>
 															</div>
 														</div>
@@ -167,13 +191,19 @@
 													<div class="col-lg-6">
 														<div class="input-group">
 															<span class="input-group-addon">min</span> <input
-																type="number" class="form-control" name="hauteurMinVoie">
+																type="number" class="form-control"
+																th:field="*{hauteurMinVoie}"> <span
+																th:if="${#fields.hasErrors('hauteurMinVoie')}"
+																th:errors="*{hauteurMinVoie}"></span>
 														</div>
 													</div>
 													<div class="col-lg-6">
 														<div class="input-group">
 															<span class="input-group-addon">max</span> <input
-																type="number" class="form-control" name="hauteurMaxVoie">
+																type="number" class="form-control"
+																th:field="*{hauteurMinVoie}"> <span
+																th:if="${#fields.hasErrors('hauteurMaxVoie')}"
+																th:errors="*{hauteurMaxVoie}"></span>
 														</div>
 													</div>
 												</div>
@@ -197,36 +227,31 @@
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							Résultat de recherche des sites de grimpe <span class="badge">1</span>
+							Résultat de recherche des sites de grimpe <span class="badge"
+								th:text="${nbSpots}"></span>
 						</h3>
 					</div>
-					<table class="table">
+					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
-								<th>Spot</th>
+								<th>nom</th>
 								<th>Région</th>
 								<th>Département</th>
 								<th>Code postal</th>
 								<th>Ville</th>
 								<th>Officiel</th>
-								<th>Secteur</th>
-								<th>Voie</th>
-								<th>Cotation</th>
-								<th>Hauteur</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>COLIMA'100</td>
-								<td>La Réunion</td>
-								<td>La Réunion</td>
-								<td>97436</td>
-								<td>Saint-Leu</td>
-								<td>Oui</td>
-								<td>Dunes</td>
-								<td>Jabba the Hutt</td>
-								<td>6b+</td>
-								<td>-</td>
+							<tr th:each="s:${listeSpots}">
+								<td th:text="${s.nom}"></td>
+								<td th:text="${s.lieuFrance.region}"></td>
+								<td th:text="${s.lieuFrance.departement}"></td>
+								<td th:text="${s.lieuFrance.codePostale}"></td>
+								<td th:text="${s.lieuFrance.ville}"></td>
+								<td><span th:if="${s.tagQ}"><img
+										alt="Officiel les amis de l'escalade"
+										th:src="@{/img/rating_star_icon_24_24.png}"></span></td>
 							</tr>
 						</tbody>
 					</table>

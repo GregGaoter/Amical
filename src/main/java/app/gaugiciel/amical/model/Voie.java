@@ -66,7 +66,7 @@ public class Voie implements Serializable {
 	// Persistance
 	@Column(nullable = true)
 	// Validation constraints
-	@Positive
+	@Positive(message = "{validation.positive}")
 	private double hauteur;
 
 	// Persistance
