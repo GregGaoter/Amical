@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,8 +33,7 @@ public class SpotController {
 		if (bindingResult.hasErrors()) {
 			return "spot_recherche";
 		}
-		List<Spot> listeSpots = utilisateur
-				.rechercherSpots(SpotSpecification.hasNomIgnoreCaseContaining(spotForm.getNomSpot()));
+		List<Spot> listeSpots = utilisateur.rechercherSpots(spotForm);
 		model.addAttribute("listeSpots", listeSpots);
 		model.addAttribute("nbSpots", listeSpots.size());
 		return "spot_recherche";
