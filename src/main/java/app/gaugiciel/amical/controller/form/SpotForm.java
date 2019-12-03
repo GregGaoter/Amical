@@ -26,7 +26,7 @@ public class SpotForm {
 	@Size(max = 64, message = "{validation.size.max}")
 	private String lieuFranceSpot;
 
-	private String isOfficielSpot;
+	private Boolean isOfficielSpot;
 
 	@Size(max = 128, message = "{validation.size.max}")
 	private String nomSecteur;
@@ -53,8 +53,8 @@ public class SpotForm {
 	private String cotationMaxVoieUniteTertiaire;
 
 	@PositiveOrZero(message = "{validation.positiveorzero}")
-	private int hauteurMinVoie;
+	private Integer hauteurMinVoie;
 
-	private int hauteurMaxVoie;
+	private Integer hauteurMaxVoie;
 
 }

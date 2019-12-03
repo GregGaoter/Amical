@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import app.gaugiciel.amical.business.implementation.Utilisateur;
 import app.gaugiciel.amical.controller.form.SpotForm;
 import app.gaugiciel.amical.model.Spot;
-import app.gaugiciel.amical.repository.specification.SpotSpecification;
 
 @Controller
 public class SpotController {

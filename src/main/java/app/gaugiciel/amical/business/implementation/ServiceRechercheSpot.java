@@ -19,7 +19,7 @@ public class ServiceRechercheSpot implements ServiceRecherche<Spot, SpotForm> {
 
 	@Override
 	public List<Spot> rechercher(SpotForm spotForm) {
-		return spotRepository.findAll(SpotSpecification.hasAll());
+		return spotRepository.findAll(SpotSpecification.hasAll(spotForm));
 	}
 
 }

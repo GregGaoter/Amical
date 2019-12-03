@@ -50,9 +50,9 @@
 											<div class="form-group">
 												<label for="officielSpot">Officiel</label> <select
 													class="form-control" th:field="*{isOfficielSpot}">
-													<option value=""></option>
-													<option value="true">Oui</option>
-													<option value="false">Non</option>
+													<option th:value="null"></option>
+													<option th:value="true">Oui</option>
+													<option th:value="false">Non</option>
 												</select> <span th:if="${#fields.hasErrors('isOfficielSpot')}"
 													th:errors="*{isOfficielSpot}"></span>
 											</div>
@@ -100,13 +100,13 @@
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMinVoieUnitePrincipale}">
 																		<option value=""></option>
-																		<option value="3"></option>
-																		<option value="4"></option>
-																		<option value="5"></option>
-																		<option value="6"></option>
-																		<option value="7"></option>
-																		<option value="8"></option>
-																		<option value="9"></option>
+																		<option value="3">3</option>
+																		<option value="4">4</option>
+																		<option value="5">5</option>
+																		<option value="6">6</option>
+																		<option value="7">7</option>
+																		<option value="8">8</option>
+																		<option value="9">9</option>
 																	</select> <span
 																		th:if="${#fields.hasErrors('cotationMinVoieUnitePrincipale')}"
 																		th:errors="*{cotationMinVoieUnitePrincipale}"></span>
@@ -116,9 +116,9 @@
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMinVoieUniteSecondaire}">
 																		<option value=""></option>
-																		<option value="a"></option>
-																		<option value="b"></option>
-																		<option value="c"></option>
+																		<option value="a">a</option>
+																		<option value="b">b</option>
+																		<option value="c">c</option>
 																	</select> <span
 																		th:if="${#fields.hasErrors('cotationMinVoieUniteSecondaire')}"
 																		th:errors="*{cotationMinVoieUniteSecondaire}"></span>
@@ -128,7 +128,7 @@
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMinVoieUniteTertiaire}">
 																		<option value=""></option>
-																		<option value="+"></option>
+																		<option value="+">+</option>
 																	</select> <span
 																		th:if="${#fields.hasErrors('cotationMinVoieUniteTertiaire')}"
 																		th:errors="*{cotationMinVoieUniteTertiaire}"></span>
@@ -145,13 +145,13 @@
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMaxVoieUnitePrincipale}">
 																		<option value=""></option>
-																		<option value="3"></option>
-																		<option value="4"></option>
-																		<option value="5"></option>
-																		<option value="6"></option>
-																		<option value="7"></option>
-																		<option value="8"></option>
-																		<option value="9"></option>
+																		<option value="3">3</option>
+																		<option value="4">4</option>
+																		<option value="5">5</option>
+																		<option value="6">6</option>
+																		<option value="7">7</option>
+																		<option value="8">8</option>
+																		<option value="9">9</option>
 																	</select> <span
 																		th:if="${#fields.hasErrors('cotationMaxVoieUnitePrincipale')}"
 																		th:errors="*{cotationMaxVoieUnitePrincipale}"></span>
@@ -161,9 +161,9 @@
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMaxVoieUniteSecondaire}">
 																		<option value=""></option>
-																		<option value="a"></option>
-																		<option value="b"></option>
-																		<option value="c"></option>
+																		<option value="a">a</option>
+																		<option value="b">b</option>
+																		<option value="c">c</option>
 																	</select> <span
 																		th:if="${#fields.hasErrors('cotationMaxVoieUniteSecondaire')}"
 																		th:errors="*{cotationMaxVoieUniteSecondaire}"></span>
@@ -173,7 +173,7 @@
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMaxVoieUniteTertiaire}">
 																		<option value=""></option>
-																		<option value="+"></option>
+																		<option value="+">+</option>
 																	</select> <span
 																		th:if="${#fields.hasErrors('cotationMaxVoieUniteTertiaire')}"
 																		th:errors="*{cotationMaxVoieUniteTertiaire}"></span>
