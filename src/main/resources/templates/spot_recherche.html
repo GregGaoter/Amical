@@ -201,9 +201,9 @@
 														<div class="input-group">
 															<span class="input-group-addon">max</span> <input
 																type="number" class="form-control"
-																th:field="*{hauteurMinVoie}"> <span
-																th:if="${#fields.hasErrors('hauteurMaxVoie')}"
-																th:errors="*{hauteurMaxVoie}"></span>
+																th:field="*{hauteurMaxVoie}"> <span
+																th:if="${#fields.hasErrors('${spotForm}')}"
+																th:errors="${spotForm}"></span>
 														</div>
 													</div>
 												</div>

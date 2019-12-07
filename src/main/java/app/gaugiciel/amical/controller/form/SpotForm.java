@@ -17,7 +17,18 @@ import lombok.Setter;
 @Getter
 @Setter
 // Hibernate validator constraints
-@ScriptAssert(lang = "javascript", script = "_this.hauteurMinVoie<=_this.hauteurMaxVoie", message = "{validation.scriptassert.hauteurMaxVoie}")
+/*
+ * @ScriptAssert.List({
+ * 
+ * @ScriptAssert(lang = "javascript", script =
+ * "_.hauteurMinVoie <= _.hauteurMaxVoie", alias = "_", message =
+ * "{validation.scriptassert.hauteurMaxVoie}"),
+ * 
+ * @ScriptAssert(lang = "javascript", script =
+ * "_.cotationMinVoieUnitePrincipale <= _.cotationMaxVoieUnitePrincipale", alias
+ * = "_", message =
+ * "{validation.scriptassert.cotationFranceUnitePrincipaleMax}") })
+ */
 public class SpotForm {
 
 	@Size(max = 128, message = "{validation.size.max}")

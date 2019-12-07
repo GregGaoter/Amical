@@ -1,18 +1,12 @@
 package app.gaugiciel.amical.repository.specification;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.stream.IntStream;
 
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.controller.form.SpotForm;
@@ -30,27 +24,32 @@ import app.gaugiciel.amical.model.Voie_;
 public class SpotSpecification {
 
 	public static Specification<Spot> nomContaining(String nom) {
-		return (root, query, builder) -> Objects.isNull(nom) ? null
-				: builder.like(builder.upper(root.get(Spot_.NOM)), "%" + nom.toUpperCase() + "%");
+		return (root, query, builder) -> {
+			if (nom.strip().length() == 0) {
+				return null;
+			}
+			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Spot_.NOM))),
+					"%" + StringUtils.stripAccents(nom).toUpperCase() + "%");
+		};
 	}
 
 	public static Specification<Spot> lieuContaining(String lieu) {
 		return (root, query, builder) -> {
-			if (Objects.isNull(lieu)) {
+			if (lieu.strip().length() == 0) {
 				return null;
 			}
 
 			Subquery<Long> subqueryLieuFrance = query.subquery(Long.class);
 			Root<LieuFrance> rootLieuFrance = subqueryLieuFrance.from(LieuFrance.class);
 
-			Predicate critereRegion = builder.like(builder.upper(rootLieuFrance.get(LieuFrance_.REGION)),
-					"%" + lieu.toUpperCase() + "%");
-			Predicate critereDepartement = builder.like(builder.upper(rootLieuFrance.get(LieuFrance_.DEPARTEMENT)),
-					"%" + lieu.toUpperCase() + "%");
-			Predicate critereCodePostal = builder.like(builder.upper(rootLieuFrance.get(LieuFrance_.CODE_POSTALE)),
-					"%" + lieu.toUpperCase() + "%");
-			Predicate critereNomVille = builder.like(builder.upper(rootLieuFrance.get(LieuFrance_.VILLE)),
-					"%" + lieu.toUpperCase() + "%");
+			Predicate critereRegion = LieuFranceSpecification.regionContaining(lieu).toPredicate(rootLieuFrance, query,
+					builder);
+			Predicate critereDepartement = LieuFranceSpecification.departementContaining(lieu)
+					.toPredicate(rootLieuFrance, query, builder);
+			Predicate critereCodePostal = LieuFranceSpecification.codePostalContaining(lieu).toPredicate(rootLieuFrance,
+					query, builder);
+			Predicate critereNomVille = LieuFranceSpecification.villeContaining(lieu).toPredicate(rootLieuFrance, query,
+					builder);
 
 			subqueryLieuFrance.select(rootLieuFrance.get(LieuFrance_.ID))
 					.where(builder.or(critereRegion, critereDepartement, critereCodePostal, critereNomVille));
@@ -61,21 +60,25 @@ public class SpotSpecification {
 	}
 
 	public static Specification<Spot> officielEqual(Boolean tagQ) {
-		return (root, query, builder) -> Objects.isNull(tagQ) ? null
-				: tagQ ? builder.isTrue(root.get(Spot_.TAG_Q)) : builder.isFalse(root.get(Spot_.TAG_Q));
+		return (root, query, builder) -> {
+			if (Objects.isNull(tagQ)) {
+				return null;
+			}
+			return tagQ ? builder.isTrue(root.get(Spot_.TAG_Q)) : builder.isFalse(root.get(Spot_.TAG_Q));
+		};
 	}
 
 	public static Specification<Spot> nomSecteurContaining(String nomSecteur) {
 		return (root, query, builder) -> {
-			if (Objects.isNull(nomSecteur)) {
+			if (nomSecteur.strip().length() == 0) {
 				return null;
 			}
 
 			Subquery<Long> subquerySecteur = query.subquery(Long.class);
 			Root<Secteur> rootSecteur = subquerySecteur.from(Secteur.class);
 
-			Predicate critereNomSecteur = builder.like(builder.upper(rootSecteur.get(Secteur_.NOM)),
-					"%" + nomSecteur.toUpperCase() + "%");
+			Predicate critereNomSecteur = SecteurSpecification.nomContaining(nomSecteur).toPredicate(rootSecteur, query,
+					builder);
 			subquerySecteur.select(rootSecteur.get(Secteur_.SPOT)).where(critereNomSecteur);
 			query.where(root.get(Spot_.ID).in(subquerySecteur));
 
@@ -85,7 +88,7 @@ public class SpotSpecification {
 
 	public static Specification<Spot> nomVoieContaining(String nomVoie) {
 		return (root, query, builder) -> {
-			if (Objects.isNull(nomVoie)) {
+			if (nomVoie.strip().length() == 0) {
 				return null;
 			}
 
@@ -94,8 +97,7 @@ public class SpotSpecification {
 			Subquery<Long> subqueryVoie = subquerySecteur.subquery(Long.class);
 			Root<Voie> rootVoie = subqueryVoie.from(Voie.class);
 
-			Predicate critereNomVoie = builder.like(builder.upper(rootVoie.get(Voie_.NOM)),
-					"%" + nomVoie.toUpperCase() + "%");
+			Predicate critereNomVoie = VoieSpecification.nomContaining(nomVoie).toPredicate(rootVoie, query, builder);
 			subqueryVoie.select(rootVoie.get(Voie_.SECTEUR)).where(critereNomVoie);
 			subquerySecteur.select(rootSecteur.get(Secteur_.SPOT)).where(rootSecteur.get(Secteur_.ID).in(subqueryVoie));
 			query.where(root.get(Spot_.ID).in(subquerySecteur));
@@ -107,9 +109,58 @@ public class SpotSpecification {
 	public static Specification<Spot> cotationVoieBetween(String minUnitePrincipale, String minUniteSecondaire,
 			String minUniteTertiaire, String maxUnitePrincipale, String maxUniteSecondaire, String maxUniteTertiaire) {
 		return (root, query, builder) -> {
-			if (Objects.isNull(minUnitePrincipale) && Objects.isNull(maxUnitePrincipale)) {
+			if (minUnitePrincipale.strip().length() == 0 && maxUnitePrincipale.strip().length() == 0) {
 				return null;
 			}
+			// IntStream unitePrincipaleRange = IntStream.rangeClosed(3, 9);
+
+			final String unitePrincipaleRange = "3456789";
+			final String uniteSecondaireRange = " abc";
+			final String uniteTertiaireRange = " +";
+
+			String unitePrincipaleSelect = unitePrincipaleRange.substring(
+					unitePrincipaleRange.indexOf(minUnitePrincipale),
+					unitePrincipaleRange.indexOf(maxUnitePrincipale) + 1);
+			String uniteSecondaireSelect = uniteSecondaireRange.substring(
+					uniteSecondaireRange.indexOf(minUniteSecondaire),
+					uniteSecondaireRange.indexOf(maxUniteSecondaire) + 1);
+			String uniteTertiaireSelect = uniteTertiaireRange.substring(uniteTertiaireRange.indexOf(minUniteTertiaire),
+					uniteTertiaireRange.indexOf(maxUniteTertiaire) + 1);
+
+			Subquery<Long> subquerySecteur = query.subquery(Long.class);
+			Root<Secteur> rootSecteur = subquerySecteur.from(Secteur.class);
+			Subquery<Long> subqueryVoie = subquerySecteur.subquery(Long.class);
+			Root<Voie> rootVoie = subqueryVoie.from(Voie.class);
+			Subquery<Long> subqueryCotation = subqueryVoie.subquery(Long.class);
+			Root<CotationFrance> rootCotation = subqueryCotation.from(CotationFrance.class);
+
+			Predicate[] arrayCriteresUnitePrincipale = new Predicate[unitePrincipaleSelect.length()];
+			for (int i = 0; i < unitePrincipaleSelect.length(); i++) {
+				arrayCriteresUnitePrincipale[i] = CotationFranceSpecification
+						.unitePrincipaleEqual(String.valueOf(unitePrincipaleSelect.charAt(i)))
+						.toPredicate(rootCotation, query, builder);
+			}
+			Predicate[] arrayCriteresUniteSecondaire = new Predicate[uniteSecondaireSelect.length()];
+			for (int i = 0; i < uniteSecondaireSelect.length(); i++) {
+				arrayCriteresUniteSecondaire[i] = CotationFranceSpecification
+						.uniteSecondaireContaining(String.valueOf(uniteSecondaireSelect.charAt(i)))
+						.toPredicate(rootCotation, query, builder);
+			}
+			Predicate[] arrayCriteresUniteTertiaire = new Predicate[uniteTertiaireSelect.length()];
+			for (int i = 0; i < uniteTertiaireSelect.length(); i++) {
+				arrayCriteresUniteTertiaire[i] = CotationFranceSpecification
+						.uniteTertiaireEqual(String.valueOf(uniteTertiaireSelect.charAt(i)))
+						.toPredicate(rootCotation, query, builder);
+			}
+
+			subqueryCotation.select(rootCotation.get(CotationFrance_.ID))
+					.where(builder.and(builder.or(arrayCriteresUnitePrincipale),
+							builder.or(arrayCriteresUniteSecondaire), builder.or(arrayCriteresUniteTertiaire)));
+			subqueryVoie.select(rootVoie.get(Voie_.SECTEUR))
+					.where(rootVoie.get(Voie_.COTATION_FRANCE).in(subqueryCotation));
+			subquerySecteur.select(rootSecteur.get(Secteur_.SPOT)).where(rootSecteur.get(Secteur_.ID).in(subqueryVoie));
+			query.where(root.get(Spot_.ID).in(subquerySecteur));
+
 			return query.getRestriction();
 		};
 	}
@@ -117,7 +168,11 @@ public class SpotSpecification {
 	public static Specification<Spot> hasAll(SpotForm spotForm) {
 		return Specification.where(nomContaining(spotForm.getNomSpot()))
 				.and(lieuContaining(spotForm.getLieuFranceSpot()).and(officielEqual(spotForm.getIsOfficielSpot())))
-				.and(nomSecteurContaining(spotForm.getNomSecteur())).and(nomVoieContaining(spotForm.getNomVoie()));
+				.and(nomSecteurContaining(spotForm.getNomSecteur())).and(nomVoieContaining(spotForm.getNomVoie()))
+				.and(cotationVoieBetween(spotForm.getCotationMinVoieUnitePrincipale(),
+						spotForm.getCotationMinVoieUniteSecondaire(), spotForm.getCotationMinVoieUniteTertiaire(),
+						spotForm.getCotationMaxVoieUnitePrincipale(), spotForm.getCotationMaxVoieUniteSecondaire(),
+						spotForm.getCotationMaxVoieUniteTertiaire()));
 	}
 
 }
