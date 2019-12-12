@@ -37,7 +37,7 @@ public class ValidationFormSpot extends ValidationForm<SpotForm> {
 			}
 		}
 		if (comparaisonFieldInteger.comparer(spotForm.getHauteurMinVoie(), spotForm.getHauteurMaxVoie()) > 0) {
-			listeFieldError.add(new FieldError(spotForm.getClass().getSimpleName(), "hauteurMaxVoie",
+			listeFieldError.add(new FieldError(spotForm.getClass().getSimpleName(), SpotForm.HAUTEUR_MAX_VOIE,
 					messageSource.getMessage("validation.hauteurMaxVoie", null, Locale.getDefault())));
 		}
 		return listeFieldError.isEmpty();

@@ -138,6 +138,27 @@ public class SpotSpecification {
 		};
 	}
 
+	public static Specification<Spot> hauteurVoieBetween(int min, int max) {
+		return (root, query, builder) -> {
+			if (Objects.isNull(min) && Objects.isNull(max)) {
+				return null;
+			}
+
+			Subquery<Long> subquerySecteur = query.subquery(Long.class);
+			Root<Secteur> rootSecteur = subquerySecteur.from(Secteur.class);
+			Subquery<Long> subqueryVoie = subquerySecteur.subquery(Long.class);
+			Root<Voie> rootVoie = subqueryVoie.from(Voie.class);
+
+			Predicate critereHauteurVoie = VoieSpecification.hauteurBetween(min, max).toPredicate(rootVoie, query,
+					builder);
+			subqueryVoie.select(rootVoie.get(Voie_.SECTEUR)).where(critereHauteurVoie);
+			subquerySecteur.select(rootSecteur.get(Secteur_.SPOT)).where(rootSecteur.get(Secteur_.ID).in(subqueryVoie));
+			query.where(root.get(Spot_.ID).in(subquerySecteur));
+
+			return query.getRestriction();
+		};
+	}
+
 	public static Specification<Spot> hasAll(SpotForm spotForm) {
 		if (spotForm.estVide()) {
 			return null;
@@ -145,7 +166,8 @@ public class SpotSpecification {
 		return Specification.where(nomContaining(spotForm.getNomSpot()))
 				.and(lieuContaining(spotForm.getLieuFranceSpot()).and(officielEqual(spotForm.getIsOfficielSpot())))
 				.and(nomSecteurContaining(spotForm.getNomSecteur())).and(nomVoieContaining(spotForm.getNomVoie()))
-				.and(cotationVoieEqual(spotForm.getListeCotations()));
+				.and(cotationVoieEqual(spotForm.getListeCotations()))
+				.and(hauteurVoieBetween(spotForm.getHauteurMinVoie(), spotForm.getHauteurMaxVoie()));
 	}
 
 }
