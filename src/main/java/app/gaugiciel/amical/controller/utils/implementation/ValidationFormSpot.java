@@ -2,6 +2,7 @@ package app.gaugiciel.amical.controller.utils.implementation;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -36,7 +37,8 @@ public class ValidationFormSpot extends ValidationForm<SpotForm> {
 						messageSource.getMessage("validation.cotationFranceUniteMax", null, Locale.getDefault())));
 			}
 		}
-		if (comparaisonFieldInteger.comparer(spotForm.getHauteurMinVoie(), spotForm.getHauteurMaxVoie()) > 0) {
+		if (!Objects.isNull(spotForm.getHauteurMinVoie()) && !Objects.isNull(spotForm.getHauteurMaxVoie())
+				&& comparaisonFieldInteger.comparer(spotForm.getHauteurMinVoie(), spotForm.getHauteurMaxVoie()) > 0) {
 			listeFieldError.add(new FieldError(spotForm.getClass().getSimpleName(), SpotForm.HAUTEUR_MAX_VOIE,
 					messageSource.getMessage("validation.hauteurMaxVoie", null, Locale.getDefault())));
 		}

@@ -20,7 +20,7 @@ public class VoieSpecification {
 		};
 	}
 
-	public static Specification<Voie> hauteurBetween(int min, int max) {
+	public static Specification<Voie> hauteurBetween(Integer min, Integer max) {
 		return (root, query, builder) -> {
 			if (Objects.isNull(min) && Objects.isNull(max)) {
 				return null;

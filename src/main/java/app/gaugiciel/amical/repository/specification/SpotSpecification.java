@@ -138,7 +138,7 @@ public class SpotSpecification {
 		};
 	}
 
-	public static Specification<Spot> hauteurVoieBetween(int min, int max) {
+	public static Specification<Spot> hauteurVoieBetween(Integer min, Integer max) {
 		return (root, query, builder) -> {
 			if (Objects.isNull(min) && Objects.isNull(max)) {
 				return null;

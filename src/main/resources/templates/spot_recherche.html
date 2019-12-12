@@ -29,32 +29,41 @@
 								<div class="list-group-item-text">
 									<div class="row">
 										<div class="col-lg-4">
-											<div class="form-group">
+											<div class="form-group"
+												th:classappend="${#fields.hasErrors('nomSpot')} ? 'has-error has-feedback' : ''">
 												<label class="control-label">Nom</label> <input type="text"
-													class="form-control" th:field="*{nomSpot}"> <span
+													class="form-control" th:field="*{nomSpot}"><span
 													th:if="${#fields.hasErrors('nomSpot')}"
-													th:errors="*{nomSpot}"></span>
+													class="glyphicon glyphicon-remove form-control-feedback"></span>
+												<span th:if="${#fields.hasErrors('nomSpot')}"
+													th:errors="*{nomSpot}" class="text-danger"></span>
 											</div>
 										</div>
 										<div class="col-lg-4">
-											<div class="form-group">
+											<div class="form-group"
+												th:classappend="${#fields.hasErrors('lieuFranceSpot')} ? 'has-error has-feedback' : ''">
 												<label class="control-label">Lieu</label> <input type="text"
 													class="form-control"
 													placeholder="Région, département, code postal, ville"
-													th:field="*{lieuFranceSpot}"> <span
+													th:field="*{lieuFranceSpot}"><span
 													th:if="${#fields.hasErrors('lieuFranceSpot')}"
-													th:errors="*{lieuFranceSpot}"></span>
+													class="glyphicon glyphicon-remove form-control-feedback"></span>
+												<span th:if="${#fields.hasErrors('lieuFranceSpot')}"
+													th:errors="*{lieuFranceSpot}" class="text-danger"></span>
 											</div>
 										</div>
 										<div class="col-lg-4">
-											<div class="form-group">
+											<div class="form-group"
+												th:classappend="${#fields.hasErrors('isOfficielSpot')} ? 'has-error has-feedback' : ''">
 												<label for="officielSpot">Officiel</label> <select
 													class="form-control" th:field="*{isOfficielSpot}">
 													<option th:value="null"></option>
 													<option th:value="true">Oui</option>
 													<option th:value="false">Non</option>
-												</select> <span th:if="${#fields.hasErrors('isOfficielSpot')}"
-													th:errors="*{isOfficielSpot}"></span>
+												</select><span th:if="${#fields.hasErrors('isOfficielSpot')}"
+													class="glyphicon glyphicon-remove form-control-feedback"></span>
+												<span th:if="${#fields.hasErrors('isOfficielSpot')}"
+													th:errors="*{isOfficielSpot}" class="text-danger"></span>
 											</div>
 										</div>
 									</div>
@@ -65,11 +74,14 @@
 								<div class="list-group-item-text">
 									<div class="row">
 										<div class="col-lg-4">
-											<div class="form-group">
+											<div class="form-group"
+												th:classappend="${#fields.hasErrors('nomSecteur')} ? 'has-error has-feedback' : ''">
 												<label class="control-label">Nom</label> <input type="text"
-													class="form-control" th:field="*{nomSecteur}"> <span
+													class="form-control" th:field="*{nomSecteur}"><span
 													th:if="${#fields.hasErrors('nomSecteur')}"
-													th:errors="*{nomSecteur}"></span>
+													class="glyphicon glyphicon-remove form-control-feedback"></span>
+												<span th:if="${#fields.hasErrors('nomSecteur')}"
+													th:errors="*{nomSecteur}" class="text-danger"></span>
 											</div>
 										</div>
 									</div>
@@ -80,16 +92,20 @@
 								<div class="list-group-item-text">
 									<div class="row">
 										<div class="col-lg-4">
-											<div class="form-group">
+											<div class="form-group"
+												th:classappend="${#fields.hasErrors('nomVoie')} ? 'has-error has-feedback' : ''">
 												<label class="control-label">Nom</label> <input type="text"
-													class="form-control" th:field="*{nomVoie}"> <span
+													class="form-control" th:field="*{nomVoie}"><span
 													th:if="${#fields.hasErrors('nomVoie')}"
-													th:errors="*{nomVoie}"></span>
+													class="glyphicon glyphicon-remove form-control-feedback"></span>
+												<span th:if="${#fields.hasErrors('nomVoie')}"
+													th:errors="*{nomVoie}" class="text-danger"></span>
 											</div>
 										</div>
 										<div class="col-lg-4">
 											<div class="form-group">
-												<label class="control-label">Cotation</label>
+												<label class="control-label"
+													th:classappend="${spotForm.isFieldsCotationValid==false} or ${#fields.hasErrors('listeCotations')} ? text-danger : ''">Cotation</label>
 												<div class="row">
 													<div class="col-lg-6">
 														<div class="input-group">
@@ -98,7 +114,8 @@
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
-																		th:field="*{cotationMinVoieUnitePrincipale}">
+																		th:field="*{cotationMinVoieUnitePrincipale}"
+																		th:classappend="${#fields.hasErrors('cotationMinVoieUnitePrincipale')} ? has-error : ''">
 																		<option value=""></option>
 																		<option value="3">3</option>
 																		<option value="4">4</option>
@@ -114,7 +131,8 @@
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
-																		th:field="*{cotationMinVoieUniteSecondaire}">
+																		th:field="*{cotationMinVoieUniteSecondaire}"
+																		th:classappend="${#fields.hasErrors('cotationMinVoieUniteSecondaire')} ? has-error : ''">
 																		<option value=""></option>
 																		<option value="a">a</option>
 																		<option value="b">b</option>
@@ -126,7 +144,8 @@
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
-																		th:field="*{cotationMinVoieUniteTertiaire}">
+																		th:field="*{cotationMinVoieUniteTertiaire}"
+																		th:classappend="${#fields.hasErrors('cotationMinVoieUniteTertiaire')} ? has-error : ''">
 																		<option value=""></option>
 																		<option value="+">+</option>
 																	</select> <span
@@ -137,13 +156,15 @@
 														</div>
 													</div>
 													<div class="col-lg-6">
-														<div class="input-group">
+														<div class="input-group"
+															th:classappend="${#fields.hasErrors('listeCotations')} ? has-error : ''">
 															<span class="input-group-addon">max</span>
 															<div class="row row-no-gutters">
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
-																		th:field="*{cotationMaxVoieUnitePrincipale}">
+																		th:field="*{cotationMaxVoieUnitePrincipale}"
+																		th:classappend="${#fields.hasErrors('cotationMaxVoieUnitePrincipale')} ? has-error : ''">
 																		<option value=""></option>
 																		<option value="3">3</option>
 																		<option value="4">4</option>
@@ -157,7 +178,8 @@
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
-																		th:field="*{cotationMaxVoieUniteSecondaire}">
+																		th:field="*{cotationMaxVoieUniteSecondaire}"
+																		th:classappend="${#fields.hasErrors('cotationMaxVoieUniteSecondaire')} ? has-error : ''">
 																		<option value=""></option>
 																		<option value="a">a</option>
 																		<option value="b">b</option>
@@ -167,7 +189,8 @@
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
-																		th:field="*{cotationMaxVoieUniteTertiaire}">
+																		th:field="*{cotationMaxVoieUniteTertiaire}"
+																		th:classappend="${#fields.hasErrors('cotationMaxVoieUniteTertiaire')} ? has-error : ''">
 																		<option value=""></option>
 																		<option value="+">+</option>
 																	</select>
@@ -181,42 +204,48 @@
 																<div class="row row-no-gutters">
 																	<div class="col-lg-4 text-center">
 																		<span
-																			th:if="${#fields.hasErrors('cotationMaxVoieUnitePrincipale')}">1.</span>
+																			th:if="${#fields.hasErrors('cotationMaxVoieUnitePrincipale')}"
+																			class="text-danger">1.</span>
 																	</div>
 																	<div class="col-lg-4 text-center">
 																		<span
-																			th:if="${#fields.hasErrors('cotationMaxVoieUniteSecondaire')}">2.</span>
+																			th:if="${#fields.hasErrors('cotationMaxVoieUniteSecondaire')}"
+																			class="text-danger">2.</span>
 																	</div>
 																	<div class="col-lg-4 text-center">
 																		<span
-																			th:if="${#fields.hasErrors('cotationMaxVoieUniteTertiaire')}">3.</span>
+																			th:if="${#fields.hasErrors('cotationMaxVoieUniteTertiaire')}"
+																			class="text-danger">3.</span>
 																	</div>
 																</div>
 															</div>
 															<div class="row row-no-gutters"
 																th:if="${#fields.hasErrors('cotationMaxVoieUnitePrincipale')}">
-																<div class="col-lg-1">1.</div>
+																<div class="col-lg-1 text-danger">1.</div>
 																<div class="col-lg-11 no-bottom-top-padding">
-																	<span th:errors="*{cotationMaxVoieUnitePrincipale}"></span>
+																	<span th:errors="*{cotationMaxVoieUnitePrincipale}"
+																		class="text-danger"></span>
 																</div>
 															</div>
 															<div class="row row-no-gutters"
 																th:if="${#fields.hasErrors('cotationMaxVoieUniteSecondaire')}">
-																<div class="col-lg-1">2.</div>
+																<div class="col-lg-1 text-danger">2.</div>
 																<div class="col-lg-11">
-																	<span th:errors="*{cotationMaxVoieUniteSecondaire}"></span>
+																	<span th:errors="*{cotationMaxVoieUniteSecondaire}"
+																		class="text-danger"></span>
 																</div>
 															</div>
 															<div class="row row-no-gutters"
 																th:if="${#fields.hasErrors('cotationMaxVoieUniteTertiaire')}">
-																<div class="col-lg-1">3.</div>
+																<div class="col-lg-1 text-danger">3.</div>
 																<div class="col-lg-11">
-																	<span th:errors="*{cotationMaxVoieUniteTertiaire}"></span>
+																	<span th:errors="*{cotationMaxVoieUniteTertiaire}"
+																		class="text-danger"></span>
 																</div>
 															</div>
 														</div>
 														<div th:if="${#fields.hasErrors('listeCotations')}">
-															<span th:errors="*{listeCotations}"></span>
+															<span th:errors="*{listeCotations}" class="text-danger"></span>
 														</div>
 													</div>
 												</div>
@@ -224,25 +253,33 @@
 										</div>
 										<div class="col-lg-4">
 											<div class="form-group">
-												<label class="control-label">Hauteur [m]</label>
+												<label class="control-label"
+													th:classappend="${#fields.hasErrors('hauteurMinVoie') or #fields.hasErrors('hauteurMaxVoie')} ? text-danger : ''">Hauteur
+													[m]</label>
 												<div class="row">
 													<div class="col-lg-6">
-														<div class="input-group">
+														<div class="input-group"
+															th:classappend="${#fields.hasErrors('hauteurMinVoie')} ? has-error : ''">
 															<span class="input-group-addon">min</span> <input
 																type="number" class="form-control"
-																th:field="*{hauteurMinVoie}">
+																th:field="*{hauteurMinVoie}"><span
+																th:if="${#fields.hasErrors('hauteurMinVoie')}"
+																class="glyphicon glyphicon-remove form-control-feedback"></span>
 														</div>
 														<span th:if="${#fields.hasErrors('hauteurMinVoie')}"
-															th:errors="*{hauteurMinVoie}"></span>
+															th:errors="*{hauteurMinVoie}" class="text-danger"></span>
 													</div>
 													<div class="col-lg-6">
-														<div class="input-group">
+														<div class="input-group"
+															th:classappend="${#fields.hasErrors('hauteurMaxVoie')} ? has-error : ''">
 															<span class="input-group-addon">max</span> <input
 																type="number" class="form-control"
-																th:field="*{hauteurMaxVoie}">
+																th:field="*{hauteurMaxVoie}"><span
+																th:if="${#fields.hasErrors('hauteurMaxVoie')}"
+																class="glyphicon glyphicon-remove form-control-feedback"></span>
 														</div>
 														<span th:if="${#fields.hasErrors('hauteurMaxVoie')}"
-															th:errors="*{hauteurMaxVoie}"></span>
+															th:errors="*{hauteurMaxVoie}" class="text-danger"></span>
 													</div>
 												</div>
 											</div>

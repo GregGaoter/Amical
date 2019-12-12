@@ -77,6 +77,7 @@ public class SpotForm {
 	@PositiveOrZero(message = "{validation.positiveorzero}")
 	private Integer hauteurMinVoie;
 
+	@PositiveOrZero(message = "{validation.positiveorzero}")
 	private Integer hauteurMaxVoie;
 
 	private List<ServiceCotationFrance> listeCotations;
