@@ -67,7 +67,7 @@ public class Spot implements Serializable {
 	@NotNull(message = "{validation.notnull}")
 	// Lombok
 	@NonNull
-	private boolean tagQ;
+	private Boolean tagQ;
 
 	// Persistance
 	@ManyToOne

@@ -58,7 +58,7 @@ public class Authentification implements Serializable {
 	// Lombok
 	@NonNull
 	@ToString.Include
-	private boolean actifQ;
+	private Boolean actifQ;
 
 	// Persistance
 	@ManyToMany
