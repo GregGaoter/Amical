@@ -1,5 +1,6 @@
 package app.gaugiciel.amical.repository.specification;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.criteria.Predicate;
@@ -9,6 +10,7 @@ import javax.persistence.criteria.Subquery;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
+import app.gaugiciel.amical.business.implementation.ServiceCotationFrance;
 import app.gaugiciel.amical.controller.form.SpotForm;
 import app.gaugiciel.amical.model.CotationFrance;
 import app.gaugiciel.amical.model.CotationFrance_;
@@ -106,26 +108,11 @@ public class SpotSpecification {
 		};
 	}
 
-	public static Specification<Spot> cotationVoieBetween(String minUnitePrincipale, String minUniteSecondaire,
-			String minUniteTertiaire, String maxUnitePrincipale, String maxUniteSecondaire, String maxUniteTertiaire) {
+	public static Specification<Spot> cotationVoieEqual(List<ServiceCotationFrance> listeCotations) {
 		return (root, query, builder) -> {
-			if (minUnitePrincipale.strip().length() == 0 && maxUnitePrincipale.strip().length() == 0) {
+			if (listeCotations.isEmpty()) {
 				return null;
 			}
-			// IntStream unitePrincipaleRange = IntStream.rangeClosed(3, 9);
-
-			final String unitePrincipaleRange = "3456789";
-			final String uniteSecondaireRange = " abc";
-			final String uniteTertiaireRange = " +";
-
-			String unitePrincipaleSelect = unitePrincipaleRange.substring(
-					unitePrincipaleRange.indexOf(minUnitePrincipale),
-					unitePrincipaleRange.indexOf(maxUnitePrincipale) + 1);
-			String uniteSecondaireSelect = uniteSecondaireRange.substring(
-					uniteSecondaireRange.indexOf(minUniteSecondaire),
-					uniteSecondaireRange.indexOf(maxUniteSecondaire) + 1);
-			String uniteTertiaireSelect = uniteTertiaireRange.substring(uniteTertiaireRange.indexOf(minUniteTertiaire),
-					uniteTertiaireRange.indexOf(maxUniteTertiaire) + 1);
 
 			Subquery<Long> subquerySecteur = query.subquery(Long.class);
 			Root<Secteur> rootSecteur = subquerySecteur.from(Secteur.class);
@@ -134,28 +121,14 @@ public class SpotSpecification {
 			Subquery<Long> subqueryCotation = subqueryVoie.subquery(Long.class);
 			Root<CotationFrance> rootCotation = subqueryCotation.from(CotationFrance.class);
 
-			Predicate[] arrayCriteresUnitePrincipale = new Predicate[unitePrincipaleSelect.length()];
-			for (int i = 0; i < unitePrincipaleSelect.length(); i++) {
-				arrayCriteresUnitePrincipale[i] = CotationFranceSpecification
-						.unitePrincipaleEqual(String.valueOf(unitePrincipaleSelect.charAt(i)))
-						.toPredicate(rootCotation, query, builder);
-			}
-			Predicate[] arrayCriteresUniteSecondaire = new Predicate[uniteSecondaireSelect.length()];
-			for (int i = 0; i < uniteSecondaireSelect.length(); i++) {
-				arrayCriteresUniteSecondaire[i] = CotationFranceSpecification
-						.uniteSecondaireContaining(String.valueOf(uniteSecondaireSelect.charAt(i)))
-						.toPredicate(rootCotation, query, builder);
-			}
-			Predicate[] arrayCriteresUniteTertiaire = new Predicate[uniteTertiaireSelect.length()];
-			for (int i = 0; i < uniteTertiaireSelect.length(); i++) {
-				arrayCriteresUniteTertiaire[i] = CotationFranceSpecification
-						.uniteTertiaireEqual(String.valueOf(uniteTertiaireSelect.charAt(i)))
+			Predicate[] listePredicatesCotations = new Predicate[listeCotations.size()];
+			int i = 0;
+			for (ServiceCotationFrance cotation : listeCotations) {
+				listePredicatesCotations[i++] = CotationFranceSpecification.cotationEqual(cotation)
 						.toPredicate(rootCotation, query, builder);
 			}
 
-			subqueryCotation.select(rootCotation.get(CotationFrance_.ID))
-					.where(builder.and(builder.or(arrayCriteresUnitePrincipale),
-							builder.or(arrayCriteresUniteSecondaire), builder.or(arrayCriteresUniteTertiaire)));
+			subqueryCotation.select(rootCotation.get(CotationFrance_.ID)).where(builder.or(listePredicatesCotations));
 			subqueryVoie.select(rootVoie.get(Voie_.SECTEUR))
 					.where(rootVoie.get(Voie_.COTATION_FRANCE).in(subqueryCotation));
 			subquerySecteur.select(rootSecteur.get(Secteur_.SPOT)).where(rootSecteur.get(Secteur_.ID).in(subqueryVoie));
@@ -166,13 +139,13 @@ public class SpotSpecification {
 	}
 
 	public static Specification<Spot> hasAll(SpotForm spotForm) {
+		if (spotForm.estVide()) {
+			return null;
+		}
 		return Specification.where(nomContaining(spotForm.getNomSpot()))
 				.and(lieuContaining(spotForm.getLieuFranceSpot()).and(officielEqual(spotForm.getIsOfficielSpot())))
 				.and(nomSecteurContaining(spotForm.getNomSecteur())).and(nomVoieContaining(spotForm.getNomVoie()))
-				.and(cotationVoieBetween(spotForm.getCotationMinVoieUnitePrincipale(),
-						spotForm.getCotationMinVoieUniteSecondaire(), spotForm.getCotationMinVoieUniteTertiaire(),
-						spotForm.getCotationMaxVoieUnitePrincipale(), spotForm.getCotationMaxVoieUniteSecondaire(),
-						spotForm.getCotationMaxVoieUniteTertiaire()));
+				.and(cotationVoieEqual(spotForm.getListeCotations()));
 	}
 
 }

@@ -1,22 +1,22 @@
-package app.gaugiciel.amical.business.contrat;
+package app.gaugiciel.amical.controller.utils.contrat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.FieldError;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Service
+@Component
 @Getter
 @Setter
-public abstract class ServiceValidationForm<F> {
+public abstract class ValidationForm<F> {
 
 	public List<FieldError> listeFieldError;
 
-	public ServiceValidationForm() {
+	public ValidationForm() {
 		listeFieldError = new ArrayList<>();
 	}
 
