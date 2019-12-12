@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class ValidationFormSpot extends ValidationForm<SpotForm> {
 
 	@Autowired
-	private ComparaisonFieldInteger serviceComparaisonInteger;
+	private ComparaisonFieldInteger comparaisonFieldInteger;
 	@Autowired
 	private MessageSource messageSource;
 
@@ -36,7 +36,7 @@ public class ValidationFormSpot extends ValidationForm<SpotForm> {
 						messageSource.getMessage("validation.cotationFranceUniteMax", null, Locale.getDefault())));
 			}
 		}
-		if (serviceComparaisonInteger.comparer(spotForm.getHauteurMinVoie(), spotForm.getHauteurMaxVoie()) > 0) {
+		if (comparaisonFieldInteger.comparer(spotForm.getHauteurMinVoie(), spotForm.getHauteurMaxVoie()) > 0) {
 			listeFieldError.add(new FieldError(spotForm.getClass().getSimpleName(), "hauteurMaxVoie",
 					messageSource.getMessage("validation.hauteurMaxVoie", null, Locale.getDefault())));
 		}
