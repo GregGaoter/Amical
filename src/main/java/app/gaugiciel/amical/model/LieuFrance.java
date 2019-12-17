@@ -1,6 +1,8 @@
 package app.gaugiciel.amical.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +28,8 @@ import lombok.ToString;
 @Entity
 @Table(name = "lieu_france", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "departement", "code_postal", "ville" }) }, indexes = {
-				@Index(columnList = "departement"), @Index(columnList = "code_postal"), @Index(columnList = "ville") })
+				@Index(columnList = "region"), @Index(columnList = "departement"), @Index(columnList = "code_postal"),
+				@Index(columnList = "ville") })
 //Lombok
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
@@ -86,5 +89,14 @@ public class LieuFrance implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "plan_id")
 	private Plan plan;
+
+	public List<String> getProprietes() {
+		List<String> listeProprietes = new ArrayList<>(4);
+		listeProprietes.add(region);
+		listeProprietes.add(departement);
+		listeProprietes.add(codePostale);
+		listeProprietes.add(ville);
+		return listeProprietes;
+	}
 
 }

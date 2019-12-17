@@ -32,7 +32,7 @@
 											<div class="form-group"
 												th:classappend="${#fields.hasErrors('nomSpot')} ? 'has-error has-feedback' : ''">
 												<label class="control-label">Nom</label> <input type="text"
-													class="form-control" th:field="*{nomSpot}"><span
+													id="nomSpot" class="form-control" th:field="*{nomSpot}"><span
 													th:if="${#fields.hasErrors('nomSpot')}"
 													class="glyphicon glyphicon-remove form-control-feedback"></span>
 												<span th:if="${#fields.hasErrors('nomSpot')}"
@@ -43,7 +43,7 @@
 											<div class="form-group"
 												th:classappend="${#fields.hasErrors('lieuFranceSpot')} ? 'has-error has-feedback' : ''">
 												<label class="control-label">Lieu</label> <input type="text"
-													class="form-control"
+													id="lieuSpot" class="form-control"
 													placeholder="Région, département, code postal, ville"
 													th:field="*{lieuFranceSpot}"><span
 													th:if="${#fields.hasErrors('lieuFranceSpot')}"
@@ -77,7 +77,8 @@
 											<div class="form-group"
 												th:classappend="${#fields.hasErrors('nomSecteur')} ? 'has-error has-feedback' : ''">
 												<label class="control-label">Nom</label> <input type="text"
-													class="form-control" th:field="*{nomSecteur}"><span
+													class="form-control" id="nomSecteur"
+													th:field="*{nomSecteur}"><span
 													th:if="${#fields.hasErrors('nomSecteur')}"
 													class="glyphicon glyphicon-remove form-control-feedback"></span>
 												<span th:if="${#fields.hasErrors('nomSecteur')}"
@@ -95,7 +96,7 @@
 											<div class="form-group"
 												th:classappend="${#fields.hasErrors('nomVoie')} ? 'has-error has-feedback' : ''">
 												<label class="control-label">Nom</label> <input type="text"
-													class="form-control" th:field="*{nomVoie}"><span
+													class="form-control" id="nomVoie" th:field="*{nomVoie}"><span
 													th:if="${#fields.hasErrors('nomVoie')}"
 													class="glyphicon glyphicon-remove form-control-feedback"></span>
 												<span th:if="${#fields.hasErrors('nomVoie')}"
@@ -116,14 +117,8 @@
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMinVoieUnitePrincipale}"
 																		th:classappend="${#fields.hasErrors('cotationMinVoieUnitePrincipale')} ? has-error : ''">
-																		<option value=""></option>
-																		<option value="3">3</option>
-																		<option value="4">4</option>
-																		<option value="5">5</option>
-																		<option value="6">6</option>
-																		<option value="7">7</option>
-																		<option value="8">8</option>
-																		<option value="9">9</option>
+																		<option th:each="l:${unitePrincipaleLabels}"
+																			th:value="${l}" th:text="${l}"></option>
 																	</select> <span
 																		th:if="${#fields.hasErrors('cotationMinVoieUnitePrincipale')}"
 																		th:errors="*{cotationMinVoieUnitePrincipale}"></span>
@@ -133,10 +128,8 @@
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMinVoieUniteSecondaire}"
 																		th:classappend="${#fields.hasErrors('cotationMinVoieUniteSecondaire')} ? has-error : ''">
-																		<option value=""></option>
-																		<option value="a">a</option>
-																		<option value="b">b</option>
-																		<option value="c">c</option>
+																		<option th:each="l:${uniteSecondaireLabels}"
+																			th:value="${l}" th:text="${l}"></option>
 																	</select> <span
 																		th:if="${#fields.hasErrors('cotationMinVoieUniteSecondaire')}"
 																		th:errors="*{cotationMinVoieUniteSecondaire}"></span>
@@ -146,8 +139,8 @@
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMinVoieUniteTertiaire}"
 																		th:classappend="${#fields.hasErrors('cotationMinVoieUniteTertiaire')} ? has-error : ''">
-																		<option value=""></option>
-																		<option value="+">+</option>
+																		<option th:each="l:${uniteTertiaireLabels}"
+																			th:value="${l}" th:text="${l}"></option>
 																	</select> <span
 																		th:if="${#fields.hasErrors('cotationMinVoieUniteTertiaire')}"
 																		th:errors="*{cotationMinVoieUniteTertiaire}"></span>
@@ -165,14 +158,8 @@
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMaxVoieUnitePrincipale}"
 																		th:classappend="${#fields.hasErrors('cotationMaxVoieUnitePrincipale')} ? has-error : ''">
-																		<option value=""></option>
-																		<option value="3">3</option>
-																		<option value="4">4</option>
-																		<option value="5">5</option>
-																		<option value="6">6</option>
-																		<option value="7">7</option>
-																		<option value="8">8</option>
-																		<option value="9">9</option>
+																		<option th:each="l:${unitePrincipaleLabels}"
+																			th:value="${l}" th:text="${l}"></option>
 																	</select>
 																</div>
 																<div class="col-lg-4">
@@ -180,10 +167,8 @@
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMaxVoieUniteSecondaire}"
 																		th:classappend="${#fields.hasErrors('cotationMaxVoieUniteSecondaire')} ? has-error : ''">
-																		<option value=""></option>
-																		<option value="a">a</option>
-																		<option value="b">b</option>
-																		<option value="c">c</option>
+																		<option th:each="l:${uniteSecondaireLabels}"
+																			th:value="${l}" th:text="${l}"></option>
 																	</select>
 																</div>
 																<div class="col-lg-4">
@@ -191,8 +176,8 @@
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMaxVoieUniteTertiaire}"
 																		th:classappend="${#fields.hasErrors('cotationMaxVoieUniteTertiaire')} ? has-error : ''">
-																		<option value=""></option>
-																		<option value="+">+</option>
+																		<option th:each="l:${uniteTertiaireLabels}"
+																			th:value="${l}" th:text="${l}"></option>
 																	</select>
 																</div>
 															</div>
@@ -339,6 +324,8 @@
 	<!-- layout:fragment -->
 
 	<script th:src="@{/js/jquery-3.4.1.js}"></script>
+	<script th:src="@{/js/jquery-ui.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
+
 </body>
 </html>

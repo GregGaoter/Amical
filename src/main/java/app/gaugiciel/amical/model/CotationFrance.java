@@ -24,7 +24,7 @@ import lombok.Setter;
 @Table(name = "cotation_france", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "unite_principale", "unite_secondaire", "unite_tertiaire" }) }, indexes = {
 				@Index(columnList = "unite_principale"), @Index(columnList = "unite_secondaire"),
-				@Index(columnList = "unite_principale,unite_secondaire") })
+				@Index(columnList = "unite_tertiaire") })
 //Lombok
 @NoArgsConstructor
 @Data

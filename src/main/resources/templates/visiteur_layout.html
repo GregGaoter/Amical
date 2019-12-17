@@ -9,6 +9,7 @@
 	th:href="@{/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/style_navbar.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.css}" />
 <title>Layout</title>
 </head>
 <body>
@@ -25,7 +26,8 @@
 				<ul class="nav navbar-nav">
 					<li th:class="${accueilActive}"><a
 						th:href="@{/visiteur/accueil}">Accueil</a></li>
-					<li th:class="${spotActive}"><a th:href="@{/visiteur/spot/recherche}">Spots</a></li>
+					<li th:class="${spotActive}"><a
+						th:href="@{/visiteur/spot/recherche}">Spots</a></li>
 					<li class="disabled" data-toggle="popover" data-trigger="hover"
 						data-placement="bottom" title="Accès réservé !"
 						data-content="La recherche et le partage de topos sont réservés aux membres inscrits."><a
@@ -58,6 +60,7 @@
 	<footer></footer>
 
 	<script th:src="@{/js/jquery-3.4.1.js}"></script>
+	<script th:src="@{/js/jquery-ui.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script>
 		$(document).ready(function() {
@@ -67,6 +70,22 @@
 	<script>
 		$(document).ready(function() {
 			$('[data-toggle="tooltip"]').tooltip();
+		});
+	</script>
+	<script>
+		$(function() {
+			$('#nomSpot').autocomplete({
+				source : "/visiteur/spot/recherche/nomSpot"
+			});
+			$('#lieuSpot').autocomplete({
+				source : "/visiteur/spot/recherche/lieuSpot"
+			});
+			$('#nomSecteur').autocomplete({
+				source : "/visiteur/spot/recherche/nomSecteur"
+			});
+			$('#nomVoie').autocomplete({
+				source : "/visiteur/spot/recherche/nomVoie"
+			});
 		});
 	</script>
 

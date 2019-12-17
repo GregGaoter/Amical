@@ -1,14 +1,12 @@
 package app.gaugiciel.amical.repository.specification;
 
-import java.util.Objects;
-
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.business.implementation.ServiceCotationFrance;
 import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUnitePrincipale;
 import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUniteSecondaire;
 import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.utils.Utils;
 import app.gaugiciel.amical.model.CotationFrance;
 import app.gaugiciel.amical.model.CotationFrance_;
 
@@ -17,39 +15,39 @@ public class CotationFranceSpecification {
 	public static Specification<CotationFrance> unitePrincipaleEqual(
 			ServiceCotationFranceUnitePrincipale unitePrincipale) {
 		return (root, query, builder) -> {
-			if (Objects.isNull(unitePrincipale)) {
+			if (Utils.valideQ(unitePrincipale)) {
 				return null;
 			}
 			return builder.like(
 					builder.function("unaccent", String.class,
 							builder.upper(root.get(CotationFrance_.UNITE_PRINCIPALE))),
-					"%" + StringUtils.stripAccents(unitePrincipale.label).toUpperCase() + "%");
+					"%" + Utils.normaliser(unitePrincipale.label) + "%");
 		};
 	}
 
 	public static Specification<CotationFrance> uniteSecondaireContaining(
 			ServiceCotationFranceUniteSecondaire uniteSecondaire) {
 		return (root, query, builder) -> {
-			if (Objects.isNull(uniteSecondaire)) {
+			if (Utils.valideQ(uniteSecondaire)) {
 				return null;
 			}
 			return builder.like(
 					builder.function("unaccent", String.class,
 							builder.upper(root.get(CotationFrance_.UNITE_SECONDAIRE))),
-					"%" + StringUtils.stripAccents(uniteSecondaire.label).toUpperCase() + "%");
+					"%" + Utils.normaliser(uniteSecondaire.label) + "%");
 		};
 	}
 
 	public static Specification<CotationFrance> uniteTertiaireEqual(
 			ServiceCotationFranceUniteTertiaire uniteTertiaire) {
 		return (root, query, builder) -> {
-			if (Objects.isNull(uniteTertiaire)) {
+			if (Utils.valideQ(uniteTertiaire)) {
 				return null;
 			}
 			return builder.like(
 					builder.function("unaccent", String.class,
 							builder.upper(root.get(CotationFrance_.UNITE_TERTIAIRE))),
-					"%" + StringUtils.stripAccents(uniteTertiaire.label).toUpperCase() + "%");
+					"%" + Utils.normaliser(uniteTertiaire.label) + "%");
 		};
 	}
 

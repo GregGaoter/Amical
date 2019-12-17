@@ -1,16 +1,15 @@
 package app.gaugiciel.amical.repository.specification;
 
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.business.implementation.ServiceCotationFrance;
+import app.gaugiciel.amical.business.utils.Utils;
 import app.gaugiciel.amical.controller.form.SpotForm;
 import app.gaugiciel.amical.model.CotationFrance;
 import app.gaugiciel.amical.model.CotationFrance_;
@@ -27,34 +26,25 @@ public class SpotSpecification {
 
 	public static Specification<Spot> nomContaining(String nom) {
 		return (root, query, builder) -> {
-			if (nom.strip().length() == 0) {
+			if (Utils.valideQ(nom)) {
 				return null;
 			}
 			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Spot_.NOM))),
-					"%" + StringUtils.stripAccents(nom).toUpperCase() + "%");
+					"%" + Utils.normaliser(nom) + "%");
 		};
 	}
 
 	public static Specification<Spot> lieuContaining(String lieu) {
 		return (root, query, builder) -> {
-			if (lieu.strip().length() == 0) {
+			if (Utils.valideQ(lieu)) {
 				return null;
 			}
 
 			Subquery<Long> subqueryLieuFrance = query.subquery(Long.class);
 			Root<LieuFrance> rootLieuFrance = subqueryLieuFrance.from(LieuFrance.class);
 
-			Predicate critereRegion = LieuFranceSpecification.regionContaining(lieu).toPredicate(rootLieuFrance, query,
-					builder);
-			Predicate critereDepartement = LieuFranceSpecification.departementContaining(lieu)
-					.toPredicate(rootLieuFrance, query, builder);
-			Predicate critereCodePostal = LieuFranceSpecification.codePostalContaining(lieu).toPredicate(rootLieuFrance,
-					query, builder);
-			Predicate critereNomVille = LieuFranceSpecification.villeContaining(lieu).toPredicate(rootLieuFrance, query,
-					builder);
-
 			subqueryLieuFrance.select(rootLieuFrance.get(LieuFrance_.ID))
-					.where(builder.or(critereRegion, critereDepartement, critereCodePostal, critereNomVille));
+					.where(LieuFranceSpecification.lieuContaining(lieu).toPredicate(rootLieuFrance, query, builder));
 			query.where(root.get(Spot_.LIEU_FRANCE).in(subqueryLieuFrance));
 
 			return query.getRestriction();
@@ -63,7 +53,7 @@ public class SpotSpecification {
 
 	public static Specification<Spot> officielEqual(Boolean tagQ) {
 		return (root, query, builder) -> {
-			if (Objects.isNull(tagQ)) {
+			if (Utils.valideQ(tagQ)) {
 				return null;
 			}
 			return tagQ ? builder.isTrue(root.get(Spot_.TAG_Q)) : builder.isFalse(root.get(Spot_.TAG_Q));
@@ -72,7 +62,7 @@ public class SpotSpecification {
 
 	public static Specification<Spot> nomSecteurContaining(String nomSecteur) {
 		return (root, query, builder) -> {
-			if (nomSecteur.strip().length() == 0) {
+			if (Utils.valideQ(nomSecteur)) {
 				return null;
 			}
 
@@ -90,7 +80,7 @@ public class SpotSpecification {
 
 	public static Specification<Spot> nomVoieContaining(String nomVoie) {
 		return (root, query, builder) -> {
-			if (nomVoie.strip().length() == 0) {
+			if (Utils.valideQ(nomVoie)) {
 				return null;
 			}
 
@@ -110,7 +100,7 @@ public class SpotSpecification {
 
 	public static Specification<Spot> cotationVoieEqual(List<ServiceCotationFrance> listeCotations) {
 		return (root, query, builder) -> {
-			if (listeCotations.isEmpty()) {
+			if (Utils.valideQ(listeCotations)) {
 				return null;
 			}
 
@@ -140,7 +130,7 @@ public class SpotSpecification {
 
 	public static Specification<Spot> hauteurVoieBetween(Integer min, Integer max) {
 		return (root, query, builder) -> {
-			if (Objects.isNull(min) && Objects.isNull(max)) {
+			if (Utils.valideQ(min, max)) {
 				return null;
 			}
 

@@ -27,3 +27,17 @@
 	padding-bottom: 0px;
 	padding-top: 0px;
 }
+
+.ui-menu-item {
+	background-color: #d9d9d9;
+}
+
+.ui-menu-item-wrapper:hover {
+	border: none;
+	background-color: #877060;
+}
+
+.ui-widget-content .ui-state-active {
+	border: none;
+	background-color: #877060;
+}
