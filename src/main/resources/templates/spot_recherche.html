@@ -320,6 +320,33 @@
 				</div>
 			</div>
 		</div>
+		<div th:if="${nbPages > 1}" class="row">
+			<div class="col-lg-12 text-center">
+				<nav>
+					<ul class="pagination no-top-margin">
+						<li th:class="${pageNumber==0} ? disabled"><a
+							th:href="@{/visiteur/spot/recherche/resultat(page=0,size=${pageSize})}">
+								<span class="glyphicon glyphicon-fast-backward"></span>
+						</a></li>
+						<li th:class="${pageNumber==0} ? disabled"><a
+							th:href="@{/visiteur/spot/recherche/resultat(page=${pageNumber-1},size=${pageSize})}">
+								<span class="glyphicon glyphicon-step-backward"></span>
+						</a></li>
+						<li th:each="p:${listePages}" th:class="${pageNumber==p} ? active"><a
+							th:href="@{/visiteur/spot/recherche/resultat(page=${p},size=${pageSize})}"
+							th:text="${p+1}"></a></li>
+						<li th:class="${pageNumber==nbPages-1} ? disabled"><a
+							th:href="@{/visiteur/spot/recherche/resultat(page=${pageNumber+1},size=${pageSize})}">
+								<span class="glyphicon glyphicon-step-forward"></span>
+						</a></li>
+						<li th:class="${pageNumber==nbPages-1} ? disabled"><a
+							th:href="@{/visiteur/spot/recherche/resultat(page=${nbPages-1},size=${pageSize})}">
+								<span class="glyphicon glyphicon-fast-forward"></span>
+						</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
 	</div>
 	<!-- layout:fragment -->
 

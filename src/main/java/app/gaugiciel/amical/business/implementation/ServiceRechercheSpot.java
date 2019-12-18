@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import app.gaugiciel.amical.business.contrat.ServiceRecherche;
@@ -37,6 +39,10 @@ public class ServiceRechercheSpot implements ServiceRecherche<Spot, SpotForm> {
 	@Override
 	public List<Spot> rechercher(SpotForm spotForm) {
 		return spotRepository.findAll(SpotSpecification.hasAll(spotForm));
+	}
+
+	public Page<Spot> rechercher(SpotForm spotForm, Pageable pageable) {
+		return spotRepository.findAll(SpotSpecification.hasAll(spotForm), pageable);
 	}
 
 	public List<String> rechercherNomSpot(String nomSpot) {

@@ -2,6 +2,7 @@ package app.gaugiciel.amical.controller.form;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
@@ -83,6 +84,17 @@ public class SpotForm {
 	private List<ServiceCotationFrance> listeCotations;
 
 	private Boolean isFieldsCotationValid;
+
+	public void reinitialiser() {
+		Stream.of(getClass().getDeclaredFields()).forEach(field -> {
+			field.setAccessible(true);
+			try {
+				field.set(this, null);
+			} catch (IllegalArgumentException e) {
+			} catch (IllegalAccessException e) {
+			}
+		});
+	}
 
 	public ServiceCotationFrance getCotationMin() {
 		return ServiceCotationFrance.creer(ServiceCotationFranceUnitePrincipale.ofLabel(cotationMinVoieUnitePrincipale),
