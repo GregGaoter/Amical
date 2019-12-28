@@ -9,7 +9,6 @@ import javax.persistence.criteria.Subquery;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.business.implementation.ServiceCotationFrance;
-import app.gaugiciel.amical.business.utils.Utils;
 import app.gaugiciel.amical.controller.form.SpotForm;
 import app.gaugiciel.amical.model.CotationFrance;
 import app.gaugiciel.amical.model.CotationFrance_;
@@ -21,12 +20,13 @@ import app.gaugiciel.amical.model.Spot;
 import app.gaugiciel.amical.model.Spot_;
 import app.gaugiciel.amical.model.Voie;
 import app.gaugiciel.amical.model.Voie_;
+import app.gaugiciel.amical.utilitaire.Utils;
 
 public class SpotSpecification {
 
 	public static Specification<Spot> nomContaining(String nom) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(nom)) {
+			if (!Utils.isValid(nom)) {
 				return null;
 			}
 			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Spot_.NOM))),
@@ -36,7 +36,7 @@ public class SpotSpecification {
 
 	public static Specification<Spot> lieuContaining(String lieu) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(lieu)) {
+			if (!Utils.isValid(lieu)) {
 				return null;
 			}
 
@@ -53,7 +53,7 @@ public class SpotSpecification {
 
 	public static Specification<Spot> officielEqual(Boolean tagQ) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(tagQ)) {
+			if (!Utils.isValid(tagQ)) {
 				return null;
 			}
 			return tagQ ? builder.isTrue(root.get(Spot_.TAG_Q)) : builder.isFalse(root.get(Spot_.TAG_Q));
@@ -62,7 +62,7 @@ public class SpotSpecification {
 
 	public static Specification<Spot> nomSecteurContaining(String nomSecteur) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(nomSecteur)) {
+			if (!Utils.isValid(nomSecteur)) {
 				return null;
 			}
 
@@ -80,7 +80,7 @@ public class SpotSpecification {
 
 	public static Specification<Spot> nomVoieContaining(String nomVoie) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(nomVoie)) {
+			if (!Utils.isValid(nomVoie)) {
 				return null;
 			}
 
@@ -100,7 +100,7 @@ public class SpotSpecification {
 
 	public static Specification<Spot> cotationVoieEqual(List<ServiceCotationFrance> listeCotations) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(listeCotations)) {
+			if (!Utils.isValid(listeCotations)) {
 				return null;
 			}
 
@@ -130,7 +130,7 @@ public class SpotSpecification {
 
 	public static Specification<Spot> hauteurVoieBetween(Integer min, Integer max) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(min, max)) {
+			if (!Utils.isValid(min, max)) {
 				return null;
 			}
 

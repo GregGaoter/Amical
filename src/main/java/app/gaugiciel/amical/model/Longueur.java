@@ -20,14 +20,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 
 //Persistance
 @Entity
 @Table(indexes = { @Index(columnList = "voie_id"), @Index(columnList = "plan_id") })
 //Lombok
 @NoArgsConstructor
-@ToString(onlyExplicitlyIncluded = true)
 @Data
 public class Longueur implements Serializable {
 
@@ -38,14 +36,13 @@ public class Longueur implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	// Lombok
 	@Setter(AccessLevel.PROTECTED)
-	private long id;
+	private Long id;
 
 	// Persistance
 	@Column(length = 128)
 	// Validation constraints
 	@Size(max = 128, message = "{validation.size.interval}")
 	// Lombok
-	@ToString.Include
 	private String nom;
 
 	// Persistance
@@ -64,13 +61,13 @@ public class Longueur implements Serializable {
 	@Column(nullable = true)
 	// Validation constraints
 	@Positive
-	private double longueur;
+	private Double longueur;
 
 	// Persistance
 	@Column(name = "nb_spits", nullable = true)
 	// Validation constraints
 	@Positive
-	private int nbSpits;
+	private Integer nbSpits;
 
 	// Persistance
 	@ManyToOne

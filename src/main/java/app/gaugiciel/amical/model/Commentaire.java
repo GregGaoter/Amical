@@ -40,7 +40,7 @@ public class Commentaire implements Serializable {
 	// Lombok
 	@Setter(AccessLevel.PROTECTED)
 	@ToString.Include
-	private long id;
+	private Long id;
 
 	// Persistance
 	@Column(nullable = false, length = 2000)

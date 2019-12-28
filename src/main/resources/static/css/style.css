@@ -48,6 +48,11 @@
 	margin-top: 0px;
 }
 
+.no-bottom-top-margin {
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
 .ui-menu-item {
 	background-color: #d9d9d9;
 }
@@ -60,4 +65,115 @@
 .ui-widget-content .ui-state-active {
 	border: none;
 	background-color: #877060;
+}
+
+.line-spacer {
+	padding-bottom: 9px;
+	border-bottom: 1px solid #1c1e22;
+}
+
+.vertical-spacer {
+	padding-bottom: 10px;
+}
+
+.modal-fullscreen {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+}
+
+.modal-dialog-fullscreen {
+	position: fixed;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+}
+
+.modal-content-fullscreen {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.modal-header-fullscreen {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 50px;
+	padding: 10px;
+}
+
+.modal-title-fullscreen {
+	font-weight: 300;
+	font-size: 2em;
+	line-height: 30px;
+}
+
+.modal-body-fullscreen {
+	position: absolute;
+	top: 50px;
+	bottom: 50px;
+	width: 100%;
+	overflow: auto;
+}
+
+.modal-footer-fullscreen {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 50px;
+	padding: 10px;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.accordion-title {
+	padding-bottom: 0px;
+	padding-top: 0px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+.accordion-link {
+	color: inherit;
+}
+
+.panel-heading-hover:hover {
+	cursor: pointer;
+	background-color: #49515a;
+}
+
+.img-hover:hover {
+	cursor: pointer;
+	-moz-box-shadow: 0 0 10px #ccc;
+	-webkit-box-shadow: 0 0 10px #ccc;
+	box-shadow: 0 0 10px #ccc;
+}
+
+.close {
+	color: inherit;
+	opacity: 1;
+}
+
+.close:hover {
+	color: inherit;
+	opacity: 1;
+	background-color: #ee5f5b;
+}
+
+#boutonHautDePage {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 9999 !important;
 }

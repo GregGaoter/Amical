@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import app.gaugiciel.amical.business.contrat.ServiceRecherche;
-import app.gaugiciel.amical.business.utils.Utils;
 import app.gaugiciel.amical.controller.form.SpotForm;
 import app.gaugiciel.amical.model.LieuFrance;
 import app.gaugiciel.amical.model.Secteur;
@@ -23,6 +22,7 @@ import app.gaugiciel.amical.repository.specification.LieuFranceSpecification;
 import app.gaugiciel.amical.repository.specification.SecteurSpecification;
 import app.gaugiciel.amical.repository.specification.SpotSpecification;
 import app.gaugiciel.amical.repository.specification.VoieSpecification;
+import app.gaugiciel.amical.utilitaire.Utils;
 
 @Service
 public class ServiceRechercheSpot implements ServiceRecherche<Spot, SpotForm> {
@@ -43,6 +43,10 @@ public class ServiceRechercheSpot implements ServiceRecherche<Spot, SpotForm> {
 
 	public Page<Spot> rechercher(SpotForm spotForm, Pageable pageable) {
 		return spotRepository.findAll(SpotSpecification.hasAll(spotForm), pageable);
+	}
+
+	public Spot findById(Long id) {
+		return spotRepository.findById(id).orElseThrow();
 	}
 
 	public List<String> rechercherNomSpot(String nomSpot) {

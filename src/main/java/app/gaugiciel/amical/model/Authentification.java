@@ -43,10 +43,10 @@ public class Authentification implements Serializable {
 	private String email;
 
 	// Persistance
-	@Column(name = "mot_de_passe", nullable = false, length = 128)
+	@Column(name = "mot_de_passe", nullable = false, length = 16)
 	// Validation constraints
 	@NotNull(message = "{validation.notnull}")
-	@Size(min = 8, max = 128, message = "{validation.size.interval}")
+	@Size(min = 8, max = 16, message = "{validation.size.interval}")
 	// Lombok
 	@NonNull
 	private String motDePasse;

@@ -8,6 +8,10 @@
 	padding-top: 70px;
 }
 
+.body-with-breadcrumb {
+	padding-top: 52px;
+}
+
 .navbar-brand {
 	padding: 0;
 }

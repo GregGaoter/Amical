@@ -296,7 +296,7 @@
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
-								<th>nom</th>
+								<th>Nom</th>
 								<th>Région</th>
 								<th>Département</th>
 								<th>Code postal</th>
@@ -305,7 +305,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="s:${listeSpots}">
+							<tr th:each="s:${listeSpots}" class="pointer"
+								th:onclick="'javascript:spotResultTableRowClicked(\'' + ${s.id} + '\',\'' + ${pageNumber} + '\',\'' + ${pageSize} + '\');'">
 								<td th:text="${s.nom}"></td>
 								<td th:text="${s.lieuFrance.region}"></td>
 								<td th:text="${s.lieuFrance.departement}"></td>

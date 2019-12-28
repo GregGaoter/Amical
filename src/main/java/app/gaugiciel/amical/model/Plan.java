@@ -34,7 +34,7 @@ public class Plan implements Serializable {
 	// Validation constraints
 	// Lombok
 	@Setter(AccessLevel.PROTECTED)
-	private long id;
+	private Long id;
 
 	// Persistance
 	@Column(length = 256)

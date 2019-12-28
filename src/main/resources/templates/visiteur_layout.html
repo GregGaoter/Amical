@@ -55,6 +55,11 @@
 
 	<div class="container">
 		<section layout:fragment="content"></section>
+		<button type="button" class="btn btn-default" onclick="hautDePage()"
+			id="boutonHautDePage" data-toggle="tooltip" data-placement="left"
+			title="Haut de page">
+			<img alt="Haut de page" th:src="@{/img/go_top_icon_32_32.png}">
+		</button>
 	</div>
 
 	<footer></footer>
@@ -64,16 +69,12 @@
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script>
 		$(document).ready(function() {
+
+			// Javascript
 			$('[data-toggle="popover"]').popover();
-		});
-	</script>
-	<script>
-		$(document).ready(function() {
 			$('[data-toggle="tooltip"]').tooltip();
-		});
-	</script>
-	<script>
-		$(function() {
+
+			// JQuery
 			$('#nomSpot').autocomplete({
 				source : "/visiteur/spot/recherche/nomSpot"
 			});
@@ -86,8 +87,65 @@
 			$('#nomVoie').autocomplete({
 				source : "/visiteur/spot/recherche/nomVoie"
 			});
+			$('#secteur').on('shown.bs.collapse', function() {
+				var panel = $(this).find('.in');
+				$(window).scrollTop(panel.offset().top - 100);
+			});
+			$(window).on("load", function() {
+				var openPanel = $('#secteur').find('.in');
+				$(window).scrollTop(openPanel.offset().top - 100);
+			});
 		});
 	</script>
+	<script>
+		function spotResultTableRowClicked(spotId, pageNumber, pageSize) {
+			location.href = "/visiteur/spot/" + spotId + "?page=" + pageNumber
+					+ "&size=" + pageSize;
+		}
+		function voieResultTableRowClicked(spotId, secteurId, voieId,
+				pageNumber, pageSize) {
+			location.href = "/visiteur/spot/" + spotId + "/secteur/"
+					+ secteurId + "/voie/" + voieId + "?page=" + pageNumber
+					+ "&size=" + pageSize;
+		}
+		function longueurResultTableRowClicked(spotId, secteurId, voieId,
+				longueurId, pageNumber, pageSize) {
+			location.href = "/visiteur/spot/" + spotId + "/secteur/"
+					+ secteurId + "/voie/" + voieId + "/longueur/" + longueurId
+					+ "?page=" + pageNumber + "&size=" + pageSize;
+		}
+		// 		function accordionScrollTop(id) {
+		// 			$(window).scrollTop($("#" + id).offset().top - 100);
+		// 		}
+	</script>
+	<script type="text/javascript">
+		boutonHautDePage = document.getElementById("boutonHautDePage");
+		window.onscroll = function() {
+			scrollFunction()
+		};
+		function scrollFunction() {
+			if (document.body.scrollTop > 20
+					|| document.documentElement.scrollTop > 20) {
+				boutonHautDePage.style.display = "block";
+			} else {
+				boutonHautDePage.style.display = "none";
+			}
+		}
+		function hautDePage() {
+			document.body.scrollTop = 0; // For Safari
+			document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+		}
+	</script>
+	<!-- <script type="text/javascript">
+		$(function() {
+			$('.panel-heading').click(function() {
+				$.get($(this).attr('id'), function(id) {
+					$(window).scrollTop($("#" + id).offset().top - 100);
+				});
+				return false; // don't follow the link!
+			});
+		});
+	</script> -->
 
 </body>
 </html>

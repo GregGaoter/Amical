@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import app.gaugiciel.amical.utilitaire.Utils;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,7 +38,7 @@ public class Voie implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	// Lombok
 	@Setter(AccessLevel.PROTECTED)
-	private long id;
+	private Long id;
 
 	// Persistance
 	@Column(length = 128)
@@ -67,7 +68,7 @@ public class Voie implements Serializable {
 	@Column(nullable = true)
 	// Validation constraints
 	@Positive(message = "{validation.positive}")
-	private double hauteur;
+	private Double hauteur;
 
 	// Persistance
 	@ManyToOne
@@ -90,6 +91,13 @@ public class Voie implements Serializable {
 
 	@Override
 	public String toString() {
+		if (!Utils.isValid(numero) && !Utils.isValid(nom)) {
+			return "";
+		} else if (Utils.isValid(numero) && !Utils.isValid(nom)) {
+			return numero;
+		} else if (!Utils.isValid(numero) && Utils.isValid(nom)) {
+			return nom;
+		}
 		return numero + " - " + nom;
 	}
 

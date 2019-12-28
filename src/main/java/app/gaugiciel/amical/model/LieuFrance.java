@@ -43,7 +43,7 @@ public class LieuFrance implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	// Lombok
 	@Setter(AccessLevel.PROTECTED)
-	private long id;
+	private Long id;
 
 	// Persistance
 	@Column(nullable = false, length = 64)

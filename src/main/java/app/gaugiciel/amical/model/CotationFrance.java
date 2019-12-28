@@ -13,6 +13,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import app.gaugiciel.amical.utilitaire.Utils;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,7 +38,7 @@ public class CotationFrance implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	// Lombok
 	@Setter(AccessLevel.PROTECTED)
-	private long id;
+	private Long id;
 
 	// Persistance
 	@Column(name = "unite_principale", nullable = false, length = 1)
@@ -62,7 +63,11 @@ public class CotationFrance implements Serializable {
 
 	@Override
 	public String toString() {
-		return unitePrincipale + uniteSecondaire + uniteTertiaire;
+		if (!Utils.isValid(unitePrincipale)) {
+			return "";
+		}
+		return unitePrincipale + (Utils.isValid(uniteSecondaire) ? uniteSecondaire : "")
+				+ (Utils.isValid(uniteTertiaire) ? uniteTertiaire : "");
 	}
 
 }

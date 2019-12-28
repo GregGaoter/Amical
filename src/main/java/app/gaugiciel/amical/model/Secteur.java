@@ -1,6 +1,7 @@
 package app.gaugiciel.amical.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +38,7 @@ public class Secteur implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	// Lombok
 	@Setter(AccessLevel.PROTECTED)
-	private long id;
+	private Long id;
 
 	// Persistance
 	@Column(length = 128)
@@ -72,5 +73,9 @@ public class Secteur implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "plan_id")
 	private Plan plan;
+
+	public boolean hasPlan() {
+		return !Objects.isNull(plan);
+	}
 
 }

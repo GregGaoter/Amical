@@ -6,16 +6,16 @@ import app.gaugiciel.amical.business.implementation.ServiceCotationFrance;
 import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUnitePrincipale;
 import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUniteSecondaire;
 import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUniteTertiaire;
-import app.gaugiciel.amical.business.utils.Utils;
 import app.gaugiciel.amical.model.CotationFrance;
 import app.gaugiciel.amical.model.CotationFrance_;
+import app.gaugiciel.amical.utilitaire.Utils;
 
 public class CotationFranceSpecification {
 
 	public static Specification<CotationFrance> unitePrincipaleEqual(
 			ServiceCotationFranceUnitePrincipale unitePrincipale) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(unitePrincipale)) {
+			if (!Utils.isValid(unitePrincipale)) {
 				return null;
 			}
 			return builder.like(
@@ -28,7 +28,7 @@ public class CotationFranceSpecification {
 	public static Specification<CotationFrance> uniteSecondaireContaining(
 			ServiceCotationFranceUniteSecondaire uniteSecondaire) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(uniteSecondaire)) {
+			if (!Utils.isValid(uniteSecondaire)) {
 				return null;
 			}
 			return builder.like(
@@ -41,7 +41,7 @@ public class CotationFranceSpecification {
 	public static Specification<CotationFrance> uniteTertiaireEqual(
 			ServiceCotationFranceUniteTertiaire uniteTertiaire) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(uniteTertiaire)) {
+			if (!Utils.isValid(uniteTertiaire)) {
 				return null;
 			}
 			return builder.like(

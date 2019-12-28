@@ -2,15 +2,15 @@ package app.gaugiciel.amical.repository.specification;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import app.gaugiciel.amical.business.utils.Utils;
 import app.gaugiciel.amical.model.LieuFrance;
 import app.gaugiciel.amical.model.LieuFrance_;
+import app.gaugiciel.amical.utilitaire.Utils;
 
 public class LieuFranceSpecification {
 
 	public static Specification<LieuFrance> regionContaining(String region) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(region)) {
+			if (!Utils.isValid(region)) {
 				return null;
 			}
 			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(LieuFrance_.REGION))),
@@ -20,7 +20,7 @@ public class LieuFranceSpecification {
 
 	public static Specification<LieuFrance> departementContaining(String departement) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(departement)) {
+			if (!Utils.isValid(departement)) {
 				return null;
 			}
 			return builder.like(
@@ -31,7 +31,7 @@ public class LieuFranceSpecification {
 
 	public static Specification<LieuFrance> codePostalContaining(String codePostal) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(codePostal)) {
+			if (!Utils.isValid(codePostal)) {
 				return null;
 			}
 			return builder.like(
@@ -42,7 +42,7 @@ public class LieuFranceSpecification {
 
 	public static Specification<LieuFrance> villeContaining(String ville) {
 		return (root, query, builder) -> {
-			if (Utils.valideQ(ville)) {
+			if (!Utils.isValid(ville)) {
 				return null;
 			}
 			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(LieuFrance_.VILLE))),

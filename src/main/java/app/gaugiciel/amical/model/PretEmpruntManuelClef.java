@@ -23,6 +23,6 @@ public class PretEmpruntManuelClef implements Serializable {
 
 	// Persistance
 	@Column(name = "manuel_id")
-	private long manuelId;
+	private Long manuelId;
 
 }
