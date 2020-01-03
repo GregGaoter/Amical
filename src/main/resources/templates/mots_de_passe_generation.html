@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/style_navbar.css}" />
+<title>Génération mots de passe réussit</title>
+</head>
+<body>
+
+	<div class="jumbotron text-center text-success">
+		<h1>
+			<span class="glyphicon glyphicon-ok-sign"></span> Génération des mots
+			de passe réussit <span class="glyphicon glyphicon-ok-sign"></span>
+		</h1>
+		<p>Tous les mots de passe en clair et cryptés ont été générés avec
+			succès !</p>
+		<a th:href="@{/}" class="btn btn-default btn-lg" role="button">Retour
+			à la page d'accueil</a>
+	</div>
+
+	<script th:src="@{/js/jquery-3.4.1.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

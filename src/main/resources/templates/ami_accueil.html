@@ -8,16 +8,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap.min.css}" />
-<title>Accueil</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title th:text="#{message.accueil}"></title>
 </head>
-<body layout:fragment="content">
+<body class="body-without-nav-pills">
 
-	<div class="page-header">
-		<h1>Page d'accueil des amis.</h1>
+	<div layout:fragment="content">
+		<h1>[[${utilisateur.prenom}]]</h1>
 	</div>
-
-	<script th:src="@{/js/jquery-3.4.1.js}"></script>
-	<script th:src="@{/js/bootstrap.min.js}"></script>
 
 </body>
 </html>

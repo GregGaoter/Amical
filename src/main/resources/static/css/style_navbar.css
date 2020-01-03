@@ -19,3 +19,7 @@
 .navbar-brand>img {
 	margin: -10px auto auto auto;
 }
+
+.dropdown-menu-content-width {
+	min-width: 0px !important;
+}

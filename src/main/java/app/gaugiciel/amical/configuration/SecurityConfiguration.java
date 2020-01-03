@@ -39,11 +39,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		// the order of the antMatchers() elements is significant – the more specific
 		// rules need to come first, followed by the more general ones
-		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMINISTRATEUR");
+		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
 		http.authorizeRequests().antMatchers("/ami/**").hasRole("AMI");
 		// http.authorizeRequests().antMatchers("/anonymous*").anonymous();
 		http.authorizeRequests().antMatchers("/").permitAll();
 		http.authorizeRequests().antMatchers("/login*").permitAll();
+		http.authorizeRequests().antMatchers("/cryptage*").permitAll();
 		// http.authorizeRequests().anyRequest().authenticated();
 
 		http.formLogin().loginPage("/login");

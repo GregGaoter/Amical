@@ -9,15 +9,15 @@ Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-<title>Inscription</title>
+<title th:text="#{message.inscription}"></title>
 </head>
 <body>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
-				<img src="img/logo_amical_pour_fond_fonce.png"
-					alt="Les amis de l'escalade">
+				<img th:src="@{/img/logo_amical_pour_fond_fonce.png}"
+					th:alt="#{message.lesAmisDeLEscalade}">
 			</div>
 		</div>
 		<div class="row">
@@ -28,82 +28,104 @@ Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 			<div class="col-lg-5 vertical-align">
 				<div class="panel panel-default">
 					<div class="panel-heading text-center">
-						<h3 class="panel-title">Inscription</h3>
+						<h3 class="panel-title" th:text="#{message.inscription}"></h3>
 					</div>
 					<div class="panel-body">
-						<div class="alert alert-danger alert-dismissible" role="alert"
-							th:if="${param.error}">
-							<button type="button" class="close" data-dismiss="alert"
-								aria-label="Close">
-								<span aria-hidden="true"><span
-									class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>
-							</button>
-							<span class="glyphicon glyphicon-exclamation-sign"
-								aria-hidden="true"></span> Cette adresse email est déjà inscrite
-							!
-						</div>
-						<form th:action="
-							@{/inscription}" method="post">
-							<div class="form-group">
-								<label class="control-label">Prénom</label>
+						<form th:action="@{/visiteur/inscription}"
+							th:object="${inscriptionForm}" method="post">
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('prenom')} ? 'has-error has-feedback' : ''">
+								<label class="control-label" th:text="#{message.prenom}"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-user"></i></span> <input type="text"
-										class="form-control" name="prenom">
+										class="form-control" th:field="*{prenom}"><span
+										th:if="${#fields.hasErrors('prenom')}"
+										class="glyphicon glyphicon-remove form-control-feedback"></span>
 								</div>
+								<span th:if="${#fields.hasErrors('prenom')}"
+									th:errors="*{prenom}" class="text-danger"></span>
 							</div>
-							<div class="form-group">
-								<label class="control-label">Nom</label>
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('nom')} ? 'has-error has-feedback' : ''">
+								<label class="control-label" th:text="#{message.nom}"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-user"></i></span> <input type="text"
-										class="form-control" name="nom" />
+										class="form-control" th:field="*{nom}"><span
+										th:if="${#fields.hasErrors('nom')}"
+										class="glyphicon glyphicon-remove form-control-feedback"></span>
 								</div>
+								<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"
+									class="text-danger"></span>
 							</div>
-							<div class="form-group">
-								<label class="control-label">Adresse email</label>
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('email')} ? 'has-error has-feedback' : ''">
+								<label class="control-label" th:text="#{message.adresseEmail}"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
-										class="glyphicon glyphicon-envelope"></i></span> <input type="email"
-										class="form-control" name="email" />
+										class="glyphicon glyphicon-envelope"></i></span> <input type="text"
+										class="form-control" th:field="*{email}"><span
+										th:if="${#fields.hasErrors('email')}"
+										class="glyphicon glyphicon-remove form-control-feedback"></span>
 								</div>
+								<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+									class="text-danger"></span>
 							</div>
-							<div class="form-group">
-								<label class="control-label">Mot de passe</label>
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('motDePasse')} ? 'has-error has-feedback' : ''">
+								<label class="control-label" th:text="#{message.motDePasse}"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-lock"></i></span> <input type="password"
-										class="form-control" name="mot_de_passe" />
+										class="form-control" th:field="*{motDePasse}"><span
+										th:if="${#fields.hasErrors('motDePasse')}"
+										class="glyphicon glyphicon-remove form-control-feedback"></span>
 								</div>
+								<span th:if="${#fields.hasErrors('motDePasse')}"
+									th:errors="*{motDePasse}" class="text-danger"></span>
 							</div>
-							<div class="form-group">
-								<label class="control-label">Confirmation mot de passe</label>
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('motDePasseConfirmation')} ? 'has-error has-feedback' : ''">
+								<label class="control-label"
+									th:text="#{message.confirmationMotDePasse}"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-lock"></i></span> <input type="password"
-										class="form-control" name="confirmation_mot_de_passe" />
+										class="form-control" th:field="*{motDePasseConfirmation}"><span
+										th:if="${#fields.hasErrors('motDePasseConfirmation')}"
+										class="glyphicon glyphicon-remove form-control-feedback"></span>
 								</div>
+								<span th:if="${#fields.hasErrors('motDePasseConfirmation')}"
+									th:errors="*{motDePasseConfirmation}" class="text-danger"></span>
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon"><i
 									class="glyphicon glyphicon-log-in"></i></span>
-								<button type="submit" class="btn btn-primary btn-block btn-lg">S'inscrire</button>
+								<button type="submit" class="btn btn-primary btn-block btn-lg"
+									th:text="#{message.inscrire}"></button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-5 vertical-align">
-				<img class="img-responsive" src="img/undraw_runner_start_x0uu.svg"
-					alt="Runner start">
+				<img class="img-responsive"
+					th:src="@{/img/undraw_runner_start_x0uu.svg}" alt="Runner start">
 			</div>
 			<div class="col-lg-1"></div>
 		</div>
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<a class="btn btn-default navbar-btn" role="button"
+					th:href="@{/visiteur/accueil}"> <span
+					class="glyphicon glyphicon-home"></span>
+					[[#{message.retourPageAccueil}]]
+				</a>
+			</div>
+		</div>
 	</div>
 	<!-- container -->
-
-	<script th:src="@{/js/jquery-3.4.1.js}"></script>
-	<script th:src="@{/js/bootstrap.min.js}"></script>
 
 </body>
 </html>

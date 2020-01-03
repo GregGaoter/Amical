@@ -9,20 +9,20 @@
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-<title>Accueil</title>
+<title th:text="#{message.accueil}"></title>
 </head>
 <body class="body-with-nav-pills">
 
 	<div class="tab-content" layout:fragment="content">
 		<ul class="nav nav-pills pad-bottom">
-			<li class="active"><a data-toggle="pill" href="#qui_sommes_nous">Qui
-					sommes-nous ?</a></li>
-			<li><a data-toggle="pill" href="#comment_ca_marche">Comment
-					ça marche ?</a></li>
+			<li class="active"><a data-toggle="pill" href="#qui_sommes_nous"
+				th:text="#{message.quiSommesNous}"></a></li>
+			<li><a data-toggle="pill" href="#comment_ca_marche"
+				th:text="#{message.commentCaMarche}"></a></li>
 		</ul>
 		<div id="qui_sommes_nous" class="tab-pane fade in active">
 			<div class="well well-sm">
-				<h1 class="text-center">Bienvenue sur le site communautaire !</h1>
+				<h1 class="text-center" th:text="#{message.bienvenue}"></h1>
 			</div>
 			<div id="carousel_accueil_visiteur" class="carousel slide"
 				data-ride="carousel">
@@ -38,22 +38,22 @@
 					<div class="item active">
 						<img th:src="@{/img/communaute_escalade_1280_740.jpg}" alt="">
 						<div class="carousel-caption">
-							<h3>Communauté</h3>
-							<p>Association de partages et d'échanges</p>
+							<h3 th:text="#{message.communaute}"></h3>
+							<p th:text="#{message.sousTitreCommunaute}"></p>
 						</div>
 					</div>
 					<div class="item">
 						<img th:src="@{/img/spot_escalade_1280_740.jpg}" alt="">
 						<div class="carousel-caption">
-							<h3>Spots</h3>
-							<p>Recensement des sites de grimpe</p>
+							<h3 th:text="#{message.spots}"></h3>
+							<p th:text="#{message.sousTitreSpots}"></p>
 						</div>
 					</div>
 					<div class="item">
 						<img th:src="@{/img/topo_escalade_1280_740.jpg}" alt="">
 						<div class="carousel-caption">
-							<h3 class="texte-noir fond-blanc">Topos</h3>
-							<p class="texte-noir fond-blanc">Recueils topographiques</p>
+							<h3 class="texte-noir fond-blanc" th:text="#{message.topos}"></h3>
+							<p class="texte-noir fond-blanc" th:text="#{message.sousTitreTopos}"></p>
 						</div>
 					</div>
 				</div>
@@ -68,38 +68,34 @@
 			</div>
 			<div class="pad-bottom"></div>
 			<div class="well well-sm">
-				<h1 class="text-center">Les amis de l'escalade</h1>
-				<h3>"Les amis de l'escalade" est une association qui réunit les
-					passionnés d’escalade dans toute la France.</h3>
+				<h1 class="text-center" th:text="#{message.lesAmisDeLEscalade}"></h1>
+				<h3 th:text="#{message.sousTitreLesAmisDeLEscalade}"></h3>
 			</div>
 		</div>
 		<div id="comment_ca_marche" class="tab-pane fade">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title">Pour les grimpeurs de passage</h3>
+					<h3 class="panel-title" th:text="#{message.grimpeursPassage}"></h3>
 				</div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-lg-4">
 							<div class="thumbnail">
 								<img th:src="@{/img/undraw_searching_p5ux.svg}"
-									class="img-rounded" alt="Recherchez des spots">
+									class="img-rounded" th:alt="#{message.recherchezSpots}">
 								<div class="caption">
-									<h3>Recherchez des spots</h3>
-									<p>Rechercher des sites de grimpe dans toute la France en
-										fonction de plusieurs critères (région, cotation, spots
-										officiels, ...)</p>
+									<h3 th:text="#{message.recherchezSpots}"></h3>
+									<p th:text="#{message.descriptionRecherchezSpots}"></p>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="thumbnail">
 								<img th:src="@{/img/undraw_detailed_examination_joef.svg}"
-									class="img-rounded" alt="Consultez informations spot">
+									class="img-rounded" th:alt="#{message.consultezSpot}">
 								<div class="caption">
-									<h3>Consultez un spot</h3>
-									<p>Consulter les informations détaillées d'un site de
-										grimpe (secteurs, voies, longueurs, ...)</p>
+									<h3 th:text="#{message.consultezSpot}"></h3>
+									<p th:text="#{message.descriptionConsultezSpot}"></p>
 								</div>
 							</div>
 						</div>
@@ -108,41 +104,37 @@
 			</div>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title">Pour les grimpeurs inscrits</h3>
+					<h3 class="panel-title" th:text="#{message.grimpeursInscrits}"></h3>
 				</div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-lg-4">
 							<div class="thumbnail">
 								<img th:src="@{/img/undraw_share_766i.svg}" class="img-rounded"
-									alt="Partage informations">
+									th:alt="#{message.partagezInformations}">
 								<div class="caption">
-									<h3>Partagez vos informations</h3>
-									<p>Complétez et ajoutez des informations sur les sites de
-										grimpe. Participez au recensement de nouveaux spots sur le
-										site communautaire.</p>
+									<h3 th:text="#{message.partagezInformations}"></h3>
+									<p th:text="#{message.descriptionPartagezInformations}"></p>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="thumbnail">
 								<img th:src="@{/img/undraw_booking_33fn.svg}"
-									class="img-rounded" alt="Partage informations">
+									class="img-rounded" th:alt="#{message.recherchezEmpruntezTopos}">
 								<div class="caption">
-									<h3>Recherchez et empruntez des topos</h3>
-									<p>Mettez à disposition vos topos et empruntez les topos
-										d'autres grimpeurs passionnés.</p>
+									<h3 th:text="#{message.recherchezEmpruntezTopos}"></h3>
+									<p th:text="#{message.descriptionRecherchezEmpruntezTopos}"></p>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="thumbnail">
 								<img th:src="@{/img/undraw_community_8nwl.svg}"
-									class="img-rounded" alt="Mise en relation">
+									class="img-rounded" th:alt="#{message.mettezVousEnRelation}">
 								<div class="caption">
-									<h3>Mettez-vous en relation</h3>
-									<p>Favorisez les relations et les échanges entre grimpeurs
-										en créant un réseau de contacts.</p>
+									<h3 th:text="#{message.mettezVousEnRelation}"></h3>
+									<p th:text="#{message.descriptionMettezVousEnRelation}"></p>
 								</div>
 							</div>
 						</div>
@@ -151,23 +143,20 @@
 						<div class="col-lg-4">
 							<div class="thumbnail">
 								<img th:src="@{/img/undraw_profile_6l1l.svg}"
-									class="img-rounded" alt="Les amis de l'escalade">
+									class="img-rounded" th:alt="#{message.gerezEspacePersonnel}">
 								<div class="caption">
-									<h3>Gérez votre espace personnel</h3>
-									<p>Recensez vos topos personnels et gérez vos prêts et
-										emprunts de topos.</p>
+									<h3 th:text="#{message.gerezEspacePersonnel}"></h3>
+									<p th:text="#{message.descriptionGerezEspacePersonnel}"></p>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="thumbnail">
 								<img th:src="@{/img/undraw_share_opinion_jpw0.svg}"
-									class="img-rounded" alt="Commentaires et impression">
+									class="img-rounded" th:alt="#{message.laissezCommentairesImpressions}">
 								<div class="caption">
-									<h3>Laissez vos commentaires et impressions</h3>
-									<p>Enrichissez la communauté de grimpeurs de vos
-										expériences, impressions et conseils en laissant des
-										commentaires sur les sites de grimpe.</p>
+									<h3 th:text="#{message.laissezCommentairesImpressions}"></h3>
+									<p th:text="#{message.descriptionLaissezCommentairesImpressions}"></p>
 								</div>
 							</div>
 						</div>
@@ -176,9 +165,6 @@
 			</div>
 		</div>
 	</div>
-
-	<script th:src="@{/js/jquery-3.4.1.js}"></script>
-	<script th:src="@{/js/bootstrap.min.js}"></script>
 
 </body>
 </html>

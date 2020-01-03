@@ -14,23 +14,30 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 //Persistance
 @Entity
 @Table(indexes = { @Index(columnList = "nom"), @Index(columnList = "prenom") })
 //Lombok
 @NoArgsConstructor
-@Data
-public abstract class Utilisateur implements Serializable {
+@Getter
+@Setter
+@RequiredArgsConstructor(staticName = "creer")
+// @EqualsAndHashCode
+public class Utilisateur implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	// Persistance
 	@Id
 	@Column(name = "authentification_email")
+	// Lombok
+	@NonNull
 	private String authentificationEmail;
 
 	// Persistance
@@ -54,6 +61,8 @@ public abstract class Utilisateur implements Serializable {
 	// Persistance
 	@OneToOne
 	@MapsId
+	// Lombok
+	@NonNull
 	private Authentification authentification;
 
 	// Persistance

@@ -15,9 +15,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 // Persistance
@@ -25,7 +27,10 @@ import lombok.ToString;
 // Lombok
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor(staticName = "creer")
+// @EqualsAndHashCode
 public class Authentification implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -43,10 +48,11 @@ public class Authentification implements Serializable {
 	private String email;
 
 	// Persistance
-	@Column(name = "mot_de_passe", nullable = false, length = 16)
+	// length = 60 because BCrypt algorithm generates a String of length 60
+	@Column(name = "mot_de_passe", nullable = false, length = 60)
 	// Validation constraints
 	@NotNull(message = "{validation.notnull}")
-	@Size(min = 8, max = 16, message = "{validation.size.interval}")
+	@Size(min = 8, max = 60, message = "{validation.size.interval}")
 	// Lombok
 	@NonNull
 	private String motDePasse;
@@ -63,6 +69,8 @@ public class Authentification implements Serializable {
 	// Persistance
 	@ManyToMany
 	@JoinTable(name = "profil", joinColumns = @JoinColumn(name = "authentification_email"), inverseJoinColumns = @JoinColumn(name = "role_role"))
+	// Lombok
+	@NonNull
 	private Set<Role> listeRoles;
 
 	// Persistance

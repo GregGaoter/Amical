@@ -9,8 +9,7 @@
 	th:href="@{/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/style_navbar.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.css}" />
-<title>Layout</title>
+<title>Layout visiteur</title>
 </head>
 <body>
 
@@ -19,35 +18,47 @@
 			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand" data-toggle="tooltip"
-						title="Les amis de l'escalade" data-placement="bottom" href="#"><img
-						alt="Les amis de l'escalade"
+						th:title="#{message.lesAmisDeLEscalade}" data-placement="bottom"
+						th:href="@{/visiteur/accueil}"><img
+						th:alt="#{message.lesAmisDeLEscalade}"
 						th:src="@{/img/logo_amical_montagne.png}"></a>
 				</div>
 				<ul class="nav navbar-nav">
 					<li th:class="${accueilActive}"><a
-						th:href="@{/visiteur/accueil}">Accueil</a></li>
+						th:href="@{/visiteur/accueil}" th:text="#{message.accueil}"></a></li>
 					<li th:class="${spotActive}"><a
-						th:href="@{/visiteur/spot/recherche}">Spots</a></li>
+						th:href="@{/visiteur/spot/recherche}" th:text="#{message.spots}"></a></li>
 					<li class="disabled" data-toggle="popover" data-trigger="hover"
-						data-placement="bottom" title="Accès réservé !"
-						data-content="La recherche et le partage de topos sont réservés aux membres inscrits."><a><span
-							class="text-muted">Topos</span></a></li>
+						data-placement="bottom" th:title="#{message.titreAccesReserve}"
+						th:data-content="#{message.contenuAccesReserve}"><a><span
+							class="text-muted" th:text="#{message.topos}"></span></a></li>
 				</ul>
-				<div class="navbar-right">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#"><img
+							th:alt="#{message.drapeauFrance}"
+							th:src="@{/img/france_flag_icon_24_20.png}"> <span
+							class="caret"></span></a>
+						<ul class="dropdown-menu dropdown-menu-content-width">
+							<li><a href="#" data-toggle="tooltip" data-placement="left"
+								th:title="#{message.francais}"><img
+									th:alt="#{message.drapeauFrance}"
+									th:src="@{/img/france_flag_icon_24_20.png}"></a></li>
+							<li><a href="#" data-toggle="tooltip" data-placement="left"
+								th:title="#{message.anglais}"><img
+									th:alt="#{message.drapeauFrance}"
+									th:src="@{/img/united_kingdom_flag_icon_24_20.png}"></a></li>
+						</ul></li>
+				</ul>
+				<div class="nav navbar-nav navbar-right">
 					<a class="btn btn-primary navbar-btn" role="button"
-						th:href="@{/inscription}"> <span
-						class="glyphicon glyphicon-user"></span> S'inscrire
+						th:href="@{/visiteur/inscription}"> <span
+						class="glyphicon glyphicon-user"></span> [[#{message.inscrire}]]
 					</a> <a class="btn btn-success navbar-btn" role="button"
-						th:href="@{/login}"> <span class="glyphicon glyphicon-log-in"></span>
-						S'authentifier
-					</a> <a class="navbar-btn" style="margin-left: 10px;"
-						data-toggle="tooltip" title="Français" data-placement="bottom"
-						href="#"><img alt="Drapeau France"
-						th:src="@{/img/france_flag_icon_24_20.png}"></a> <a
-						class="navbar-btn" data-toggle="tooltip" title="English"
-						data-placement="bottom" href="#"><img
-						alt="Drapeau Royaume-Uni"
-						th:src="@{/img/united_kingdom_flag_icon_24_20.png}"></a>
+						th:href="@{/login}" style="margin-right: 10px;"> <span
+						class="glyphicon glyphicon-log-in"></span>
+						[[#{message.authentifier}]]
+					</a>
 				</div>
 			</div>
 		</nav>
@@ -57,15 +68,15 @@
 		<section layout:fragment="content"></section>
 		<button type="button" class="btn btn-default" onclick="hautDePage()"
 			id="boutonHautDePage" data-toggle="tooltip" data-placement="left"
-			title="Haut de page">
-			<img alt="Haut de page" th:src="@{/img/go_top_icon_32_32.png}">
+			th:title="#{message.hautDePage}">
+			<img th:alt="#{message.hautDePage}"
+				th:src="@{/img/go_top_icon_32_32.png}">
 		</button>
 	</div>
 
 	<footer></footer>
 
 	<script th:src="@{/js/jquery-3.4.1.js}"></script>
-	<script th:src="@{/js/jquery-ui.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script>
 		$(document).ready(function() {
@@ -114,9 +125,6 @@
 					+ secteurId + "/voie/" + voieId + "/longueur/" + longueurId
 					+ "?page=" + pageNumber + "&size=" + pageSize;
 		}
-		// 		function accordionScrollTop(id) {
-		// 			$(window).scrollTop($("#" + id).offset().top - 100);
-		// 		}
 	</script>
 	<script type="text/javascript">
 		boutonHautDePage = document.getElementById("boutonHautDePage");
@@ -136,16 +144,6 @@
 			document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 		}
 	</script>
-	<!-- <script type="text/javascript">
-		$(function() {
-			$('.panel-heading').click(function() {
-				$.get($(this).attr('id'), function(id) {
-					$(window).scrollTop($("#" + id).offset().top - 100);
-				});
-				return false; // don't follow the link!
-			});
-		});
-	</script> -->
 
 </body>
 </html>

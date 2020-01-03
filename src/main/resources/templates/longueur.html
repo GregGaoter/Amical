@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-<title>Longueur</title>
+<title th:text="#{message.longueur}"></title>
 </head>
 <body class="body-without-nav-pills">
 
@@ -18,12 +18,12 @@
 			<div class="col-lg-12">
 				<ul class="breadcrumb">
 					<li><a th:href="@{/visiteur/accueil}" data-toggle="tooltip"
-						data-placement="bottom" title="Accueil"><span
+						data-placement="bottom" th:title="#{message.accueil}"><span
 							class="glyphicon glyphicon-home"></span></a></li>
 					<li><a
 						th:href="@{/visiteur/spot/recherche/resultat(page=${pageNumber},size=${pageSize})}"
 						data-toggle="tooltip" data-placement="bottom"
-						title="Recherche de spots"><span
+						th:title="#{message.rechercheSpot}"><span
 							class="glyphicon glyphicon-search"></span></a></li>
 					<li><a
 						th:href="@{'/visiteur/spot/'+${spot.id}+'?page='+${pageNumber}+'&size='+${pageSize}}"
@@ -38,22 +38,23 @@
 				</ul>
 				<div class="row line-spacer">
 					<div class="col-lg-12">
-						<h1 class="no-top-margin" th:text="'Longueur ' + ${longueur.nom}"></h1>
+						<h1 class="no-top-margin"
+							th:text="#{message.longueur} + ' ' + ${longueur.nom}"></h1>
 					</div>
 				</div>
-				<h2>Description</h2>
+				<h2 th:text="#{message.description}"></h2>
 				<p
 					th:text="${longueur.description==null} ? '-' : ${longueur.description}"></p>
-				<h2>Remarque</h2>
+				<h2 th:text="#{message.remarque}"></h2>
 				<p th:text="${longueur.remarque==null} ? '-' : ${longueur.remarque}"></p>
 				<div class="row">
 					<div class="col-lg-6">
-						<h2>Longueur [m]</h2>
+						<h2 th:text="#{message.longueur} + ' ' + #{message.uniteMetre}"></h2>
 						<p
 							th:text="${longueur.longueur==null} ? '-' : ${longueur.longueur}"></p>
 					</div>
 					<div class="col-lg-6">
-						<h2>Nb spits</h2>
+						<h2 th:text="#{message.nbSpits}"></h2>
 						<p th:text="${longueur.nbSpits==null} ? '-' : ${longueur.nbSpits}"></p>
 					</div>
 				</div>
@@ -73,7 +74,7 @@
 										<span><img th:src="@{/img/close_white_24_24.png}"></span>
 									</button>
 									<h1 class="modal-title modal-title-fullscreen text-center"
-										th:text="'Longueur ' + ${longueur.nom}"></h1>
+										th:text="#{message.longueur}+ ' ' + ${longueur.nom}"></h1>
 								</div>
 								<div class="modal-body modal-body-fullscreen text-center">
 									<img th:src="@{${cheminPlan}+${longueur.plan.plan}}">
@@ -86,10 +87,6 @@
 		</div>
 	</div>
 	<!-- layout:fragment -->
-
-	<script th:src="@{/js/jquery-3.4.1.js}"></script>
-	<script th:src="@{/js/jquery-ui.js}"></script>
-	<script th:src="@{/js/bootstrap.min.js}"></script>
 
 </body>
 </html>

@@ -10,9 +10,11 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 //Persistance
@@ -20,8 +22,11 @@ import lombok.ToString;
 //Lombok
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
-@Data
-public abstract class Role implements Serializable {
+@Getter
+@Setter
+@RequiredArgsConstructor(staticName = "creer")
+// @EqualsAndHashCode
+public class Role implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

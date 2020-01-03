@@ -7,45 +7,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-<title>Layout</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/style_navbar.css}" />
+<title>Layout ami</title>
 </head>
 <body>
 
 	<header>
-		<nav class="navbar navbar-default navbar-fixed-top">
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand" data-toggle="tooltip"
-						title="Les amis de l'escalade" data-placement="bottom" href="#"><img
-						alt="Les amis de l'escalade"
+						th:title="#{message.lesAmisDeLEscalade}" data-placement="bottom"
+						th:href="@{/ami/accueil}"><img
+						th:alt="#{message.lesAmisDeLEscalade}"
 						th:src="@{/img/logo_amical_montagne.png}"></a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a th:href="@{/ami/accueil}">Accueil</a></li>
-					<li><a href="#">Spots</a></li>
-					<li><a href="#">Topos</a></li>
+					<li th:class="${accueilActive}"><a th:href="@{/ami/accueil}"
+						th:text="#{message.accueil}"></a></li>
+					<li th:class="${spotActive}"><a
+						th:href="@{/ami/spot/recherche}" th:text="#{message.spots}"></a></li>
+					<li th:class="${topoActive}"><a th:href="@{/ami/topo}"
+						th:text="#{message.topos}"></a></li>
 				</ul>
-				<div class="navbar-right">
-					<p class="navbar-text">Grégory</p>
-					<a class="btn btn-danger navbar-btn" role="button"
-						th:href="@{/logout}"> <span
-						class="glyphicon glyphicon-log-out"></span> Se déconnecter
-					</a> <a class="navbar-btn" style="margin-left: 10px;"
-						data-toggle="tooltip" title="Français" data-placement="bottom"
-						href="#"><img alt="Drapeau France"
-						th:src="@{/img/france_flag_icon_24_20.png}"></a> <a
-						class="navbar-btn" data-toggle="tooltip" title="English"
-						data-placement="bottom" href="#"><img
-						alt="Drapeau Royaume-Uni"
-						th:src="@{/img/united_kingdom_flag_icon_24_20.png}"></a>
-				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#"><span
+							class="glyphicon glyphicon-user"></span>
+							[[${utilisateur.prenom}]] <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#"><span
+									class="glyphicon glyphicon-dashboard"></span>
+									[[#{message.tableauDeBord}]]</a></li>
+							<li><a href="#">Topos</a></li>
+							<li class="divider"></li>
+							<li><a th:href="@{/logout}" style="color: #ee5f5b;"><span
+									class="glyphicon glyphicon-log-out"></span>
+									[[#{message.deconnecter}]]</a></li>
+						</ul></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#"><img
+							th:alt="#{message.drapeauFrance}"
+							th:src="@{/img/france_flag_icon_24_20.png}"> <span
+							class="caret"></span></a>
+						<ul class="dropdown-menu dropdown-menu-content-width">
+							<li><a href="#" data-toggle="tooltip" data-placement="left"
+								th:title="#{message.francais}"><img
+									th:alt="#{message.drapeauFrance}"
+									th:src="@{/img/france_flag_icon_24_20.png}"></a></li>
+							<li><a href="#" data-toggle="tooltip" data-placement="left"
+								th:title="#{message.anglais}"><img
+									th:alt="#{message.drapeauFrance}"
+									th:src="@{/img/united_kingdom_flag_icon_24_20.png}"></a></li>
+						</ul></li>
+				</ul>
 			</div>
 		</nav>
 	</header>
 
 	<div class="container">
 		<section layout:fragment="content"></section>
+		<button type="button" class="btn btn-default" onclick="hautDePage()"
+			id="boutonHautDePage" data-toggle="tooltip" data-placement="left"
+			th:title="#{message.hautDePage}">
+			<img th:alt="#{message.hautDePage}"
+				th:src="@{/img/go_top_icon_32_32.png}">
+		</button>
 	</div>
 
 	<footer></footer>
@@ -54,13 +82,29 @@
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script>
 		$(document).ready(function() {
+
+			// Javascript
 			$('[data-toggle="popover"]').popover();
-		});
-	</script>
-	<script>
-		$(document).ready(function() {
 			$('[data-toggle="tooltip"]').tooltip();
 		});
+	</script>
+	<script type="text/javascript">
+		boutonHautDePage = document.getElementById("boutonHautDePage");
+		window.onscroll = function() {
+			scrollFunction()
+		};
+		function scrollFunction() {
+			if (document.body.scrollTop > 20
+					|| document.documentElement.scrollTop > 20) {
+				boutonHautDePage.style.display = "block";
+			} else {
+				boutonHautDePage.style.display = "none";
+			}
+		}
+		function hautDePage() {
+			document.body.scrollTop = 0; // For Safari
+			document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+		}
 	</script>
 
 </body>
