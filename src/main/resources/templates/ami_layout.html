@@ -86,7 +86,47 @@
 			// Javascript
 			$('[data-toggle="popover"]').popover();
 			$('[data-toggle="tooltip"]').tooltip();
+
+			// JQuery
+			$('#nomSpot').autocomplete({
+				source : "/ami/spot/recherche/nomSpot"
+			});
+			$('#lieuSpot').autocomplete({
+				source : "/ami/spot/recherche/lieuSpot"
+			});
+			$('#nomSecteur').autocomplete({
+				source : "/ami/spot/recherche/nomSecteur"
+			});
+			$('#nomVoie').autocomplete({
+				source : "/ami/spot/recherche/nomVoie"
+			});
+			$('#secteur').on('shown.bs.collapse', function() {
+				var panel = $(this).find('.in');
+				$(window).scrollTop(panel.offset().top - 100);
+			});
+			$(window).on("load", function() {
+				var openPanel = $('#secteur').find('.in');
+				$(window).scrollTop(openPanel.offset().top - 100);
+			});
 		});
+	</script>
+	<script>
+		function spotResultTableRowClicked(spotId, pageNumber, pageSize) {
+			location.href = "/ami/spot/" + spotId + "?page=" + pageNumber
+					+ "&size=" + pageSize;
+		}
+		function voieResultTableRowClicked(spotId, secteurId, voieId,
+				pageNumber, pageSize) {
+			location.href = "/ami/spot/" + spotId + "/secteur/" + secteurId
+					+ "/voie/" + voieId + "?page=" + pageNumber + "&size="
+					+ pageSize;
+		}
+		function longueurResultTableRowClicked(spotId, secteurId, voieId,
+				longueurId, pageNumber, pageSize) {
+			location.href = "/ami/spot/" + spotId + "/secteur/" + secteurId
+					+ "/voie/" + voieId + "/longueur/" + longueurId + "?page="
+					+ pageNumber + "&size=" + pageSize;
+		}
 	</script>
 	<script type="text/javascript">
 		boutonHautDePage = document.getElementById("boutonHautDePage");

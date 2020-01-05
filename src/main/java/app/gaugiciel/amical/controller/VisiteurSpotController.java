@@ -40,7 +40,7 @@ import app.gaugiciel.amical.utilitaire.Utils;
 
 @Controller
 @ControllerAdvice
-public class SpotController {
+public class VisiteurSpotController {
 
 	private final int PAGE_SIZE = 5;
 
@@ -57,19 +57,15 @@ public class SpotController {
 	@Autowired
 	private ServiceRechercheLongueur serviceRechercheLongueur;
 
-	/****************************
-	 * Mapping pour les visiteurs
-	 ****************************/
-
 	@GetMapping("/visiteur/spot/recherche")
-	public String showSpotFormVisiteur(SpotForm spotForm, Model model) {
+	public String showSpotForm(SpotForm spotForm, Model model) {
 		spotForm.reinitialiser();
 		model.addAttribute("spotActive", "active");
-		return "spot_recherche";
+		return "visiteur_spot_recherche";
 	}
 
 	@PostMapping("/visiteur/spot/recherche")
-	public String checkFormFindSpotVisiteur(@Valid SpotForm spotForm, BindingResult bindingResult, Model model) {
+	public String checkFormFindSpot(@Valid SpotForm spotForm, BindingResult bindingResult, Model model) {
 
 		spotForm.setIsFieldsCotationValid(SpotForm.LISTE_FIELDS_COTATION.stream()
 				.map(field -> bindingResult.hasFieldErrors(field)).anyMatch(b -> true));
@@ -78,7 +74,7 @@ public class SpotController {
 			validationFormSpot.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
 		}
 		if (bindingResult.hasErrors()) {
-			return "spot_recherche";
+			return "visiteur_spot_recherche";
 		}
 
 		spotForm.setListeCotations(
@@ -90,7 +86,7 @@ public class SpotController {
 	}
 
 	@GetMapping("/visiteur/spot/recherche/resultat")
-	public String resultSpotFormVisiteur(@ModelAttribute("spotForm") SpotForm spotForm,
+	public String resultSpotForm(@ModelAttribute("spotForm") SpotForm spotForm,
 			@PageableDefault(size = PAGE_SIZE) Pageable pageable, Model model) {
 
 		Page<Spot> pageSpots = serviceRechercheSpot.rechercher(spotForm, pageable);
@@ -103,11 +99,11 @@ public class SpotController {
 		model.addAttribute("pageSize", PAGE_SIZE);
 		model.addAttribute("spotActive", "active");
 
-		return "spot_recherche";
+		return "visiteur_spot_recherche";
 	}
 
 	@GetMapping("/visiteur/spot/{spotId}")
-	public String showSpotVisiteur(@PathVariable Long spotId, @RequestParam(required = false) Long secteurId, int page,
+	public String showSpot(@PathVariable Long spotId, @RequestParam(required = false) Long secteurId, int page,
 			int size, Model model) {
 		Spot spot = serviceRechercheSpot.findById(spotId);
 		List<Secteur> listeSecteurs = serviceRechercheSecteur.findBySpotIdOrderByNom(spotId);
@@ -140,18 +136,18 @@ public class SpotController {
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", size);
 		model.addAttribute("spotActive", "active");
-		return "spot";
+		return "visiteur_spot";
 	}
 
 	@GetMapping("/visiteur/spot/{spotId}/secteur/{secteurId}")
-	public String showSecteurVisiteur(@PathVariable Long spotId, @PathVariable Long secteurId, int page, int size,
+	public String showSecteur(@PathVariable Long spotId, @PathVariable Long secteurId, int page, int size,
 			Model model) {
 		return "redirect:/visiteur/spot/" + spotId + "?secteurId=" + secteurId + "&page=" + page + "&size=" + size;
 	}
 
 	@GetMapping("/visiteur/spot/{spotId}/secteur/{secteurId}/voie/{voieId}")
-	public String showVoieVisiteur(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId,
-			int page, int size, Model model) {
+	public String showVoie(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId, int page,
+			int size, Model model) {
 		Voie voie = serviceRechercheVoie.findById(voieId);
 		Secteur secteur = serviceRechercheSecteur.findById(secteurId);
 		Spot spot = serviceRechercheSpot.findById(spotId);
@@ -163,12 +159,12 @@ public class SpotController {
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", size);
 		model.addAttribute("spotActive", "active");
-		return "voie";
+		return "visiteur_voie";
 	}
 
 	@GetMapping("/visiteur/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/{longueurId}")
-	public String showLongueurVisiteur(@PathVariable Long spotId, @PathVariable Long secteurId,
-			@PathVariable Long voieId, @PathVariable Long longueurId, int page, int size, Model model) {
+	public String showLongueur(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId,
+			@PathVariable Long longueurId, int page, int size, Model model) {
 		Longueur longueur = serviceRechercheLongueur.findById(longueurId);
 		Voie voie = serviceRechercheVoie.findById(voieId);
 		Secteur secteur = serviceRechercheSecteur.findById(secteurId);
@@ -180,36 +176,32 @@ public class SpotController {
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", size);
 		model.addAttribute("spotActive", "active");
-		return "longueur";
+		return "visiteur_longueur";
 	}
 
 	@GetMapping("/visiteur/spot/recherche/nomSpot")
 	@ResponseBody
-	public List<String> rechercherNomSpotVisiteur(@RequestParam("term") String nomSpot) {
+	public List<String> rechercherNomSpot(@RequestParam("term") String nomSpot) {
 		return serviceRechercheSpot.rechercherNomSpot(nomSpot);
 	}
 
 	@GetMapping("/visiteur/spot/recherche/lieuSpot")
 	@ResponseBody
-	public List<String> rechercherLieuSpotVisiteur(@RequestParam("term") String lieuSpot) {
+	public List<String> rechercherLieuSpot(@RequestParam("term") String lieuSpot) {
 		return serviceRechercheSpot.rechercherLieuSpot(lieuSpot);
 	}
 
 	@GetMapping("/visiteur/spot/recherche/nomSecteur")
 	@ResponseBody
-	public List<String> rechercherNomSecteurVisiteur(@RequestParam("term") String nomSecteur) {
+	public List<String> rechercherNomSecteur(@RequestParam("term") String nomSecteur) {
 		return serviceRechercheSpot.rechercherNomSecteur(nomSecteur);
 	}
 
 	@GetMapping("/visiteur/spot/recherche/nomVoie")
 	@ResponseBody
-	public List<String> rechercherNomVoieVisiteur(@RequestParam("term") String nomVoie) {
+	public List<String> rechercherNomVoie(@RequestParam("term") String nomVoie) {
 		return serviceRechercheSpot.rechercherNomVoie(nomVoie);
 	}
-
-	/***********************
-	 * Mapping pour les amis
-	 ***********************/
 
 	@ModelAttribute
 	public void addAttributes(Model model) {
