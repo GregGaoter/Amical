@@ -11,10 +11,163 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <title th:text="#{message.accueil}"></title>
 </head>
-<body class="body-without-nav-pills">
+<body class="body-with-nav-pills">
 
-	<div layout:fragment="content">
-		<h1>[[${utilisateur.prenom}]]</h1>
+	<div class="tab-content" layout:fragment="content">
+		<ul class="nav nav-pills pad-bottom">
+			<li class="active"><a data-toggle="pill" href="#qui_sommes_nous"
+				th:text="#{message.quiSommesNous}"></a></li>
+			<li><a data-toggle="pill" href="#comment_ca_marche"
+				th:text="#{message.commentCaMarche}"></a></li>
+		</ul>
+		<div id="qui_sommes_nous" class="tab-pane fade in active">
+			<div class="well well-sm">
+				<h1 class="text-center" th:text="#{message.bienvenue}"></h1>
+			</div>
+			<div id="carousel_accueil_visiteur" class="carousel slide"
+				data-ride="carousel">
+				<!-- Indicators -->
+				<ol class="carousel-indicators">
+					<li data-target="#carousel_accueil_visiteur" data-slide-to="0"
+						class="active"></li>
+					<li data-target="#carousel_accueil_visiteur" data-slide-to="1"></li>
+					<li data-target="#carousel_accueil_visiteur" data-slide-to="2"></li>
+				</ol>
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner">
+					<div class="item active">
+						<img th:src="@{/img/communaute_escalade_1280_740.jpg}" alt="">
+						<div class="carousel-caption">
+							<h3 th:text="#{message.communaute}"></h3>
+							<p th:text="#{message.sousTitreCommunaute}"></p>
+						</div>
+					</div>
+					<div class="item">
+						<img th:src="@{/img/spot_escalade_1280_740.jpg}" alt="">
+						<div class="carousel-caption">
+							<h3 th:text="#{message.spots}"></h3>
+							<p th:text="#{message.sousTitreSpots}"></p>
+						</div>
+					</div>
+					<div class="item">
+						<img th:src="@{/img/topo_escalade_1280_740.jpg}" alt="">
+						<div class="carousel-caption">
+							<h3 class="texte-noir fond-blanc" th:text="#{message.topos}"></h3>
+							<p class="texte-noir fond-blanc"
+								th:text="#{message.sousTitreTopos}"></p>
+						</div>
+					</div>
+				</div>
+				<!-- Left and right controls -->
+				<a class="left carousel-control" href="#carousel_accueil_visiteur"
+					data-slide="prev"> <span
+					class="glyphicon glyphicon-chevron-left"></span>
+				</a> <a class="right carousel-control" href="#carousel_accueil_visiteur"
+					data-slide="next"> <span
+					class="glyphicon glyphicon-chevron-right"></span>
+				</a>
+			</div>
+			<div class="pad-bottom"></div>
+			<div class="well well-sm">
+				<h1 class="text-center" th:text="#{message.lesAmisDeLEscalade}"></h1>
+				<h3 th:text="#{message.sousTitreLesAmisDeLEscalade}"></h3>
+			</div>
+		</div>
+		<div id="comment_ca_marche" class="tab-pane fade">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title" th:text="#{message.grimpeursPassage}"></h3>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="thumbnail">
+								<img th:src="@{/img/undraw_searching_p5ux.svg}"
+									class="img-rounded" th:alt="#{message.recherchezSpots}">
+								<div class="caption">
+									<h3 th:text="#{message.recherchezSpots}"></h3>
+									<p th:text="#{message.descriptionRecherchezSpots}"></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="thumbnail">
+								<img th:src="@{/img/undraw_detailed_examination_joef.svg}"
+									class="img-rounded" th:alt="#{message.consultezSpot}">
+								<div class="caption">
+									<h3 th:text="#{message.consultezSpot}"></h3>
+									<p th:text="#{message.descriptionConsultezSpot}"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title" th:text="#{message.grimpeursInscrits}"></h3>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="thumbnail">
+								<img th:src="@{/img/undraw_share_766i.svg}" class="img-rounded"
+									th:alt="#{message.partagezInformations}">
+								<div class="caption">
+									<h3 th:text="#{message.partagezInformations}"></h3>
+									<p th:text="#{message.descriptionPartagezInformations}"></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="thumbnail">
+								<img th:src="@{/img/undraw_booking_33fn.svg}"
+									class="img-rounded"
+									th:alt="#{message.recherchezEmpruntezTopos}">
+								<div class="caption">
+									<h3 th:text="#{message.recherchezEmpruntezTopos}"></h3>
+									<p th:text="#{message.descriptionRecherchezEmpruntezTopos}"></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="thumbnail">
+								<img th:src="@{/img/undraw_community_8nwl.svg}"
+									class="img-rounded" th:alt="#{message.mettezVousEnRelation}">
+								<div class="caption">
+									<h3 th:text="#{message.mettezVousEnRelation}"></h3>
+									<p th:text="#{message.descriptionMettezVousEnRelation}"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="thumbnail">
+								<img th:src="@{/img/undraw_profile_6l1l.svg}"
+									class="img-rounded" th:alt="#{message.gerezEspacePersonnel}">
+								<div class="caption">
+									<h3 th:text="#{message.gerezEspacePersonnel}"></h3>
+									<p th:text="#{message.descriptionGerezEspacePersonnel}"></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="thumbnail">
+								<img th:src="@{/img/undraw_share_opinion_jpw0.svg}"
+									class="img-rounded"
+									th:alt="#{message.laissezCommentairesImpressions}">
+								<div class="caption">
+									<h3 th:text="#{message.laissezCommentairesImpressions}"></h3>
+									<p
+										th:text="#{message.descriptionLaissezCommentairesImpressions}"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </body>

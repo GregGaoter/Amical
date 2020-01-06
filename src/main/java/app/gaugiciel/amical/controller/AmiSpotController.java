@@ -31,6 +31,7 @@ import app.gaugiciel.amical.business.implementation.ServiceRechercheLongueur;
 import app.gaugiciel.amical.business.implementation.ServiceRechercheSecteur;
 import app.gaugiciel.amical.business.implementation.ServiceRechercheSpot;
 import app.gaugiciel.amical.business.implementation.ServiceRechercheVoie;
+import app.gaugiciel.amical.business.implementation.ServiceUtils;
 import app.gaugiciel.amical.controller.form.SpotForm;
 import app.gaugiciel.amical.controller.utils.implementation.ValidationFormSpot;
 import app.gaugiciel.amical.model.Longueur;
@@ -213,7 +214,7 @@ public class AmiSpotController {
 		model.addAttribute("uniteSecondaireLabels", ServiceCotationFranceUniteSecondaire.LABELS);
 		model.addAttribute("uniteTertiaireLabels", ServiceCotationFranceUniteTertiaire.LABELS);
 		model.addAttribute("cheminPlan", Utils.CHEMIN_PLAN);
-		model.addAttribute("utilisateur", session.getAttribute("utilisateur"));
+		model.addAttribute(ServiceUtils.UTILISATEUR, session.getAttribute(ServiceUtils.UTILISATEUR));
 	}
 
 }

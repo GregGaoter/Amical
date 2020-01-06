@@ -25,7 +25,7 @@ public class ServiceAuthentification implements AuthenticationSuccessHandler {
 			Authentication authentication) throws IOException, ServletException {
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = serviceRechercheUtilisateur.findByEmail(authentication.getName());
-		session.setAttribute("utilisateur", utilisateur);
+		session.setAttribute(ServiceUtils.UTILISATEUR, utilisateur);
 		response.sendRedirect("/ami/accueil");
 	}
 

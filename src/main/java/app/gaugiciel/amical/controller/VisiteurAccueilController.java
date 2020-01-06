@@ -13,7 +13,7 @@ public class VisiteurAccueilController {
 	}
 
 	@GetMapping(value = "/visiteur/accueil")
-	public String visiteurAccueil(Model model) {
+	public String accueil(Model model) {
 		model.addAttribute("accueilActive", "active");
 		return "visiteur_accueil";
 	}

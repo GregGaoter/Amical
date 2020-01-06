@@ -4,6 +4,12 @@ import app.gaugiciel.amical.business.contrat.ServiceRole;
 
 public enum ServiceRoleUtilisateur implements ServiceRole {
 
-	ADMIN, AMI;
+	ADMIN("admin"), AMI("ami"), VISITEUR("visiteur");
+
+	public final String label;
+
+	private ServiceRoleUtilisateur(String label) {
+		this.label = label;
+	}
 
 }
