@@ -12,14 +12,14 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import org.springframework.stereotype.Service;
 
 @Service
-public class ServiceDeconnexion implements LogoutSuccessHandler {
+public class ServiceLogoutSuccessHandler implements LogoutSuccessHandler {
 
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		HttpSession session = request.getSession();
 		session.removeAttribute(ServiceUtils.UTILISATEUR);
-		response.sendRedirect("/visiteur/accueil");
+		response.sendRedirect("/authentification?deconnexion");
 	}
 
 }

@@ -67,6 +67,8 @@ public class VisiteurSpotController {
 	@PostMapping("/visiteur/spot/recherche")
 	public String checkFormFindSpot(@Valid SpotForm spotForm, BindingResult bindingResult, Model model) {
 
+		this.spotForm = spotForm;
+
 		spotForm.setIsFieldsCotationValid(SpotForm.LISTE_FIELDS_COTATION.stream()
 				.map(field -> bindingResult.hasFieldErrors(field)).anyMatch(b -> true));
 
@@ -79,8 +81,6 @@ public class VisiteurSpotController {
 
 		spotForm.setListeCotations(
 				ServiceCotationFrance.getBetween(spotForm.getCotationMin(), spotForm.getCotationMax()));
-
-		this.spotForm = spotForm;
 
 		return "redirect:/visiteur/spot/recherche/resultat";
 	}

@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ import app.gaugiciel.amical.controller.utils.implementation.ValidationFormInscri
 import app.gaugiciel.amical.model.Utilisateur;
 
 @Controller
+@ControllerAdvice
 public class InscriptionController {
 
 	@Autowired
@@ -45,14 +47,13 @@ public class InscriptionController {
 	@PostMapping("/visiteur/inscription")
 	public String checkInscriptionForm(@Valid InscriptionForm inscriptionForm, BindingResult bindingResult,
 			Model model) {
+		this.inscriptionForm = inscriptionForm;
 		if (!validationFormInscription.isValide(inscriptionForm)) {
 			validationFormInscription.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
 		}
 		if (bindingResult.hasErrors()) {
-			this.inscriptionForm = inscriptionForm;
 			return "inscription";
 		}
-		this.inscriptionForm = inscriptionForm;
 		return "redirect:/visiteur/inscription/enregistrement";
 	}
 

@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<!-- Thymeleaf est une bibliothèque déclarée ici.
-Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
@@ -31,34 +29,29 @@ Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 						<h3 class="panel-title" th:text="#{message.authentification}"></h3>
 					</div>
 					<div class="panel-body">
-						<div class="alert alert-danger alert-dismissible" role="alert"
-							th:if="${param.error}">
-							<button type="button" class="close" data-dismiss="alert"
-								aria-label="Close">
-								<span aria-hidden="true"><span
-									class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>
-							</button>
-							<span class="glyphicon glyphicon-exclamation-sign"
-								aria-hidden="true"></span> Le nom d'utilisateur ou le mot de
-							passe est incorrect.
-						</div>
-						<form th:action="@{/login}" method="post">
+						<form th:action="@{/authentification}" method="post">
+							<p th:if="${param.erreur}" class="text-danger">
+								<span class="glyphicon glyphicon-warning-sign"></span>
+								[[#{message.authentificationErreur}]]
+							</p>
+							<p th:if="${param.deconnexion}" class="text-success">
+								<span class="glyphicon glyphicon-ok-sign"></span>
+								[[#{message.deconnexionReussit}]]
+							</p>
 							<div class="form-group">
-								<!-- Pour un formulaire d'authentification, l'input du nom d'utilisateur doit obligatoirement s'appeler username -->
 								<label class="control-label" th:text="#{message.adresseEmail}"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
-										class="glyphicon glyphicon-envelope"></i></span> <input type="email"
-										class="form-control" name="username">
+										class="glyphicon glyphicon-envelope"></i></span> <input type="text"
+										class="form-control" name="email">
 								</div>
 							</div>
 							<div class="form-group">
-								<!-- Pour un formulaire d'authentification, l'input du mot de passe doit obligatoirement s'appeler password -->
 								<label class="control-label" th:text="#{message.motDePasse}"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-lock"></i></span> <input type="password"
-										class="form-control" name="password" />
+										class="form-control" name="motDePasse">
 								</div>
 							</div>
 							<div class="input-group">
@@ -76,6 +69,15 @@ Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 					alt="undraw_authentication_fsn5">
 			</div>
 			<div class="col-lg-1"></div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<a class="btn btn-default navbar-btn" role="button"
+					th:href="@{/visiteur/accueil}"> <span
+					class="glyphicon glyphicon-home"></span>
+					[[#{message.retourPageAccueil}]]
+				</a>
+			</div>
 		</div>
 	</div>
 	<!-- container -->

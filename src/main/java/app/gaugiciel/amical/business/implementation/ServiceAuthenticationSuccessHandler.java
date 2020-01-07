@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import app.gaugiciel.amical.model.Utilisateur;
 
 @Service
-public class ServiceAuthentification implements AuthenticationSuccessHandler {
+public class ServiceAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Autowired
 	private ServiceRechercheUtilisateur serviceRechercheUtilisateur;

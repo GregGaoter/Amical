@@ -12,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import app.gaugiciel.amical.business.implementation.ServiceAuthentification;
-import app.gaugiciel.amical.business.implementation.ServiceDeconnexion;
+import app.gaugiciel.amical.business.implementation.ServiceAuthenticationSuccessHandler;
+import app.gaugiciel.amical.business.implementation.ServiceLogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -23,9 +23,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 	@Autowired
-	private ServiceAuthentification serviceAuthentification;
+	private ServiceAuthenticationSuccessHandler serviceAuthenticationSuccessHandler;
 	@Autowired
-	private ServiceDeconnexion serviceDeconnexion;
+	private ServiceLogoutSuccessHandler serviceLogoutSuccessHandler;
 
 	@Override
 	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
@@ -48,29 +48,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// rules need to come first, followed by the more general ones
 		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
 		http.authorizeRequests().antMatchers("/ami/**").hasRole("AMI");
-		// http.authorizeRequests().antMatchers("/anonymous*").anonymous();
+		http.authorizeRequests().antMatchers("/visiteur/**").permitAll();
 		http.authorizeRequests().antMatchers("/").permitAll();
-		http.authorizeRequests().antMatchers("/login*").permitAll();
-		http.authorizeRequests().antMatchers("/cryptage*").permitAll();
-		// http.authorizeRequests().anyRequest().authenticated();
 
-		http.formLogin().loginPage("/login");
-		http.formLogin().permitAll().successHandler(serviceAuthentification);
-		// Specifies the URL to validate the credentials.
-		// http.formLogin().loginProcessingUrl("/perform_login");
-		// Specifies where users will go after authenticating successfully
-		// http.formLogin().defaultSuccessUrl("/ami/accueil", true);
-		// The URL to send users if authentication fails.
-		// http.formLogin().failureUrl("/login.html?error=true");
-		// Specifies the AuthenticationFailureHandler to use when authenticationfails.
-		// The default is redirecting to "/login?error"
-		// http.formLogin().failureHandler(authenticationFailureHandler());
+		http.formLogin().permitAll();
+		http.formLogin().loginPage("/authentification");
+		http.formLogin().usernameParameter("email");
+		http.formLogin().passwordParameter("motDePasse");
+		http.formLogin().successHandler(serviceAuthenticationSuccessHandler);
+		http.formLogin().failureUrl("/authentification?erreur");
 
-		http.logout().permitAll().logoutSuccessHandler(serviceDeconnexion);
-		// http.logout().logoutSuccessUrl("/visiteur/accueil");
+		http.logout().permitAll();
+		http.logout().logoutSuccessHandler(serviceLogoutSuccessHandler);
 		http.logout().deleteCookies("JSESSIONID");
 
-		http.exceptionHandling().accessDeniedPage("/403");
 	}
 
 	@Bean
