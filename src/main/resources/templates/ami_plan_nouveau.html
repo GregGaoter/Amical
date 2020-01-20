@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{ami_layout.html}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title th:text="#{message.nouveauPlan}"></title>
+</head>
+<body class="body-without-nav-pills">
+
+	<div layout:fragment="content">
+		<form class="form-horizontal" th:action="@{/ami/plan/nouveau}"
+			th:object="${nouveauPlanForm}" enctype="multipart/form-data"
+			method="post">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title" th:text="#{message.ajoutNouveauPlan}"></h3>
+				</div>
+				<div class="list-group">
+					<div class="list-group-item">
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('nomFichier')} ? 'has-error has-feedback' : ''">
+							<label class="control-label col-lg-1"
+								th:text="#{message.plan}+(${nouveauPlanForm.isNotNull('fichier')} ? ' *' : '')"></label>
+							<div class="col-lg-11">
+								<div class="input-group">
+									<input class="form-control cursor-disabled" id="nomFichier"
+										type="text" th:field="*{nomFichier}" readonly> <span
+										class="input-group-btn"> <span
+										class="btn btn-default btn-file">[[#{message.choisirFichier}]]<input
+											type="file" th:field="*{fichier}">
+									</span> <span class="btn btn-danger" id="supprimeFichier"><span
+											class="glyphicon glyphicon-remove"></span></span>
+									</span>
+								</div>
+								<span th:if="${#fields.hasErrors('nomFichier')}"
+									th:errors="*{nomFichier}" class="text-danger"></span>
+							</div>
+						</div>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('description')} ? 'has-error has-feedback' : ''">
+							<label class="control-label col-lg-1"
+								th:text="#{message.description}+(${nouveauPlanForm.isNotNull('description')} ? ' *' : '')"></label>
+							<div class="col-lg-11">
+								<textarea class="form-control" rows="5"
+									th:field="*{description}"></textarea>
+								<span th:if="${#fields.hasErrors('description')}"
+									class="glyphicon glyphicon-remove form-control-feedback"></span>
+								<span th:if="${#fields.hasErrors('description')}"
+									th:errors="*{description}" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+					<div class="list-group-item text-center no-bottom-padding-margin">
+						<ul class="list-inline list-inline-no-spacing">
+							<li><button type="submit" class="btn btn-primary btn-lg">
+									<span class="glyphicon glyphicon-save"></span>
+									[[#{message.enregistrer}]]
+								</button></li>
+							<li><a class="btn btn-danger btn-lg" role="button"
+								th:href="@{/ami/spot/ajout}"><span
+									class="glyphicon glyphicon-remove"></span>
+									[[#{message.annuler}]]</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- layout:fragment -->
+
+</body>
+</html>

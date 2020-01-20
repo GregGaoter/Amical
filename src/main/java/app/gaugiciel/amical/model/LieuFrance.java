@@ -18,9 +18,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -33,14 +34,16 @@ import lombok.ToString;
 //Lombok
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor(staticName = "creer")
 public class LieuFrance implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	// Persistance
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	// Lombok
 	@Setter(AccessLevel.PROTECTED)
 	private Long id;
@@ -87,7 +90,7 @@ public class LieuFrance implements Serializable {
 
 	// Persistance
 	@ManyToOne
-	@JoinColumn(name = "plan_id")
+	@JoinColumn(name = "plan")
 	private Plan plan;
 
 	public List<String> getProprietes() {
@@ -97,6 +100,10 @@ public class LieuFrance implements Serializable {
 		listeProprietes.add(codePostale);
 		listeProprietes.add(ville);
 		return listeProprietes;
+	}
+
+	public String afficherLieuComplet() {
+		return region + ", " + departement + ", " + codePostale + ", " + ville;
 	}
 
 }

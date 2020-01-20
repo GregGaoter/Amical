@@ -38,7 +38,7 @@ public class Manuel implements Serializable {
 
 	// Persistance
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	// Lombok
 	@Setter(AccessLevel.PROTECTED)
 	private Long id;

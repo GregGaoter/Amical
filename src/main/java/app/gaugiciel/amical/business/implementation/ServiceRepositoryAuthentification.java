@@ -14,8 +14,8 @@ public class ServiceRepositoryAuthentification implements ServiceRepository<Auth
 	private AuthentificationRepository authentificationRepository;
 
 	@Override
-	public void enregistrer(Authentification authentification) {
-		authentificationRepository.save(authentification);
+	public Authentification enregistrer(Authentification authentification) {
+		return authentificationRepository.save(authentification);
 	}
 
 	@Override

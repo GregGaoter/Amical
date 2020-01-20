@@ -33,7 +33,8 @@
 												th:classappend="${#fields.hasErrors('nomSpot')} ? 'has-error has-feedback' : ''">
 												<label class="control-label" th:text="#{message.nom}"></label>
 												<input type="text" id="nomSpot" class="form-control"
-													th:field="*{nomSpot}"><span
+													th:field="*{nomSpot}"
+													th:placeholder="#{message.placeHolderNomSpot}"><span
 													th:if="${#fields.hasErrors('nomSpot')}"
 													class="glyphicon glyphicon-remove form-control-feedback"></span>
 												<span th:if="${#fields.hasErrors('nomSpot')}"
@@ -45,7 +46,7 @@
 												th:classappend="${#fields.hasErrors('lieuFranceSpot')} ? 'has-error has-feedback' : ''">
 												<label class="control-label" th:text="#{message.lieu}"></label>
 												<input type="text" id="lieuSpot" class="form-control"
-													th:placeholder="#{message.region} + ', ' + #{message.departement} + ', ' + #{message.codePostal} + ', ' + #{message.ville}"
+													th:placeholder="#{message.placeHolderLieu}"
 													th:field="*{lieuFranceSpot}"><span
 													th:if="${#fields.hasErrors('lieuFranceSpot')}"
 													class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -80,7 +81,8 @@
 												th:classappend="${#fields.hasErrors('nomSecteur')} ? 'has-error has-feedback' : ''">
 												<label class="control-label" th:text="#{message.nom}"></label>
 												<input type="text" class="form-control" id="nomSecteur"
-													th:field="*{nomSecteur}"><span
+													th:field="*{nomSecteur}"
+													th:placeholder="#{message.placeHolderNomSecteur}"><span
 													th:if="${#fields.hasErrors('nomSecteur')}"
 													class="glyphicon glyphicon-remove form-control-feedback"></span>
 												<span th:if="${#fields.hasErrors('nomSecteur')}"
@@ -99,7 +101,8 @@
 												th:classappend="${#fields.hasErrors('nomVoie')} ? 'has-error has-feedback' : ''">
 												<label class="control-label" th:text="#{message.nom}"></label>
 												<input type="text" class="form-control" id="nomVoie"
-													th:field="*{nomVoie}"><span
+													th:field="*{nomVoie}"
+													th:placeholder="#{message.placeHolderNomVoie}"><span
 													th:if="${#fields.hasErrors('nomVoie')}"
 													class="glyphicon glyphicon-remove form-control-feedback"></span>
 												<span th:if="${#fields.hasErrors('nomVoie')}"
@@ -280,14 +283,22 @@
 									</div>
 								</div>
 							</div>
-							<div class="list-group-item">
-								<div class="list-group-item-text text-center">
-									<button type="submit" class="btn btn-primary btn-lg"
-										th:text="#{message.trouver}"></button>
-									<a class="btn btn-default navbar-btn" role="button"
-										th:href="@{/visiteur/spot/recherche}"
-										th:text="#{message.effacer}"></a>
-								</div>
+							<div class="list-group-item text-center no-bottom-padding-margin">
+								<ul class="list-inline list-inline-no-spacing">
+									<li><button type="submit" class="btn btn-primary btn-lg">
+											<span class="glyphicon glyphicon-search"></span>
+											[[#{message.trouver}]]
+										</button></li>
+									<li><a class="btn btn-danger btn-lg" role="button"
+										th:href="@{/visiteur/spot/recherche}"><span
+											class="glyphicon glyphicon-erase"></span>
+											[[#{message.effacer}]]</a></li>
+									<li><div class="horizontal-spacer-20"></div></li>
+									<li class="cursor-disabled" id="popoverFonctionnaliteReservee"><a
+										class="btn btn-default btn-lg disabled" role="button"><span
+											class="glyphicon glyphicon-plus"></span>
+											[[#{message.nouveauSpot}]]</a></li>
+								</ul>
 							</div>
 						</div>
 					</div>

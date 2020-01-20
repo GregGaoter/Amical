@@ -23,7 +23,7 @@ import lombok.Setter;
 
 //Persistance
 @Entity
-@Table(indexes = { @Index(columnList = "voie_id"), @Index(columnList = "plan_id") })
+@Table(indexes = { @Index(columnList = "voie_id"), @Index(columnList = "plan") })
 //Lombok
 @NoArgsConstructor
 @Data
@@ -33,7 +33,7 @@ public class Longueur implements Serializable {
 
 	// Persistance
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	// Lombok
 	@Setter(AccessLevel.PROTECTED)
 	private Long id;
@@ -80,7 +80,7 @@ public class Longueur implements Serializable {
 
 	// Persistance
 	@ManyToOne
-	@JoinColumn(name = "plan_id")
+	@JoinColumn(name = "plan")
 	private Plan plan;
 
 }

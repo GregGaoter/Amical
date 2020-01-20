@@ -82,6 +82,7 @@
 
 	<script th:src="@{/js/jquery-3.4.1.js}"></script>
 	<script th:src="@{/js/jquery-ui.min.js}"></script>
+	<script th:src="@{/js/bootstrap-filestyle.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script>
 		$(document).ready(function() {
@@ -103,9 +104,18 @@
 			$('#nomVoie').autocomplete({
 				source : "/ami/spot/recherche/nomVoie"
 			});
+			$('#lieuFrance').autocomplete({
+				source : "/ami/spot/ajout/lieuFrance"
+			});
+			$('#plan').autocomplete({
+				source : "/ami/spot/ajout/plan"
+			});
 			$('#secteur').on('shown.bs.collapse', function() {
 				var panel = $(this).find('.in');
 				$(window).scrollTop(panel.offset().top - 100);
+			});
+			$("#supprimeFichier").on('click', function() {
+				$("#nomFichier").val(null);
 			});
 			$(window).on("load", function() {
 				var openPanel = $('#secteur').find('.in');
@@ -148,6 +158,52 @@
 			document.body.scrollTop = 0; // For Safari
 			document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 		}
+	</script>
+	<script>
+		$(function() {
+
+			// We can attach the `fileselect` event to all file inputs on the page
+			$(document)
+					.on(
+							'change',
+							':file',
+							function() {
+								var input = $(this), numFiles = input.get(0).files ? input
+										.get(0).files.length
+										: 1, label = input.val().replace(/\\/g,
+										'/').replace(/.*\//, '');
+								input
+										.trigger('fileselect', [ numFiles,
+												label ]);
+							});
+
+			// We can watch for our custom `fileselect` event like this
+			$(document)
+					.ready(
+							function() {
+								$(':file')
+										.on(
+												'fileselect',
+												function(event, numFiles, label) {
+
+													var input = $(this)
+															.parents(
+																	'.input-group')
+															.find(':text'), log = numFiles > 1 ? numFiles
+															+ ' files selected'
+															: label;
+
+													if (input.length) {
+														input.val(log);
+													} else {
+														if (log)
+															alert(log);
+													}
+
+												});
+							});
+
+		});
 	</script>
 
 </body>

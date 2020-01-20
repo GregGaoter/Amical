@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import app.gaugiciel.amical.business.implementation.ServiceUtils;
+import app.gaugiciel.amical.business.implementation.ServiceModel;
 
 @Controller
 @ControllerAdvice
@@ -26,7 +26,7 @@ public class AmiAccueilController {
 
 	@ModelAttribute
 	public void addAttributes(Model model) {
-		model.addAttribute(ServiceUtils.UTILISATEUR, session.getAttribute(ServiceUtils.UTILISATEUR));
+		model.addAttribute(ServiceModel.UTILISATEUR.label, session.getAttribute(ServiceModel.UTILISATEUR.label));
 	}
 
 }

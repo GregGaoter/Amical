@@ -90,8 +90,7 @@ public class SpotForm {
 			field.setAccessible(true);
 			try {
 				field.set(this, null);
-			} catch (IllegalArgumentException e) {
-			} catch (IllegalAccessException e) {
+			} catch (IllegalArgumentException | IllegalAccessException e) {
 			}
 		});
 	}

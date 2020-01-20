@@ -35,7 +35,7 @@ public class Secteur implements Serializable {
 
 	// Persistance
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	// Lombok
 	@Setter(AccessLevel.PROTECTED)
 	private Long id;
@@ -71,7 +71,7 @@ public class Secteur implements Serializable {
 
 	// Persistance
 	@ManyToOne
-	@JoinColumn(name = "plan_id")
+	@JoinColumn(name = "plan")
 	private Plan plan;
 
 	public boolean hasPlan() {

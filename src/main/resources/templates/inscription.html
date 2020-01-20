@@ -35,7 +35,8 @@ Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 							th:object="${inscriptionForm}" method="post">
 							<div class="form-group"
 								th:classappend="${#fields.hasErrors('prenom')} ? 'has-error has-feedback' : ''">
-								<label class="control-label" th:text="#{message.prenom}"></label>
+								<label class="control-label"
+									th:text="#{message.prenom}+(${inscriptionForm.isNotNull('prenom')} ? ' *' : '')"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-user"></i></span> <input type="text"
@@ -48,7 +49,8 @@ Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 							</div>
 							<div class="form-group"
 								th:classappend="${#fields.hasErrors('nom')} ? 'has-error has-feedback' : ''">
-								<label class="control-label" th:text="#{message.nom}"></label>
+								<label class="control-label"
+									th:text="#{message.nom}+(${inscriptionForm.isNotNull('nom')} ? ' *' : '')"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-user"></i></span> <input type="text"
@@ -61,7 +63,8 @@ Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 							</div>
 							<div class="form-group"
 								th:classappend="${#fields.hasErrors('email')} ? 'has-error has-feedback' : ''">
-								<label class="control-label" th:text="#{message.adresseEmail}"></label>
+								<label class="control-label"
+									th:text="#{message.adresseEmail}+(${inscriptionForm.isNotNull('email')} ? ' *' : '')"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-envelope"></i></span> <input type="text"
@@ -74,7 +77,8 @@ Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 							</div>
 							<div class="form-group"
 								th:classappend="${#fields.hasErrors('motDePasse')} ? 'has-error has-feedback' : ''">
-								<label class="control-label" th:text="#{message.motDePasse}"></label>
+								<label class="control-label"
+									th:text="#{message.motDePasse}+(${inscriptionForm.isNotNull('motDePasse')} ? ' *' : '')"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-lock"></i></span> <input type="password"
@@ -88,7 +92,7 @@ Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 							<div class="form-group"
 								th:classappend="${#fields.hasErrors('motDePasseConfirmation')} ? 'has-error has-feedback' : ''">
 								<label class="control-label"
-									th:text="#{message.confirmationMotDePasse}"></label>
+									th:text="#{message.confirmationMotDePasse}+(${inscriptionForm.isNotNull('motDePasseConfirmation')} ? ' *' : '')"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-lock"></i></span> <input type="password"

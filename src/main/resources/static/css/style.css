@@ -18,6 +18,10 @@
 	background-color: white;
 }
 
+.bordure {
+	border: 1px solid white;
+}
+
 .select-no-left-right-padding {
 	padding-left: 0px;
 	padding-right: 0px;
@@ -53,6 +57,25 @@
 	margin-top: 0px;
 }
 
+.no-bottom-padding-margin {
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+.no-right-padding-margin {
+	padding-right: 0px;
+	margin-right: 0px;
+}
+
+.no-left-padding-margin {
+	padding-left: 0px;
+	margin-left: 0px;
+}
+
+.no-bottom-margin {
+	margin-bottom: 0px;
+}
+
 .line-spacer {
 	padding-bottom: 9px;
 	border-bottom: 1px solid #1c1e22;
@@ -60,6 +83,10 @@
 
 .vertical-spacer {
 	padding-bottom: 10px;
+}
+
+.horizontal-spacer-20 {
+	padding-right: 20px;
 }
 
 .modal-fullscreen {
@@ -162,4 +189,34 @@
 	bottom: 20px;
 	right: 20px;
 	z-index: 9999 !important;
+}
+
+ul[class~="list-inline-no-spacing"]>li {
+	padding: 0px;
+	margin: 0px;
+}
+
+.cursor-disabled {
+	cursor: not-allowed;
+}
+
+.btn-file {
+	position: relative;
+	overflow: hidden;
+}
+
+.btn-file input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	font-size: 100px;
+	text-align: right;
+	filter: alpha(opacity = 0);
+	opacity: 0;
+	outline: none;
+	background: white;
+	cursor: inherit;
+	display: block;
 }

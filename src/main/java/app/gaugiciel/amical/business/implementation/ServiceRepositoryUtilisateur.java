@@ -14,8 +14,8 @@ public class ServiceRepositoryUtilisateur implements ServiceRepository<Utilisate
 	private UtilisateurRepository utilisateurRepository;
 
 	@Override
-	public void enregistrer(Utilisateur utilisateur) {
-		utilisateurRepository.save(utilisateur);
+	public Utilisateur enregistrer(Utilisateur utilisateur) {
+		return utilisateurRepository.save(utilisateur);
 	}
 
 	@Override

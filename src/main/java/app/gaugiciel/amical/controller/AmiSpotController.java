@@ -2,13 +2,16 @@ package app.gaugiciel.amical.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -20,21 +23,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import app.gaugiciel.amical.business.implementation.ServiceCotationFrance;
 import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUnitePrincipale;
 import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUniteSecondaire;
 import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.ServiceEnregistrementFormAjoutSpot;
+import app.gaugiciel.amical.business.implementation.ServiceModel;
+import app.gaugiciel.amical.business.implementation.ServiceRechercheLieuFrance;
 import app.gaugiciel.amical.business.implementation.ServiceRechercheLongueur;
+import app.gaugiciel.amical.business.implementation.ServiceRecherchePlan;
 import app.gaugiciel.amical.business.implementation.ServiceRechercheSecteur;
 import app.gaugiciel.amical.business.implementation.ServiceRechercheSpot;
 import app.gaugiciel.amical.business.implementation.ServiceRechercheVoie;
-import app.gaugiciel.amical.business.implementation.ServiceUtils;
+import app.gaugiciel.amical.controller.form.AjoutSpotForm;
 import app.gaugiciel.amical.controller.form.SpotForm;
 import app.gaugiciel.amical.controller.utils.implementation.ValidationFormSpot;
 import app.gaugiciel.amical.model.Longueur;
+import app.gaugiciel.amical.model.Plan;
 import app.gaugiciel.amical.model.Secteur;
 import app.gaugiciel.amical.model.Spot;
 import app.gaugiciel.amical.model.Voie;
@@ -49,6 +60,8 @@ public class AmiSpotController {
 	@Autowired
 	private SpotForm spotForm;
 	@Autowired
+	private AjoutSpotForm ajoutSpotForm;
+	@Autowired
 	private ServiceRechercheSpot serviceRechercheSpot;
 	@Autowired
 	private ValidationFormSpot validationFormSpot;
@@ -58,6 +71,14 @@ public class AmiSpotController {
 	private ServiceRechercheVoie serviceRechercheVoie;
 	@Autowired
 	private ServiceRechercheLongueur serviceRechercheLongueur;
+	@Autowired
+	private ServiceEnregistrementFormAjoutSpot serviceEnregistrementFormAjoutSpot;
+	@Autowired
+	private ServiceRechercheLieuFrance serviceRechercheLieuFrance;
+	@Autowired
+	private ServiceRecherchePlan serviceRecherchePlan;
+	@Autowired
+	private MessageSource messageSource;
 	@Autowired
 	private HttpSession session;
 
@@ -72,7 +93,7 @@ public class AmiSpotController {
 	public String checkFormFindSpot(@Valid SpotForm spotForm, BindingResult bindingResult, Model model) {
 
 		this.spotForm = spotForm;
-		
+
 		spotForm.setIsFieldsCotationValid(SpotForm.LISTE_FIELDS_COTATION.stream()
 				.map(field -> bindingResult.hasFieldErrors(field)).anyMatch(b -> true));
 
@@ -183,6 +204,50 @@ public class AmiSpotController {
 		return "ami_longueur";
 	}
 
+	@GetMapping("/ami/spot/ajout")
+	public String showAjoutSpotForm(HttpServletRequest request, AjoutSpotForm ajoutSpotForm, Model model) {
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		if (inputFlashMap != null) {
+			Plan plan = (Plan) inputFlashMap.get("plan");
+			model.addAttribute("messagePlanEnregistreAvecSucces", messageSource.getMessage(
+					"message.planEnregistreAvecSucces", new String[] { plan.getPlan() }, Locale.getDefault()));
+		} else {
+			ajoutSpotForm.reinitialiser();
+		}
+		model.addAttribute("spotActive", "active");
+		return "ami_spot_ajout";
+	}
+
+	@PostMapping("/ami/spot/ajout")
+	public String checkAjoutSpotForm(@Valid AjoutSpotForm ajoutSpotForm, BindingResult bindingResult) {
+		this.ajoutSpotForm = ajoutSpotForm;
+		if (bindingResult.hasErrors()) {
+			return "ami_spot_ajout";
+		}
+		return "redirect:/ami/spot/enregistrement";
+	}
+
+	@RequestMapping(value = "/ami/spot/ajout", method = RequestMethod.POST, params = "supprimePlan")
+	public String supprimerPlanAjoutSpotForm(AjoutSpotForm ajoutSpotForm) {
+		ajoutSpotForm.setPlan("");
+		return "ami_spot_ajout";
+	}
+
+	@GetMapping(value = "/ami/spot/enregistrement")
+	public String saveAjoutSpotForm(@ModelAttribute("ajoutSpotForm") AjoutSpotForm ajoutSpotForm, Model model) {
+		serviceEnregistrementFormAjoutSpot.enregistrer(ajoutSpotForm);
+		Spot spot = serviceEnregistrementFormAjoutSpot.getSpot();
+		return "redirect:/ami/spot/{" + spot.getId() + "}";
+	}
+
+	@PostMapping(value = "/ami/spot/ajout/supprimerPlan")
+	public String supprimerPlanAjoutSpotForm(AjoutSpotForm ajoutSpotForm, Model model) {
+		ajoutSpotForm.setPlan("");
+		this.ajoutSpotForm = ajoutSpotForm;
+		model.addAttribute("ajoutSpotForm", ajoutSpotForm);
+		return "ami_spot_ajout";
+	}
+
 	@GetMapping("/ami/spot/recherche/nomSpot")
 	@ResponseBody
 	public List<String> rechercherNomSpot(@RequestParam("term") String nomSpot) {
@@ -207,14 +272,27 @@ public class AmiSpotController {
 		return serviceRechercheSpot.rechercherNomVoie(nomVoie);
 	}
 
+	@GetMapping("/ami/spot/ajout/lieuFrance")
+	@ResponseBody
+	public List<String> rechercherLieuFrance(@RequestParam("term") String lieuFrance) {
+		return serviceRechercheLieuFrance.rechercherLieuFrance(lieuFrance);
+	}
+
+	@GetMapping("/ami/spot/ajout/plan")
+	@ResponseBody
+	public List<String> rechercherPlan(@RequestParam("term") String plan) {
+		return serviceRecherchePlan.rechercherPlan(plan);
+	}
+
 	@ModelAttribute
 	public void addAttributes(Model model) {
 		model.addAttribute("spotForm", spotForm);
+		model.addAttribute("ajoutSpotForm", ajoutSpotForm);
 		model.addAttribute("unitePrincipaleLabels", ServiceCotationFranceUnitePrincipale.LABELS);
 		model.addAttribute("uniteSecondaireLabels", ServiceCotationFranceUniteSecondaire.LABELS);
 		model.addAttribute("uniteTertiaireLabels", ServiceCotationFranceUniteTertiaire.LABELS);
 		model.addAttribute("cheminPlan", Utils.CHEMIN_PLAN);
-		model.addAttribute(ServiceUtils.UTILISATEUR, session.getAttribute(ServiceUtils.UTILISATEUR));
+		model.addAttribute(ServiceModel.UTILISATEUR.label, session.getAttribute(ServiceModel.UTILISATEUR.label));
 	}
 
 }

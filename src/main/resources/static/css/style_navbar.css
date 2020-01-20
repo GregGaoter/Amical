@@ -37,3 +37,20 @@
 	border: none;
 	background-color: #877060;
 }
+
+.popover {
+	width: 180px;
+}
+
+li[class~="disabled"] .overlap {
+	display: block;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 1000;
+	cursor: not-allowed;
+}
+
+.overlap {
+	display: none;
+}

@@ -18,7 +18,7 @@ public class ServiceLogoutSuccessHandler implements LogoutSuccessHandler {
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		HttpSession session = request.getSession();
-		session.removeAttribute(ServiceUtils.UTILISATEUR);
+		session.removeAttribute(ServiceModel.UTILISATEUR.label);
 		response.sendRedirect("/authentification?deconnexion");
 	}
 

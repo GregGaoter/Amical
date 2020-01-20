@@ -1,11 +1,8 @@
 package app.gaugiciel.amical.business.contrat;
 
-import org.springframework.stereotype.Service;
-
-@Service
 public interface ServiceRepository<M> {
 
-	public void enregistrer(M model);
+	public M enregistrer(M model);
 
 	public void modifier();
 

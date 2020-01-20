@@ -36,7 +36,7 @@ public class Commentaire implements Serializable {
 
 	// Persistance
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	// Lombok
 	@Setter(AccessLevel.PROTECTED)
 	@ToString.Include
