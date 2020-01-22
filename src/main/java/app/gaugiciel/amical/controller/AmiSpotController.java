@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import app.gaugiciel.amical.business.implementation.ServiceCotationFrance;
@@ -128,9 +129,17 @@ public class AmiSpotController {
 	}
 
 	@GetMapping("/ami/spot/{spotId}")
-	public String showSpot(@PathVariable Long spotId, @RequestParam(required = false) Long secteurId, int page,
-			int size, Model model) {
-		Spot spot = serviceRechercheSpot.findById(spotId);
+	public String showSpot(@PathVariable Long spotId, @RequestParam(required = false) Long secteurId, Integer page,
+			Integer size, Model model, HttpServletRequest request) {
+		Spot spot;
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		if (inputFlashMap != null) {
+			spot = (Spot) inputFlashMap.get("spot");
+			model.addAttribute("messageSpotEnregistreAvecSucces", messageSource.getMessage(
+					"message.spotEnregistreAvecSucces", new String[] { spot.getNom() }, Locale.getDefault()));
+		} else {
+			spot = serviceRechercheSpot.findById(spotId);
+		}
 		List<Secteur> listeSecteurs = serviceRechercheSecteur.findBySpotIdOrderByNom(spotId);
 		Map<Long, List<Voie>> mapVoies = new HashMap<>();
 		if (!listeSecteurs.isEmpty()) {
@@ -234,10 +243,12 @@ public class AmiSpotController {
 	}
 
 	@GetMapping(value = "/ami/spot/enregistrement")
-	public String saveAjoutSpotForm(@ModelAttribute("ajoutSpotForm") AjoutSpotForm ajoutSpotForm, Model model) {
+	public String saveAjoutSpotForm(@ModelAttribute("ajoutSpotForm") AjoutSpotForm ajoutSpotForm,
+			RedirectAttributes redirectAttributes) {
 		serviceEnregistrementFormAjoutSpot.enregistrer(ajoutSpotForm);
 		Spot spot = serviceEnregistrementFormAjoutSpot.getSpot();
-		return "redirect:/ami/spot/{" + spot.getId() + "}";
+		redirectAttributes.addFlashAttribute("spot", spot);
+		return "redirect:/ami/spot/" + spot.getId();
 	}
 
 	@PostMapping(value = "/ami/spot/ajout/supprimerPlan")

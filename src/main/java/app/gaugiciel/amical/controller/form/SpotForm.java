@@ -119,7 +119,7 @@ public class SpotForm {
 	}
 
 	private boolean estNull(String str) {
-		return str.strip().length() == 0;
+		return str == null ? true : str.strip().length() == 0;
 	}
 
 	private boolean estNull(Boolean bool) {

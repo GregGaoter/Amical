@@ -21,7 +21,7 @@ public class ServiceRechercheSecteur implements ServiceRecherche<Secteur, Object
 	public List<Secteur> findBySpotIdOrderByNom(Long spotId) {
 		List<Secteur> listeSecteurs = secteurRepository.findBySpot_id(spotId);
 		Collections.sort(listeSecteurs, serviceComparaisonSecteurByNom);
-		return secteurRepository.findBySpot_id(spotId);
+		return listeSecteurs;
 	}
 
 	public Secteur findById(Long id) {

@@ -28,11 +28,11 @@ public class ServiceEnregistrementFormAjoutSpot implements ServiceEnregistrement
 	public void enregistrer(AjoutSpotForm ajoutSpotForm) {
 		LieuFrance lieuFrance = serviceRechercheLieuFrance.findOne(ajoutSpotForm.getLieuFrance());
 		Plan plan = serviceRecherchePlan.findOne(ajoutSpotForm.getPlan());
-		Spot spotForm = Spot.creer(ajoutSpotForm.getNom(), false, lieuFrance);
-		spotForm.setPlan(plan);
-		spotForm.setDescription(ajoutSpotForm.getDescription());
-		spotForm.setRemarque(ajoutSpotForm.getRemarque());
-		spot = serviceRepositorySpot.enregistrer(Spot.creer(ajoutSpotForm.getNom(), false, lieuFrance));
+		spot = Spot.creer(ajoutSpotForm.getNom(), false, lieuFrance);
+		spot.setPlan(plan);
+		spot.setDescription(ajoutSpotForm.getDescription());
+		spot.setRemarque(ajoutSpotForm.getRemarque());
+		serviceRepositorySpot.enregistrer(spot);
 	}
 
 }

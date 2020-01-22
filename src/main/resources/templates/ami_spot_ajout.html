@@ -99,6 +99,22 @@
 									th:errors="*{remarque}" class="text-danger"></span>
 							</div>
 						</div>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('tagQ')} ? 'has-error has-feedback' : ''"
+							hidden="hidden">
+							<label class="control-label col-lg-1"
+								th:text="#{message.officiel}+(${ajoutSpotForm.isNotNull('tagQ')} ? ' *' : '')"></label>
+							<div class="col-lg-11">
+								<input id="toggle-event" type="checkbox" data-toggle="toggle"
+									th:data-on="#{message.oui}" th:data-off="#{message.non}"
+									data-onstyle="success" data-offstyle="warning"
+									th:field="*{tagQ}"> <span
+									th:if="${#fields.hasErrors('tagQ')}"
+									class="glyphicon glyphicon-remove form-control-feedback"></span>
+								<span th:if="${#fields.hasErrors('tagQ')}" th:errors="*{tagQ}"
+									class="text-danger"></span>
+							</div>
+						</div>
 					</div>
 					<div class="list-group-item text-center no-bottom-padding-margin">
 						<ul class="list-inline list-inline-no-spacing">

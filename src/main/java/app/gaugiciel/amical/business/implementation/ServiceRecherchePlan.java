@@ -24,7 +24,7 @@ public class ServiceRecherchePlan implements ServiceRecherche<Plan, Object> {
 		Plan p = new Plan();
 		p.setPlan(plan);
 		ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("description");
-		return planRepository.findOne(Example.of(p, exampleMatcher)).orElseThrow();
+		return planRepository.findOne(Example.of(p, exampleMatcher)).orElse(null);
 	}
 
 	public List<String> rechercherPlan(String template) {
