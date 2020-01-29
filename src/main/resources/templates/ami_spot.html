@@ -21,6 +21,13 @@
 				class="glyphicon glyphicon-ok-sign"></span>
 			[[${messageSpotEnregistreAvecSucces}]]
 		</div>
+		<div th:if="${messageSecteurEnregistreAvecSucces}"
+			class="alert alert-success alert-dismissible fade in">
+			<a class="close" data-dismiss="alert"><span
+				class="glyphicon glyphicon-remove"></span></a><span
+				class="glyphicon glyphicon-ok-sign"></span>
+			[[${messageSecteurEnregistreAvecSucces}]]
+		</div>
 		<div class="row">
 			<div class="col-lg-12">
 				<ul class="breadcrumb">
@@ -81,7 +88,9 @@
 								<div class="modal-content modal-content-fullscreen">
 									<div class="modal-header modal-header-fullscreen">
 										<button type="button" class="close" data-dismiss="modal">
-											<span><img th:src="@{/img/close_white_24_24.png}"></span>
+											<span> <img th:src="@{/img/close_white_24_24.png}">
+
+											</span>
 										</button>
 										<h1 class="modal-title modal-title-fullscreen text-center">
 											[[${spot.nom}]] <span th:if="${spot.tagQ}"><img
@@ -101,10 +110,19 @@
 					</div>
 				</div>
 				<h2 th:text="#{message.description}"></h2>
-				<p th:text="${spot.description==null} ? '-' : ${spot.description}"></p>
+				<p
+					th:text="${spot.description==null || spot.description==''} ? '-' : ${spot.description}"></p>
 				<h2 th:text="#{message.remarque}"></h2>
-				<p th:text="${spot.remarque==null} ? '-' : ${spot.remarque}"></p>
-				<h2 th:text="#{message.secteurs}"></h2>
+				<p
+					th:text="${spot.remarque==null || spot.remarque==''} ? '-' : ${spot.remarque}"></p>
+				<div class="conteneur-flex">
+					<h2 th:text="#{message.secteurs}"></h2>
+					<div class="horizontal-spacer-20"></div>
+					<a class="btn btn-default btn-lg" role="button"
+						th:href="@{'/ami/spot/'+${spot.id}+'/secteur/nouveau'}"><span
+						class="glyphicon glyphicon-plus"></span>
+						[[#{message.nouveauSecteur}]]</a>
+				</div>
 				<div class="panel-group" id="secteur">
 					<div th:each="secteur:${listeSecteurs}" class="panel panel-default">
 						<div class="panel-heading panel-heading-hover"
@@ -118,10 +136,10 @@
 							<div class="panel-body">
 								<h4 th:text="#{message.description}"></h4>
 								<p
-									th:text="${secteur.description==null} ? '-' : ${secteur.description}"></p>
+									th:text="${secteur.description==null || spot.description==''} ? '-' : ${secteur.description}"></p>
 								<h4 th:text="#{message.remarque}"></h4>
 								<p
-									th:text="${secteur.remarque==null} ? '-' : ${secteur.remarque}"></p>
+									th:text="${secteur.remarque==null || spot.remarque==''} ? '-' : ${secteur.remarque}"></p>
 								<div th:if="${secteur.plan!=null}">
 									<div class="vertical-spacer"></div>
 									<img

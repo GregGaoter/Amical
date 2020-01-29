@@ -1,6 +1,7 @@
 package app.gaugiciel.amical.configuration;
 
-import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.core.convert.converter.Converter;
@@ -8,13 +9,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationPropertiesBinding
-public class RepertoireNouveauPlanConvertionConfiguration implements Converter<String, File> {
+public class UrlPlanConvertionConfiguration implements Converter<String, URL> {
 
 	@Override
-	public File convert(String property) {
-		String[] repertoire = property.split(",");
-		File racine = new File(System.getProperty(repertoire[0]));
-		return new File(racine, repertoire[1]);
+	public URL convert(String propriete) {
+		try {
+			return new URL(propriete);
+		} catch (MalformedURLException e) {
+			return null;
+		}
 	}
 
 }

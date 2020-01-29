@@ -4,11 +4,23 @@ import java.util.List;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 
 public abstract class Utils {
 
-	public static final String CHEMIN_PLAN = "/img/plan/";
+	@Value("/img/plan/")
+	private String cheminPlan;
+	@Value("#{repertoireNouveauPlanConvertionConfiguration.convert('${repertoire.plan}').getAbsolutePath()}")
+	private String cheminPlanExterne;
 	public static final int AUTO_COMPLETE_MAX_RESULTS = 10;
+
+	public String getCheminPlan() {
+		return cheminPlan;
+	}
+
+	public String getCheminPlanExterne() {
+		return cheminPlanExterne;
+	}
 
 	public static final String normaliser(String str) {
 		return StringUtils.stripAccents(str.toUpperCase());

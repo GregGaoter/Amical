@@ -30,13 +30,13 @@ import app.gaugiciel.amical.business.implementation.ServiceRechercheLongueur;
 import app.gaugiciel.amical.business.implementation.ServiceRechercheSecteur;
 import app.gaugiciel.amical.business.implementation.ServiceRechercheSpot;
 import app.gaugiciel.amical.business.implementation.ServiceRechercheVoie;
+import app.gaugiciel.amical.business.implementation.ServiceStockagePlan;
 import app.gaugiciel.amical.controller.form.SpotForm;
 import app.gaugiciel.amical.controller.utils.implementation.ValidationFormSpot;
 import app.gaugiciel.amical.model.Longueur;
 import app.gaugiciel.amical.model.Secteur;
 import app.gaugiciel.amical.model.Spot;
 import app.gaugiciel.amical.model.Voie;
-import app.gaugiciel.amical.utilitaire.Utils;
 
 @Controller
 @ControllerAdvice
@@ -209,7 +209,7 @@ public class VisiteurSpotController {
 		model.addAttribute("unitePrincipaleLabels", ServiceCotationFranceUnitePrincipale.LABELS);
 		model.addAttribute("uniteSecondaireLabels", ServiceCotationFranceUniteSecondaire.LABELS);
 		model.addAttribute("uniteTertiaireLabels", ServiceCotationFranceUniteTertiaire.LABELS);
-		model.addAttribute("cheminPlan", Utils.CHEMIN_PLAN);
+		model.addAttribute("cheminPlan", ServiceStockagePlan.RESOURCE_HANDLER_PLAN);
 	}
 
 }

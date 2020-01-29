@@ -42,6 +42,8 @@ import app.gaugiciel.amical.business.implementation.ServiceRecherchePlan;
 import app.gaugiciel.amical.business.implementation.ServiceRechercheSecteur;
 import app.gaugiciel.amical.business.implementation.ServiceRechercheSpot;
 import app.gaugiciel.amical.business.implementation.ServiceRechercheVoie;
+import app.gaugiciel.amical.business.implementation.ServiceRedirectionUrl;
+import app.gaugiciel.amical.business.implementation.ServiceStockagePlan;
 import app.gaugiciel.amical.controller.form.AjoutSpotForm;
 import app.gaugiciel.amical.controller.form.SpotForm;
 import app.gaugiciel.amical.controller.utils.implementation.ValidationFormSpot;
@@ -50,7 +52,6 @@ import app.gaugiciel.amical.model.Plan;
 import app.gaugiciel.amical.model.Secteur;
 import app.gaugiciel.amical.model.Spot;
 import app.gaugiciel.amical.model.Voie;
-import app.gaugiciel.amical.utilitaire.Utils;
 
 @Controller
 @ControllerAdvice
@@ -133,10 +134,19 @@ public class AmiSpotController {
 			Integer size, Model model, HttpServletRequest request) {
 		Spot spot;
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-		if (inputFlashMap != null) {
-			spot = (Spot) inputFlashMap.get("spot");
-			model.addAttribute("messageSpotEnregistreAvecSucces", messageSource.getMessage(
-					"message.spotEnregistreAvecSucces", new String[] { spot.getNom() }, Locale.getDefault()));
+		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
+			if (inputFlashMap.containsKey("spot")) {
+				spot = (Spot) inputFlashMap.get("spot");
+				model.addAttribute("messageSpotEnregistreAvecSucces", messageSource.getMessage(
+						"message.spotEnregistreAvecSucces", new String[] { spot.getNom() }, Locale.getDefault()));
+			} else {
+				spot = serviceRechercheSpot.findById(spotId);
+			}
+			if (inputFlashMap.containsKey("secteur")) {
+				Secteur secteur = (Secteur) inputFlashMap.get("secteur");
+				model.addAttribute("messageSecteurEnregistreAvecSucces", messageSource.getMessage(
+						"message.secteurEnregistreAvecSucces", new String[] { secteur.getNom() }, Locale.getDefault()));
+			}
 		} else {
 			spot = serviceRechercheSpot.findById(spotId);
 		}
@@ -170,6 +180,8 @@ public class AmiSpotController {
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", size);
 		model.addAttribute("spotActive", "active");
+		session.setAttribute(ServiceRedirectionUrl.SPOT.label, "redirect:/ami/spot/" + spotId);
+		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/" + spotId);
 		return "ami_spot";
 	}
 
@@ -224,6 +236,7 @@ public class AmiSpotController {
 			ajoutSpotForm.reinitialiser();
 		}
 		model.addAttribute("spotActive", "active");
+		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/ajout");
 		return "ami_spot_ajout";
 	}
 
@@ -302,7 +315,7 @@ public class AmiSpotController {
 		model.addAttribute("unitePrincipaleLabels", ServiceCotationFranceUnitePrincipale.LABELS);
 		model.addAttribute("uniteSecondaireLabels", ServiceCotationFranceUniteSecondaire.LABELS);
 		model.addAttribute("uniteTertiaireLabels", ServiceCotationFranceUniteTertiaire.LABELS);
-		model.addAttribute("cheminPlan", Utils.CHEMIN_PLAN);
+		model.addAttribute("cheminPlan", ServiceStockagePlan.RESOURCE_HANDLER_PLAN);
 		model.addAttribute(ServiceModel.UTILISATEUR.label, session.getAttribute(ServiceModel.UTILISATEUR.label));
 	}
 

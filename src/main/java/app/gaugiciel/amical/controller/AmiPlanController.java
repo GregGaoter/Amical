@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import app.gaugiciel.amical.business.implementation.ServiceEnregistrementFormNouveauPlan;
-import app.gaugiciel.amical.business.implementation.ServiceEnregistrementNouveauPlan;
+import app.gaugiciel.amical.business.implementation.ServiceEnregistrementPlanLocal;
 import app.gaugiciel.amical.business.implementation.ServiceModel;
+import app.gaugiciel.amical.business.implementation.ServiceRedirectionUrl;
 import app.gaugiciel.amical.controller.form.NouveauPlanForm;
 
 @Controller
@@ -27,7 +28,7 @@ public class AmiPlanController {
 	@Autowired
 	private ServiceEnregistrementFormNouveauPlan serviceEnregistrementFormNouveauPlan;
 	@Autowired
-	private ServiceEnregistrementNouveauPlan serviceEnregistrementFichier;
+	private ServiceEnregistrementPlanLocal serviceEnregistrementPlanLocal;
 	@Autowired
 	private HttpSession session;
 
@@ -46,7 +47,8 @@ public class AmiPlanController {
 			model.addAttribute("spotActive", "active");
 			return "ami_plan_nouveau";
 		}
-		serviceEnregistrementFichier.enregistrer(nouveauPlanForm.getFichier());
+
+		serviceEnregistrementPlanLocal.enregistrer(nouveauPlanForm.getFichier());
 		return "redirect:/ami/plan/nouveau/enregistrement";
 	}
 
@@ -54,7 +56,7 @@ public class AmiPlanController {
 	public String saveNouveauPlanForm(RedirectAttributes redirectAttributes) {
 		serviceEnregistrementFormNouveauPlan.enregistrer(nouveauPlanForm);
 		redirectAttributes.addFlashAttribute("plan", serviceEnregistrementFormNouveauPlan.getPlan());
-		return "redirect:/ami/spot/ajout";
+		return (String) session.getAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label);
 	}
 
 	@ModelAttribute

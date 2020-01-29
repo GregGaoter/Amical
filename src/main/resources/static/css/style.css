@@ -220,3 +220,9 @@ ul[class~="list-inline-no-spacing"]>li {
 	cursor: inherit;
 	display: block;
 }
+
+.conteneur-flex {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}

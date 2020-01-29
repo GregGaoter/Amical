@@ -74,6 +74,18 @@ public class Secteur implements Serializable {
 	@JoinColumn(name = "plan")
 	private Plan plan;
 
+	private Secteur(String nom, String description, String remarque, Spot spot, Plan plan) {
+		this.nom = nom;
+		this.description = description;
+		this.remarque = remarque;
+		this.spot = spot;
+		this.plan = plan;
+	}
+
+	public static Secteur creer(String nom, String description, String remarque, Spot spot, Plan plan) {
+		return new Secteur(nom, description, remarque, spot, plan);
+	}
+
 	public boolean hasPlan() {
 		return !Objects.isNull(plan);
 	}
