@@ -60,13 +60,13 @@ public class Longueur implements Serializable {
 	// Persistance
 	@Column(nullable = true)
 	// Validation constraints
-	@Positive
+	@Positive(message = "{validation.positive}")
 	private Double longueur;
 
 	// Persistance
 	@Column(name = "nb_spits", nullable = true)
 	// Validation constraints
-	@Positive
+	@Positive(message = "{validation.positive}")
 	private Integer nbSpits;
 
 	// Persistance
@@ -82,5 +82,21 @@ public class Longueur implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "plan")
 	private Plan plan;
+
+	private Longueur(String nom, String description, String remarque, Double longueur, Integer nbSpits, Voie voie,
+			Plan plan) {
+		this.nom = nom;
+		this.description = description;
+		this.remarque = remarque;
+		this.longueur = longueur;
+		this.nbSpits = nbSpits;
+		this.voie = voie;
+		this.plan = plan;
+	}
+
+	public static Longueur creer(String nom, String description, String remarque, Double longueur, Integer nbSpits, Voie voie,
+			Plan plan) {
+		return new Longueur(nom, description, remarque, longueur, nbSpits, voie, plan);
+	}
 
 }

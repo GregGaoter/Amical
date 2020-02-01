@@ -147,6 +147,11 @@ public class AmiSpotController {
 				model.addAttribute("messageSecteurEnregistreAvecSucces", messageSource.getMessage(
 						"message.secteurEnregistreAvecSucces", new String[] { secteur.getNom() }, Locale.getDefault()));
 			}
+			if (inputFlashMap.containsKey("voie")) {
+				Voie voie = (Voie) inputFlashMap.get("voie");
+				model.addAttribute("messageVoieEnregistreAvecSucces", messageSource.getMessage(
+						"message.voieEnregistreAvecSucces", new String[] { voie.getNom() }, Locale.getDefault()));
+			}
 		} else {
 			spot = serviceRechercheSpot.findById(spotId);
 		}
@@ -188,14 +193,20 @@ public class AmiSpotController {
 	}
 
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}")
-	public String showSecteur(@PathVariable Long spotId, @PathVariable Long secteurId, int page, int size,
+	public String showSecteur(@PathVariable Long spotId, @PathVariable Long secteurId, Integer page, Integer size,
 			Model model) {
 		return "redirect:/ami/spot/" + spotId + "?secteurId=" + secteurId + "&page=" + page + "&size=" + size;
 	}
 
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}")
-	public String showVoie(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId, int page,
-			int size, Model model) {
+	public String showVoie(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId,
+			Integer page, Integer size, Model model, HttpServletRequest request) {
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		if (inputFlashMap != null) {
+			Longueur longueur = (Longueur) inputFlashMap.get("longueur");
+			model.addAttribute("messageLongueurEnregistreAvecSucces", messageSource.getMessage(
+					"message.LongueurEnregistreAvecSucces", new String[] { longueur.getNom() }, Locale.getDefault()));
+		}
 		Voie voie = serviceRechercheVoie.findById(voieId);
 		Secteur secteur = serviceRechercheSecteur.findById(secteurId);
 		Spot spot = serviceRechercheSpot.findById(spotId);
@@ -207,12 +218,16 @@ public class AmiSpotController {
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", size);
 		model.addAttribute("spotActive", "active");
+		session.setAttribute(ServiceRedirectionUrl.VOIE.label, "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId
+				+ "/voie/" + voieId + "?page=" + page + "&size=" + size);
+		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/" + spotId + "/secteur/"
+				+ secteurId + "/voie/" + voieId + "?page=" + page + "&size=" + size);
 		return "ami_voie";
 	}
 
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/{longueurId}")
 	public String showLongueur(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId,
-			@PathVariable Long longueurId, int page, int size, Model model) {
+			@PathVariable Long longueurId, Integer page, Integer size, Model model) {
 		Longueur longueur = serviceRechercheLongueur.findById(longueurId);
 		Voie voie = serviceRechercheVoie.findById(voieId);
 		Secteur secteur = serviceRechercheSecteur.findById(secteurId);

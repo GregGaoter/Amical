@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{ami_layout.html}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title th:text="#{message.ajoutLongueur}"></title>
+</head>
+<body class="body-without-nav-pills">
+
+	<div layout:fragment="content">
+		<div th:if="${messagePlanEnregistreAvecSucces}"
+			class="alert alert-success alert-dismissible fade in">
+			<a class="close" data-dismiss="alert"><span
+				class="glyphicon glyphicon-remove"></span></a><span
+				class="glyphicon glyphicon-ok-sign"></span>
+			[[${messagePlanEnregistreAvecSucces}]]
+		</div>
+		<form class="form-horizontal"
+			th:action="@{'/ami/spot/'+${spot.id}+'/secteur/'+${secteur.id}+'/voie/'+${voie.id}+'/longueur/nouveau'}"
+			th:object="${nouvelleLongueurForm}" method="post">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title" th:text="#{message.ajoutNouvelleLongueur}"></h3>
+				</div>
+				<div class="list-group">
+					<div class="list-group-item">
+						<div class="form-group">
+							<label class="control-label col-lg-1"
+								th:text="#{message.spot}+(${nouvelleLongueurForm.isNotNull('nomSpot')} ? ' *' : '')"></label>
+							<div class="col-lg-11">
+								<input type="text" class="form-control cursor-disabled"
+									th:field="*{nomSpot}" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-lg-1"
+								th:text="#{message.secteur}+(${nouvelleLongueurForm.isNotNull('nomSecteur')} ? ' *' : '')"></label>
+							<div class="col-lg-11">
+								<input type="text" class="form-control cursor-disabled"
+									th:field="*{nomSecteur}" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-lg-1"
+								th:text="#{message.voie}+(${nouvelleLongueurForm.isNotNull('nomVoie')} ? ' *' : '')"></label>
+							<div class="col-lg-11">
+								<input type="text" class="form-control cursor-disabled"
+									th:field="*{nomVoie}" readonly>
+							</div>
+						</div>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('nom')} ? 'has-error has-feedback' : ''">
+							<label class="control-label col-lg-1"
+								th:text="#{message.nom}+(${nouvelleLongueurForm.isNotNull('nom')} ? ' *' : '')"></label>
+							<div class="col-lg-11">
+								<input type="text" class="form-control" th:field="*{nom}">
+								<span th:if="${#fields.hasErrors('nom')}"
+									class="glyphicon glyphicon-remove form-control-feedback"></span>
+								<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"
+									class="text-danger"></span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('longueur')} ? 'has-error has-feedback' : ''">
+									<label class="control-label col-lg-3"
+										th:text="#{message.longueur} + ' ' + #{message.uniteMetre}+(${nouvelleLongueurForm.isNotNull('longueur')} ? ' *' : '')"></label>
+									<div class="col-lg-9">
+										<input type="number" class="form-control"
+											th:field="*{longueur}"> <span
+											th:if="${#fields.hasErrors('longueur')}"
+											class="glyphicon glyphicon-remove form-control-feedback"></span>
+										<span th:if="${#fields.hasErrors('longueur')}"
+											th:errors="*{longueur}" class="text-danger"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('nbSpits')} ? 'has-error has-feedback' : ''">
+									<label class="control-label col-lg-2"
+										th:text="#{message.nbSpits}+(${nouvelleLongueurForm.isNotNull('nbSpits')} ? ' *' : '')"></label>
+									<div class="col-lg-10">
+										<input type="number" class="form-control"
+											th:field="*{nbSpits}"> <span
+											th:if="${#fields.hasErrors('nbSpits')}"
+											class="glyphicon glyphicon-remove form-control-feedback"></span>
+										<span th:if="${#fields.hasErrors('nbSpits')}"
+											th:errors="*{nbSpits}" class="text-danger"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('nomPlan')} ? 'has-error has-feedback' : ''">
+							<label class="control-label col-lg-1"
+								th:text="#{message.plan}+(${nouvelleLongueurForm.isNotNull('nomPlan')} ? ' *' : '')"></label>
+							<div class="col-lg-11">
+								<div class="input-group">
+									<input type="text" class="form-control" th:field="*{nomPlan}"
+										id="plan" th:placeholder="#{message.entrerPlanExistant}">
+									<div class="input-group-btn">
+										<a th:href="@{/ami/plan/nouveau}" class="btn btn-default"
+											role="button"><span class="glyphicon glyphicon-plus"></span>
+											[[#{message.nouveauPlan}]]</a>
+									</div>
+								</div>
+							</div>
+							<span th:if="${#fields.hasErrors('nomPlan')}"
+								class="glyphicon glyphicon-remove form-control-feedback"></span>
+							<span th:if="${#fields.hasErrors('nomPlan')}"
+								th:errors="*{nomPlan}" class="text-danger"></span>
+						</div>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('description')} ? 'has-error has-feedback' : ''">
+							<label class="control-label col-lg-1"
+								th:text="#{message.description}+(${nouvelleLongueurForm.isNotNull('description')} ? ' *' : '')"></label>
+							<div class="col-lg-11">
+								<textarea class="form-control" rows="5"
+									th:field="*{description}"></textarea>
+								<span th:if="${#fields.hasErrors('description')}"
+									class="glyphicon glyphicon-remove form-control-feedback"></span>
+								<span th:if="${#fields.hasErrors('description')}"
+									th:errors="*{description}" class="text-danger"></span>
+							</div>
+						</div>
+						<div class="form-group"
+							th:classappend="${#fields.hasErrors('remarque')} ? 'has-error has-feedback' : ''">
+							<label class="control-label col-lg-1"
+								th:text="#{message.remarque}+(${nouvelleLongueurForm.isNotNull('remarque')} ? ' *' : '')"></label>
+							<div class="col-lg-11">
+								<textarea class="form-control" rows="5" th:field="*{remarque}"></textarea>
+								<span th:if="${#fields.hasErrors('remarque')}"
+									class="glyphicon glyphicon-remove form-control-feedback"></span>
+								<span th:if="${#fields.hasErrors('remarque')}"
+									th:errors="*{remarque}" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+					<div class="list-group-item text-center no-bottom-padding-margin">
+						<ul class="list-inline list-inline-no-spacing">
+							<li><button type="submit" class="btn btn-primary btn-lg">
+									<span class="glyphicon glyphicon-save"></span>
+									[[#{message.enregistrer}]]
+								</button></li>
+							<li><a class="btn btn-danger btn-lg" role="button"
+								th:href="@{${urlVoie}}"><span
+									class="glyphicon glyphicon-remove"></span>
+									[[#{message.annuler}]]</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- layout:fragment -->
+
+</body>
+</html>
