@@ -73,7 +73,6 @@ public class AmiSecteurController {
 			model.addAttribute("spotActive", "active");
 			return "ami_secteur_nouveau";
 		}
-
 		redirectAttributes.addFlashAttribute("nouveauSecteurForm", nouveauSecteurForm);
 		return "redirect:/ami/spot/" + spotId + "/secteur/nouveau/enregistrement";
 	}

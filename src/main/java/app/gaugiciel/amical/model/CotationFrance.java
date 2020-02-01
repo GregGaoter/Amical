@@ -61,6 +61,16 @@ public class CotationFrance implements Serializable {
 	@Size(min = 1, max = 1, message = "{validation.size.exact}")
 	private String uniteTertiaire;
 
+	private CotationFrance(String unitePrincipale, String uniteSecondaire, String uniteTertiaire) {
+		this.unitePrincipale = unitePrincipale;
+		this.uniteSecondaire = uniteSecondaire;
+		this.uniteTertiaire = uniteTertiaire;
+	}
+
+	public static CotationFrance creer(String unitePrincipale, String uniteSecondaire, String uniteTertiaire) {
+		return new CotationFrance(unitePrincipale, uniteSecondaire, uniteTertiaire);
+	}
+
 	@Override
 	public String toString() {
 		if (!Utils.isValid(unitePrincipale)) {

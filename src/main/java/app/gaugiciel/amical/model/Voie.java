@@ -89,6 +89,23 @@ public class Voie implements Serializable {
 	@JoinColumn(name = "cotation_france_id")
 	private CotationFrance cotationFrance;
 
+	private Voie(String nom, String description, String remarque, String numero, Double hauteur, Secteur secteur,
+			Plan plan, CotationFrance cotationFrance) {
+		this.nom = nom;
+		this.description = description;
+		this.remarque = remarque;
+		this.numero = numero;
+		this.hauteur = hauteur;
+		this.secteur = secteur;
+		this.plan = plan;
+		this.cotationFrance = cotationFrance;
+	}
+
+	public static Voie creer(String nom, String description, String remarque, String numero, Double hauteur,
+			Secteur secteur, Plan plan, CotationFrance cotationFrance) {
+		return new Voie(nom, description, remarque, numero, hauteur, secteur, plan, cotationFrance);
+	}
+
 	@Override
 	public String toString() {
 		if (!Utils.isValid(numero) && !Utils.isValid(nom)) {

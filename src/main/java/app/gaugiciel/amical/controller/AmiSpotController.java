@@ -180,8 +180,10 @@ public class AmiSpotController {
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", size);
 		model.addAttribute("spotActive", "active");
-		session.setAttribute(ServiceRedirectionUrl.SPOT.label, "redirect:/ami/spot/" + spotId);
-		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/" + spotId);
+		session.setAttribute(ServiceRedirectionUrl.SPOT.label,
+				"redirect:/ami/spot/" + spotId + "?page=" + page + "&size=" + size);
+		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label,
+				"redirect:/ami/spot/" + spotId + "?page=" + page + "&size=" + size);
 		return "ami_spot";
 	}
 
