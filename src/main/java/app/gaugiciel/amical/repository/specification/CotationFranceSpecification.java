@@ -2,10 +2,10 @@ package app.gaugiciel.amical.repository.specification;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import app.gaugiciel.amical.business.implementation.ServiceCotationFrance;
-import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUnitePrincipale;
-import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUniteSecondaire;
-import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
+import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUnitePrincipale;
+import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteSecondaire;
+import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteTertiaire;
 import app.gaugiciel.amical.model.CotationFrance;
 import app.gaugiciel.amical.model.CotationFrance_;
 import app.gaugiciel.amical.utilitaire.Utils;

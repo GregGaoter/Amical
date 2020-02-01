@@ -12,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import app.gaugiciel.amical.business.implementation.ServiceAuthenticationSuccessHandler;
-import app.gaugiciel.amical.business.implementation.ServiceLogoutSuccessHandler;
+import app.gaugiciel.amical.business.implementation.authentification.ServiceAuthenticationSuccessHandler;
+import app.gaugiciel.amical.business.implementation.authentification.ServiceLogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity

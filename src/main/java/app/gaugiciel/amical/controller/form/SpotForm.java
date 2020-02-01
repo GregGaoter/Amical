@@ -9,10 +9,10 @@ import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
-import app.gaugiciel.amical.business.implementation.ServiceCotationFrance;
-import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUnitePrincipale;
-import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUniteSecondaire;
-import app.gaugiciel.amical.business.implementation.ServiceCotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
+import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUnitePrincipale;
+import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteSecondaire;
+import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteTertiaire;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

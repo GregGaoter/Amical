@@ -8,7 +8,7 @@ import javax.persistence.criteria.Subquery;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import app.gaugiciel.amical.business.implementation.ServiceCotationFrance;
+import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
 import app.gaugiciel.amical.controller.form.SpotForm;
 import app.gaugiciel.amical.model.CotationFrance;
 import app.gaugiciel.amical.model.CotationFrance_;
