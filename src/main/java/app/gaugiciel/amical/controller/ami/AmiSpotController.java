@@ -35,6 +35,7 @@ import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFran
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteSecondaire;
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteTertiaire;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormAjoutSpot;
+import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionSpot;
 import app.gaugiciel.amical.business.implementation.model.ServiceModel;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLieuFrance;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLongueur;
@@ -45,7 +46,9 @@ import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheVo
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
 import app.gaugiciel.amical.business.implementation.url.ServiceRedirectionUrl;
 import app.gaugiciel.amical.controller.form.AjoutSpotForm;
+import app.gaugiciel.amical.controller.form.EditionSpotForm;
 import app.gaugiciel.amical.controller.form.SpotForm;
+import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionSpot;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormSpot;
 import app.gaugiciel.amical.model.Longueur;
 import app.gaugiciel.amical.model.Plan;
@@ -76,9 +79,13 @@ public class AmiSpotController {
 	@Autowired
 	private ServiceEnregistrementFormAjoutSpot serviceEnregistrementFormAjoutSpot;
 	@Autowired
+	private ServiceEnregistrementFormEditionSpot serviceEnregistrementFormEditionSpot;
+	@Autowired
 	private ServiceRechercheLieuFrance serviceRechercheLieuFrance;
 	@Autowired
 	private ServiceRecherchePlan serviceRecherchePlan;
+	@Autowired
+	private ValidationFormEditionSpot validationFormEditionSpot;
 	@Autowired
 	private MessageSource messageSource;
 	@Autowired
@@ -190,6 +197,50 @@ public class AmiSpotController {
 		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label,
 				"redirect:/ami/spot/" + spotId + "?page=" + page + "&size=" + size);
 		return "ami_spot";
+	}
+
+	@GetMapping("/ami/spot/{spotId}/edition")
+	public String showEditionSpotForm(@PathVariable Long spotId, Model model) {
+		Spot spot = serviceRechercheSpot.findById(spotId);
+		EditionSpotForm editionSpotForm = EditionSpotForm.creer(spot);
+		model.addAttribute("spot", spot);
+		model.addAttribute("editionSpotForm", editionSpotForm);
+		model.addAttribute("spotActive", "active");
+		model.addAttribute("urlSpot", ((String) session.getAttribute(ServiceRedirectionUrl.SPOT.label)).split(":")[1]);
+		session.setAttribute(ServiceRedirectionUrl.EDITION_SPOT_FORM.label,
+				"redirect:/ami/spot/" + spotId + "/edition");
+		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/" + spotId + "/edition");
+		return "ami_spot_edition";
+	}
+
+	@PostMapping("/ami/spot/{spotId}/edition")
+	public String checkEditionSpotForm(@Valid EditionSpotForm editionSpotForm, @PathVariable Long spotId,
+			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+		Spot spot = serviceRechercheSpot.findById(spotId);
+		if (!validationFormEditionSpot.isValide(editionSpotForm)) {
+			validationFormEditionSpot.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
+		}
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("spot", spot);
+			model.addAttribute("spotActive", "active");
+			return "ami_spot_edition";
+		}
+		redirectAttributes.addFlashAttribute("editionSpotForm", editionSpotForm);
+		return "redirect:/ami/spot/" + spotId + "/edition/enregistrement";
+	}
+
+	@GetMapping("/ami/spot/{spotId}/edition/enregistrement")
+	public String saveEditionSpotForm(@PathVariable Long spotId, HttpServletRequest request,
+			RedirectAttributes redirectAttributes) {
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		if (inputFlashMap != null) {
+			EditionSpotForm editionSpotForm = (EditionSpotForm) inputFlashMap.get("editionSpotForm");
+			editionSpotForm.setLieuFrance(validationFormEditionSpot.getLieuFrance());
+			editionSpotForm.setPlan(validationFormEditionSpot.getPlan());
+			serviceEnregistrementFormEditionSpot.enregistrer(editionSpotForm);
+			redirectAttributes.addFlashAttribute("spot", serviceEnregistrementFormEditionSpot.getSpot());
+		}
+		return (String) session.getAttribute(ServiceRedirectionUrl.SPOT.label);
 	}
 
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}")

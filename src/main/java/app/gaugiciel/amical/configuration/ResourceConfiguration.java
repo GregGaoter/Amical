@@ -42,6 +42,7 @@ public class ResourceConfiguration implements WebMvcConfigurer {
 		templateResolver.setCharacterEncoding("UTF-8");
 		templateResolver.setOrder(order);
 		templateResolver.setCheckExistence(true);
+		templateResolver.setCacheable(true);
 		return templateResolver;
 	}
 

@@ -29,7 +29,8 @@ public class ServiceEnregistrementFormAjoutSpot implements ServiceEnregistrement
 
 	@Override
 	public void enregistrer(AjoutSpotForm ajoutSpotForm) {
-		LieuFrance lieuFrance = serviceRechercheLieuFrance.findOne(ajoutSpotForm.getLieuFrance());
+		LieuFrance lieuFrance = serviceRechercheLieuFrance.findByNomComplet(ajoutSpotForm.getLieuFrance())
+				.orElseThrow();
 		Plan plan = serviceRecherchePlan.findOne(ajoutSpotForm.getPlan());
 		spot = Spot.creer(ajoutSpotForm.getNom(), false, lieuFrance);
 		spot.setPlan(plan);
