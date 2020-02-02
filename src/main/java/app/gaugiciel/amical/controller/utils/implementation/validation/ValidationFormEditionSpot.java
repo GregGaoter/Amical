@@ -56,7 +56,7 @@ public class ValidationFormEditionSpot extends ValidationForm<EditionSpotForm> {
 		} else {
 			plan = planForm;
 		}
-		return false;
+		return listeFieldError.isEmpty();
 	}
 
 }

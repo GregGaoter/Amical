@@ -40,7 +40,7 @@
 							<div class="horizontal-spacer-20"></div>
 							<button type="button" class="btn btn-default disabled"
 								id="popoverFonctionnaliteReservee">
-								<span class="glyphicon glyphicon-plus"></span>
+								<span class="glyphicon glyphicon-edit"></span>
 								[[#{message.editerSpot}]]
 							</button>
 						</div>
@@ -126,6 +126,13 @@
 							class="panel-collapse collapse"
 							th:classappend="${secteur.id==secteurId} ? in : ''">
 							<div class="panel-body">
+								<div class="text-center">
+									<button type="button" class="btn btn-default disabled"
+										id="popoverFonctionnaliteReservee">
+										<span class="glyphicon glyphicon-edit"></span>
+										[[#{message.editerSecteur}]]
+									</button>
+								</div>
 								<h4 th:text="#{message.description}"></h4>
 								<p
 									th:text="${secteur.description==null} ? '-' : ${secteur.description}"></p>
