@@ -13,9 +13,11 @@ import org.springframework.validation.FieldError;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLieuFrance;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRecherchePlan;
 import app.gaugiciel.amical.controller.form.EditionSpotForm;
+import app.gaugiciel.amical.controller.form.EditionVoieForm;
 import app.gaugiciel.amical.controller.utils.contrat.ValidationForm;
 import app.gaugiciel.amical.model.LieuFrance;
 import app.gaugiciel.amical.model.Plan;
+import app.gaugiciel.amical.utilitaire.Utils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -49,12 +51,16 @@ public class ValidationFormEditionSpot extends ValidationForm<EditionSpotForm> {
 		} else {
 			lieuFrance = optionalLieuFrance.get();
 		}
-		Plan planForm = serviceRecherchePlan.findOne(editionSpotForm.getNomPlan());
-		if (planForm == null) {
-			listeFieldError.add(new FieldError(editionSpotForm.getClass().getSimpleName(), EditionSpotForm.NOM_PLAN,
-					messageSource.getMessage("validation.nomPlan", null, Locale.getDefault())));
+		if (Utils.isValid(editionSpotForm.getNomPlan())) {
+			Plan planForm = serviceRecherchePlan.findOne(editionSpotForm.getNomPlan());
+			if (planForm == null) {
+				listeFieldError.add(new FieldError(editionSpotForm.getClass().getSimpleName(), EditionSpotForm.NOM_PLAN,
+						messageSource.getMessage("validation.nomPlan", null, Locale.getDefault())));
+			} else {
+				plan = planForm;
+			}
 		} else {
-			plan = planForm;
+			plan = null;
 		}
 		return listeFieldError.isEmpty();
 	}

@@ -23,17 +23,22 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUnitePrincipale;
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteSecondaire;
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionVoie;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormNouvelleVoie;
 import app.gaugiciel.amical.business.implementation.model.ServiceModel;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSecteur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSpot;
+import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheVoie;
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
 import app.gaugiciel.amical.business.implementation.url.ServiceRedirectionUrl;
+import app.gaugiciel.amical.controller.form.EditionVoieForm;
 import app.gaugiciel.amical.controller.form.NouvelleVoieForm;
+import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionVoie;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormNouvelleVoie;
 import app.gaugiciel.amical.model.Plan;
 import app.gaugiciel.amical.model.Secteur;
 import app.gaugiciel.amical.model.Spot;
+import app.gaugiciel.amical.model.Voie;
 
 @Controller
 @ControllerAdvice
@@ -47,6 +52,12 @@ public class AmiVoieController {
 	private ValidationFormNouvelleVoie validationFormNouvelleVoie;
 	@Autowired
 	private ServiceEnregistrementFormNouvelleVoie serviceEnregistrementFormNouvelleVoie;
+	@Autowired
+	private ServiceRechercheVoie serviceRechercheVoie;
+	@Autowired
+	private ValidationFormEditionVoie validationFormEditionVoie;
+	@Autowired
+	private ServiceEnregistrementFormEditionVoie serviceEnregistrementFormEditionVoie;
 	@Autowired
 	private MessageSource messageSource;
 	@Autowired
@@ -110,6 +121,57 @@ public class AmiVoieController {
 			redirectAttributes.addFlashAttribute("voie", serviceEnregistrementFormNouvelleVoie.getVoie());
 		}
 		return (String) session.getAttribute(ServiceRedirectionUrl.SPOT.label);
+	}
+
+	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/edition")
+	public String showEditionVoieForm(@PathVariable Long spotId, @PathVariable Long secteurId,
+			@PathVariable Long voieId, Model model) {
+		Voie voie = serviceRechercheVoie.findById(voieId);
+		EditionVoieForm editionVoieForm = EditionVoieForm.creer(voie);
+		String urlRedirection = "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId
+				+ "/edition";
+		model.addAttribute("spot", editionVoieForm.getSpot());
+		model.addAttribute("secteur", editionVoieForm.getSecteur());
+		model.addAttribute("voie", voie);
+		model.addAttribute("editionVoieForm", editionVoieForm);
+		model.addAttribute("spotActive", "active");
+		model.addAttribute("urlVoie", ((String) session.getAttribute(ServiceRedirectionUrl.VOIE.label)).split(":")[1]);
+		session.setAttribute(ServiceRedirectionUrl.EDITION_VOIE_FORM.label, urlRedirection);
+		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, urlRedirection);
+		return "ami_voie_edition";
+	}
+
+	@PostMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/edition")
+	public String checkEditionVoieForm(@Valid EditionVoieForm editionVoieForm, @PathVariable Long spotId,
+			@PathVariable Long secteurId, @PathVariable Long voieId, BindingResult bindingResult, Model model,
+			RedirectAttributes redirectAttributes) {
+		Voie voie = serviceRechercheVoie.findById(voieId);
+		if (!validationFormEditionVoie.isValide(editionVoieForm)) {
+			validationFormEditionVoie.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
+		}
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("spot", editionVoieForm.getSpot());
+			model.addAttribute("secteur", editionVoieForm.getSecteur());
+			model.addAttribute("voie", voie);
+			model.addAttribute("spotActive", "active");
+			return "ami_voie_edition";
+		}
+		redirectAttributes.addFlashAttribute("editionVoieForm", editionVoieForm);
+		return "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId + "/edition/enregistrement";
+	}
+
+	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/edition/enregistrement")
+	public String saveEditionVoieForm(@PathVariable Long spotId, @PathVariable Long secteurId,
+			@PathVariable Long voieId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		if (inputFlashMap != null) {
+			EditionVoieForm editionVoieForm = (EditionVoieForm) inputFlashMap.get("editionVoieForm");
+			editionVoieForm.setPlan(validationFormEditionVoie.getPlan());
+			editionVoieForm.setCotationFrance(validationFormEditionVoie.getCotationFrance());
+			serviceEnregistrementFormEditionVoie.enregistrer(editionVoieForm);
+			redirectAttributes.addFlashAttribute("voie", serviceEnregistrementFormEditionVoie.getVoie());
+		}
+		return (String) session.getAttribute(ServiceRedirectionUrl.VOIE.label);
 	}
 
 	@ModelAttribute

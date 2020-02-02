@@ -11,6 +11,7 @@ import app.gaugiciel.amical.business.implementation.recherche.ServiceRecherchePl
 import app.gaugiciel.amical.controller.form.EditionSecteurForm;
 import app.gaugiciel.amical.controller.utils.contrat.ValidationForm;
 import app.gaugiciel.amical.model.Plan;
+import app.gaugiciel.amical.utilitaire.Utils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,13 +31,17 @@ public class ValidationFormEditionSecteur extends ValidationForm<EditionSecteurF
 	@Override
 	public boolean isValide(EditionSecteurForm editionSecteurForm) {
 		listeFieldError.clear();
-		Plan planForm = serviceRecherchePlan.findOne(editionSecteurForm.getNomPlan());
-		if (planForm == null) {
-			listeFieldError
-					.add(new FieldError(editionSecteurForm.getClass().getSimpleName(), EditionSecteurForm.NOM_PLAN,
-							messageSource.getMessage("validation.nomPlan", null, Locale.getDefault())));
+		if (Utils.isValid(editionSecteurForm.getNomPlan())) {
+			Plan planForm = serviceRecherchePlan.findOne(editionSecteurForm.getNomPlan());
+			if (planForm == null) {
+				listeFieldError
+						.add(new FieldError(editionSecteurForm.getClass().getSimpleName(), EditionSecteurForm.NOM_PLAN,
+								messageSource.getMessage("validation.nomPlan", null, Locale.getDefault())));
+			} else {
+				plan = planForm;
+			}
 		} else {
-			plan = planForm;
+			plan = null;
 		}
 		return listeFieldError.isEmpty();
 	}

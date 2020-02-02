@@ -76,7 +76,7 @@ public class EditionSpotForm {
 		remarque = spot.getRemarque();
 		tagQ = spot.getTagQ();
 		lieuFranceNomComplet = spot.getLieuFrance().afficherLieuComplet();
-		nomPlan = spot.getPlan().getPlan();
+		nomPlan = spot.getPlan() == null ? null : spot.getPlan().getPlan();
 	}
 
 	public static EditionSpotForm creer(Spot spot) {

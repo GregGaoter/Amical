@@ -253,10 +253,18 @@ public class AmiSpotController {
 	public String showVoie(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId,
 			Integer page, Integer size, Model model, HttpServletRequest request) {
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-		if (inputFlashMap != null) {
-			Longueur longueur = (Longueur) inputFlashMap.get("longueur");
-			model.addAttribute("messageLongueurEnregistreAvecSucces", messageSource.getMessage(
-					"message.LongueurEnregistreAvecSucces", new String[] { longueur.getNom() }, Locale.getDefault()));
+		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
+			if (inputFlashMap.containsKey("longueur")) {
+				Longueur longueur = (Longueur) inputFlashMap.get("longueur");
+				model.addAttribute("messageLongueurEnregistreAvecSucces",
+						messageSource.getMessage("message.LongueurEnregistreAvecSucces",
+								new String[] { longueur.getNom() }, Locale.getDefault()));
+			}
+			if (inputFlashMap.containsKey("voie")) {
+				Voie voie = (Voie) inputFlashMap.get("voie");
+				model.addAttribute("messageVoieEnregistreAvecSucces", messageSource.getMessage(
+						"message.voieEnregistreAvecSucces", new String[] { voie.getNom() }, Locale.getDefault()));
+			}
 		}
 		Voie voie = serviceRechercheVoie.findById(voieId);
 		Secteur secteur = serviceRechercheSecteur.findById(secteurId);

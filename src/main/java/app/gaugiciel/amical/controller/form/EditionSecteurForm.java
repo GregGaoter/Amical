@@ -63,7 +63,7 @@ public class EditionSecteurForm {
 		description = secteur.getDescription();
 		remarque = secteur.getRemarque();
 		nomSpot = secteur.getSpot().getNom();
-		nomPlan = secteur.getPlan().getPlan();
+		nomPlan = secteur.getPlan() == null ? null : secteur.getPlan().getPlan();
 	}
 
 	public static EditionSecteurForm creer(Secteur secteur) {
