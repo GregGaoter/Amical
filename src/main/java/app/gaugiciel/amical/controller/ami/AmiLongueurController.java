@@ -20,15 +20,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionLongueur;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormNouvelleLongueur;
 import app.gaugiciel.amical.business.implementation.model.ServiceModel;
+import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLongueur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSecteur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSpot;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheVoie;
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
 import app.gaugiciel.amical.business.implementation.url.ServiceRedirectionUrl;
+import app.gaugiciel.amical.controller.form.EditionLongueurForm;
 import app.gaugiciel.amical.controller.form.NouvelleLongueurForm;
+import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionLongueur;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormNouvelleLongueur;
+import app.gaugiciel.amical.model.Longueur;
 import app.gaugiciel.amical.model.Plan;
 import app.gaugiciel.amical.model.Secteur;
 import app.gaugiciel.amical.model.Spot;
@@ -48,6 +53,12 @@ public class AmiLongueurController {
 	private ValidationFormNouvelleLongueur validationFormNouvelleLongueur;
 	@Autowired
 	private ServiceEnregistrementFormNouvelleLongueur serviceEnregistrementFormNouvelleLongueur;
+	@Autowired
+	private ServiceRechercheLongueur serviceRechercheLongueur;
+	@Autowired
+	private ValidationFormEditionLongueur validationFormEditionLongueur;
+	@Autowired
+	private ServiceEnregistrementFormEditionLongueur serviceEnregistrementFormEditionLongueur;
 	@Autowired
 	private MessageSource messageSource;
 	@Autowired
@@ -120,6 +131,62 @@ public class AmiLongueurController {
 			redirectAttributes.addFlashAttribute("longueur", serviceEnregistrementFormNouvelleLongueur.getLongueur());
 		}
 		return (String) session.getAttribute(ServiceRedirectionUrl.VOIE.label);
+	}
+
+	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/{longueurId}/edition")
+	public String showEditionLongueurForm(@PathVariable Long spotId, @PathVariable Long secteurId,
+			@PathVariable Long voieId, @PathVariable Long longueurId, Model model) {
+		Longueur longueur = serviceRechercheLongueur.findById(longueurId);
+		EditionLongueurForm editionLongueurForm = EditionLongueurForm.creer(longueur);
+		String urlRedirection = "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId
+				+ "/longueur/" + longueurId + "/edition";
+		model.addAttribute("spot", editionLongueurForm.getSpot());
+		model.addAttribute("secteur", editionLongueurForm.getSecteur());
+		model.addAttribute("voie", editionLongueurForm.getVoie());
+		model.addAttribute("longueur", longueur);
+		model.addAttribute("editionLongueurForm", editionLongueurForm);
+		model.addAttribute("spotActive", "active");
+		model.addAttribute("urlLongueur",
+				((String) session.getAttribute(ServiceRedirectionUrl.LONGUEUR.label)).split(":")[1]);
+		session.setAttribute(ServiceRedirectionUrl.EDITION_LONGUEUR_FORM.label, urlRedirection);
+		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, urlRedirection);
+		return "ami_longueur_edition";
+	}
+
+	@PostMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/{longueurId}/edition")
+	public String checkEditionLongueurForm(@Valid EditionLongueurForm editionLongueurForm, @PathVariable Long spotId,
+			@PathVariable Long secteurId, @PathVariable Long voieId, @PathVariable Long longueurId,
+			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+		Longueur longueur = serviceRechercheLongueur.findById(longueurId);
+		if (!validationFormEditionLongueur.isValide(editionLongueurForm)) {
+			validationFormEditionLongueur.getListeFieldError()
+					.forEach(fieldError -> bindingResult.addError(fieldError));
+		}
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("spot", editionLongueurForm.getSpot());
+			model.addAttribute("secteur", editionLongueurForm.getSecteur());
+			model.addAttribute("voie", editionLongueurForm.getVoie());
+			model.addAttribute("longueur", longueur);
+			model.addAttribute("spotActive", "active");
+			return "ami_longueur_edition";
+		}
+		redirectAttributes.addFlashAttribute("editionLongueurForm", editionLongueurForm);
+		return "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId + "/longueur/" + longueurId
+				+ "/edition/enregistrement";
+	}
+
+	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/{longueurId}/edition/enregistrement")
+	public String saveEditionLongueurForm(@PathVariable Long spotId, @PathVariable Long secteurId,
+			@PathVariable Long voieId, @PathVariable Long longueurId, HttpServletRequest request,
+			RedirectAttributes redirectAttributes) {
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		if (inputFlashMap != null) {
+			EditionLongueurForm editionLongueurForm = (EditionLongueurForm) inputFlashMap.get("editionLongueurForm");
+			editionLongueurForm.setPlan(validationFormEditionLongueur.getPlan());
+			serviceEnregistrementFormEditionLongueur.enregistrer(editionLongueurForm);
+			redirectAttributes.addFlashAttribute("longueur", serviceEnregistrementFormEditionLongueur.getLongueur());
+		}
+		return (String) session.getAttribute(ServiceRedirectionUrl.LONGUEUR.label);
 	}
 
 	@ModelAttribute

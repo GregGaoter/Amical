@@ -14,6 +14,13 @@
 <body class="body-without-nav-pills">
 
 	<div layout:fragment="content">
+		<div th:if="${messageLongueurEnregistreAvecSucces}"
+			class="alert alert-success alert-dismissible fade in">
+			<a class="close" data-dismiss="alert"><span
+				class="glyphicon glyphicon-remove"></span></a><span
+				class="glyphicon glyphicon-ok-sign"></span>
+			[[${messageLongueurEnregistreAvecSucces}]]
+		</div>
 		<div class="row">
 			<div class="col-lg-12">
 				<ul class="breadcrumb">
@@ -38,8 +45,15 @@
 				</ul>
 				<div class="row line-spacer">
 					<div class="col-lg-12">
-						<h1 class="no-top-margin"
-							th:text="#{message.longueur} + ' ' + ${longueur.nom}"></h1>
+						<div class="conteneur-flex">
+							<h1 class="no-top-margin"
+								th:text="#{message.longueur} + ' ' + ${longueur.nom}"></h1>
+							<div class="horizontal-spacer-20"></div>
+							<a class="btn btn-default btn-lg" role="button"
+								th:href="@{'/ami/spot/'+${spot.id}+'/secteur/'+${secteur.id}+'/voie/'+${voie.id}+'/longueur/'+${longueur.id}+'/edition'}"><span
+								class="glyphicon glyphicon-edit"></span>
+								[[#{message.editerLongueur}]]</a>
+						</div>
 					</div>
 				</div>
 				<h2 th:text="#{message.description}"></h2>

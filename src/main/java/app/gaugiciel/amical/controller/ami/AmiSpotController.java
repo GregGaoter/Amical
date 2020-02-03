@@ -286,11 +286,22 @@ public class AmiSpotController {
 
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/{longueurId}")
 	public String showLongueur(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId,
-			@PathVariable Long longueurId, Integer page, Integer size, Model model) {
+			@PathVariable Long longueurId, Integer page, Integer size, Model model, HttpServletRequest request) {
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
+			if (inputFlashMap.containsKey("longueur")) {
+				Longueur longueur = (Longueur) inputFlashMap.get("longueur");
+				model.addAttribute("messageLongueurEnregistreAvecSucces",
+						messageSource.getMessage("message.LongueurEnregistreAvecSucces",
+								new String[] { longueur.getNom() }, Locale.getDefault()));
+			}
+		}
 		Longueur longueur = serviceRechercheLongueur.findById(longueurId);
 		Voie voie = serviceRechercheVoie.findById(voieId);
 		Secteur secteur = serviceRechercheSecteur.findById(secteurId);
 		Spot spot = serviceRechercheSpot.findById(spotId);
+		String redirectUrlLongueur = "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId
+				+ "/longueur/" + longueurId + "?page=" + page + "&size=" + size;
 		model.addAttribute("longueur", longueur);
 		model.addAttribute("voie", voie);
 		model.addAttribute("secteur", secteur);
@@ -298,6 +309,8 @@ public class AmiSpotController {
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", size);
 		model.addAttribute("spotActive", "active");
+		session.setAttribute(ServiceRedirectionUrl.LONGUEUR.label, redirectUrlLongueur);
+		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, redirectUrlLongueur);
 		return "ami_longueur";
 	}
 
