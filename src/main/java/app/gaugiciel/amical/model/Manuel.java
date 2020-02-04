@@ -27,7 +27,8 @@ import lombok.ToString;
 
 //Persistance
 @Entity
-@Table(indexes = { @Index(columnList = "lieu_france_id"), @Index(columnList = "nom"), @Index(columnList = "etat") })
+@Table(indexes = { @Index(columnList = "authentification_email"), @Index(columnList = "lieu_france_id"),
+		@Index(columnList = "nom"), @Index(columnList = "etat") })
 //Lombok
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
@@ -96,8 +97,13 @@ public class Manuel implements Serializable {
 	private String categorie;
 
 	// Persistance
+	@ManyToOne
+	@JoinColumn(name = "authentification_email", nullable = false)
+	private Authentification authentification;
+
+	// Persistance
 	@OneToMany(mappedBy = "manuel")
-	private Set<PretManuel> listePretsManuels;
+	Set<PretEmpruntManuel> listePretsEmpruntsManuels;
 
 	// Persistance
 	@ManyToOne

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -76,5 +77,13 @@ public class Authentification implements Serializable {
 	// Persistance
 	@OneToOne(mappedBy = "authentification", cascade = CascadeType.ALL)
 	private Utilisateur utilisateur;
+
+	// Persistance
+	@OneToMany(mappedBy = "emailPreteur")
+	Set<PretEmpruntManuel> listePretsManuels;
+
+	// Persistance
+	@OneToMany(mappedBy = "emailEmprunteur")
+	Set<PretEmpruntManuel> listeEmpruntsManuels;
 
 }

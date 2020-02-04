@@ -158,6 +158,12 @@ public class AmiLongueurController {
 			@PathVariable Long secteurId, @PathVariable Long voieId, @PathVariable Long longueurId,
 			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		Longueur longueur = serviceRechercheLongueur.findById(longueurId);
+		Voie voie = longueur.getVoie();
+		Secteur secteur = voie.getSecteur();
+		Spot spot = secteur.getSpot();
+		editionLongueurForm.setVoie(voie);
+		editionLongueurForm.setSecteur(secteur);
+		editionLongueurForm.setSpot(spot);
 		if (!validationFormEditionLongueur.isValide(editionLongueurForm)) {
 			validationFormEditionLongueur.getListeFieldError()
 					.forEach(fieldError -> bindingResult.addError(fieldError));

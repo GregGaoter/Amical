@@ -13,7 +13,6 @@ import org.springframework.validation.FieldError;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLieuFrance;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRecherchePlan;
 import app.gaugiciel.amical.controller.form.EditionSpotForm;
-import app.gaugiciel.amical.controller.form.EditionVoieForm;
 import app.gaugiciel.amical.controller.utils.contrat.ValidationForm;
 import app.gaugiciel.amical.model.LieuFrance;
 import app.gaugiciel.amical.model.Plan;
