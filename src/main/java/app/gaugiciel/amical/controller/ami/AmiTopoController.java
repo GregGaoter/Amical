@@ -1,6 +1,5 @@
 package app.gaugiciel.amical.controller.ami;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
@@ -31,11 +30,9 @@ import app.gaugiciel.amical.business.implementation.enumeration.EtatManuel;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheTopo;
-import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheUtilisateur;
 import app.gaugiciel.amical.controller.form.RechercheTopoForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheTopo;
 import app.gaugiciel.amical.model.Manuel;
-import app.gaugiciel.amical.model.Utilisateur;
 
 @Controller
 @ControllerAdvice
@@ -47,8 +44,6 @@ public class AmiTopoController {
 	private ServiceRechercheTopo serviceRechercheTopo;
 	@Autowired
 	private ValidationFormRechercheTopo validationFormRechercheTopo;
-	@Autowired
-	private ServiceRechercheUtilisateur serviceRechercheUtilisateur;
 	private RechercheTopoForm rechercheTopoForm;
 
 	@GetMapping("/ami/topo/recherche")
@@ -92,13 +87,8 @@ public class AmiTopoController {
 			rechercheTopoForm = this.rechercheTopoForm;
 		}
 		Page<Manuel> pagesManuels = serviceRechercheTopo.rechercher(rechercheTopoForm, PageRequest.of(page, taille));
-		Map<Manuel, Utilisateur> listeManuelsUtilisateurs = new HashMap<>();
-		for (Manuel manuel : pagesManuels.getContent()) {
-			listeManuelsUtilisateurs.put(manuel,
-					serviceRechercheUtilisateur.findByEmail(manuel.getAuthentification().getEmail()));
-		}
 		model.addAttribute("rechercheTopoForm", rechercheTopoForm);
-		model.addAttribute("listeManuelsUtilisateurs", listeManuelsUtilisateurs);
+		model.addAttribute("listeManuels", pagesManuels.getContent());
 		model.addAttribute("nbManuels", pagesManuels.getTotalElements());
 		model.addAttribute("listePages", IntStream.range(0, pagesManuels.getTotalPages()).toArray());
 		model.addAttribute("nbPages", pagesManuels.getTotalPages());
@@ -106,6 +96,19 @@ public class AmiTopoController {
 		model.addAttribute("pageSize", TailleResultatRecherche.TOPO);
 		model.addAttribute("topoActive", "active");
 		return "ami_topo_recherche";
+	}
+
+	@GetMapping("/ami/topo/{manuelId}/taille/{taille}/page/{page}")
+	public String showTopo(@PathVariable long manuelId, @PathVariable int taille, @PathVariable int page, Model model) {
+		Manuel manuel = serviceRechercheTopo.findById(manuelId);
+		String urlRedirection = "redirect:/ami/topo/" + manuelId + "/taille/" + taille + "/page/" + page;
+		model.addAttribute("manuel", manuel);
+		model.addAttribute("pageNumber", page);
+		model.addAttribute("pageSize", taille);
+		model.addAttribute("topoActive", "active");
+		session.setAttribute(RedirectionUrl.MANUEL.label, urlRedirection);
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
+		return "ami_manuel";
 	}
 
 	@GetMapping("/ami/topo/recherche/nomManuel")

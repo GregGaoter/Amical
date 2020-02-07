@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{ami_layout.html}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title th:text="#{message.topo}"></title>
+</head>
+<body class="body-without-nav-pills">
+
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-lg-12">
+				<ul class="breadcrumb">
+					<li><a th:href="@{/ami/accueil}" data-toggle="tooltip"
+						data-placement="bottom" th:title="#{message.accueil}"><span
+							class="glyphicon glyphicon-home"></span></a></li>
+					<li><a
+						th:href="@{'/ami/topo/recherche/resultat/taille/'+${pageSize}+'/page/'+${pageNumber}}"
+						data-toggle="tooltip" data-placement="bottom"
+						th:title="#{message.rechercheTopo}"><span
+							class="glyphicon glyphicon-search"></span></a></li>
+					<li class="active" th:text="${manuel.nom}"></li>
+				</ul>
+				<div class="row line-spacer">
+					<h1 class="no-top-margin" th:text=${manuel.nom}></h1>
+				</div>
+				<h2 th:text="#{message.lieu}"></h2>
+				<div class="table table-responsive no-bottom-padding-margin">
+					<table class="table text-nowrap">
+						<thead>
+							<tr>
+								<th th:text="#{message.region}"></th>
+								<th th:text="#{message.departement}"></th>
+								<th th:text="#{message.codePostal}"></th>
+								<th th:text="#{message.ville}"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td th:text="${manuel.lieuFrance.region}"></td>
+								<td th:text="${manuel.lieuFrance.departement}"></td>
+								<td th:text="${manuel.lieuFrance.codePostal}"></td>
+								<td th:text="${manuel.lieuFrance.ville}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="row">
+					<div class="col-lg-6">
+						<h2 th:text="#{message.categorie}"></h2>
+						<p
+							th:text="${manuel.categorie==null || manuel.categorie==''} ? '-' : ${manuel.categorie}"></p>
+					</div>
+					<div class="col-lg-6">
+						<h2 th:text="#{message.etat}"></h2>
+						<p
+							th:class="${manuel.etat=='DISPONIBLE'} ? text-success : text-danger">
+							<span
+								th:class="${manuel.etat=='DISPONIBLE'} ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'">
+								[[${manuel.etat}]]</span>
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6">
+						<h2 th:text="#{message.dateParution}"></h2>
+						<p
+							th:text="${manuel.getDateParution()==null || manuel.getDateParution()==''} ? '-' : ${manuel.getDateParution()}"></p>
+					</div>
+					<div class="col-lg-6">
+						<h2 th:text="#{message.auteur}"></h2>
+						<p
+							th:text="${manuel.auteur==null || manuel.auteur==''} ? '-' : ${manuel.auteur}"></p>
+					</div>
+				</div>
+
+
+				<h2 th:text="#{message.description}"></h2>
+				<p
+					th:text="${manuel.description==null || manuel.description==''} ? '-' : ${manuel.description}"></p>
+				<h2 th:text="#{message.remarque}"></h2>
+				<p
+					th:text="${manuel.remarque==null || manuel.remarque==''} ? '-' : ${manuel.remarque}"></p>
+			</div>
+		</div>
+	</div>
+	<!-- layout:fragment -->
+
+</body>
+</html>

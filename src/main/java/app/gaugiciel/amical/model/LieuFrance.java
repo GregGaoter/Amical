@@ -76,7 +76,7 @@ public class LieuFrance implements Serializable {
 	// Lombok
 	@NonNull
 	@ToString.Include
-	private String codePostale;
+	private String codePostal;
 
 	// Persistance
 	@Column(nullable = false, length = 64)
@@ -97,13 +97,13 @@ public class LieuFrance implements Serializable {
 		List<String> listeProprietes = new ArrayList<>(4);
 		listeProprietes.add(region);
 		listeProprietes.add(departement);
-		listeProprietes.add(codePostale);
+		listeProprietes.add(codePostal);
 		listeProprietes.add(ville);
 		return listeProprietes;
 	}
 
 	public String afficherLieuComplet() {
-		return region + ", " + departement + ", " + codePostale + ", " + ville;
+		return region + ", " + departement + ", " + codePostal + ", " + ville;
 	}
 
 }

@@ -53,7 +53,7 @@ public class LieuFranceSpecification {
 				return null;
 			}
 			return builder.like(
-					builder.function("unaccent", String.class, builder.upper(root.get(LieuFrance_.CODE_POSTALE))),
+					builder.function("unaccent", String.class, builder.upper(root.get(LieuFrance_.CODE_POSTAL))),
 					"%" + Utils.normaliser(codePostal) + "%");
 		};
 	}
@@ -63,7 +63,7 @@ public class LieuFranceSpecification {
 			if (!Utils.isValid(codePostal)) {
 				return null;
 			}
-			return builder.equal(root.get(LieuFrance_.CODE_POSTALE), codePostal);
+			return builder.equal(root.get(LieuFrance_.CODE_POSTAL), codePostal);
 		};
 	}
 

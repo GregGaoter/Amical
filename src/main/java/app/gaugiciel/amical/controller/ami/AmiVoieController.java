@@ -1,5 +1,6 @@
 package app.gaugiciel.amical.controller.ami;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUn
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
+import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLongueur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSecteur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSpot;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheVoie;
@@ -35,6 +37,7 @@ import app.gaugiciel.amical.controller.form.EditionVoieForm;
 import app.gaugiciel.amical.controller.form.NouvelleVoieForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionVoie;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormNouvelleVoie;
+import app.gaugiciel.amical.model.Longueur;
 import app.gaugiciel.amical.model.Plan;
 import app.gaugiciel.amical.model.Secteur;
 import app.gaugiciel.amical.model.Spot;
@@ -54,6 +57,8 @@ public class AmiVoieController {
 	private ServiceEnregistrementFormNouvelleVoie serviceEnregistrementFormNouvelleVoie;
 	@Autowired
 	private ServiceRechercheVoie serviceRechercheVoie;
+	@Autowired
+	private ServiceRechercheLongueur serviceRechercheLongueur;
 	@Autowired
 	private ValidationFormEditionVoie validationFormEditionVoie;
 	@Autowired
@@ -121,6 +126,41 @@ public class AmiVoieController {
 			redirectAttributes.addFlashAttribute("voie", serviceEnregistrementFormNouvelleVoie.getVoie());
 		}
 		return (String) session.getAttribute(RedirectionUrl.SPOT.label);
+	}
+
+	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}")
+	public String showVoie(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId,
+			Integer page, Integer size, Model model, HttpServletRequest request) {
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
+			if (inputFlashMap.containsKey("longueur")) {
+				Longueur longueur = (Longueur) inputFlashMap.get("longueur");
+				model.addAttribute("messageLongueurEnregistreAvecSucces",
+						messageSource.getMessage("message.LongueurEnregistreAvecSucces",
+								new String[] { longueur.getNom() }, Locale.getDefault()));
+			}
+			if (inputFlashMap.containsKey("voie")) {
+				Voie voie = (Voie) inputFlashMap.get("voie");
+				model.addAttribute("messageVoieEnregistreAvecSucces", messageSource.getMessage(
+						"message.voieEnregistreAvecSucces", new String[] { voie.getNom() }, Locale.getDefault()));
+			}
+		}
+		Voie voie = serviceRechercheVoie.findById(voieId);
+		Secteur secteur = serviceRechercheSecteur.findById(secteurId);
+		Spot spot = serviceRechercheSpot.findById(spotId);
+		List<Longueur> listeLongueurs = serviceRechercheLongueur.findByVoieIdOrderByNom(voieId);
+		model.addAttribute("voie", voie);
+		model.addAttribute("secteur", secteur);
+		model.addAttribute("spot", spot);
+		model.addAttribute("listeLongueurs", listeLongueurs);
+		model.addAttribute("pageNumber", page);
+		model.addAttribute("pageSize", size);
+		model.addAttribute("spotActive", "active");
+		session.setAttribute(RedirectionUrl.VOIE.label, "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId
+				+ "/voie/" + voieId + "?page=" + page + "&size=" + size);
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId
+				+ "/voie/" + voieId + "?page=" + page + "&size=" + size);
+		return "ami_voie";
 	}
 
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/edition")

@@ -133,6 +133,36 @@ public class AmiLongueurController {
 		return (String) session.getAttribute(RedirectionUrl.VOIE.label);
 	}
 
+	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/{longueurId}")
+	public String showLongueur(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId,
+			@PathVariable Long longueurId, Integer page, Integer size, Model model, HttpServletRequest request) {
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
+			if (inputFlashMap.containsKey("longueur")) {
+				Longueur longueur = (Longueur) inputFlashMap.get("longueur");
+				model.addAttribute("messageLongueurEnregistreAvecSucces",
+						messageSource.getMessage("message.LongueurEnregistreAvecSucces",
+								new String[] { longueur.getNom() }, Locale.getDefault()));
+			}
+		}
+		Longueur longueur = serviceRechercheLongueur.findById(longueurId);
+		Voie voie = serviceRechercheVoie.findById(voieId);
+		Secteur secteur = serviceRechercheSecteur.findById(secteurId);
+		Spot spot = serviceRechercheSpot.findById(spotId);
+		String redirectUrlLongueur = "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId
+				+ "/longueur/" + longueurId + "?page=" + page + "&size=" + size;
+		model.addAttribute("longueur", longueur);
+		model.addAttribute("voie", voie);
+		model.addAttribute("secteur", secteur);
+		model.addAttribute("spot", spot);
+		model.addAttribute("pageNumber", page);
+		model.addAttribute("pageSize", size);
+		model.addAttribute("spotActive", "active");
+		session.setAttribute(RedirectionUrl.LONGUEUR.label, redirectUrlLongueur);
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, redirectUrlLongueur);
+		return "ami_longueur";
+	}
+
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/{longueurId}/edition")
 	public String showEditionLongueurForm(@PathVariable Long spotId, @PathVariable Long secteurId,
 			@PathVariable Long voieId, @PathVariable Long longueurId, Model model) {
@@ -146,8 +176,7 @@ public class AmiLongueurController {
 		model.addAttribute("longueur", longueur);
 		model.addAttribute("editionLongueurForm", editionLongueurForm);
 		model.addAttribute("spotActive", "active");
-		model.addAttribute("urlLongueur",
-				((String) session.getAttribute(RedirectionUrl.LONGUEUR.label)).split(":")[1]);
+		model.addAttribute("urlLongueur", ((String) session.getAttribute(RedirectionUrl.LONGUEUR.label)).split(":")[1]);
 		session.setAttribute(RedirectionUrl.EDITION_LONGUEUR_FORM.label, urlRedirection);
 		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
 		return "ami_longueur_edition";

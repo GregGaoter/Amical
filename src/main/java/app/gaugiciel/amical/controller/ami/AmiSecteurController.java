@@ -70,10 +70,8 @@ public class AmiSecteurController {
 		nouveauSecteurForm.setNomSpot(spot.getNom());
 		model.addAttribute("spotActive", "active");
 		model.addAttribute("spotId", spotId);
-		session.setAttribute(RedirectionUrl.SECTEUR_FORM.label,
-				"redirect:/ami/spot/" + spotId + "/secteur/nouveau");
-		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label,
-				"redirect:/ami/spot/" + spotId + "/secteur/nouveau");
+		session.setAttribute(RedirectionUrl.SECTEUR_FORM.label, "redirect:/ami/spot/" + spotId + "/secteur/nouveau");
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/" + spotId + "/secteur/nouveau");
 		return "ami_secteur_nouveau";
 	}
 
@@ -98,6 +96,12 @@ public class AmiSecteurController {
 			redirectAttributes.addFlashAttribute("secteur", serviceEnregistrementFormNouveauSecteur.getSecteur());
 		}
 		return (String) session.getAttribute(RedirectionUrl.SPOT.label);
+	}
+
+	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}")
+	public String showSecteur(@PathVariable Long spotId, @PathVariable Long secteurId, Integer page, Integer size,
+			Model model) {
+		return "redirect:/ami/spot/" + spotId + "?secteurId=" + secteurId + "&page=" + page + "&size=" + size;
 	}
 
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/edition")

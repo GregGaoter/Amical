@@ -53,7 +53,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-lg-4">
+								<div class="col-lg-6">
 									<div class="form-group"
 										th:classappend="${#fields.hasErrors('categorie')} ? 'has-error has-feedback' : ''">
 										<label class="control-label" th:text="#{message.categorie}"></label>
@@ -67,7 +67,7 @@
 											th:errors="*{categorie}" class="text-danger"></span>
 									</div>
 								</div>
-								<div class="col-lg-4">
+								<div class="col-lg-6">
 									<div class="form-group"
 										th:classappend="${#fields.hasErrors('etat')} ? 'has-error has-feedback' : ''">
 										<label class="control-label" th:text="#{message.etat}"></label>
@@ -79,19 +79,6 @@
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
 										<span th:if="${#fields.hasErrors('etat')}" th:errors="*{etat}"
 											class="text-danger"></span>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="form-group"
-										th:classappend="${#fields.hasErrors('auteur')} ? 'has-error has-feedback' : ''">
-										<label class="control-label" th:text="#{message.auteur}"></label>
-										<input type="text" id="nomAuteur" class="form-control"
-											th:field="*{auteur}"
-											th:placeholder="#{message.placeHolderNomAuteurTopo}"><span
-											th:if="${#fields.hasErrors('auteur')}"
-											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('auteur')}"
-											th:errors="*{auteur}" class="text-danger"></span>
 									</div>
 								</div>
 							</div>
@@ -131,15 +118,15 @@
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group"
-										th:classappend="${#fields.hasErrors('proprietaireTemplate')} ? 'has-error has-feedback' : ''">
-										<label class="control-label" th:text="#{message.proprietaire}"></label>
-										<input type="text" id="proprietaireTopo" class="form-control"
-											th:placeholder="#{message.placeHolderProprietaireTopo}"
-											th:field="*{proprietaireTemplate}"><span
-											th:if="${#fields.hasErrors('proprietaireTemplate')}"
+										th:classappend="${#fields.hasErrors('auteur')} ? 'has-error has-feedback' : ''">
+										<label class="control-label" th:text="#{message.auteur}"></label>
+										<input type="text" id="nomAuteur" class="form-control"
+											th:field="*{auteur}"
+											th:placeholder="#{message.placeHolderNomAuteurTopo}"><span
+											th:if="${#fields.hasErrors('auteur')}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('proprietaireTemplate')}"
-											th:errors="*{proprietaireTemplate}" class="text-danger"></span>
+										<span th:if="${#fields.hasErrors('auteur')}"
+											th:errors="*{auteur}" class="text-danger"></span>
 									</div>
 								</div>
 							</div>
@@ -192,22 +179,23 @@
 									<th th:text="#{message.etat}"></th>
 									<th th:text="#{message.dateParution}"></th>
 									<th th:text="#{message.auteur}"></th>
-									<th th:text="#{message.proprietaire}"></th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="l:${listeManuelsUtilisateurs}" class="pointer"
-									th:onclick="'javascript:spotResultTableRowClicked(\'' + ${l.key.id} + '\',\'' + ${pageNumber} + '\',\'' + ${pageSize} + '\');'">
-									<td th:text="${l.key.nom}"></td>
-									<td th:text="${l.key.lieuFrance.region}"></td>
-									<td th:text="${l.key.lieuFrance.departement}"></td>
-									<td th:text="${l.key.lieuFrance.codePostale}"></td>
-									<td th:text="${l.key.lieuFrance.ville}"></td>
-									<td th:text="${l.key.categorie}"></td>
-									<td th:text="${l.key.etat}"></td>
-									<td th:text="${l.key.getDateParution()}"></td>
-									<td th:text="${l.key.auteur}"></td>
-									<td th:text="${l.value.afficherComplet()}"></td>
+								<tr th:each="l:${listeManuels}" class="pointer"
+									th:onclick="'javascript:topoResultTableRowClicked(\'' + ${l.id} + '\',\'' + ${pageSize} + '\',\'' + ${pageNumber} + '\');'">
+									<td th:text="${l.nom}"></td>
+									<td th:text="${l.lieuFrance.region}"></td>
+									<td th:text="${l.lieuFrance.departement}"></td>
+									<td th:text="${l.lieuFrance.codePostal}"></td>
+									<td th:text="${l.lieuFrance.ville}"></td>
+									<td th:text="${l.categorie}"></td>
+									<td
+										th:class="${l.etat=='DISPONIBLE'} ? text-success : text-danger"><span
+										th:class="${l.etat=='DISPONIBLE'} ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'">
+											[[${l.etat}]]</span></td>
+									<td th:text="${l.getDateParution()}"></td>
+									<td th:text="${l.auteur}"></td>
 								</tr>
 							</tbody>
 						</table>

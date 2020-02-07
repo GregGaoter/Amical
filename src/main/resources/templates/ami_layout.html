@@ -167,6 +167,10 @@
 					+ "/voie/" + voieId + "/longueur/" + longueurId + "?page="
 					+ pageNumber + "&size=" + pageSize;
 		}
+		function topoResultTableRowClicked(manuelId, taille, page) {
+			location.href = "/ami/topo/" + manuelId + "/taille/" + taille
+					+ "/page/" + page;
+		}
 	</script>
 	<script type="text/javascript">
 		boutonHautDePage = document.getElementById("boutonHautDePage");

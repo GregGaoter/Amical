@@ -52,4 +52,8 @@ public class ServiceRechercheTopo implements Recherche<Manuel, RechercheTopoForm
 		return manuelRepository.findAll(ManuelSpecification.hasAll(rechercheTopoForm), pageable);
 	}
 
+	public Manuel findById(long manuelId) {
+		return manuelRepository.findById(manuelId).orElse(null);
+	}
+
 }
