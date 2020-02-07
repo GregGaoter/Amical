@@ -32,7 +32,9 @@ import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheTopo;
 import app.gaugiciel.amical.controller.form.RechercheTopoForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheTopo;
+import app.gaugiciel.amical.model.Authentification;
 import app.gaugiciel.amical.model.Manuel;
+import app.gaugiciel.amical.model.Utilisateur;
 
 @Controller
 @ControllerAdvice
@@ -111,6 +113,31 @@ public class AmiTopoController {
 		return "ami_manuel";
 	}
 
+	@GetMapping("/ami/topo/topos")
+	public String showToposUtilisateur(Model model) {
+		List<Manuel> listeManuelsUtilisateur = serviceRechercheTopo
+				.findByAuthentification((Authentification) session.getAttribute(NomModel.AUTHENTIFICATION.label));
+		String urlRedirection = "redirect:/ami/topo/topos";
+		model.addAttribute("listeManuelsUtilisateur", listeManuelsUtilisateur);
+		model.addAttribute("nbManuels", listeManuelsUtilisateur.size());
+		model.addAttribute("topoActive", "active");
+		session.setAttribute(RedirectionUrl.TOPOS.label, urlRedirection);
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
+		return "ami_manuels_utilisateur";
+	}
+
+	@GetMapping("/ami/topo/{manuelId}/utilisateur")
+	public String showTopoUtilisateur(@PathVariable long manuelId, Model model) {
+		Manuel manuel = serviceRechercheTopo.findById(manuelId);
+		String urlRedirection = "redirect:/ami/topo/" + manuelId;
+		model.addAttribute("manuel", manuel);
+		model.addAttribute("manuelUtilisateur", true);
+		model.addAttribute("topoActive", "active");
+		session.setAttribute(RedirectionUrl.MANUEL.label, urlRedirection);
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
+		return "ami_manuel";
+	}
+
 	@GetMapping("/ami/topo/recherche/nomManuel")
 	@ResponseBody
 	public List<String> rechercherNomManuel(@RequestParam("term") String nomManuel) {
@@ -131,9 +158,14 @@ public class AmiTopoController {
 
 	@ModelAttribute
 	public void addAttributes(Model model) {
-		model.addAttribute(NomModel.UTILISATEUR.label, session.getAttribute(NomModel.UTILISATEUR.label));
-		model.addAttribute("categorieManuelLabels", CategorieManuel.LABELS);
-		model.addAttribute("etatManuelLabels", EtatManuel.LABELS);
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute(NomModel.UTILISATEUR.label);
+		if (utilisateur != null) {
+			model.addAttribute(NomModel.UTILISATEUR.label, utilisateur);
+			model.addAttribute("categorieManuelLabels", CategorieManuel.LABELS);
+			model.addAttribute("etatManuelLabels", EtatManuel.LABELS);
+			model.addAttribute("nbManuelsUtilisateur",
+					serviceRechercheTopo.countProprietaire(utilisateur.getAuthentification()));
+		}
 	}
 
 }

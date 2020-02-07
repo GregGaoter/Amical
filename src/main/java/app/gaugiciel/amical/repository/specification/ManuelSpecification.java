@@ -2,6 +2,7 @@ package app.gaugiciel.amical.repository.specification;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Objects;
 
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
@@ -9,6 +10,7 @@ import javax.persistence.criteria.Subquery;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.controller.form.RechercheTopoForm;
+import app.gaugiciel.amical.model.Authentification;
 import app.gaugiciel.amical.model.LieuFrance;
 import app.gaugiciel.amical.model.LieuFrance_;
 import app.gaugiciel.amical.model.Manuel;
@@ -103,6 +105,15 @@ public class ManuelSpecification {
 			query.where(root.get(Manuel_.AUTHENTIFICATION).in(subqueryUtilisateur));
 
 			return query.getRestriction();
+		};
+	}
+
+	public static Specification<Manuel> proprietaireEqual(Authentification proprietaire) {
+		return (root, query, builder) -> {
+			if (Objects.isNull(proprietaire)) {
+				return null;
+			}
+			return builder.equal(root.get(Manuel_.AUTHENTIFICATION), proprietaire);
 		};
 	}
 

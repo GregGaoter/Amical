@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{ami_layout.html}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title th:text="#{message.mesTopos}"></title>
+</head>
+<body class="body-without-nav-pills">
+
+	<div layout:fragment="content">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					[[#{message.mesTopos}]] <span class="badge" th:text="${nbManuels}"></span>
+				</h3>
+			</div>
+			<div class="scroll-horizontal">
+				<table
+					class="table table-striped table-hover text-nowrap no-bottom-padding-margin">
+					<thead>
+						<tr>
+							<th th:text="#{message.nom}"></th>
+							<th th:text="#{message.region}"></th>
+							<th th:text="#{message.departement}"></th>
+							<th th:text="#{message.codePostal}"></th>
+							<th th:text="#{message.ville}"></th>
+							<th th:text="#{message.categorie}"></th>
+							<th th:text="#{message.etat}"></th>
+							<th th:text="#{message.dateParution}"></th>
+							<th th:text="#{message.auteur}"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="l:${listeManuelsUtilisateur}" class="pointer"
+							th:onclick="'javascript:topoUtilisateurTableRowClicked(\'' + ${l.id} + '\');'">
+							<td th:text="${l.nom}"></td>
+							<td th:text="${l.lieuFrance.region}"></td>
+							<td th:text="${l.lieuFrance.departement}"></td>
+							<td th:text="${l.lieuFrance.codePostal}"></td>
+							<td th:text="${l.lieuFrance.ville}"></td>
+							<td th:text="${l.categorie}"></td>
+							<td
+								th:class="${l.etat=='DISPONIBLE'} ? text-success : text-danger"><span
+								th:class="${l.etat=='DISPONIBLE'} ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'">
+									[[${l.etat}]]</span></td>
+							<td th:text="${l.getDateParution()}"></td>
+							<td th:text="${l.auteur}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- layout:fragment -->
+
+</body>
+</html>

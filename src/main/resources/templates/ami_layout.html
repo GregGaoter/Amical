@@ -42,7 +42,7 @@
 									[[#{message.rechercher}]]</a></li>
 							<li><a th:href="@{/ami/topo/topos}"><span
 									class="glyphicon glyphicon-list"></span>
-									[[#{message.mesTopos}]] <span class="badge">5</span></a></li>
+									[[#{message.mesTopos}]] <span class="badge">[[${nbManuelsUtilisateur}]]</span></a></li>
 							<li><a th:href="@{/ami/topo/prets}"><span
 									class="glyphicon glyphicon-export"></span>
 									[[#{message.mesPrets}]] <span class="badge">5</span></a></li>
@@ -170,6 +170,9 @@
 		function topoResultTableRowClicked(manuelId, taille, page) {
 			location.href = "/ami/topo/" + manuelId + "/taille/" + taille
 					+ "/page/" + page;
+		}
+		function topoUtilisateurTableRowClicked(manuelId) {
+			location.href = "/ami/topo/" + manuelId + "/utilisateur";
 		}
 	</script>
 	<script type="text/javascript">

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import app.gaugiciel.amical.business.contrat.Recherche;
 import app.gaugiciel.amical.controller.form.RechercheTopoForm;
+import app.gaugiciel.amical.model.Authentification;
 import app.gaugiciel.amical.model.Manuel;
 import app.gaugiciel.amical.model.Utilisateur;
 import app.gaugiciel.amical.repository.ManuelRepository;
@@ -17,6 +18,7 @@ import app.gaugiciel.amical.repository.UtilisateurRepository;
 import app.gaugiciel.amical.repository.specification.ManuelSpecification;
 import app.gaugiciel.amical.repository.specification.UtilisateurSpecification;
 import app.gaugiciel.amical.utilitaire.Utils;
+import lombok.NonNull;
 
 @Service
 public class ServiceRechercheTopo implements Recherche<Manuel, RechercheTopoForm> {
@@ -54,6 +56,14 @@ public class ServiceRechercheTopo implements Recherche<Manuel, RechercheTopoForm
 
 	public Manuel findById(long manuelId) {
 		return manuelRepository.findById(manuelId).orElse(null);
+	}
+
+	public long countProprietaire(@NonNull Authentification proprietaire) {
+		return manuelRepository.count(ManuelSpecification.proprietaireEqual(proprietaire));
+	}
+
+	public List<Manuel> findByAuthentification(Authentification proprietaire) {
+		return manuelRepository.findAll(ManuelSpecification.proprietaireEqual(proprietaire));
 	}
 
 }

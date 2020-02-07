@@ -21,10 +21,10 @@
 						data-placement="bottom" th:title="#{message.accueil}"><span
 							class="glyphicon glyphicon-home"></span></a></li>
 					<li><a
-						th:href="@{'/ami/topo/recherche/resultat/taille/'+${pageSize}+'/page/'+${pageNumber}}"
+						th:href="${manuelUtilisateur} ? @{/ami/topo/topos} : @{'/ami/topo/recherche/resultat/taille/'+${pageSize}+'/page/'+${pageNumber}}"
 						data-toggle="tooltip" data-placement="bottom"
-						th:title="#{message.rechercheTopo}"><span
-							class="glyphicon glyphicon-search"></span></a></li>
+						th:title="${manuelUtilisateur} ? #{message.mesTopos} : #{message.rechercheTopo}"><span
+							th:class="${manuelUtilisateur} ? 'glyphicon glyphicon-list' : 'glyphicon glyphicon-search'"></span></a></li>
 					<li class="active" th:text="${manuel.nom}"></li>
 				</ul>
 				<div class="row line-spacer">

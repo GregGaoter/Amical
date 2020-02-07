@@ -28,6 +28,7 @@ public class ServiceAuthenticationSuccessHandler implements AuthenticationSucces
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = serviceRechercheUtilisateur.findByEmail(authentication.getName());
 		session.setAttribute(NomModel.UTILISATEUR.label, utilisateur);
+		session.setAttribute(NomModel.AUTHENTIFICATION.label, utilisateur.getAuthentification());
 		response.sendRedirect("/ami/accueil");
 	}
 
