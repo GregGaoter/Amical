@@ -3,11 +3,11 @@ package app.gaugiciel.amical.business.implementation.enregistrement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.contrat.ServiceEnregistrement;
+import app.gaugiciel.amical.business.contrat.Enregistrement;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLieuFrance;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRecherchePlan;
 import app.gaugiciel.amical.business.implementation.repository.ServiceRepositorySpot;
-import app.gaugiciel.amical.controller.form.AjoutSpotForm;
+import app.gaugiciel.amical.controller.form.NouveauSpotForm;
 import app.gaugiciel.amical.model.LieuFrance;
 import app.gaugiciel.amical.model.Plan;
 import app.gaugiciel.amical.model.Spot;
@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Service
-public class ServiceEnregistrementFormAjoutSpot implements ServiceEnregistrement<AjoutSpotForm> {
+public class ServiceEnregistrementFormAjoutSpot implements Enregistrement<NouveauSpotForm> {
 
 	@Autowired
 	private ServiceRepositorySpot serviceRepositorySpot;
@@ -28,7 +28,7 @@ public class ServiceEnregistrementFormAjoutSpot implements ServiceEnregistrement
 	private ServiceRecherchePlan serviceRecherchePlan;
 
 	@Override
-	public void enregistrer(AjoutSpotForm ajoutSpotForm) {
+	public void enregistrer(NouveauSpotForm ajoutSpotForm) {
 		LieuFrance lieuFrance = serviceRechercheLieuFrance.findByNomComplet(ajoutSpotForm.getLieuFrance())
 				.orElseThrow();
 		Plan plan = serviceRecherchePlan.findOne(ajoutSpotForm.getPlan());

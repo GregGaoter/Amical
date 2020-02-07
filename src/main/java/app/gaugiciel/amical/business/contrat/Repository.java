@@ -1,6 +1,6 @@
 package app.gaugiciel.amical.business.contrat;
 
-public interface ServiceRepository<M> {
+public interface Repository<M> {
 
 	public M enregistrer(M model);
 

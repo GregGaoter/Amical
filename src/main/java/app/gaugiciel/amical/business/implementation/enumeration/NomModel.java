@@ -1,6 +1,6 @@
-package app.gaugiciel.amical.business.implementation.model;
+package app.gaugiciel.amical.business.implementation.enumeration;
 
-public enum ServiceModel {
+public enum NomModel {
 
 	AUTHENTIFICATION("authentification"), COMMENTAIRE("commentaire"), COTATION_FRANCE("cotationFrance"),
 	EMPRUNT_MANUEL("empruntManuel"), LIEU_FRANCE("lieuFrance"), LONGUEUR("longueur"), MANUEL("manuel"), PLAN("plan"),
@@ -9,7 +9,7 @@ public enum ServiceModel {
 
 	public final String label;
 
-	private ServiceModel(String label) {
+	private NomModel(String label) {
 		this.label = label;
 	}
 

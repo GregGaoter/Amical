@@ -22,11 +22,11 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionSecteur;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormNouveauSecteur;
-import app.gaugiciel.amical.business.implementation.model.ServiceModel;
+import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
+import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSecteur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSpot;
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
-import app.gaugiciel.amical.business.implementation.url.ServiceRedirectionUrl;
 import app.gaugiciel.amical.controller.form.EditionSecteurForm;
 import app.gaugiciel.amical.controller.form.NouveauSecteurForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionSecteur;
@@ -70,9 +70,9 @@ public class AmiSecteurController {
 		nouveauSecteurForm.setNomSpot(spot.getNom());
 		model.addAttribute("spotActive", "active");
 		model.addAttribute("spotId", spotId);
-		session.setAttribute(ServiceRedirectionUrl.SECTEUR_FORM.label,
+		session.setAttribute(RedirectionUrl.SECTEUR_FORM.label,
 				"redirect:/ami/spot/" + spotId + "/secteur/nouveau");
-		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label,
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label,
 				"redirect:/ami/spot/" + spotId + "/secteur/nouveau");
 		return "ami_secteur_nouveau";
 	}
@@ -97,7 +97,7 @@ public class AmiSecteurController {
 			serviceEnregistrementFormNouveauSecteur.enregistrer(nouveauSecteurForm);
 			redirectAttributes.addFlashAttribute("secteur", serviceEnregistrementFormNouveauSecteur.getSecteur());
 		}
-		return (String) session.getAttribute(ServiceRedirectionUrl.SPOT.label);
+		return (String) session.getAttribute(RedirectionUrl.SPOT.label);
 	}
 
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/edition")
@@ -109,9 +109,9 @@ public class AmiSecteurController {
 		model.addAttribute("secteur", secteur);
 		model.addAttribute("editionSecteurForm", editionSecteurForm);
 		model.addAttribute("spotActive", "active");
-		model.addAttribute("urlSpot", ((String) session.getAttribute(ServiceRedirectionUrl.SPOT.label)).split(":")[1]);
-		session.setAttribute(ServiceRedirectionUrl.EDITION_SECTEUR_FORM.label, urlRedirection);
-		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, urlRedirection);
+		model.addAttribute("urlSpot", ((String) session.getAttribute(RedirectionUrl.SPOT.label)).split(":")[1]);
+		session.setAttribute(RedirectionUrl.EDITION_SECTEUR_FORM.label, urlRedirection);
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
 		return "ami_secteur_edition";
 	}
 
@@ -143,13 +143,13 @@ public class AmiSecteurController {
 			serviceEnregistrementFormEditionSecteur.enregistrer(editionSecteurForm);
 			redirectAttributes.addFlashAttribute("secteur", serviceEnregistrementFormEditionSecteur.getSecteur());
 		}
-		return (String) session.getAttribute(ServiceRedirectionUrl.SPOT.label);
+		return (String) session.getAttribute(RedirectionUrl.SPOT.label);
 	}
 
 	@ModelAttribute
 	public void addAttributes(Model model) {
 		model.addAttribute("nouveauSecteurForm", nouveauSecteurForm);
-		model.addAttribute(ServiceModel.UTILISATEUR.label, session.getAttribute(ServiceModel.UTILISATEUR.label));
+		model.addAttribute(NomModel.UTILISATEUR.label, session.getAttribute(NomModel.UTILISATEUR.label));
 		model.addAttribute("cheminPlan", ServiceStockagePlan.RESOURCE_HANDLER_PLAN);
 	}
 

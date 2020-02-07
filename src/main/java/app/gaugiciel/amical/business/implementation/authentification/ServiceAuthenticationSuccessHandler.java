@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.implementation.model.ServiceModel;
+import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheUtilisateur;
 import app.gaugiciel.amical.model.Utilisateur;
 
@@ -27,7 +27,7 @@ public class ServiceAuthenticationSuccessHandler implements AuthenticationSucces
 			Authentication authentication) throws IOException, ServletException {
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = serviceRechercheUtilisateur.findByEmail(authentication.getName());
-		session.setAttribute(ServiceModel.UTILISATEUR.label, utilisateur);
+		session.setAttribute(NomModel.UTILISATEUR.label, utilisateur);
 		response.sendRedirect("/ami/accueil");
 	}
 

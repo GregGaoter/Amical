@@ -9,7 +9,7 @@ import javax.persistence.criteria.Subquery;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
-import app.gaugiciel.amical.controller.form.SpotForm;
+import app.gaugiciel.amical.controller.form.RechercheSpotForm;
 import app.gaugiciel.amical.model.CotationFrance;
 import app.gaugiciel.amical.model.CotationFrance_;
 import app.gaugiciel.amical.model.LieuFrance;
@@ -149,15 +149,17 @@ public class SpotSpecification {
 		};
 	}
 
-	public static Specification<Spot> hasAll(SpotForm spotForm) {
-		if (spotForm.estVide()) {
+	public static Specification<Spot> hasAll(RechercheSpotForm rechercheSpotForm) {
+		if (rechercheSpotForm.estVide()) {
 			return null;
 		}
-		return Specification.where(nomContaining(spotForm.getNomSpot()))
-				.and(lieuContaining(spotForm.getLieuFranceSpot()).and(officielEqual(spotForm.getIsOfficielSpot())))
-				.and(nomSecteurContaining(spotForm.getNomSecteur())).and(nomVoieContaining(spotForm.getNomVoie()))
-				.and(cotationVoieEqual(spotForm.getListeCotations()))
-				.and(hauteurVoieBetween(spotForm.getHauteurMinVoie(), spotForm.getHauteurMaxVoie()));
+		return Specification.where(nomContaining(rechercheSpotForm.getNomSpot()))
+				.and(lieuContaining(rechercheSpotForm.getLieuFranceSpot())
+						.and(officielEqual(rechercheSpotForm.getIsOfficielSpot())))
+				.and(nomSecteurContaining(rechercheSpotForm.getNomSecteur()))
+				.and(nomVoieContaining(rechercheSpotForm.getNomVoie()))
+				.and(cotationVoieEqual(rechercheSpotForm.getListeCotations()))
+				.and(hauteurVoieBetween(rechercheSpotForm.getHauteurMinVoie(), rechercheSpotForm.getHauteurMaxVoie()));
 	}
 
 }

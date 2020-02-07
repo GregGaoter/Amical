@@ -22,13 +22,13 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionLongueur;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormNouvelleLongueur;
-import app.gaugiciel.amical.business.implementation.model.ServiceModel;
+import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
+import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLongueur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSecteur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSpot;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheVoie;
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
-import app.gaugiciel.amical.business.implementation.url.ServiceRedirectionUrl;
 import app.gaugiciel.amical.controller.form.EditionLongueurForm;
 import app.gaugiciel.amical.controller.form.NouvelleLongueurForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionLongueur;
@@ -87,10 +87,10 @@ public class AmiLongueurController {
 		model.addAttribute("secteur", secteur);
 		model.addAttribute("voie", voie);
 		model.addAttribute("spotActive", "active");
-		model.addAttribute("urlVoie", ((String) session.getAttribute(ServiceRedirectionUrl.VOIE.label)).split(":")[1]);
-		session.setAttribute(ServiceRedirectionUrl.LONGUEUR_FORM.label,
+		model.addAttribute("urlVoie", ((String) session.getAttribute(RedirectionUrl.VOIE.label)).split(":")[1]);
+		session.setAttribute(RedirectionUrl.LONGUEUR_FORM.label,
 				"redirect:/ami/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId + "/longueur/nouveau");
-		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label,
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label,
 				"redirect:/ami/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId + "/longueur/nouveau");
 		return "ami_longueur_nouvelle";
 	}
@@ -130,7 +130,7 @@ public class AmiLongueurController {
 			serviceEnregistrementFormNouvelleLongueur.enregistrer(nouvelleLongueurForm);
 			redirectAttributes.addFlashAttribute("longueur", serviceEnregistrementFormNouvelleLongueur.getLongueur());
 		}
-		return (String) session.getAttribute(ServiceRedirectionUrl.VOIE.label);
+		return (String) session.getAttribute(RedirectionUrl.VOIE.label);
 	}
 
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/{longueurId}/edition")
@@ -147,9 +147,9 @@ public class AmiLongueurController {
 		model.addAttribute("editionLongueurForm", editionLongueurForm);
 		model.addAttribute("spotActive", "active");
 		model.addAttribute("urlLongueur",
-				((String) session.getAttribute(ServiceRedirectionUrl.LONGUEUR.label)).split(":")[1]);
-		session.setAttribute(ServiceRedirectionUrl.EDITION_LONGUEUR_FORM.label, urlRedirection);
-		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, urlRedirection);
+				((String) session.getAttribute(RedirectionUrl.LONGUEUR.label)).split(":")[1]);
+		session.setAttribute(RedirectionUrl.EDITION_LONGUEUR_FORM.label, urlRedirection);
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
 		return "ami_longueur_edition";
 	}
 
@@ -192,12 +192,12 @@ public class AmiLongueurController {
 			serviceEnregistrementFormEditionLongueur.enregistrer(editionLongueurForm);
 			redirectAttributes.addFlashAttribute("longueur", serviceEnregistrementFormEditionLongueur.getLongueur());
 		}
-		return (String) session.getAttribute(ServiceRedirectionUrl.LONGUEUR.label);
+		return (String) session.getAttribute(RedirectionUrl.LONGUEUR.label);
 	}
 
 	@ModelAttribute
 	public void addAttributes(Model model) {
-		model.addAttribute(ServiceModel.UTILISATEUR.label, session.getAttribute(ServiceModel.UTILISATEUR.label));
+		model.addAttribute(NomModel.UTILISATEUR.label, session.getAttribute(NomModel.UTILISATEUR.label));
 		model.addAttribute("cheminPlan", ServiceStockagePlan.RESOURCE_HANDLER_PLAN);
 	}
 

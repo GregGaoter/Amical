@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.FieldError;
 
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUnitePrincipale;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteSecondaire;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheCotationFrance;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRecherchePlan;
 import app.gaugiciel.amical.business.implementation.repository.ServiceRepositoryCotationFrance;
@@ -68,9 +68,9 @@ public class ValidationFormEditionVoie extends ValidationForm<EditionVoieForm> {
 			String uniteTertiaire = editionVoieForm.getCotationUniteTertiaire();
 			Optional<CotationFrance> optionalCotationFrance = serviceRechercheCotationFrance
 					.findOne(CotationFranceSpecification.cotationEqual(
-							ServiceCotationFrance.creer(ServiceCotationFranceUnitePrincipale.ofLabel(unitePrincipale),
-									ServiceCotationFranceUniteSecondaire.ofLabel(uniteSecondaire),
-									ServiceCotationFranceUniteTertiaire.ofLabel(uniteTertiaire))));
+							ServiceCotationFrance.creer(CotationFranceUnitePrincipale.ofLabel(unitePrincipale),
+									CotationFranceUniteSecondaire.ofLabel(uniteSecondaire),
+									CotationFranceUniteTertiaire.ofLabel(uniteTertiaire))));
 			cotationFrance = optionalCotationFrance.isEmpty()
 					? serviceRepositoryCotationFrance
 							.enregistrer(CotationFrance.creer(unitePrincipale, uniteSecondaire, uniteTertiaire))

@@ -3,11 +3,11 @@ package app.gaugiciel.amical.business.implementation.enregistrement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.contrat.ServiceEnregistrement;
+import app.gaugiciel.amical.business.contrat.Enregistrement;
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUnitePrincipale;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteSecondaire;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
 import app.gaugiciel.amical.business.implementation.repository.ServiceRepositoryCotationFrance;
 import app.gaugiciel.amical.business.implementation.repository.ServiceRepositoryVoie;
 import app.gaugiciel.amical.controller.form.NouvelleVoieForm;
@@ -22,7 +22,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Service
-public class ServiceEnregistrementFormNouvelleVoie implements ServiceEnregistrement<NouvelleVoieForm> {
+public class ServiceEnregistrementFormNouvelleVoie implements Enregistrement<NouvelleVoieForm> {
 
 	@Autowired
 	private ServiceRepositoryVoie serviceRepositoryVoie;
@@ -46,9 +46,9 @@ public class ServiceEnregistrementFormNouvelleVoie implements ServiceEnregistrem
 		String uniteTertiaire = nouvelleVoieForm.getCotationUniteTertiaire();
 		CotationFrance cotationFrance = Utils.isValid(unitePrincipale) ? cotationFranceRepository
 				.findOne(CotationFranceSpecification.cotationEqual(
-						ServiceCotationFrance.creer(ServiceCotationFranceUnitePrincipale.ofLabel(unitePrincipale),
-								ServiceCotationFranceUniteSecondaire.ofLabel(uniteSecondaire),
-								ServiceCotationFranceUniteTertiaire.ofLabel(uniteTertiaire))))
+						ServiceCotationFrance.creer(CotationFranceUnitePrincipale.ofLabel(unitePrincipale),
+								CotationFranceUniteSecondaire.ofLabel(uniteSecondaire),
+								CotationFranceUniteTertiaire.ofLabel(uniteTertiaire))))
 				.orElse(serviceRepositoryCotationFrance
 						.enregistrer(CotationFrance.creer(unitePrincipale, uniteSecondaire, uniteTertiaire)))
 				: null;

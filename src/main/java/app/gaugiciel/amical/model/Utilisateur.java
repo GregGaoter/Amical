@@ -1,6 +1,8 @@
 package app.gaugiciel.amical.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,6 +68,18 @@ public class Utilisateur implements Serializable {
 	@Override
 	public String toString() {
 		return prenom + " " + nom;
+	}
+
+	public List<String> getProprietes() {
+		List<String> listeProprietes = new ArrayList<>(3);
+		listeProprietes.add(authentificationEmail);
+		listeProprietes.add(prenom);
+		listeProprietes.add(nom);
+		return listeProprietes;
+	}
+
+	public String afficherComplet() {
+		return prenom + " " + nom + ", " + authentificationEmail;
 	}
 
 }

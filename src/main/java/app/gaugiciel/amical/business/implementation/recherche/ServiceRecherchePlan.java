@@ -8,14 +8,14 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.contrat.ServiceRecherche;
+import app.gaugiciel.amical.business.contrat.Recherche;
 import app.gaugiciel.amical.model.Plan;
 import app.gaugiciel.amical.repository.PlanRepository;
 import app.gaugiciel.amical.repository.specification.PlanSpecification;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 @Service
-public class ServiceRecherchePlan implements ServiceRecherche<Plan, Object> {
+public class ServiceRecherchePlan implements Recherche<Plan, Object> {
 
 	@Autowired
 	private PlanRepository planRepository;

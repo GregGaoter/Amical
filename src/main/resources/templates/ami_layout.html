@@ -32,8 +32,24 @@
 						th:text="#{message.accueil}"></a></li>
 					<li th:class="${spotActive}"><a
 						th:href="@{/ami/spot/recherche}" th:text="#{message.spots}"></a></li>
-					<li th:class="${topoActive}"><a th:href="@{/ami/topo}"
-						th:text="#{message.topos}"></a></li>
+					<li class="dropdown" th:classappend="${topoActive}"><a
+						class="dropdown-toggle" data-toggle="dropdown">[[#{message.topos}]]
+							<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a th:href="@{/ami/topo/recherche}"><span
+									class="glyphicon glyphicon-search"></span>
+									[[#{message.rechercher}]]</a></li>
+							<li><a th:href="@{/ami/topo/topos}"><span
+									class="glyphicon glyphicon-list"></span>
+									[[#{message.mesTopos}]] <span class="badge">5</span></a></li>
+							<li><a th:href="@{/ami/topo/prets}"><span
+									class="glyphicon glyphicon-export"></span>
+									[[#{message.mesPrets}]] <span class="badge">5</span></a></li>
+							<li><a th:href="@{/ami/topo/emprunts}"><span
+									class="glyphicon glyphicon-import"></span>
+									[[#{message.mesEmprunts}]] <span class="badge">5</span></a></li>
+						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a class="dropdown-toggle"
@@ -44,7 +60,6 @@
 							<li><a href="#"><span
 									class="glyphicon glyphicon-dashboard"></span>
 									[[#{message.tableauDeBord}]]</a></li>
-							<li><a href="#">Topos</a></li>
 							<li class="divider"></li>
 							<li><a th:href="@{/logout}" style="color: #ee5f5b;"><span
 									class="glyphicon glyphicon-log-out"></span>
@@ -112,6 +127,15 @@
 			});
 			$('#plan').autocomplete({
 				source : "/ami/spot/ajout/plan"
+			});
+			$('#nomManuel').autocomplete({
+				source : "/ami/topo/recherche/nomManuel"
+			});
+			$('#nomAuteur').autocomplete({
+				source : "/ami/topo/recherche/nomAuteur"
+			});
+			$('#proprietaireTopo').autocomplete({
+				source : "/ami/topo/recherche/proprietaire"
 			});
 			$('#secteur').on('shown.bs.collapse', function() {
 				var panel = $(this).find('.in');

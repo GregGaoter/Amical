@@ -20,17 +20,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUnitePrincipale;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteSecondaire;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteTertiaire;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionVoie;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormNouvelleVoie;
-import app.gaugiciel.amical.business.implementation.model.ServiceModel;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
+import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSecteur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSpot;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheVoie;
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
-import app.gaugiciel.amical.business.implementation.url.ServiceRedirectionUrl;
 import app.gaugiciel.amical.controller.form.EditionVoieForm;
 import app.gaugiciel.amical.controller.form.NouvelleVoieForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionVoie;
@@ -83,9 +83,9 @@ public class AmiVoieController {
 		model.addAttribute("spot", spot);
 		model.addAttribute("secteur", secteur);
 		model.addAttribute("spotActive", "active");
-		session.setAttribute(ServiceRedirectionUrl.VOIE_FORM.label,
+		session.setAttribute(RedirectionUrl.VOIE_FORM.label,
 				"redirect:/ami/spot/" + spotId + "/secteur/" + secteurId + "/voie/nouveau");
-		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label,
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label,
 				"redirect:/ami/spot/" + spotId + "/secteur/" + secteurId + "/voie/nouveau");
 		return "ami_voie_nouvelle";
 	}
@@ -120,7 +120,7 @@ public class AmiVoieController {
 			serviceEnregistrementFormNouvelleVoie.enregistrer(nouvelleVoieForm);
 			redirectAttributes.addFlashAttribute("voie", serviceEnregistrementFormNouvelleVoie.getVoie());
 		}
-		return (String) session.getAttribute(ServiceRedirectionUrl.SPOT.label);
+		return (String) session.getAttribute(RedirectionUrl.SPOT.label);
 	}
 
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/edition")
@@ -135,9 +135,9 @@ public class AmiVoieController {
 		model.addAttribute("voie", voie);
 		model.addAttribute("editionVoieForm", editionVoieForm);
 		model.addAttribute("spotActive", "active");
-		model.addAttribute("urlVoie", ((String) session.getAttribute(ServiceRedirectionUrl.VOIE.label)).split(":")[1]);
-		session.setAttribute(ServiceRedirectionUrl.EDITION_VOIE_FORM.label, urlRedirection);
-		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, urlRedirection);
+		model.addAttribute("urlVoie", ((String) session.getAttribute(RedirectionUrl.VOIE.label)).split(":")[1]);
+		session.setAttribute(RedirectionUrl.EDITION_VOIE_FORM.label, urlRedirection);
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
 		return "ami_voie_edition";
 	}
 
@@ -171,15 +171,15 @@ public class AmiVoieController {
 			serviceEnregistrementFormEditionVoie.enregistrer(editionVoieForm);
 			redirectAttributes.addFlashAttribute("voie", serviceEnregistrementFormEditionVoie.getVoie());
 		}
-		return (String) session.getAttribute(ServiceRedirectionUrl.VOIE.label);
+		return (String) session.getAttribute(RedirectionUrl.VOIE.label);
 	}
 
 	@ModelAttribute
 	public void addAttributes(Model model) {
-		model.addAttribute(ServiceModel.UTILISATEUR.label, session.getAttribute(ServiceModel.UTILISATEUR.label));
-		model.addAttribute("unitePrincipaleLabels", ServiceCotationFranceUnitePrincipale.LABELS);
-		model.addAttribute("uniteSecondaireLabels", ServiceCotationFranceUniteSecondaire.LABELS);
-		model.addAttribute("uniteTertiaireLabels", ServiceCotationFranceUniteTertiaire.LABELS);
+		model.addAttribute(NomModel.UTILISATEUR.label, session.getAttribute(NomModel.UTILISATEUR.label));
+		model.addAttribute("unitePrincipaleLabels", CotationFranceUnitePrincipale.LABELS);
+		model.addAttribute("uniteSecondaireLabels", CotationFranceUniteSecondaire.LABELS);
+		model.addAttribute("uniteTertiaireLabels", CotationFranceUniteTertiaire.LABELS);
 		model.addAttribute("cheminPlan", ServiceStockagePlan.RESOURCE_HANDLER_PLAN);
 	}
 

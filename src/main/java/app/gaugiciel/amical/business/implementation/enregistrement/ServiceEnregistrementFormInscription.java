@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.contrat.ServiceEnregistrement;
+import app.gaugiciel.amical.business.contrat.Enregistrement;
+import app.gaugiciel.amical.business.implementation.enumeration.RoleUtilisateur;
 import app.gaugiciel.amical.business.implementation.repository.ServiceRepositoryAuthentification;
 import app.gaugiciel.amical.business.implementation.repository.ServiceRepositoryUtilisateur;
-import app.gaugiciel.amical.business.implementation.role.ServiceRoleUtilisateur;
 import app.gaugiciel.amical.controller.form.InscriptionForm;
 import app.gaugiciel.amical.model.Authentification;
 import app.gaugiciel.amical.model.Role;
@@ -20,7 +20,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Service
-public class ServiceEnregistrementFormInscription implements ServiceEnregistrement<InscriptionForm> {
+public class ServiceEnregistrementFormInscription implements Enregistrement<InscriptionForm> {
 
 	@Autowired
 	private InscriptionForm inscriptionForm;
@@ -49,7 +49,7 @@ public class ServiceEnregistrementFormInscription implements ServiceEnregistreme
 	private void enregistrerAuthentification() {
 		authentification = serviceRepositoryAuthentification.enregistrer(Authentification.creer(
 				inscriptionForm.getEmail(), passwordEncoder.encode(inscriptionForm.getMotDePasse()), true,
-				Stream.of(Role.creer(ServiceRoleUtilisateur.AMI.name())).collect(Collectors.toSet())));
+				Stream.of(Role.creer(RoleUtilisateur.AMI.name())).collect(Collectors.toSet())));
 	}
 
 	private void enregistrerUtilisateur() {

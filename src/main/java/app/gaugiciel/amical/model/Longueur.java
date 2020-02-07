@@ -16,9 +16,10 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 //Persistance
@@ -26,7 +27,9 @@ import lombok.Setter;
 @Table(indexes = { @Index(columnList = "voie_id"), @Index(columnList = "plan") })
 //Lombok
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor(staticName = "creer")
 public class Longueur implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -94,8 +97,8 @@ public class Longueur implements Serializable {
 		this.plan = plan;
 	}
 
-	public static Longueur creer(String nom, String description, String remarque, Double longueur, Integer nbSpits, Voie voie,
-			Plan plan) {
+	public static Longueur creer(String nom, String description, String remarque, Double longueur, Integer nbSpits,
+			Voie voie, Plan plan) {
 		return new Longueur(nom, description, remarque, longueur, nbSpits, voie, plan);
 	}
 

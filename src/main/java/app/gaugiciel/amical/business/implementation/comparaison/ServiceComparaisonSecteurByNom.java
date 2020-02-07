@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import app.gaugiciel.amical.model.Secteur;
 
 @Service
-public class ServiceComparaisonSecteurByNom extends ServiceComparaison implements Comparator<Secteur> {
+public class ServiceComparaisonSecteurByNom extends Comparaison implements Comparator<Secteur> {
 
 	@Override
 	public int compare(Secteur s1, Secteur s2) {

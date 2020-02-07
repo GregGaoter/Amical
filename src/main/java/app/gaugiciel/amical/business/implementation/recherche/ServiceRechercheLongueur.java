@@ -6,13 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.contrat.ServiceRecherche;
+import app.gaugiciel.amical.business.contrat.Recherche;
 import app.gaugiciel.amical.business.implementation.comparaison.ServiceComparaisonLongueurByNom;
 import app.gaugiciel.amical.model.Longueur;
 import app.gaugiciel.amical.repository.LongueurRepository;
 
 @Service
-public class ServiceRechercheLongueur implements ServiceRecherche<Longueur, Object> {
+public class ServiceRechercheLongueur implements Recherche<Longueur, Object> {
 
 	@Autowired
 	private LongueurRepository longueurRepository;

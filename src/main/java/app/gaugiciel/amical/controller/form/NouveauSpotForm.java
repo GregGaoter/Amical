@@ -18,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AjoutSpotForm {
+public class NouveauSpotForm {
 
 	public static final String NOM = "nom";
 	public static final String DESCRIPTION = "description";

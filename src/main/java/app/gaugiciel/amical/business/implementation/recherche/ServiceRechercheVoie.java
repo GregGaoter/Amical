@@ -6,13 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.contrat.ServiceRecherche;
+import app.gaugiciel.amical.business.contrat.Recherche;
 import app.gaugiciel.amical.business.implementation.comparaison.ServiceComparaisonVoieByNumero;
 import app.gaugiciel.amical.model.Voie;
 import app.gaugiciel.amical.repository.VoieRepository;
 
 @Service
-public class ServiceRechercheVoie implements ServiceRecherche<Voie, Object> {
+public class ServiceRechercheVoie implements Recherche<Voie, Object> {
 
 	@Autowired
 	private VoieRepository voieRepository;

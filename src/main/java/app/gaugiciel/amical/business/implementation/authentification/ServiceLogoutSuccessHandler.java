@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.implementation.model.ServiceModel;
+import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 
 @Service
 public class ServiceLogoutSuccessHandler implements LogoutSuccessHandler {
@@ -20,7 +20,7 @@ public class ServiceLogoutSuccessHandler implements LogoutSuccessHandler {
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		HttpSession session = request.getSession();
-		session.removeAttribute(ServiceModel.UTILISATEUR.label);
+		session.removeAttribute(NomModel.UTILISATEUR.label);
 		response.sendRedirect("/authentification?deconnexion");
 	}
 

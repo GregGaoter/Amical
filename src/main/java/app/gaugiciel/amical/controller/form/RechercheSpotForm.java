@@ -10,9 +10,9 @@ import javax.validation.constraints.Size;
 import org.springframework.stereotype.Component;
 
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUnitePrincipale;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteSecondaire;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SpotForm {
+public class RechercheSpotForm {
 
 	public static final String NOM_SPOT = "nomSpot";
 	public static final String LIEU_FRANCE_SPOT = "lieuFranceSpot";
@@ -96,15 +96,15 @@ public class SpotForm {
 	}
 
 	public ServiceCotationFrance getCotationMin() {
-		return ServiceCotationFrance.creer(ServiceCotationFranceUnitePrincipale.ofLabel(cotationMinVoieUnitePrincipale),
-				ServiceCotationFranceUniteSecondaire.ofLabel(cotationMinVoieUniteSecondaire),
-				ServiceCotationFranceUniteTertiaire.ofLabel(cotationMinVoieUniteTertiaire));
+		return ServiceCotationFrance.creer(CotationFranceUnitePrincipale.ofLabel(cotationMinVoieUnitePrincipale),
+				CotationFranceUniteSecondaire.ofLabel(cotationMinVoieUniteSecondaire),
+				CotationFranceUniteTertiaire.ofLabel(cotationMinVoieUniteTertiaire));
 	}
 
 	public ServiceCotationFrance getCotationMax() {
-		return ServiceCotationFrance.creer(ServiceCotationFranceUnitePrincipale.ofLabel(cotationMaxVoieUnitePrincipale),
-				ServiceCotationFranceUniteSecondaire.ofLabel(cotationMaxVoieUniteSecondaire),
-				ServiceCotationFranceUniteTertiaire.ofLabel(cotationMaxVoieUniteTertiaire));
+		return ServiceCotationFrance.creer(CotationFranceUnitePrincipale.ofLabel(cotationMaxVoieUnitePrincipale),
+				CotationFranceUniteSecondaire.ofLabel(cotationMaxVoieUniteSecondaire),
+				CotationFranceUniteTertiaire.ofLabel(cotationMaxVoieUniteTertiaire));
 	}
 
 	public boolean estVide() {

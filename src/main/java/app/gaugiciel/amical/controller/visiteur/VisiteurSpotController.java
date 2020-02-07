@@ -23,16 +23,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUnitePrincipale;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteSecondaire;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLongueur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSecteur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSpot;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheVoie;
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
-import app.gaugiciel.amical.controller.form.SpotForm;
-import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormSpot;
+import app.gaugiciel.amical.controller.form.RechercheSpotForm;
+import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheSpot;
 import app.gaugiciel.amical.model.Longueur;
 import app.gaugiciel.amical.model.Secteur;
 import app.gaugiciel.amical.model.Spot;
@@ -45,11 +45,11 @@ public class VisiteurSpotController {
 	private final int PAGE_SIZE = 5;
 
 	@Autowired
-	private SpotForm spotForm;
+	private RechercheSpotForm spotForm;
 	@Autowired
 	private ServiceRechercheSpot serviceRechercheSpot;
 	@Autowired
-	private ValidationFormSpot validationFormSpot;
+	private ValidationFormRechercheSpot validationFormSpot;
 	@Autowired
 	private ServiceRechercheSecteur serviceRechercheSecteur;
 	@Autowired
@@ -58,18 +58,18 @@ public class VisiteurSpotController {
 	private ServiceRechercheLongueur serviceRechercheLongueur;
 
 	@GetMapping("/visiteur/spot/recherche")
-	public String showSpotForm(SpotForm spotForm, Model model) {
+	public String showSpotForm(RechercheSpotForm spotForm, Model model) {
 		spotForm.reinitialiser();
 		model.addAttribute("spotActive", "active");
 		return "visiteur_spot_recherche";
 	}
 
 	@PostMapping("/visiteur/spot/recherche")
-	public String checkFormFindSpot(@Valid SpotForm spotForm, BindingResult bindingResult, Model model) {
+	public String checkFormFindSpot(@Valid RechercheSpotForm spotForm, BindingResult bindingResult, Model model) {
 
 		this.spotForm = spotForm;
 
-		spotForm.setIsFieldsCotationValid(SpotForm.LISTE_FIELDS_COTATION.stream()
+		spotForm.setIsFieldsCotationValid(RechercheSpotForm.LISTE_FIELDS_COTATION.stream()
 				.map(field -> bindingResult.hasFieldErrors(field)).anyMatch(b -> true));
 
 		if (!validationFormSpot.isValide(spotForm)) {
@@ -86,7 +86,7 @@ public class VisiteurSpotController {
 	}
 
 	@GetMapping("/visiteur/spot/recherche/resultat")
-	public String resultSpotForm(@ModelAttribute("spotForm") SpotForm spotForm,
+	public String resultSpotForm(@ModelAttribute("spotForm") RechercheSpotForm spotForm,
 			@PageableDefault(size = PAGE_SIZE) Pageable pageable, Model model) {
 
 		Page<Spot> pageSpots = serviceRechercheSpot.rechercher(spotForm, pageable);
@@ -206,9 +206,9 @@ public class VisiteurSpotController {
 	@ModelAttribute
 	public void addAttributes(Model model) {
 		model.addAttribute("spotForm", spotForm);
-		model.addAttribute("unitePrincipaleLabels", ServiceCotationFranceUnitePrincipale.LABELS);
-		model.addAttribute("uniteSecondaireLabels", ServiceCotationFranceUniteSecondaire.LABELS);
-		model.addAttribute("uniteTertiaireLabels", ServiceCotationFranceUniteTertiaire.LABELS);
+		model.addAttribute("unitePrincipaleLabels", CotationFranceUnitePrincipale.LABELS);
+		model.addAttribute("uniteSecondaireLabels", CotationFranceUniteSecondaire.LABELS);
+		model.addAttribute("uniteTertiaireLabels", CotationFranceUniteTertiaire.LABELS);
 		model.addAttribute("cheminPlan", ServiceStockagePlan.RESOURCE_HANDLER_PLAN);
 	}
 

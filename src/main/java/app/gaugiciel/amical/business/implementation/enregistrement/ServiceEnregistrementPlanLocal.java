@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import app.gaugiciel.amical.business.contrat.ServiceEnregistrement;
+import app.gaugiciel.amical.business.contrat.Enregistrement;
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
 
 @Service
-public class ServiceEnregistrementPlanLocal implements ServiceEnregistrement<MultipartFile> {
+public class ServiceEnregistrementPlanLocal implements Enregistrement<MultipartFile> {
 
 	@Value(ServiceStockagePlan.REPERTOIRE_LOCAL_PLAN)
 	private File repertoireLocalPlan;

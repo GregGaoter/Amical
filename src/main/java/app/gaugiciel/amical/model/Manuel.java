@@ -19,9 +19,10 @@ import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -32,7 +33,9 @@ import lombok.ToString;
 //Lombok
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor(staticName = "creer")
 public class Manuel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -58,7 +61,7 @@ public class Manuel implements Serializable {
 	@Column(name = "date_parution")
 	// Validation constraints
 	@PastOrPresent(message = "{validation.pastorpresent}")
-	private Timestamp dateParution;
+	private Timestamp dateTimeParution;
 
 	// Persistance
 	@Column(length = 128)
@@ -109,5 +112,9 @@ public class Manuel implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "lieu_france_id")
 	private LieuFrance lieuFrance;
+
+	public String getDateParution() {
+		return dateTimeParution == null ? "" : dateTimeParution.toString().split(" ")[0];
+	}
 
 }

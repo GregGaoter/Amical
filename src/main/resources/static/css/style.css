@@ -226,3 +226,7 @@ ul[class~="list-inline-no-spacing"]>li {
 	flex-direction: row;
 	align-items: center;
 }
+
+.scroll-horizontal {
+  overflow-x: auto;
+}

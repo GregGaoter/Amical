@@ -3,9 +3,9 @@ package app.gaugiciel.amical.repository.specification;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUnitePrincipale;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteSecondaire;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
 import app.gaugiciel.amical.model.CotationFrance;
 import app.gaugiciel.amical.model.CotationFrance_;
 import app.gaugiciel.amical.utilitaire.Utils;
@@ -13,7 +13,7 @@ import app.gaugiciel.amical.utilitaire.Utils;
 public class CotationFranceSpecification {
 
 	public static Specification<CotationFrance> unitePrincipaleEqual(
-			ServiceCotationFranceUnitePrincipale unitePrincipale) {
+			CotationFranceUnitePrincipale unitePrincipale) {
 		return (root, query, builder) -> {
 			if (!Utils.isValid(unitePrincipale)) {
 				return null;
@@ -26,7 +26,7 @@ public class CotationFranceSpecification {
 	}
 
 	public static Specification<CotationFrance> uniteSecondaireContaining(
-			ServiceCotationFranceUniteSecondaire uniteSecondaire) {
+			CotationFranceUniteSecondaire uniteSecondaire) {
 		return (root, query, builder) -> {
 			if (!Utils.isValid(uniteSecondaire)) {
 				return null;
@@ -39,7 +39,7 @@ public class CotationFranceSpecification {
 	}
 
 	public static Specification<CotationFrance> uniteTertiaireEqual(
-			ServiceCotationFranceUniteTertiaire uniteTertiaire) {
+			CotationFranceUniteTertiaire uniteTertiaire) {
 		return (root, query, builder) -> {
 			if (!Utils.isValid(uniteTertiaire)) {
 				return null;

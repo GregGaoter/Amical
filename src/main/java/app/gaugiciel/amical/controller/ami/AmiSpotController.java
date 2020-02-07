@@ -30,13 +30,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import app.gaugiciel.amical.business.implementation.constante.TailleResultatRecherche;
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUnitePrincipale;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteSecondaire;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFranceUniteTertiaire;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormAjoutSpot;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionSpot;
-import app.gaugiciel.amical.business.implementation.model.ServiceModel;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
+import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLieuFrance;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLongueur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRecherchePlan;
@@ -44,12 +46,11 @@ import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSe
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSpot;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheVoie;
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
-import app.gaugiciel.amical.business.implementation.url.ServiceRedirectionUrl;
-import app.gaugiciel.amical.controller.form.AjoutSpotForm;
 import app.gaugiciel.amical.controller.form.EditionSpotForm;
-import app.gaugiciel.amical.controller.form.SpotForm;
+import app.gaugiciel.amical.controller.form.NouveauSpotForm;
+import app.gaugiciel.amical.controller.form.RechercheSpotForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionSpot;
-import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormSpot;
+import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheSpot;
 import app.gaugiciel.amical.model.Longueur;
 import app.gaugiciel.amical.model.Plan;
 import app.gaugiciel.amical.model.Secteur;
@@ -60,16 +61,14 @@ import app.gaugiciel.amical.model.Voie;
 @ControllerAdvice
 public class AmiSpotController {
 
-	private final int PAGE_SIZE = 5;
-
 	@Autowired
-	private SpotForm spotForm;
+	private RechercheSpotForm spotForm;
 	@Autowired
-	private AjoutSpotForm ajoutSpotForm;
+	private NouveauSpotForm ajoutSpotForm;
 	@Autowired
 	private ServiceRechercheSpot serviceRechercheSpot;
 	@Autowired
-	private ValidationFormSpot validationFormSpot;
+	private ValidationFormRechercheSpot validationFormSpot;
 	@Autowired
 	private ServiceRechercheSecteur serviceRechercheSecteur;
 	@Autowired
@@ -92,24 +91,25 @@ public class AmiSpotController {
 	private HttpSession session;
 
 	@GetMapping("/ami/spot/recherche")
-	public String showSpotForm(SpotForm spotForm, Model model) {
+	public String showSpotForm(RechercheSpotForm spotForm, Model model) {
 		spotForm.reinitialiser();
 		model.addAttribute("spotActive", "active");
 		return "ami_spot_recherche";
 	}
 
 	@PostMapping("/ami/spot/recherche")
-	public String checkFormFindSpot(@Valid SpotForm spotForm, BindingResult bindingResult, Model model) {
+	public String checkFormFindSpot(@Valid RechercheSpotForm spotForm, BindingResult bindingResult, Model model) {
 
 		this.spotForm = spotForm;
 
-		spotForm.setIsFieldsCotationValid(SpotForm.LISTE_FIELDS_COTATION.stream()
+		spotForm.setIsFieldsCotationValid(RechercheSpotForm.LISTE_FIELDS_COTATION.stream()
 				.map(field -> bindingResult.hasFieldErrors(field)).anyMatch(b -> true));
 
 		if (!validationFormSpot.isValide(spotForm)) {
 			validationFormSpot.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
 		}
 		if (bindingResult.hasErrors()) {
+			model.addAttribute("spotActive", "active");
 			return "ami_spot_recherche";
 		}
 
@@ -120,8 +120,8 @@ public class AmiSpotController {
 	}
 
 	@GetMapping("/ami/spot/recherche/resultat")
-	public String resultSpotForm(@ModelAttribute("spotForm") SpotForm spotForm,
-			@PageableDefault(size = PAGE_SIZE) Pageable pageable, Model model) {
+	public String resultSpotForm(@ModelAttribute("spotForm") RechercheSpotForm spotForm,
+			@PageableDefault(size = TailleResultatRecherche.SPOT) Pageable pageable, Model model) {
 
 		Page<Spot> pageSpots = serviceRechercheSpot.rechercher(spotForm, pageable);
 
@@ -130,7 +130,7 @@ public class AmiSpotController {
 		model.addAttribute("listePages", IntStream.range(0, pageSpots.getTotalPages()).toArray());
 		model.addAttribute("nbPages", pageSpots.getTotalPages());
 		model.addAttribute("pageNumber", pageSpots.getNumber());
-		model.addAttribute("pageSize", PAGE_SIZE);
+		model.addAttribute("pageSize", TailleResultatRecherche.SPOT);
 		model.addAttribute("spotActive", "active");
 
 		return "ami_spot_recherche";
@@ -192,9 +192,9 @@ public class AmiSpotController {
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", size);
 		model.addAttribute("spotActive", "active");
-		session.setAttribute(ServiceRedirectionUrl.SPOT.label,
+		session.setAttribute(RedirectionUrl.SPOT.label,
 				"redirect:/ami/spot/" + spotId + "?page=" + page + "&size=" + size);
-		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label,
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label,
 				"redirect:/ami/spot/" + spotId + "?page=" + page + "&size=" + size);
 		return "ami_spot";
 	}
@@ -206,10 +206,9 @@ public class AmiSpotController {
 		model.addAttribute("spot", spot);
 		model.addAttribute("editionSpotForm", editionSpotForm);
 		model.addAttribute("spotActive", "active");
-		model.addAttribute("urlSpot", ((String) session.getAttribute(ServiceRedirectionUrl.SPOT.label)).split(":")[1]);
-		session.setAttribute(ServiceRedirectionUrl.EDITION_SPOT_FORM.label,
-				"redirect:/ami/spot/" + spotId + "/edition");
-		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/" + spotId + "/edition");
+		model.addAttribute("urlSpot", ((String) session.getAttribute(RedirectionUrl.SPOT.label)).split(":")[1]);
+		session.setAttribute(RedirectionUrl.EDITION_SPOT_FORM.label, "redirect:/ami/spot/" + spotId + "/edition");
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/" + spotId + "/edition");
 		return "ami_spot_edition";
 	}
 
@@ -240,7 +239,7 @@ public class AmiSpotController {
 			serviceEnregistrementFormEditionSpot.enregistrer(editionSpotForm);
 			redirectAttributes.addFlashAttribute("spot", serviceEnregistrementFormEditionSpot.getSpot());
 		}
-		return (String) session.getAttribute(ServiceRedirectionUrl.SPOT.label);
+		return (String) session.getAttribute(RedirectionUrl.SPOT.label);
 	}
 
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}")
@@ -277,10 +276,10 @@ public class AmiSpotController {
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", size);
 		model.addAttribute("spotActive", "active");
-		session.setAttribute(ServiceRedirectionUrl.VOIE.label, "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId
+		session.setAttribute(RedirectionUrl.VOIE.label, "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId
 				+ "/voie/" + voieId + "?page=" + page + "&size=" + size);
-		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/" + spotId + "/secteur/"
-				+ secteurId + "/voie/" + voieId + "?page=" + page + "&size=" + size);
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId
+				+ "/voie/" + voieId + "?page=" + page + "&size=" + size);
 		return "ami_voie";
 	}
 
@@ -309,13 +308,13 @@ public class AmiSpotController {
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", size);
 		model.addAttribute("spotActive", "active");
-		session.setAttribute(ServiceRedirectionUrl.LONGUEUR.label, redirectUrlLongueur);
-		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, redirectUrlLongueur);
+		session.setAttribute(RedirectionUrl.LONGUEUR.label, redirectUrlLongueur);
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, redirectUrlLongueur);
 		return "ami_longueur";
 	}
 
 	@GetMapping("/ami/spot/ajout")
-	public String showAjoutSpotForm(HttpServletRequest request, AjoutSpotForm ajoutSpotForm, Model model) {
+	public String showAjoutSpotForm(HttpServletRequest request, NouveauSpotForm ajoutSpotForm, Model model) {
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
 			Plan plan = (Plan) inputFlashMap.get("plan");
@@ -325,12 +324,12 @@ public class AmiSpotController {
 			ajoutSpotForm.reinitialiser();
 		}
 		model.addAttribute("spotActive", "active");
-		session.setAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/ajout");
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/ajout");
 		return "ami_spot_ajout";
 	}
 
 	@PostMapping("/ami/spot/ajout")
-	public String checkAjoutSpotForm(@Valid AjoutSpotForm ajoutSpotForm, BindingResult bindingResult) {
+	public String checkAjoutSpotForm(@Valid NouveauSpotForm ajoutSpotForm, BindingResult bindingResult) {
 		this.ajoutSpotForm = ajoutSpotForm;
 		if (bindingResult.hasErrors()) {
 			return "ami_spot_ajout";
@@ -339,13 +338,13 @@ public class AmiSpotController {
 	}
 
 	@RequestMapping(value = "/ami/spot/ajout", method = RequestMethod.POST, params = "supprimePlan")
-	public String supprimerPlanAjoutSpotForm(AjoutSpotForm ajoutSpotForm) {
+	public String supprimerPlanAjoutSpotForm(NouveauSpotForm ajoutSpotForm) {
 		ajoutSpotForm.setPlan("");
 		return "ami_spot_ajout";
 	}
 
 	@GetMapping(value = "/ami/spot/enregistrement")
-	public String saveAjoutSpotForm(@ModelAttribute("ajoutSpotForm") AjoutSpotForm ajoutSpotForm,
+	public String saveAjoutSpotForm(@ModelAttribute("ajoutSpotForm") NouveauSpotForm ajoutSpotForm,
 			RedirectAttributes redirectAttributes) {
 		serviceEnregistrementFormAjoutSpot.enregistrer(ajoutSpotForm);
 		Spot spot = serviceEnregistrementFormAjoutSpot.getSpot();
@@ -354,7 +353,7 @@ public class AmiSpotController {
 	}
 
 	@PostMapping(value = "/ami/spot/ajout/supprimerPlan")
-	public String supprimerPlanAjoutSpotForm(AjoutSpotForm ajoutSpotForm, Model model) {
+	public String supprimerPlanAjoutSpotForm(NouveauSpotForm ajoutSpotForm, Model model) {
 		ajoutSpotForm.setPlan("");
 		this.ajoutSpotForm = ajoutSpotForm;
 		model.addAttribute("ajoutSpotForm", ajoutSpotForm);
@@ -401,11 +400,11 @@ public class AmiSpotController {
 	public void addAttributes(Model model) {
 		model.addAttribute("spotForm", spotForm);
 		model.addAttribute("ajoutSpotForm", ajoutSpotForm);
-		model.addAttribute("unitePrincipaleLabels", ServiceCotationFranceUnitePrincipale.LABELS);
-		model.addAttribute("uniteSecondaireLabels", ServiceCotationFranceUniteSecondaire.LABELS);
-		model.addAttribute("uniteTertiaireLabels", ServiceCotationFranceUniteTertiaire.LABELS);
+		model.addAttribute("unitePrincipaleLabels", CotationFranceUnitePrincipale.LABELS);
+		model.addAttribute("uniteSecondaireLabels", CotationFranceUniteSecondaire.LABELS);
+		model.addAttribute("uniteTertiaireLabels", CotationFranceUniteTertiaire.LABELS);
 		model.addAttribute("cheminPlan", ServiceStockagePlan.RESOURCE_HANDLER_PLAN);
-		model.addAttribute(ServiceModel.UTILISATEUR.label, session.getAttribute(ServiceModel.UTILISATEUR.label));
+		model.addAttribute(NomModel.UTILISATEUR.label, session.getAttribute(NomModel.UTILISATEUR.label));
 	}
 
 }

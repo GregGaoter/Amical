@@ -15,9 +15,10 @@ import javax.validation.constraints.Size;
 
 import app.gaugiciel.amical.utilitaire.Utils;
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 //Persistance
@@ -28,7 +29,9 @@ import lombok.Setter;
 				@Index(columnList = "unite_tertiaire") })
 //Lombok
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor(staticName = "creer")
 public class CotationFrance implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormInscription;
-import app.gaugiciel.amical.business.implementation.model.ServiceModel;
+import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheUtilisateur;
 import app.gaugiciel.amical.controller.form.InscriptionForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormInscription;
@@ -71,7 +71,7 @@ public class InscriptionController {
 			request.login(inscriptionForm.getEmail(), inscriptionForm.getMotDePasse());
 			HttpSession session = request.getSession();
 			Utilisateur utilisateur = serviceRechercheUtilisateur.findByEmail(inscriptionForm.getEmail());
-			session.setAttribute(ServiceModel.UTILISATEUR.label, utilisateur);
+			session.setAttribute(NomModel.UTILISATEUR.label, utilisateur);
 		} catch (ServletException e) {
 			e.printStackTrace();
 		}

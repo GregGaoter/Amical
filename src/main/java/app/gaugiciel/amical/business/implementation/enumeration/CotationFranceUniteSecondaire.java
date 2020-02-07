@@ -1,4 +1,4 @@
-package app.gaugiciel.amical.business.implementation.cotation;
+package app.gaugiciel.amical.business.implementation.enumeration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,22 +9,22 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum ServiceCotationFranceUniteSecondaire {
+public enum CotationFranceUniteSecondaire {
 
 	NULL("", 0), A("a", 1), B("b", 2), C("c", 3);
 
-	private static final Map<String, ServiceCotationFranceUniteSecondaire> BY_LABEL = new HashMap<>();
+	private static final Map<String, CotationFranceUniteSecondaire> BY_LABEL = new HashMap<>();
 	public static final List<String> LABELS = new ArrayList<>();
 	static {
-		for (ServiceCotationFranceUniteSecondaire c : values()) {
+		for (CotationFranceUniteSecondaire c : values()) {
 			BY_LABEL.put(c.label, c);
 			LABELS.add(c.label);
 		}
 	}
-	public static final int SIZE = ServiceCotationFranceUniteSecondaire.values().length;
-	public static final ServiceCotationFranceUniteSecondaire UNITE_MIN = ServiceCotationFranceUniteSecondaire
+	public static final int SIZE = CotationFranceUniteSecondaire.values().length;
+	public static final CotationFranceUniteSecondaire UNITE_MIN = CotationFranceUniteSecondaire
 			.values()[0];
-	public static final ServiceCotationFranceUniteSecondaire UNITE_MAX = ServiceCotationFranceUniteSecondaire
+	public static final CotationFranceUniteSecondaire UNITE_MAX = CotationFranceUniteSecondaire
 			.values()[SIZE - 1];
 	public static final String LABEL_MIN = LABELS.get(0);
 	public static final String LABEL_MAX = LABELS.get(SIZE - 1);
@@ -32,7 +32,7 @@ public enum ServiceCotationFranceUniteSecondaire {
 	public final String label;
 	public final int value;
 
-	public static ServiceCotationFranceUniteSecondaire ofLabel(String label) {
+	public static CotationFranceUniteSecondaire ofLabel(String label) {
 		return BY_LABEL.get(label);
 	}
 	

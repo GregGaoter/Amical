@@ -7,14 +7,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.contrat.ServiceRecherche;
+import app.gaugiciel.amical.business.contrat.Recherche;
 import app.gaugiciel.amical.model.LieuFrance;
 import app.gaugiciel.amical.repository.LieuFranceRepository;
 import app.gaugiciel.amical.repository.specification.LieuFranceSpecification;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 @Service
-public class ServiceRechercheLieuFrance implements ServiceRecherche<LieuFrance, Object> {
+public class ServiceRechercheLieuFrance implements Recherche<LieuFrance, Object> {
 
 	@Autowired
 	private LieuFranceRepository lieuFranceRepository;

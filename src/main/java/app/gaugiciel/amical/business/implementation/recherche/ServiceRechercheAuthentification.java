@@ -3,12 +3,12 @@ package app.gaugiciel.amical.business.implementation.recherche;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.contrat.ServiceRecherche;
+import app.gaugiciel.amical.business.contrat.Recherche;
 import app.gaugiciel.amical.model.Authentification;
 import app.gaugiciel.amical.repository.AuthentificationRepository;
 
 @Service
-public class ServiceRechercheAuthentification implements ServiceRecherche<Authentification, Object> {
+public class ServiceRechercheAuthentification implements Recherche<Authentification, Object> {
 
 	@Autowired
 	private AuthentificationRepository authentificationRepository;

@@ -16,9 +16,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 //Persistance
@@ -27,7 +28,9 @@ import lombok.Setter;
 		@Index(columnList = "authentification_email_emprunteur"), @Index(columnList = "manuel_id") })
 //Lombok
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor(staticName = "creer")
 public class PretEmpruntManuel implements Serializable {
 
 	private static final long serialVersionUID = 1L;

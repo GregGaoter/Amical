@@ -15,8 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormNouveauPlan;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementPlanLocal;
-import app.gaugiciel.amical.business.implementation.model.ServiceModel;
-import app.gaugiciel.amical.business.implementation.url.ServiceRedirectionUrl;
+import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
+import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.controller.form.NouveauPlanForm;
 
 @Controller
@@ -56,13 +56,13 @@ public class AmiPlanController {
 	public String saveNouveauPlanForm(RedirectAttributes redirectAttributes) {
 		serviceEnregistrementFormNouveauPlan.enregistrer(nouveauPlanForm);
 		redirectAttributes.addFlashAttribute("plan", serviceEnregistrementFormNouveauPlan.getPlan());
-		return (String) session.getAttribute(ServiceRedirectionUrl.PREVIOUS_URL.label);
+		return (String) session.getAttribute(RedirectionUrl.PREVIOUS_URL.label);
 	}
 
 	@ModelAttribute
 	public void addAttributes(Model model) {
 		model.addAttribute("nouveauPlanForm", nouveauPlanForm);
-		model.addAttribute(ServiceModel.UTILISATEUR.label, session.getAttribute(ServiceModel.UTILISATEUR.label));
+		model.addAttribute(NomModel.UTILISATEUR.label, session.getAttribute(NomModel.UTILISATEUR.label));
 	}
 
 }

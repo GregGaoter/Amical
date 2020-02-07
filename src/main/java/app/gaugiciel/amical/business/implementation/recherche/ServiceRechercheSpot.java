@@ -8,8 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.contrat.ServiceRecherche;
-import app.gaugiciel.amical.controller.form.SpotForm;
+import app.gaugiciel.amical.business.contrat.Recherche;
+import app.gaugiciel.amical.controller.form.RechercheSpotForm;
 import app.gaugiciel.amical.model.LieuFrance;
 import app.gaugiciel.amical.model.Secteur;
 import app.gaugiciel.amical.model.Spot;
@@ -25,7 +25,7 @@ import app.gaugiciel.amical.repository.specification.VoieSpecification;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 @Service
-public class ServiceRechercheSpot implements ServiceRecherche<Spot, SpotForm> {
+public class ServiceRechercheSpot implements Recherche<Spot, RechercheSpotForm> {
 
 	@Autowired
 	private SpotRepository spotRepository;
@@ -37,11 +37,11 @@ public class ServiceRechercheSpot implements ServiceRecherche<Spot, SpotForm> {
 	private VoieRepository voieRepository;
 
 	@Override
-	public List<Spot> rechercher(SpotForm spotForm) {
+	public List<Spot> rechercher(RechercheSpotForm spotForm) {
 		return spotRepository.findAll(SpotSpecification.hasAll(spotForm));
 	}
 
-	public Page<Spot> rechercher(SpotForm spotForm, Pageable pageable) {
+	public Page<Spot> rechercher(RechercheSpotForm spotForm, Pageable pageable) {
 		return spotRepository.findAll(SpotSpecification.hasAll(spotForm), pageable);
 	}
 

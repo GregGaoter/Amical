@@ -3,7 +3,7 @@ package app.gaugiciel.amical.business.implementation.enregistrement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.contrat.ServiceEnregistrement;
+import app.gaugiciel.amical.business.contrat.Enregistrement;
 import app.gaugiciel.amical.business.implementation.repository.ServiceRepositoryVoie;
 import app.gaugiciel.amical.controller.form.EditionVoieForm;
 import app.gaugiciel.amical.model.Voie;
@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Service
-public class ServiceEnregistrementFormEditionVoie implements ServiceEnregistrement<EditionVoieForm> {
+public class ServiceEnregistrementFormEditionVoie implements Enregistrement<EditionVoieForm> {
 
 	@Autowired
 	private ServiceRepositoryVoie serviceRepositoryVoie;

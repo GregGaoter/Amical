@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import app.gaugiciel.amical.business.contrat.ServiceEnregistrement;
+import app.gaugiciel.amical.business.contrat.Enregistrement;
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
 
 @Service
-public class ServiceEnregistrementPlanServeur implements ServiceEnregistrement<MultipartFile> {
+public class ServiceEnregistrementPlanServeur implements Enregistrement<MultipartFile> {
 
 	@Value(ServiceStockagePlan.URL_SERVEUR_PLAN)
 	private URL urlServeurPlan;

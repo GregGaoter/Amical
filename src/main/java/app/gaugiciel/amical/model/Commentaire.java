@@ -17,9 +17,10 @@ import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -29,7 +30,9 @@ import lombok.ToString;
 //Lombok
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor(staticName = "creer")
 public class Commentaire implements Serializable {
 
 	private static final long serialVersionUID = 1L;

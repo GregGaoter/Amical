@@ -8,7 +8,10 @@ import org.paukov.combinatorics3.Generator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.contrat.ServiceCotation;
+import app.gaugiciel.amical.business.contrat.Cotation;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
+import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,33 +24,33 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class ServiceCotationFrance implements ServiceCotation {
+public class ServiceCotationFrance implements Cotation {
 
 	public static final List<ServiceCotationFrance> ALL_COTATIONS = Generator
-			.cartesianProduct(ServiceCotationFranceUnitePrincipale.LABELS, ServiceCotationFranceUniteSecondaire.LABELS,
-					ServiceCotationFranceUniteTertiaire.LABELS)
+			.cartesianProduct(CotationFranceUnitePrincipale.LABELS, CotationFranceUniteSecondaire.LABELS,
+					CotationFranceUniteTertiaire.LABELS)
 			.stream()
-			.map(unites -> creer(ServiceCotationFranceUnitePrincipale.ofLabel(unites.get(0)),
-					ServiceCotationFranceUniteSecondaire.ofLabel(unites.get(1)),
-					ServiceCotationFranceUniteTertiaire.ofLabel(unites.get(2))))
+			.map(unites -> creer(CotationFranceUnitePrincipale.ofLabel(unites.get(0)),
+					CotationFranceUniteSecondaire.ofLabel(unites.get(1)),
+					CotationFranceUniteTertiaire.ofLabel(unites.get(2))))
 			.collect(Collectors.toList());
 	public static final int SIZE = ALL_COTATIONS.size();
-	public static final ServiceCotationFrance COTATION_MIN = creer(ServiceCotationFranceUnitePrincipale.UNITE_MIN,
-			ServiceCotationFranceUniteSecondaire.UNITE_MIN, ServiceCotationFranceUniteTertiaire.UNITE_MIN);
-	public static final ServiceCotationFrance COTATION_MAX = creer(ServiceCotationFranceUnitePrincipale.UNITE_MAX,
-			ServiceCotationFranceUniteSecondaire.UNITE_MAX, ServiceCotationFranceUniteTertiaire.UNITE_MAX);
+	public static final ServiceCotationFrance COTATION_MIN = creer(CotationFranceUnitePrincipale.UNITE_MIN,
+			CotationFranceUniteSecondaire.UNITE_MIN, CotationFranceUniteTertiaire.UNITE_MIN);
+	public static final ServiceCotationFrance COTATION_MAX = creer(CotationFranceUnitePrincipale.UNITE_MAX,
+			CotationFranceUniteSecondaire.UNITE_MAX, CotationFranceUniteTertiaire.UNITE_MAX);
 
-	private ServiceCotationFranceUnitePrincipale unitePrincipale;
-	private ServiceCotationFranceUniteSecondaire uniteSecondaire;
-	private ServiceCotationFranceUniteTertiaire uniteTertiaire;
+	private CotationFranceUnitePrincipale unitePrincipale;
+	private CotationFranceUniteSecondaire uniteSecondaire;
+	private CotationFranceUniteTertiaire uniteTertiaire;
 
 	@Override
 	public String toString() {
 		return unitePrincipale.label + uniteSecondaire.label + uniteTertiaire.label;
 	}
 
-	public void setUnites(ServiceCotationFranceUnitePrincipale unitePrincipale,
-			ServiceCotationFranceUniteSecondaire uniteSecondaire, ServiceCotationFranceUniteTertiaire uniteTertiaire) {
+	public void setUnites(CotationFranceUnitePrincipale unitePrincipale,
+			CotationFranceUniteSecondaire uniteSecondaire, CotationFranceUniteTertiaire uniteTertiaire) {
 		creer(unitePrincipale, uniteSecondaire, uniteTertiaire);
 	}
 

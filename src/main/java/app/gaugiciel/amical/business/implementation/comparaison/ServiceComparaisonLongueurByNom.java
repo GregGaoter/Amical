@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import app.gaugiciel.amical.model.Longueur;
 
 @Service
-public class ServiceComparaisonLongueurByNom extends ServiceComparaison implements Comparator<Longueur> {
+public class ServiceComparaisonLongueurByNom extends Comparaison implements Comparator<Longueur> {
 
 	@Override
 	public int compare(Longueur l1, Longueur l2) {
