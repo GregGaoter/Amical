@@ -28,19 +28,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import app.gaugiciel.amical.business.implementation.constante.TailleResultatRecherche;
+import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionTopo;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormNouveauTopo;
 import app.gaugiciel.amical.business.implementation.enumeration.CategorieManuel;
 import app.gaugiciel.amical.business.implementation.enumeration.EtatManuel;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheTopo;
+import app.gaugiciel.amical.controller.form.EditionTopoForm;
 import app.gaugiciel.amical.controller.form.NouveauTopoForm;
 import app.gaugiciel.amical.controller.form.RechercheTopoForm;
+import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionTopo;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormNouveauTopo;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheTopo;
 import app.gaugiciel.amical.model.Authentification;
 import app.gaugiciel.amical.model.Manuel;
-import app.gaugiciel.amical.model.Spot;
 import app.gaugiciel.amical.model.Utilisateur;
 
 @Controller
@@ -58,7 +60,11 @@ public class AmiTopoController {
 	@Autowired
 	private ValidationFormNouveauTopo validationFormNouveauTopo;
 	@Autowired
+	private ValidationFormEditionTopo validationFormEditionTopo;
+	@Autowired
 	private ServiceEnregistrementFormNouveauTopo serviceEnregistrementFormNouveauTopo;
+	@Autowired
+	private ServiceEnregistrementFormEditionTopo serviceEnregistrementFormEditionTopo;
 	private RechercheTopoForm rechercheTopoForm;
 
 	@GetMapping("/ami/topo/recherche")
@@ -213,6 +219,62 @@ public class AmiTopoController {
 		Manuel manuel = serviceEnregistrementFormNouveauTopo.getManuel();
 		redirectAttributes.addFlashAttribute("manuel", manuel);
 		return "redirect:/ami/topo/" + manuel.getId();
+	}
+
+	@GetMapping("/ami/topo/{manuelId}/edition")
+	public String showEditionTopoForm(@PathVariable long manuelId, Model model) {
+		Manuel manuel = serviceRechercheTopo.findById(manuelId);
+		EditionTopoForm editionTopoForm = EditionTopoForm.creer(manuel);
+		String urlRedirection = "redirect:/ami/topo/" + manuelId + "/edition";
+		model.addAttribute("manuel", manuel);
+		model.addAttribute("editionTopoForm", editionTopoForm);
+		model.addAttribute("topoActive", "active");
+		model.addAttribute("categorieManuelLabels", CategorieManuel.LABELS.stream()
+				.filter(label -> label != CategorieManuel.NULL.label).collect(Collectors.toList()));
+		model.addAttribute("etatManuelLabels",
+				EtatManuel.LABELS.stream()
+						.filter(label -> label != EtatManuel.NULL.label && label != EtatManuel.PRETE.label)
+						.collect(Collectors.toList()));
+		model.addAttribute("urlTopo", ((String) session.getAttribute(RedirectionUrl.MANUEL.label)).split(":")[1]);
+		session.setAttribute(RedirectionUrl.EDITION_TOPO_FORM.label, urlRedirection);
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
+		return "ami_manuel_edition";
+	}
+
+	@PostMapping("/ami/topo/{manuelId}/edition")
+	public String checkEditionTopoForm(@Valid EditionTopoForm editionTopoForm, @PathVariable long manuelId,
+			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+		Manuel manuel = serviceRechercheTopo.findById(manuelId);
+		if (!validationFormEditionTopo.isValide(editionTopoForm)) {
+			validationFormEditionTopo.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
+		}
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("manuel", manuel);
+			model.addAttribute("topoActive", "active");
+			model.addAttribute("categorieManuelLabels", CategorieManuel.LABELS.stream()
+					.filter(label -> label != CategorieManuel.NULL.label).collect(Collectors.toList()));
+			model.addAttribute("etatManuelLabels",
+					EtatManuel.LABELS.stream()
+							.filter(label -> label != EtatManuel.NULL.label && label != EtatManuel.PRETE.label)
+							.collect(Collectors.toList()));
+			return "ami_manuel_edition";
+		}
+		redirectAttributes.addFlashAttribute("editionTopoForm", editionTopoForm);
+		return "redirect:/ami/topo/" + manuelId + "/edition/enregistrement";
+	}
+
+	@GetMapping("/ami/topo/{manuelId}/edition/enregistrement")
+	public String saveEditionTopoForm(@PathVariable long manuelId, HttpServletRequest request,
+			RedirectAttributes redirectAttributes) {
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
+			if (inputFlashMap.containsKey("editionTopoForm")) {
+				serviceEnregistrementFormEditionTopo
+						.enregistrer((EditionTopoForm) inputFlashMap.get("editionTopoForm"));
+			}
+		}
+		redirectAttributes.addFlashAttribute("manuel", serviceEnregistrementFormEditionTopo.getManuel());
+		return (String) session.getAttribute(RedirectionUrl.MANUEL.label);
 	}
 
 	@GetMapping("/ami/topo/recherche/nomManuel")

@@ -37,9 +37,10 @@
 				<div class="row line-spacer">
 					<div class="conteneur-flex">
 						<h1 class="no-top-margin" th:text=${manuel.nom}></h1>
-						<div class="horizontal-spacer-20"></div>
+						<div class="horizontal-spacer-20" th:if="${manuelUtilisateur}"></div>
 						<a class="btn btn-default btn-lg" role="button"
-							th:href="@{'/ami/topo/'+${manuel.id}+'/edition'}"><span
+							th:href="@{'/ami/topo/'+${manuel.id}+'/edition'}"
+							th:if="${manuelUtilisateur}"><span
 							class="glyphicon glyphicon-edit"></span>
 							[[#{message.editerTopo}]]</a>
 					</div>

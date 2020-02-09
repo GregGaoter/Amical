@@ -7,7 +7,7 @@ public enum RedirectionUrl {
 	VOIE_FORM("redirectVoieForm"), LONGUEUR_FORM("redirectLongueurForm"), TOPO_FORM("redirectTopoForm"),
 	EDITION_SPOT_FORM("redirectEditionSpotForm"), EDITION_SECTEUR_FORM("redirectEditionSecteurForm"),
 	EDITION_VOIE_FORM("redirectEditionVoieForm"), EDITION_LONGUEUR_FORM("redirectEditionLongueurForm"),
-	RECHERCHE_TOPO_FORM("redirectRechercheTopoForm");
+	EDITION_TOPO_FORM("redirectEditionTopoForm"), RECHERCHE_TOPO_FORM("redirectRechercheTopoForm");
 
 	public final String label;
 
