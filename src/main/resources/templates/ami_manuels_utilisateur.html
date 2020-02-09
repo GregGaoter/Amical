@@ -14,6 +14,12 @@
 <body class="body-without-nav-pills">
 
 	<div layout:fragment="content">
+		<div class="text-center">
+			<a class="btn btn-default btn-lg" role="button"
+				th:href="@{/ami/topo/nouveau}"><span
+				class="glyphicon glyphicon-plus"></span> [[#{message.nouveauTopo}]]</a>
+		</div>
+		<div class="vertical-spacer"></div>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">
@@ -40,10 +46,12 @@
 						<tr th:each="l:${listeManuelsUtilisateur}" class="pointer"
 							th:onclick="'javascript:topoUtilisateurTableRowClicked(\'' + ${l.id} + '\');'">
 							<td th:text="${l.nom}"></td>
-							<td th:text="${l.lieuFrance.region}"></td>
-							<td th:text="${l.lieuFrance.departement}"></td>
-							<td th:text="${l.lieuFrance.codePostal}"></td>
-							<td th:text="${l.lieuFrance.ville}"></td>
+							<td th:text="${l.lieuFrance==null} ? '' : ${l.lieuFrance.region}"></td>
+							<td
+								th:text="${l.lieuFrance==null} ? '' : ${l.lieuFrance.departement}"></td>
+							<td
+								th:text="${l.lieuFrance==null} ? '' : ${l.lieuFrance.codePostal}"></td>
+							<td th:text="${l.lieuFrance==null} ? '' : ${l.lieuFrance.ville}"></td>
 							<td th:text="${l.categorie}"></td>
 							<td
 								th:class="${l.etat=='DISPONIBLE'} ? text-success : text-danger"><span

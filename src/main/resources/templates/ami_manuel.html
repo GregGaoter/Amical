@@ -14,6 +14,13 @@
 <body class="body-without-nav-pills">
 
 	<div layout:fragment="content">
+		<div th:if="${messageTopoEnregistreAvecSucces}"
+			class="alert alert-success alert-dismissible fade in">
+			<a class="close" data-dismiss="alert"><span
+				class="glyphicon glyphicon-remove"></span></a><span
+				class="glyphicon glyphicon-ok-sign"></span>
+			[[${messageTopoEnregistreAvecSucces}]]
+		</div>
 		<div class="row">
 			<div class="col-lg-12">
 				<ul class="breadcrumb">
@@ -28,7 +35,14 @@
 					<li class="active" th:text="${manuel.nom}"></li>
 				</ul>
 				<div class="row line-spacer">
-					<h1 class="no-top-margin" th:text=${manuel.nom}></h1>
+					<div class="conteneur-flex">
+						<h1 class="no-top-margin" th:text=${manuel.nom}></h1>
+						<div class="horizontal-spacer-20"></div>
+						<a class="btn btn-default btn-lg" role="button"
+							th:href="@{'/ami/topo/'+${manuel.id}+'/edition'}"><span
+							class="glyphicon glyphicon-edit"></span>
+							[[#{message.editerTopo}]]</a>
+					</div>
 				</div>
 				<h2 th:text="#{message.lieu}"></h2>
 				<div class="table table-responsive no-bottom-padding-margin">
@@ -43,10 +57,14 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td th:text="${manuel.lieuFrance.region}"></td>
-								<td th:text="${manuel.lieuFrance.departement}"></td>
-								<td th:text="${manuel.lieuFrance.codePostal}"></td>
-								<td th:text="${manuel.lieuFrance.ville}"></td>
+								<td
+									th:text="${manuel.lieuFrance==null} ? '-' : ${manuel.lieuFrance.region}"></td>
+								<td
+									th:text="${manuel.lieuFrance==null} ? '-' : ${manuel.lieuFrance.departement}"></td>
+								<td
+									th:text="${manuel.lieuFrance==null} ? '-' : ${manuel.lieuFrance.codePostal}"></td>
+								<td
+									th:text="${manuel.lieuFrance==null} ? '-' : ${manuel.lieuFrance.ville}"></td>
 							</tr>
 						</tbody>
 					</table>

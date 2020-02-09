@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{ami_layout.html}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title th:text="#{message.nouveauTopo}"></title>
+</head>
+<body class="body-without-nav-pills">
+
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-lg-12">
+				<form th:action="@{/ami/topo/nouveau}"
+					th:object="${nouveauTopoForm}" method="post">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title" th:text="#{message.ajoutNouveauTopo}"></h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group"
+										th:classappend="${#fields.hasErrors('nom')} ? 'has-error has-feedback' : ''">
+										<label class="control-label"
+											th:text="#{message.nom}+(${nouveauTopoForm.isNotNull('nom')} ? ' *' : '')"></label>
+										<input type="text" class="form-control" th:field="*{nom}"><span
+											th:if="${#fields.hasErrors('nom')}"
+											class="glyphicon glyphicon-remove form-control-feedback"></span>
+										<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"
+											class="text-danger"></span>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group"
+										th:classappend="${#fields.hasErrors('lieuFranceInput')} ? 'has-error has-feedback' : ''">
+										<label class="control-label"
+											th:text="#{message.lieu}+(${nouveauTopoForm.isNotNull('lieuFranceInput')} ? ' *' : '')"></label>
+										<input type="text" id="lieuFrance" class="form-control"
+											th:placeholder="#{message.placeHolderLieu}"
+											th:field="*{lieuFranceInput}"><span
+											th:if="${#fields.hasErrors('lieuFranceInput')}"
+											class="glyphicon glyphicon-remove form-control-feedback"></span>
+										<span th:if="${#fields.hasErrors('lieuFranceInput')}"
+											th:errors="*{lieuFranceInput}" class="text-danger"></span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="form-group"
+										th:classappend="${#fields.hasErrors('categorie')} ? 'has-error has-feedback' : ''">
+										<label class="control-label"
+											th:text="#{message.categorie}+(${nouveauTopoForm.isNotNull('categorie')} ? ' *' : '')"></label>
+										<select class="form-control" th:field="*{categorie}"
+											th:classappend="${#fields.hasErrors('categorie')} ? has-error : ''">
+											<option th:each="l:${categorieManuelLabels}" th:value="${l}"
+												th:text="${l}"></option>
+										</select><span th:if="${#fields.hasErrors('categorie')}"
+											class="glyphicon glyphicon-remove form-control-feedback"></span>
+										<span th:if="${#fields.hasErrors('categorie')}"
+											th:errors="*{categorie}" class="text-danger"></span>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group"
+										th:classappend="${#fields.hasErrors('etat')} ? 'has-error has-feedback' : ''">
+										<label class="control-label"
+											th:text="#{message.etat}+(${nouveauTopoForm.isNotNull('etat')} ? ' *' : '')"></label>
+										<select class="form-control" th:field="*{etat}"
+											th:classappend="${#fields.hasErrors('etat')} ? has-error : ''">
+											<option th:each="l:${etatManuelLabels}" th:value="${l}"
+												th:text="${l}"></option>
+										</select><span th:if="${#fields.hasErrors('etat')}"
+											class="glyphicon glyphicon-remove form-control-feedback"></span>
+										<span th:if="${#fields.hasErrors('etat')}" th:errors="*{etat}"
+											class="text-danger"></span>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label"
+											th:classappend="${#fields.hasErrors('dateParutionInput')} ? text-danger : ''"
+											th:text="#{message.dateParution}+(${nouveauTopoForm.isNotNull('dateParutionInput')} ? ' *' : '')"></label>
+										<input type="date" class="form-control"
+											th:field="*{dateParutionInput}"><span
+											th:if="${#fields.hasErrors('dateParutionInput')}"
+											class="glyphicon glyphicon-remove form-control-feedback"></span>
+										<span th:if="${#fields.hasErrors('dateParutionInput')}"
+											th:errors="*{dateParutionInput}" class="text-danger"></span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group"
+										th:classappend="${#fields.hasErrors('auteur')} ? 'has-error has-feedback' : ''">
+										<label class="control-label"
+											th:text="#{message.auteur}+(${nouveauTopoForm.isNotNull('auteur')} ? ' *' : '')"></label>
+										<input type="text" class="form-control" th:field="*{auteur}"><span
+											th:if="${#fields.hasErrors('auteur')}"
+											class="glyphicon glyphicon-remove form-control-feedback"></span>
+										<span th:if="${#fields.hasErrors('auteur')}"
+											th:errors="*{auteur}" class="text-danger"></span>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group"
+										th:classappend="${#fields.hasErrors('authentificationEmailInput')} ? 'has-error has-feedback' : ''">
+										<label class="control-label"
+											th:text="#{message.proprietaire}+(${nouveauTopoForm.isNotNull('authentificationEmailInput')} ? ' *' : '')"></label>
+										<input type="text" class="form-control cursor-disabled"
+											th:field="*{authentificationEmailInput}" readonly><span
+											th:if="${#fields.hasErrors('authentificationEmailInput')}"
+											class="glyphicon glyphicon-remove form-control-feedback"></span>
+										<span
+											th:if="${#fields.hasErrors('authentificationEmailInput')}"
+											th:errors="*{authentificationEmailInput}" class="text-danger"></span>
+									</div>
+								</div>
+							</div>
+							<div class="row line-spacer">
+								<div class="col-lg-6"></div>
+								<div class="col-lg-6"></div>
+							</div>
+							<div class="row text-center">
+								<div class="col-lg-12">
+									<div class="vertical-spacer"></div>
+									<ul
+										class="list-inline list-inline-no-spacing no-bottom-padding-margin">
+										<li><button type="submit" class="btn btn-primary btn-lg">
+												<span class="glyphicon glyphicon-save"></span>
+												[[#{message.enregistrer}]]
+											</button></li>
+										<li><a class="btn btn-danger btn-lg" role="button"
+											th:href="${urlTopos}"><span
+												class="glyphicon glyphicon-remove"></span>
+												[[#{message.annuler}]]</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- layout:fragment -->
+
+</body>
+</html>

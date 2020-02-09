@@ -87,11 +87,17 @@ public class LieuFranceSpecification {
 	}
 
 	public static Specification<LieuFrance> lieuContaining(String lieu) {
+		if (!Utils.isValid(lieu)) {
+			return null;
+		}
 		return Specification.where(regionContaining(lieu)).or(departementContaining(lieu))
 				.or(codePostalContaining(lieu)).or(villeContaining(lieu));
 	}
 
 	public static Specification<LieuFrance> nomCompletEqual(String nomComplet) {
+		if (!Utils.isValid(nomComplet)) {
+			return null;
+		}
 		String[] nomCompletSplit = nomComplet.split(", ");
 		String region = nomCompletSplit[0];
 		String departement = nomCompletSplit[1];

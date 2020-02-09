@@ -143,11 +143,6 @@
 											th:href="@{/ami/topo/recherche}"><span
 												class="glyphicon glyphicon-erase"></span>
 												[[#{message.effacer}]]</a></li>
-										<li><div class="horizontal-spacer-20"></div></li>
-										<li><a class="btn btn-default btn-lg" role="button"
-											th:href="@{/ami/topo/nouveau}"><span
-												class="glyphicon glyphicon-plus"></span>
-												[[#{message.nouveauTopo}]]</a></li>
 									</ul>
 								</div>
 							</div>
@@ -185,10 +180,14 @@
 								<tr th:each="l:${listeManuels}" class="pointer"
 									th:onclick="'javascript:topoResultTableRowClicked(\'' + ${l.id} + '\',\'' + ${pageSize} + '\',\'' + ${pageNumber} + '\');'">
 									<td th:text="${l.nom}"></td>
-									<td th:text="${l.lieuFrance.region}"></td>
-									<td th:text="${l.lieuFrance.departement}"></td>
-									<td th:text="${l.lieuFrance.codePostal}"></td>
-									<td th:text="${l.lieuFrance.ville}"></td>
+									<td
+										th:text="${l.lieuFrance==null} ? '' : ${l.lieuFrance.region}"></td>
+									<td
+										th:text="${l.lieuFrance==null} ? '' : ${l.lieuFrance.departement}"></td>
+									<td
+										th:text="${l.lieuFrance==null} ? '' : ${l.lieuFrance.codePostal}"></td>
+									<td
+										th:text="${l.lieuFrance==null} ? '' : ${l.lieuFrance.ville}"></td>
 									<td th:text="${l.categorie}"></td>
 									<td
 										th:class="${l.etat=='DISPONIBLE'} ? text-success : text-danger"><span

@@ -32,14 +32,20 @@
 						th:text="#{message.accueil}"></a></li>
 					<li th:class="${spotActive}"><a
 						th:href="@{/ami/spot/recherche}" th:text="#{message.spots}"></a></li>
-					<li class="dropdown" th:classappend="${topoActive}"><a
-						class="dropdown-toggle" data-toggle="dropdown">[[#{message.topos}]]
-							<span class="caret"></span>
-					</a>
+					<li th:class="${topoActive}"><a
+						th:href="@{/ami/topo/recherche}" th:text="#{message.topos}"></a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#"><span
+							class="glyphicon glyphicon-user"></span>
+							[[${utilisateur.prenom}]] <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a th:href="@{/ami/topo/recherche}"><span
-									class="glyphicon glyphicon-search"></span>
-									[[#{message.rechercher}]]</a></li>
+							<li class="dropdown-header" th:text="#{message.general}"></li>
+							<li><a href="#"><span
+									class="glyphicon glyphicon-dashboard"></span>
+									[[#{message.tableauDeBord}]]</a></li>
+							<li class="dropdown-header" th:text="#{message.topos}"></li>
 							<li><a th:href="@{/ami/topo/topos}"><span
 									class="glyphicon glyphicon-list"></span>
 									[[#{message.mesTopos}]] <span class="badge">[[${nbManuelsUtilisateur}]]</span></a></li>
@@ -49,17 +55,6 @@
 							<li><a th:href="@{/ami/topo/emprunts}"><span
 									class="glyphicon glyphicon-import"></span>
 									[[#{message.mesEmprunts}]] <span class="badge">5</span></a></li>
-						</ul></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#"><span
-							class="glyphicon glyphicon-user"></span>
-							[[${utilisateur.prenom}]] <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#"><span
-									class="glyphicon glyphicon-dashboard"></span>
-									[[#{message.tableauDeBord}]]</a></li>
 							<li class="divider"></li>
 							<li><a th:href="@{/logout}" style="color: #ee5f5b;"><span
 									class="glyphicon glyphicon-log-out"></span>
@@ -172,7 +167,7 @@
 					+ "/page/" + page;
 		}
 		function topoUtilisateurTableRowClicked(manuelId) {
-			location.href = "/ami/topo/" + manuelId + "/utilisateur";
+			location.href = "/ami/topo/" + manuelId;
 		}
 	</script>
 	<script type="text/javascript">

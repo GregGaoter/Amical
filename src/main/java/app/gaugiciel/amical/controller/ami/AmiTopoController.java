@@ -1,7 +1,9 @@
 package app.gaugiciel.amical.controller.ami;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -25,15 +28,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import app.gaugiciel.amical.business.implementation.constante.TailleResultatRecherche;
+import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormNouveauTopo;
 import app.gaugiciel.amical.business.implementation.enumeration.CategorieManuel;
 import app.gaugiciel.amical.business.implementation.enumeration.EtatManuel;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheTopo;
+import app.gaugiciel.amical.controller.form.NouveauTopoForm;
 import app.gaugiciel.amical.controller.form.RechercheTopoForm;
+import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormNouveauTopo;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheTopo;
 import app.gaugiciel.amical.model.Authentification;
 import app.gaugiciel.amical.model.Manuel;
+import app.gaugiciel.amical.model.Spot;
 import app.gaugiciel.amical.model.Utilisateur;
 
 @Controller
@@ -43,9 +50,15 @@ public class AmiTopoController {
 	@Autowired
 	private HttpSession session;
 	@Autowired
+	private MessageSource messageSource;
+	@Autowired
 	private ServiceRechercheTopo serviceRechercheTopo;
 	@Autowired
 	private ValidationFormRechercheTopo validationFormRechercheTopo;
+	@Autowired
+	private ValidationFormNouveauTopo validationFormNouveauTopo;
+	@Autowired
+	private ServiceEnregistrementFormNouveauTopo serviceEnregistrementFormNouveauTopo;
 	private RechercheTopoForm rechercheTopoForm;
 
 	@GetMapping("/ami/topo/recherche")
@@ -56,7 +69,7 @@ public class AmiTopoController {
 		model.addAttribute("topoActive", "active");
 		session.setAttribute(RedirectionUrl.RECHERCHE_TOPO_FORM.label, urlRedirection);
 		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
-		return "ami_topo_recherche";
+		return "ami_manuel_recherche";
 	}
 
 	@PostMapping("/ami/topo/recherche")
@@ -67,7 +80,7 @@ public class AmiTopoController {
 		}
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("topoActive", "active");
-			return "ami_topo_recherche";
+			return "ami_manuel_recherche";
 		}
 		redirectAttributes.addFlashAttribute("rechercheTopoForm", rechercheTopoForm);
 		this.rechercheTopoForm = rechercheTopoForm;
@@ -89,6 +102,7 @@ public class AmiTopoController {
 			rechercheTopoForm = this.rechercheTopoForm;
 		}
 		Page<Manuel> pagesManuels = serviceRechercheTopo.rechercher(rechercheTopoForm, PageRequest.of(page, taille));
+		String urlRedirection = "redirect:/ami/topo/recherche/resultat/taille/" + taille + "/page/" + page;
 		model.addAttribute("rechercheTopoForm", rechercheTopoForm);
 		model.addAttribute("listeManuels", pagesManuels.getContent());
 		model.addAttribute("nbManuels", pagesManuels.getTotalElements());
@@ -97,7 +111,9 @@ public class AmiTopoController {
 		model.addAttribute("pageNumber", pagesManuels.getNumber());
 		model.addAttribute("pageSize", TailleResultatRecherche.TOPO);
 		model.addAttribute("topoActive", "active");
-		return "ami_topo_recherche";
+		session.setAttribute(RedirectionUrl.RECHERCHE_TOPO_FORM.label, urlRedirection);
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
+		return "ami_manuel_recherche";
 	}
 
 	@GetMapping("/ami/topo/{manuelId}/taille/{taille}/page/{page}")
@@ -126,9 +142,21 @@ public class AmiTopoController {
 		return "ami_manuels_utilisateur";
 	}
 
-	@GetMapping("/ami/topo/{manuelId}/utilisateur")
-	public String showTopoUtilisateur(@PathVariable long manuelId, Model model) {
-		Manuel manuel = serviceRechercheTopo.findById(manuelId);
+	@GetMapping("/ami/topo/{manuelId}")
+	public String showTopoUtilisateur(@PathVariable long manuelId, Model model, HttpServletRequest request) {
+		Manuel manuel;
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
+			if (inputFlashMap.containsKey("manuel")) {
+				manuel = (Manuel) inputFlashMap.get("manuel");
+				model.addAttribute("messageTopoEnregistreAvecSucces", messageSource.getMessage(
+						"message.topoEnregistreAvecSucces", new String[] { manuel.getNom() }, Locale.getDefault()));
+			} else {
+				manuel = serviceRechercheTopo.findById(manuelId);
+			}
+		} else {
+			manuel = serviceRechercheTopo.findById(manuelId);
+		}
 		String urlRedirection = "redirect:/ami/topo/" + manuelId;
 		model.addAttribute("manuel", manuel);
 		model.addAttribute("manuelUtilisateur", true);
@@ -136,6 +164,55 @@ public class AmiTopoController {
 		session.setAttribute(RedirectionUrl.MANUEL.label, urlRedirection);
 		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
 		return "ami_manuel";
+	}
+
+	@GetMapping("/ami/topo/nouveau")
+	public String showNouveauTopoForm(Model model) {
+		NouveauTopoForm nouveauTopoForm = new NouveauTopoForm();
+		Utilisateur proprietaireTopo = (Utilisateur) session.getAttribute(NomModel.UTILISATEUR.label);
+		nouveauTopoForm.setAuthentification(proprietaireTopo.getAuthentification());
+		nouveauTopoForm.setAuthentificationEmailInput(proprietaireTopo.getAuthentificationEmail());
+		String urlRedirection = "redirect:/ami/topo/nouveau";
+		model.addAttribute("nouveauTopoForm", nouveauTopoForm);
+		model.addAttribute("topoActive", "active");
+		model.addAttribute("urlTopos", ((String) session.getAttribute(RedirectionUrl.TOPOS.label)).split(":")[1]);
+		model.addAttribute("categorieManuelLabels", CategorieManuel.LABELS.stream()
+				.filter(label -> label != CategorieManuel.NULL.label).collect(Collectors.toList()));
+		model.addAttribute("etatManuelLabels",
+				EtatManuel.LABELS.stream()
+						.filter(label -> label != EtatManuel.NULL.label && label != EtatManuel.PRETE.label)
+						.collect(Collectors.toList()));
+		session.setAttribute(RedirectionUrl.TOPO_FORM.label, urlRedirection);
+		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
+		return "ami_manuel_nouveau";
+	}
+
+	@PostMapping("/ami/topo/nouveau")
+	public String checkNouveauTopoForm(@Valid NouveauTopoForm nouveauTopoForm, BindingResult bindingResult, Model model,
+			RedirectAttributes redirectAttributes) {
+		if (!validationFormNouveauTopo.isValide(nouveauTopoForm)) {
+			validationFormNouveauTopo.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
+		}
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("topoActive", "active");
+			return "ami_manuel_nouveau";
+		}
+		redirectAttributes.addFlashAttribute("nouveauTopoForm", nouveauTopoForm);
+		return "redirect:/ami/topo/nouveau/enregistrement";
+	}
+
+	@GetMapping("/ami/topo/nouveau/enregistrement")
+	public String saveNouveauTopoForm(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
+			if (inputFlashMap.containsKey("nouveauTopoForm")) {
+				serviceEnregistrementFormNouveauTopo
+						.enregistrer((NouveauTopoForm) inputFlashMap.get("nouveauTopoForm"));
+			}
+		}
+		Manuel manuel = serviceEnregistrementFormNouveauTopo.getManuel();
+		redirectAttributes.addFlashAttribute("manuel", manuel);
+		return "redirect:/ami/topo/" + manuel.getId();
 	}
 
 	@GetMapping("/ami/topo/recherche/nomManuel")

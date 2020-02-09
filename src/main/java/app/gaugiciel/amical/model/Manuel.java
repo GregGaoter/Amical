@@ -113,6 +113,25 @@ public class Manuel implements Serializable {
 	@JoinColumn(name = "lieu_france_id")
 	private LieuFrance lieuFrance;
 
+	private Manuel(String nom, Timestamp dateTimeParution, String auteur, String description, String remarque,
+			String etat, String categorie, Authentification authentification, LieuFrance lieuFrance) {
+		this.nom = nom;
+		this.dateTimeParution = dateTimeParution;
+		this.auteur = auteur;
+		this.description = description;
+		this.remarque = remarque;
+		this.etat = etat;
+		this.categorie = categorie;
+		this.authentification = authentification;
+		this.lieuFrance = lieuFrance;
+	}
+
+	public static Manuel creer(String nom, Timestamp dateTimeParution, String auteur, String description,
+			String remarque, String etat, String categorie, Authentification authentification, LieuFrance lieuFrance) {
+		return new Manuel(nom, dateTimeParution, auteur, description, remarque, etat, categorie, authentification,
+				lieuFrance);
+	}
+
 	public String getDateParution() {
 		return dateTimeParution == null ? "" : dateTimeParution.toString().split(" ")[0];
 	}
