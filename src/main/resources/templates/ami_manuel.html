@@ -43,6 +43,13 @@
 							th:if="${manuelUtilisateur}"><span
 							class="glyphicon glyphicon-edit"></span>
 							[[#{message.editerTopo}]]</a>
+						<div class="horizontal-spacer-10" th:if="${manuelUtilisateur}"></div>
+						<button type="button" class="btn btn-danger btn-lg"
+							data-toggle="modal" data-target="#modalSuppressionTopo"
+							th:if="${manuelUtilisateur}">
+							<span class="glyphicon glyphicon-remove"></span>
+							[[#{message.supprimerTopo}]]
+						</button>
 					</div>
 				</div>
 				<h2 th:text="#{message.lieu}"></h2>
@@ -108,6 +115,35 @@
 					th:text="${manuel.remarque==null || manuel.remarque==''} ? '-' : ${manuel.remarque}"></p>
 			</div>
 		</div>
+		<form th:action="@{'/ami/topo/'+${manuel.id}+'/suppression'}"
+			th:object="${suppressionTopoForm}" method="post">
+			<div class="modal fade" id="modalSuppressionTopo" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="form-group" hidden="hidden">
+								<label class="control-label"
+									th:text="#{message.id}+(${suppressionTopoForm.isNotNull('id')} ? ' *' : '')"></label>
+								<input type="number" class="form-control cursor-disabled"
+									th:field="*{id}" readonly>
+							</div>
+							<p th:text="#{message.modalBodySuppressionTopo(${manuel.nom})}"></p>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-danger btn-lg">
+								<span class="glyphicon glyphicon-remove"></span>
+								[[#{message.supprimer}]]
+							</button>
+							<button type="button" class="btn btn-default btn-lg"
+								data-dismiss="modal">
+								<span class="glyphicon glyphicon-arrow-left"></span>
+								[[#{message.annuler}]]
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
 	</div>
 	<!-- layout:fragment -->
 

@@ -35,9 +35,11 @@ import app.gaugiciel.amical.business.implementation.enumeration.EtatManuel;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheTopo;
+import app.gaugiciel.amical.business.implementation.repository.ServiceRepositoryManuel;
 import app.gaugiciel.amical.controller.form.EditionTopoForm;
 import app.gaugiciel.amical.controller.form.NouveauTopoForm;
 import app.gaugiciel.amical.controller.form.RechercheTopoForm;
+import app.gaugiciel.amical.controller.form.SuppressionTopoForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionTopo;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormNouveauTopo;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheTopo;
@@ -65,6 +67,8 @@ public class AmiTopoController {
 	private ServiceEnregistrementFormNouveauTopo serviceEnregistrementFormNouveauTopo;
 	@Autowired
 	private ServiceEnregistrementFormEditionTopo serviceEnregistrementFormEditionTopo;
+	@Autowired
+	private ServiceRepositoryManuel serviceRepositoryManuel;
 	private RechercheTopoForm rechercheTopoForm;
 
 	@GetMapping("/ami/topo/recherche")
@@ -136,7 +140,15 @@ public class AmiTopoController {
 	}
 
 	@GetMapping("/ami/topo/topos")
-	public String showToposUtilisateur(Model model) {
+	public String showToposUtilisateur(Model model, HttpServletRequest request) {
+		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
+			if (inputFlashMap.containsKey("nomManuelSupprime")) {
+				String nomManuelSupprime = (String) inputFlashMap.get("nomManuelSupprime");
+				model.addAttribute("messageTopoSupprimeAvecSucces", messageSource.getMessage(
+						"message.topoSupprimeAvecSucces", new String[] { nomManuelSupprime }, Locale.getDefault()));
+			}
+		}
 		List<Manuel> listeManuelsUtilisateur = serviceRechercheTopo
 				.findByAuthentification((Authentification) session.getAttribute(NomModel.AUTHENTIFICATION.label));
 		String urlRedirection = "redirect:/ami/topo/topos";
@@ -166,6 +178,7 @@ public class AmiTopoController {
 		String urlRedirection = "redirect:/ami/topo/" + manuelId;
 		model.addAttribute("manuel", manuel);
 		model.addAttribute("manuelUtilisateur", true);
+		model.addAttribute("suppressionTopoForm", SuppressionTopoForm.creer(manuelId));
 		model.addAttribute("topoActive", "active");
 		session.setAttribute(RedirectionUrl.MANUEL.label, urlRedirection);
 		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
@@ -275,6 +288,16 @@ public class AmiTopoController {
 		}
 		redirectAttributes.addFlashAttribute("manuel", serviceEnregistrementFormEditionTopo.getManuel());
 		return (String) session.getAttribute(RedirectionUrl.MANUEL.label);
+	}
+
+	@PostMapping("/ami/topo/{manuelId}/suppression")
+	public String supprimerTopo(@Valid SuppressionTopoForm suppressionTopoForm, @PathVariable long manuelId,
+			RedirectAttributes redirectAttributes) {
+		Manuel manuel = serviceRechercheTopo.findById(manuelId);
+		String nomManuelSupprime = manuel.getNom();
+		serviceRepositoryManuel.supprimer(manuel);
+		redirectAttributes.addFlashAttribute("nomManuelSupprime", nomManuelSupprime);
+		return (String) session.getAttribute(RedirectionUrl.TOPOS.label);
 	}
 
 	@GetMapping("/ami/topo/recherche/nomManuel")

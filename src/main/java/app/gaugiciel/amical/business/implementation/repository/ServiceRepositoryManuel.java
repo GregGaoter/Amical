@@ -25,7 +25,7 @@ public class ServiceRepositoryManuel implements Repository<Manuel> {
 
 	@Override
 	public void supprimer(Manuel manuel) {
-
+		manuelRepository.delete(manuel);
 	}
 
 }
