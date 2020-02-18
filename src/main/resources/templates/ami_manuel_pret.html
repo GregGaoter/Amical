@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{ami_layout.html}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title th:text="#{message.mesPrets}"></title>
+</head>
+<body class="body-without-nav-pills">
+
+	<div layout:fragment="content">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					[[#{message.demandesPretsEnAttente}]] <span class="badge"
+						th:text="${nbDemandesPretsManuels}"></span>
+				</h3>
+			</div>
+			<div class="scroll-horizontal">
+				<table
+					class="table table-striped table-hover text-nowrap no-bottom-padding-margin">
+					<thead>
+						<tr>
+							<th th:text="#{message.topo}"></th>
+							<th th:text="#{message.prenom}"></th>
+							<th th:text="#{message.nom}"></th>
+							<th th:text="#{message.email}"></th>
+							<th th:text="#{message.date}"></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="l:${listeAmiManuelPretDataDemande}">
+							<td th:text="${l.nomTopoDemandePret}"></td>
+							<td th:text="${l.prenomDemandeurPret}"></td>
+							<td th:text="${l.nomDemandeurPret}"></td>
+							<td th:text="${l.emailDemandeurPret}"></td>
+							<td th:text="${l.dateDemandePret}"></td>
+							<td><a class="btn btn-success btn-xs" role="button"
+								th:href="@{'/ami/topo/'+${l.idTopoDemandePret}+'/pret/accepte'}"><span
+									class="glyphicon glyphicon-ok"></span> [[#{message.accepter}]]</a>
+								<a class="btn btn-danger btn-xs" role="button"
+								th:href="@{'/ami/topo/'+${l.idTopoDemandePret}+'/pret/refuse'}"><span
+									class="glyphicon glyphicon-remove"></span>
+									[[#{message.refuser}]]</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					[[#{message.pretsEnCours}]] <span class="badge"
+						th:text="${nbPretsManuels}"></span>
+				</h3>
+			</div>
+			<div class="scroll-horizontal">
+				<table
+					class="table table-striped table-hover text-nowrap no-bottom-padding-margin">
+					<thead>
+						<tr>
+							<th th:text="#{message.topo}"></th>
+							<th th:text="#{message.prenom}"></th>
+							<th th:text="#{message.nom}"></th>
+							<th th:text="#{message.email}"></th>
+							<th th:text="#{message.date}"></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="l:${listeAmiManuelPretDataEnCours}">
+							<td th:text="${l.nomTopoPretEnCours}"></td>
+							<td th:text="${l.prenomEmprunteur}"></td>
+							<td th:text="${l.nomEmprunteur}"></td>
+							<td th:text="${l.emailEmprunteur}"></td>
+							<td th:text="${l.dateEmprunt}"></td>
+							<td><a class="btn btn-default btn-xs" role="button"
+								th:href="@{'/ami/topo/'+${l.idTopoPretEnCours}+'/pret/retour'}"><span
+									class="glyphicon glyphicon-import"></span>
+									[[#{message.validerRetour}]]</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- layout:fragment -->
+
+</body>
+</html>

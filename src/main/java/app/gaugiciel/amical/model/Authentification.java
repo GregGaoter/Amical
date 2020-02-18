@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -79,12 +78,20 @@ public class Authentification implements Serializable {
 	private Utilisateur utilisateur;
 
 	// Persistance
-	@OneToMany(mappedBy = "emailPreteur")
-	Set<PretEmpruntManuel> listePretsManuels;
+	// @OneToMany(mappedBy = "preteur", fetch = FetchType.LAZY)
+	// Set<PretEmpruntManuel> listePretsManuels = new HashSet<>();
 
 	// Persistance
-	@OneToMany(mappedBy = "emailEmprunteur")
-	Set<PretEmpruntManuel> listeEmpruntsManuels;
+	// @OneToMany(mappedBy = "emprunteur", fetch = FetchType.LAZY)
+	// Set<PretEmpruntManuel> listeEmpruntsManuels = new HashSet<>();
+
+	// Persistance
+	// @OneToMany(mappedBy = "demandeur", fetch = FetchType.LAZY)
+	// Set<DemandePretEmpruntManuel> listeDemandesPretsManuels = new HashSet<>();
+
+	// Persistance
+	// @OneToMany(mappedBy = "proprietaire", fetch = FetchType.LAZY)
+	// Set<DemandePretEmpruntManuel> listeDemandesEmpruntsManuels = new HashSet<>();
 
 	@Override
 	public boolean equals(Object obj) {

@@ -37,18 +37,31 @@
 				<div class="row line-spacer">
 					<div class="conteneur-flex">
 						<h1 class="no-top-margin" th:text=${manuel.nom}></h1>
-						<div class="horizontal-spacer-20" th:if="${manuelUtilisateur}"></div>
+						<div class="horizontal-spacer-20"
+							th:if="${manuel.authentification.email==utilisateur.authentificationEmail}"></div>
 						<a class="btn btn-default btn-lg" role="button"
 							th:href="@{'/ami/topo/'+${manuel.id}+'/edition'}"
-							th:if="${manuelUtilisateur}"><span
+							th:if="${manuel.authentification.email==utilisateur.authentificationEmail}"><span
 							class="glyphicon glyphicon-edit"></span>
 							[[#{message.editerTopo}]]</a>
-						<div class="horizontal-spacer-10" th:if="${manuelUtilisateur}"></div>
+						<div class="horizontal-spacer-10"
+							th:if="${manuel.authentification.email==utilisateur.authentificationEmail}"></div>
 						<button type="button" class="btn btn-danger btn-lg"
 							data-toggle="modal" data-target="#modalSuppressionTopo"
-							th:if="${manuelUtilisateur}">
+							th:if="${manuel.authentification.email==utilisateur.authentificationEmail}">
 							<span class="glyphicon glyphicon-remove"></span>
 							[[#{message.supprimerTopo}]]
+						</button>
+						<div class="horizontal-spacer-10"
+							th:if="${manuel.authentification.email!=utilisateur.authentificationEmail}"></div>
+						<button type="button" class="btn btn-default btn-lg"
+							th:classappend="${manuel.etat=='DISPONIBLE'} ? '' : disabled"
+							th:data-toggle="${manuel.etat=='DISPONIBLE'} ? modal : ''"
+							data-target="#modalDemandeEmpruntTopo"
+							th:if="${manuel.authentification.email!=utilisateur.authentificationEmail}"
+							th:id="${manuel.etat=='DISPONIBLE'} ? '' : popoverTopoIndisponible">
+							<span class="glyphicon glyphicon-send"></span>
+							[[#{message.envoyerDemandeEmprunt}]]
 						</button>
 					</div>
 				</div>
@@ -133,6 +146,36 @@
 							<button type="submit" class="btn btn-danger btn-lg">
 								<span class="glyphicon glyphicon-remove"></span>
 								[[#{message.supprimer}]]
+							</button>
+							<button type="button" class="btn btn-default btn-lg"
+								data-dismiss="modal">
+								<span class="glyphicon glyphicon-arrow-left"></span>
+								[[#{message.annuler}]]
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<form th:action="@{'/ami/topo/'+${manuel.id}+'/demandeEmprunt'}"
+			th:object="${demandeEmpruntTopoForm}" method="post">
+			<div class="modal fade" id="modalDemandeEmpruntTopo" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="form-group" hidden="hidden">
+								<label class="control-label"
+									th:text="#{message.id}+(${demandeEmpruntTopoForm.isNotNull('id')} ? ' *' : '')"></label>
+								<input type="number" class="form-control cursor-disabled"
+									th:field="*{id}" readonly>
+							</div>
+							<p
+								th:text="#{message.demandeEmpruntTopoProprietaire(${manuel.nom})}"></p>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary btn-lg">
+								<span class="glyphicon glyphicon-send"></span>
+								[[#{message.envoyer}]]
 							</button>
 							<button type="button" class="btn btn-default btn-lg"
 								data-dismiss="modal">

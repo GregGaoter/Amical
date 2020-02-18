@@ -24,14 +24,14 @@ import lombok.Setter;
 
 //Persistance
 @Entity
-@Table(name = "pret_emprunt_manuel", indexes = { @Index(columnList = "preteur"), @Index(columnList = "emprunteur"),
-		@Index(columnList = "manuel_id") })
+@Table(name = "demande_pret_emprunt_manuel", indexes = { @Index(columnList = "demandeur"),
+		@Index(columnList = "proprietaire"), @Index(columnList = "manuel_id") })
 //Lombok
 @NoArgsConstructor
 @RequiredArgsConstructor(staticName = "creer")
 @Getter
 @Setter
-public class PretEmpruntManuel implements Serializable {
+public class DemandePretEmpruntManuel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -44,17 +44,17 @@ public class PretEmpruntManuel implements Serializable {
 
 	// Persistance
 	@ManyToOne
-	@JoinColumn(name = "preteur", nullable = false)
+	@JoinColumn(name = "demandeur", nullable = false)
 	// Lombok
 	@NonNull
-	private Authentification preteur;
+	private Authentification demandeur;
 
 	// Persistance
 	@ManyToOne
-	@JoinColumn(name = "emprunteur", nullable = false)
+	@JoinColumn(name = "proprietaire", nullable = false)
 	// Lombok
 	@NonNull
-	private Authentification emprunteur;
+	private Authentification proprietaire;
 
 	// Persistance
 	@ManyToOne

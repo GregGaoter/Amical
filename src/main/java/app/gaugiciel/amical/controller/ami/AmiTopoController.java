@@ -34,8 +34,10 @@ import app.gaugiciel.amical.business.implementation.enumeration.CategorieManuel;
 import app.gaugiciel.amical.business.implementation.enumeration.EtatManuel;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
+import app.gaugiciel.amical.business.implementation.recherche.ServiceRecherchePretEmpruntManuel;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheTopo;
 import app.gaugiciel.amical.business.implementation.repository.ServiceRepositoryManuel;
+import app.gaugiciel.amical.controller.form.DemandeEmpruntTopoForm;
 import app.gaugiciel.amical.controller.form.EditionTopoForm;
 import app.gaugiciel.amical.controller.form.NouveauTopoForm;
 import app.gaugiciel.amical.controller.form.RechercheTopoForm;
@@ -69,6 +71,8 @@ public class AmiTopoController {
 	private ServiceEnregistrementFormEditionTopo serviceEnregistrementFormEditionTopo;
 	@Autowired
 	private ServiceRepositoryManuel serviceRepositoryManuel;
+	@Autowired
+	private ServiceRecherchePretEmpruntManuel serviceRecherchePretEmpruntManuel;
 	private RechercheTopoForm rechercheTopoForm;
 
 	@GetMapping("/ami/topo/recherche")
@@ -134,6 +138,8 @@ public class AmiTopoController {
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", taille);
 		model.addAttribute("topoActive", "active");
+		model.addAttribute("suppressionTopoForm", SuppressionTopoForm.creer(manuelId));
+		model.addAttribute("demandeEmpruntTopoForm", DemandeEmpruntTopoForm.creer(manuelId));
 		session.setAttribute(RedirectionUrl.MANUEL.label, urlRedirection);
 		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
 		return "ami_manuel";
@@ -179,6 +185,7 @@ public class AmiTopoController {
 		model.addAttribute("manuel", manuel);
 		model.addAttribute("manuelUtilisateur", true);
 		model.addAttribute("suppressionTopoForm", SuppressionTopoForm.creer(manuelId));
+		model.addAttribute("demandeEmpruntTopoForm", DemandeEmpruntTopoForm.creer(manuelId));
 		model.addAttribute("topoActive", "active");
 		session.setAttribute(RedirectionUrl.MANUEL.label, urlRedirection);
 		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
@@ -241,6 +248,7 @@ public class AmiTopoController {
 		String urlRedirection = "redirect:/ami/topo/" + manuelId + "/edition";
 		model.addAttribute("manuel", manuel);
 		model.addAttribute("editionTopoForm", editionTopoForm);
+		model.addAttribute("isPretExist", serviceRecherchePretEmpruntManuel.existsByManuel(manuel));
 		model.addAttribute("topoActive", "active");
 		model.addAttribute("categorieManuelLabels", CategorieManuel.LABELS.stream()
 				.filter(label -> label != CategorieManuel.NULL.label).collect(Collectors.toList()));

@@ -51,7 +51,10 @@
 									[[#{message.mesTopos}]] <span class="badge">[[${nbManuelsUtilisateur}]]</span></a></li>
 							<li><a th:href="@{/ami/topo/prets}"><span
 									class="glyphicon glyphicon-export"></span>
-									[[#{message.mesPrets}]] <span class="badge">5</span></a></li>
+									[[#{message.mesPrets}]] <span class="badge"
+									data-toggle="tooltip" th:title="#{message.demandePrets}">[[${nbDemandesPretsManuels}]]</span>
+									<span class="badge" data-toggle="tooltip"
+									th:title="#{message.pretsEnCours}">[[${nbPretsManuels}]]</span></a></li>
 							<li><a th:href="@{/ami/topo/emprunts}"><span
 									class="glyphicon glyphicon-import"></span>
 									[[#{message.mesEmprunts}]] <span class="badge">5</span></a></li>
@@ -90,6 +93,48 @@
 		</button>
 	</div>
 
+	<div id="popoverTopoIndisponibleTemplate" hidden="hidden">
+		<div class="popover">
+			<div class="arrow"></div>
+			<div class="popover-content"></div>
+		</div>
+	</div>
+	<div id="popoverTopoIndisponibleContent" hidden="hidden">
+		<div class='row row-no-gutters'>
+			<div class='col-lg-12 text-center'>
+				<img th:alt='#{message.information}'
+					th:src='@{/img/help_about_icon_24_24.png}'>
+			</div>
+		</div>
+		<div class='row row-no-gutters'>
+			<div class='col-lg-12 text-center'>
+				<p class='text-info no-bottom-padding-margin'
+					th:text="#{message.topoIndisponible}"></p>
+			</div>
+		</div>
+	</div>
+
+	<div id="popoverTopoEnPretEtatNonModifiableTemplate" hidden="hidden">
+		<div class="popover">
+			<div class="arrow"></div>
+			<div class="popover-content"></div>
+		</div>
+	</div>
+	<div id="popoverTopoEnPretEtatNonModifiableContent" hidden="hidden">
+		<div class='row row-no-gutters'>
+			<div class='col-lg-12 text-center'>
+				<img th:alt='#{message.information}'
+					th:src='@{/img/help_about_icon_24_24.png}'>
+			</div>
+		</div>
+		<div class='row row-no-gutters'>
+			<div class='col-lg-12 text-center'>
+				<p class='text-info no-bottom-padding-margin'
+					th:text="#{message.topoEnPretEtatNonModifiable}"></p>
+			</div>
+		</div>
+	</div>
+
 	<footer></footer>
 
 	<script th:src="@{/js/jquery-3.4.1.js}"></script>
@@ -98,52 +143,86 @@
 	<script th:src="@{/js/bootstrap-filestyle.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script>
-		$(document).ready(function() {
+		$(document)
+				.ready(
+						function() {
 
-			// Javascript
-			$('[data-toggle="popover"]').popover();
-			$('[data-toggle="tooltip"]').tooltip();
+							// Javascript
+							$('[data-toggle="popover"]').popover();
+							$('[data-toggle="tooltip"]').tooltip();
+							$('[id="popoverTopoIndisponible"]')
+									.popover(
+											{
+												trigger : 'hover',
+												template : $(
+														"#popoverTopoIndisponibleTemplate")
+														.html(),
+												content : $(
+														"#popoverTopoIndisponibleContent")
+														.html(),
+												placement : "auto",
+												html : true,
+												container : 'body'
+											});
+							$('[id="popoverTopoEnPretEtatNonModifiable"]')
+									.popover(
+											{
+												trigger : 'hover',
+												template : $(
+														"#popoverTopoEnPretEtatNonModifiableTemplate")
+														.html(),
+												content : $(
+														"#popoverTopoEnPretEtatNonModifiableContent")
+														.html(),
+												placement : "auto",
+												html : true,
+												container : 'body'
+											});
 
-			// JQuery
-			$('#nomSpot').autocomplete({
-				source : "/ami/spot/recherche/nomSpot"
-			});
-			$('#lieuSpot').autocomplete({
-				source : "/ami/spot/recherche/lieuSpot"
-			});
-			$('#nomSecteur').autocomplete({
-				source : "/ami/spot/recherche/nomSecteur"
-			});
-			$('#nomVoie').autocomplete({
-				source : "/ami/spot/recherche/nomVoie"
-			});
-			$('#lieuFrance').autocomplete({
-				source : "/ami/spot/ajout/lieuFrance"
-			});
-			$('#plan').autocomplete({
-				source : "/ami/spot/ajout/plan"
-			});
-			$('#nomManuel').autocomplete({
-				source : "/ami/topo/recherche/nomManuel"
-			});
-			$('#nomAuteur').autocomplete({
-				source : "/ami/topo/recherche/nomAuteur"
-			});
-			$('#proprietaireTopo').autocomplete({
-				source : "/ami/topo/recherche/proprietaire"
-			});
-			$('#secteur').on('shown.bs.collapse', function() {
-				var panel = $(this).find('.in');
-				$(window).scrollTop(panel.offset().top - 100);
-			});
-			$("#supprimeFichier").on('click', function() {
-				$("#nomFichier").val(null);
-			});
-			$(window).on("load", function() {
-				var openPanel = $('#secteur').find('.in');
-				$(window).scrollTop(openPanel.offset().top - 100);
-			});
-		});
+							// JQuery
+							$('#nomSpot').autocomplete({
+								source : "/ami/spot/recherche/nomSpot"
+							});
+							$('#lieuSpot').autocomplete({
+								source : "/ami/spot/recherche/lieuSpot"
+							});
+							$('#nomSecteur').autocomplete({
+								source : "/ami/spot/recherche/nomSecteur"
+							});
+							$('#nomVoie').autocomplete({
+								source : "/ami/spot/recherche/nomVoie"
+							});
+							$('#lieuFrance').autocomplete({
+								source : "/ami/spot/ajout/lieuFrance"
+							});
+							$('#plan').autocomplete({
+								source : "/ami/spot/ajout/plan"
+							});
+							$('#nomManuel').autocomplete({
+								source : "/ami/topo/recherche/nomManuel"
+							});
+							$('#nomAuteur').autocomplete({
+								source : "/ami/topo/recherche/nomAuteur"
+							});
+							$('#proprietaireTopo').autocomplete({
+								source : "/ami/topo/recherche/proprietaire"
+							});
+							$('#secteur').on('shown.bs.collapse', function() {
+								var panel = $(this).find('.in');
+								$(window).scrollTop(panel.offset().top - 100);
+							});
+							$("#supprimeFichier").on('click', function() {
+								$("#nomFichier").val(null);
+							});
+							$(window).on(
+									"load",
+									function() {
+										var openPanel = $('#secteur').find(
+												'.in');
+										$(window).scrollTop(
+												openPanel.offset().top - 100);
+									});
+						});
 	</script>
 	<script>
 		function spotResultTableRowClicked(spotId, pageNumber, pageSize) {

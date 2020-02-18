@@ -2,7 +2,6 @@ package app.gaugiciel.amical.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -105,8 +103,8 @@ public class Manuel implements Serializable {
 	private Authentification authentification;
 
 	// Persistance
-	@OneToMany(mappedBy = "manuel")
-	Set<PretEmpruntManuel> listePretsEmpruntsManuels;
+	//@OneToMany(mappedBy = "manuel", fetch = FetchType.LAZY)
+	//Set<PretEmpruntManuel> listePretsEmpruntsManuels = new HashSet<>();
 
 	// Persistance
 	@ManyToOne
