@@ -42,12 +42,55 @@
 							<td th:text="${l.emailDemandeurPret}"></td>
 							<td th:text="${l.dateDemandePret}"></td>
 							<td><a class="btn btn-success btn-xs" role="button"
-								th:href="@{'/ami/topo/'+${l.idTopoDemandePret}+'/pret/accepte'}"><span
+								data-toggle="modal" data-target="#modalAccepterDemandePret"><span
 									class="glyphicon glyphicon-ok"></span> [[#{message.accepter}]]</a>
-								<a class="btn btn-danger btn-xs" role="button"
-								th:href="@{'/ami/topo/'+${l.idTopoDemandePret}+'/pret/refuse'}"><span
+								<div class="modal fade" id="modalAccepterDemandePret"
+									role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-body">
+												<p
+													th:text="#{message.modalAccepterDemandePret(${l.nomTopoDemandePret},${l.emailDemandeurPret})}"></p>
+											</div>
+											<div class="modal-footer">
+												<a class="btn btn-success" role="button"
+													th:href="@{'/ami/topo/'+${l.idTopoDemandePret}+'/pret/accepte'}"><span
+													class="glyphicon glyphicon-ok"></span>
+													[[#{message.accepter}]]</a>
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">
+													<span class="glyphicon glyphicon-arrow-left"></span>
+													[[#{message.annuler}]]
+												</button>
+											</div>
+										</div>
+									</div>
+								</div> <a class="btn btn-danger btn-xs" role="button"
+								data-toggle="modal" data-target="#modalRefuserDemandePret"><span
 									class="glyphicon glyphicon-remove"></span>
-									[[#{message.refuser}]]</a></td>
+									[[#{message.refuser}]]</a>
+								<div class="modal fade" id="modalRefuserDemandePret"
+									role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-body">
+												<p
+													th:text="#{message.modalRefuserDemandePret(${l.nomTopoDemandePret},${l.emailDemandeurPret})}"></p>
+											</div>
+											<div class="modal-footer">
+												<a class="btn btn-primary" role="button"
+													th:href="@{'/ami/topo/'+${l.idTopoDemandePret}+'/pret/refuse'}"><span
+													class="glyphicon glyphicon-remove"></span>
+													[[#{message.refuser}]]</a>
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">
+													<span class="glyphicon glyphicon-arrow-left"></span>
+													[[#{message.annuler}]]
+												</button>
+											</div>
+										</div>
+									</div>
+								</div></td>
 						</tr>
 					</tbody>
 				</table>
@@ -81,9 +124,31 @@
 							<td th:text="${l.emailEmprunteur}"></td>
 							<td th:text="${l.dateEmprunt}"></td>
 							<td><a class="btn btn-default btn-xs" role="button"
-								th:href="@{'/ami/topo/'+${l.idTopoPretEnCours}+'/pret/retour'}"><span
+								data-toggle="modal" data-target="#modalValiderRetourPret"><span
 									class="glyphicon glyphicon-import"></span>
-									[[#{message.validerRetour}]]</a></td>
+									[[#{message.validerRetour}]]</a>
+								<div class="modal fade" id="modalValiderRetourPret"
+									role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-body">
+												<p
+													th:text="#{message.modalValiderRetourPret(${l.nomTopoPretEnCours},${l.emailEmprunteur})}"></p>
+											</div>
+											<div class="modal-footer">
+												<a class="btn btn-success" role="button"
+													th:href="@{'/ami/topo/'+${l.idTopoPretEnCours}+'/pret/retour'}"><span
+													class="glyphicon glyphicon-ok"></span>
+													[[#{message.validerRetour}]]</a>
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">
+													<span class="glyphicon glyphicon-arrow-left"></span>
+													[[#{message.annuler}]]
+												</button>
+											</div>
+										</div>
+									</div>
+								</div></td>
 						</tr>
 					</tbody>
 				</table>

@@ -22,10 +22,8 @@ public class GenerateurMotDePasse {
 	public void genererMotsDePasse() {
 		char[] listeCaracteresMotDePasse = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
 				'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-				'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'à', 'â', 'ç', 'é', 'è',
-				'ê', 'ë', 'î', 'ï', 'ô', 'ù', 'û', 'ü', 'À', 'Â', 'Ç', 'É', 'È', 'Ê', 'Ë', 'Î', 'Ï', 'Ô', 'Ù', 'Û', 'Ü',
-				'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '#', '$', '%', '&', '(', ')', '*', '+', '-', '.',
-				':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '_', '`', '{', '|', '}', '~' };
+				'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4',
+				'5', '6', '7', '8', '9' };
 		List<String> listeMotsDePasse = new ArrayList<>(360);
 		for (int i = 0; i < 360; i++) {
 			String[] motDePasse = new String[2];
@@ -48,7 +46,6 @@ public class GenerateurMotDePasse {
 			listeMotsDePasse.stream().forEach(printWriter::println);
 			printWriter.close();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 

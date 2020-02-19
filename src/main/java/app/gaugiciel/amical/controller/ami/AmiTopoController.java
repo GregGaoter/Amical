@@ -34,6 +34,7 @@ import app.gaugiciel.amical.business.implementation.enumeration.CategorieManuel;
 import app.gaugiciel.amical.business.implementation.enumeration.EtatManuel;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
+import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheDemandePretEmpruntManuel;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRecherchePretEmpruntManuel;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheTopo;
 import app.gaugiciel.amical.business.implementation.repository.ServiceRepositoryManuel;
@@ -73,6 +74,8 @@ public class AmiTopoController {
 	private ServiceRepositoryManuel serviceRepositoryManuel;
 	@Autowired
 	private ServiceRecherchePretEmpruntManuel serviceRecherchePretEmpruntManuel;
+	@Autowired
+	private ServiceRechercheDemandePretEmpruntManuel serviceRechercheDemandePretEmpruntManuel;
 	private RechercheTopoForm rechercheTopoForm;
 
 	@GetMapping("/ami/topo/recherche")
@@ -248,6 +251,7 @@ public class AmiTopoController {
 		String urlRedirection = "redirect:/ami/topo/" + manuelId + "/edition";
 		model.addAttribute("manuel", manuel);
 		model.addAttribute("editionTopoForm", editionTopoForm);
+		model.addAttribute("isDemandePretExist", serviceRechercheDemandePretEmpruntManuel.existsByManuel(manuel));
 		model.addAttribute("isPretExist", serviceRecherchePretEmpruntManuel.existsByManuel(manuel));
 		model.addAttribute("topoActive", "active");
 		model.addAttribute("categorieManuelLabels", CategorieManuel.LABELS.stream()

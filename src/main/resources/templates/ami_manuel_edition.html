@@ -78,7 +78,7 @@
 										th:classappend="${#fields.hasErrors('etat')} ? 'has-error has-feedback' : ''">
 										<label class="control-label"
 											th:text="#{message.etat}+(${editionTopoForm.isNotNull('etat')} ? ' *' : '')"></label>
-										<div th:if="${isPretExist}"
+										<div th:if="${isPretExist || isDemandePretExist}"
 											id="popoverTopoEnPretEtatNonModifiable">
 											<div class="overlap"></div>
 											<select class="form-control" th:field="*{etat}"
@@ -90,7 +90,7 @@
 										</div>
 										<select class="form-control" th:field="*{etat}"
 											th:classappend="${#fields.hasErrors('etat')} ? has-error : ''"
-											th:if="${!isPretExist}">
+											th:if="${!isPretExist && !isDemandePretExist}">
 											<option th:each="l:${etatManuelLabels}" th:value="${l}"
 												th:text="${l}"></option>
 										</select><span th:if="${#fields.hasErrors('etat')}"

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.domain.Specification;
 import app.gaugiciel.amical.model.Authentification;
 import app.gaugiciel.amical.model.DemandePretEmpruntManuel;
 import app.gaugiciel.amical.model.DemandePretEmpruntManuel_;
+import app.gaugiciel.amical.model.Manuel;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class DemandePretEmpruntManuelSpecification {
@@ -33,6 +34,15 @@ public class DemandePretEmpruntManuelSpecification {
 				return null;
 			}
 			return builder.equal(root.get(DemandePretEmpruntManuel_.MANUEL), manuelId);
+		};
+	}
+
+	public static Specification<DemandePretEmpruntManuel> manuelEqual(Manuel manuel) {
+		return (root, query, builder) -> {
+			if (!Utils.isValid(manuel)) {
+				return null;
+			}
+			return builder.equal(root.get(DemandePretEmpruntManuel_.MANUEL), manuel);
 		};
 	}
 

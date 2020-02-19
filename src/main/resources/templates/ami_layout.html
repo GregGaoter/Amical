@@ -57,7 +57,10 @@
 									th:title="#{message.pretsEnCours}">[[${nbPretsManuels}]]</span></a></li>
 							<li><a th:href="@{/ami/topo/emprunts}"><span
 									class="glyphicon glyphicon-import"></span>
-									[[#{message.mesEmprunts}]] <span class="badge">5</span></a></li>
+									[[#{message.mesEmprunts}]] <span class="badge"
+									data-toggle="tooltip" th:title="#{message.demandeEmprunts}">[[${nbDemandesEmpruntsManuels}]]</span>
+									<span class="badge" data-toggle="tooltip"
+									th:title="#{message.empruntsEnCours}">[[${nbEmpruntsManuels}]]</span></a></li>
 							<li class="divider"></li>
 							<li><a th:href="@{/logout}" style="color: #ee5f5b;"><span
 									class="glyphicon glyphicon-log-out"></span>

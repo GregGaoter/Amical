@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import app.gaugiciel.amical.business.contrat.Recherche;
 import app.gaugiciel.amical.model.Authentification;
 import app.gaugiciel.amical.model.DemandePretEmpruntManuel;
+import app.gaugiciel.amical.model.Manuel;
 import app.gaugiciel.amical.repository.DemandePretEmpruntManuelRepository;
 import app.gaugiciel.amical.repository.specification.DemandePretEmpruntManuelSpecification;
 
@@ -30,6 +31,11 @@ public class ServiceRechercheDemandePretEmpruntManuel implements Recherche<Deman
 	public DemandePretEmpruntManuel findByManuelId(Long manuelId) {
 		return demandePretEmpruntManuelRepository.findOne(DemandePretEmpruntManuelSpecification.manuelIdEqual(manuelId))
 				.orElse(null);
+	}
+
+	public boolean existsByManuel(Manuel manuel) {
+		return demandePretEmpruntManuelRepository.findOne(DemandePretEmpruntManuelSpecification.manuelEqual(manuel))
+				.isPresent();
 	}
 
 }
