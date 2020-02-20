@@ -39,6 +39,7 @@ import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUn
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
+import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheCommentaire;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLieuFrance;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLongueur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRecherchePlan;
@@ -47,15 +48,18 @@ import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSp
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheVoie;
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
 import app.gaugiciel.amical.controller.form.EditionSpotForm;
+import app.gaugiciel.amical.controller.form.NouveauCommentaireForm;
 import app.gaugiciel.amical.controller.form.NouveauSpotForm;
 import app.gaugiciel.amical.controller.form.RechercheSpotForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionSpot;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheSpot;
+import app.gaugiciel.amical.model.Commentaire;
 import app.gaugiciel.amical.model.Longueur;
 import app.gaugiciel.amical.model.Plan;
 import app.gaugiciel.amical.model.Secteur;
 import app.gaugiciel.amical.model.Spot;
 import app.gaugiciel.amical.model.Voie;
+import app.gaugiciel.amical.utilitaire.Utils;
 
 @Controller
 @ControllerAdvice
@@ -85,6 +89,8 @@ public class AmiSpotController {
 	private ServiceRecherchePlan serviceRecherchePlan;
 	@Autowired
 	private ValidationFormEditionSpot validationFormEditionSpot;
+	@Autowired
+	private ServiceRechercheCommentaire serviceRechercheCommentaire;
 	@Autowired
 	private MessageSource messageSource;
 	@Autowired
@@ -159,8 +165,14 @@ public class AmiSpotController {
 				model.addAttribute("messageVoieEnregistreAvecSucces", messageSource.getMessage(
 						"message.voieEnregistreAvecSucces", new String[] { voie.getNom() }, Locale.getDefault()));
 			}
+			if (inputFlashMap.containsKey("nouveauCommentaireForm")) {
+				model.addAttribute("commentairesActive", "active");
+			} else {
+				model.addAttribute("informationsActive", "active");
+			}
 		} else {
 			spot = serviceRechercheSpot.findById(spotId);
+			model.addAttribute("informationsActive", "active");
 		}
 		List<Secteur> listeSecteurs = serviceRechercheSecteur.findBySpotIdOrderByNom(spotId);
 		Map<Long, List<Voie>> mapVoies = new HashMap<>();
@@ -183,12 +195,19 @@ public class AmiSpotController {
 			} catch (Exception e) {
 			}
 		}
+		List<Commentaire> listeCommentaires = serviceRechercheCommentaire.findAllBySpot(spot);
+		listeCommentaires
+				.forEach(commentaire -> commentaire.setDateString(Utils.formaterTimestamp(commentaire.getDate())));
+		NouveauCommentaireForm nouveauCommentaireForm = new NouveauCommentaireForm();
 		model.addAttribute("secteurId", secteurId);
 		model.addAttribute("spot", spot);
 		model.addAttribute("listeSecteurs", listeSecteurs);
 		model.addAttribute("mapVoies", mapVoies);
 		model.addAttribute("mapLongueurs", mapLongueurs);
 		model.addAttribute("mapNbSpits", mapNbSpits);
+		model.addAttribute("listeCommentaires", listeCommentaires);
+		model.addAttribute("nbCommentaires", listeCommentaires.size());
+		model.addAttribute("nouveauCommentaireForm", nouveauCommentaireForm);
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", size);
 		model.addAttribute("spotActive", "active");

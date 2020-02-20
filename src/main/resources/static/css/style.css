@@ -243,3 +243,7 @@ ul[class~="list-inline-no-spacing"]>li {
 	z-index: 1000;
 	cursor: not-allowed;
 }
+
+blockquote{
+	background-color: #353a41;
+}

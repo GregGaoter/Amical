@@ -12,6 +12,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
@@ -20,7 +21,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -32,7 +32,6 @@ import lombok.ToString;
 @ToString(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
-@RequiredArgsConstructor(staticName = "creer")
 public class Commentaire implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -63,6 +62,9 @@ public class Commentaire implements Serializable {
 	@NonNull
 	private Timestamp date;
 
+	@Transient
+	private String dateString;
+
 	// Persistance
 	@ManyToOne
 	@JoinColumn(name = "utilisateur_authentification_email", nullable = false)
@@ -80,5 +82,16 @@ public class Commentaire implements Serializable {
 	// Lombok
 	@NonNull
 	private Spot spot;
+
+	private Commentaire(String commentaire, Timestamp date, Utilisateur utilisateur, Spot spot) {
+		this.commentaire = commentaire;
+		this.date = date;
+		this.utilisateur = utilisateur;
+		this.spot = spot;
+	}
+
+	public static Commentaire creer(String commentaire, Timestamp date, Utilisateur utilisateur, Spot spot) {
+		return new Commentaire(commentaire, date, utilisateur, spot);
+	}
 
 }

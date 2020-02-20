@@ -26,6 +26,7 @@ import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFran
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheCommentaire;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLongueur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSecteur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSpot;
@@ -33,10 +34,12 @@ import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheVo
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
 import app.gaugiciel.amical.controller.form.RechercheSpotForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheSpot;
+import app.gaugiciel.amical.model.Commentaire;
 import app.gaugiciel.amical.model.Longueur;
 import app.gaugiciel.amical.model.Secteur;
 import app.gaugiciel.amical.model.Spot;
 import app.gaugiciel.amical.model.Voie;
+import app.gaugiciel.amical.utilitaire.Utils;
 
 @Controller
 @ControllerAdvice
@@ -56,6 +59,8 @@ public class VisiteurSpotController {
 	private ServiceRechercheVoie serviceRechercheVoie;
 	@Autowired
 	private ServiceRechercheLongueur serviceRechercheLongueur;
+	@Autowired
+	private ServiceRechercheCommentaire serviceRechercheCommentaire;
 
 	@GetMapping("/visiteur/spot/recherche")
 	public String showSpotForm(RechercheSpotForm spotForm, Model model) {
@@ -127,12 +132,17 @@ public class VisiteurSpotController {
 			} catch (Exception e) {
 			}
 		}
+		List<Commentaire> listeCommentaires = serviceRechercheCommentaire.findAllBySpot(spot);
+		listeCommentaires
+				.forEach(commentaire -> commentaire.setDateString(Utils.formaterTimestamp(commentaire.getDate())));
 		model.addAttribute("secteurId", secteurId);
 		model.addAttribute("spot", spot);
 		model.addAttribute("listeSecteurs", listeSecteurs);
 		model.addAttribute("mapVoies", mapVoies);
 		model.addAttribute("mapLongueurs", mapLongueurs);
 		model.addAttribute("mapNbSpits", mapNbSpits);
+		model.addAttribute("listeCommentaires", listeCommentaires);
+		model.addAttribute("nbCommentaires", listeCommentaires.size());
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", size);
 		model.addAttribute("spotActive", "active");
