@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{ami_layout.html}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title th:text="#{message.parametres}"></title>
+</head>
+<body class="body-without-nav-pills">
+
+	<div layout:fragment="content">
+		<div th:if="${messagePrenomEnregistreAvecSucces}"
+			class="alert alert-success alert-dismissible fade in">
+			<a class="close" data-dismiss="alert"><span
+				class="glyphicon glyphicon-remove"></span></a><span
+				class="glyphicon glyphicon-ok-sign"></span>
+			[[${messagePrenomEnregistreAvecSucces}]]
+		</div>
+		<div th:if="${messageNomEnregistreAvecSucces}"
+			class="alert alert-success alert-dismissible fade in">
+			<a class="close" data-dismiss="alert"><span
+				class="glyphicon glyphicon-remove"></span></a><span
+				class="glyphicon glyphicon-ok-sign"></span>
+			[[${messageNomEnregistreAvecSucces}]]
+		</div>
+		<form th:object="${amiParametreData}">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title" th:text="#{message.mesDonneesPersonnelles}"></h3>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label class="control-label" th:text="#{message.prenom}"></label>
+								<div class="input-group">
+									<input type="text" class="form-control" th:field="*{prenom}"
+										readonly>
+									<div class="input-group-btn">
+										<a class="btn btn-default" role="button" data-toggle="modal"
+											data-target="#modalEditerPrenom"><span
+											class="glyphicon glyphicon-edit"></span>
+											[[#{message.editer}]]</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label class="control-label" th:text="#{message.nom}"></label>
+								<div class="input-group">
+									<input type="text" class="form-control" th:field="*{nom}"
+										readonly>
+									<div class="input-group-btn">
+										<a class="btn btn-default" role="button" data-toggle="modal"
+											data-target="#modalEditerNom"><span
+											class="glyphicon glyphicon-edit"></span>
+											[[#{message.editer}]]</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label class="control-label" th:text="#{message.email}"></label>
+								<div class="input-group">
+									<input type="text" class="form-control" th:field="*{email}"
+										readonly>
+									<div class="input-group-btn">
+										<a class="btn btn-default" role="button" data-toggle="modal"
+											data-target="#modalEditerEmail"><span
+											class="glyphicon glyphicon-edit"></span>
+											[[#{message.editer}]]</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label class="control-label" th:text="#{message.motDePasse}"></label>
+								<a class="btn btn-default form-control" role="button"
+									data-toggle="modal" data-target="#modalModifierMotDePasse"><span
+									class="glyphicon glyphicon-edit"></span>
+									[[#{message.changerMotDePasse}]]</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<form th:action="@{/ami/parametre/prenom/edition}"
+			th:object="${editionPrenomForm}" method="post">
+			<div class="modal fade" id="modalEditerPrenom" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" th:text="#{message.modifierMonPrenom}"></h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label class="control-label" th:text="#{message.nouveauPrenom}"></label>
+								<input type="text" class="form-control" th:field="*{prenom}">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-success">
+								<span class="glyphicon glyphicon-ok"></span>
+								[[#{message.modifier}]]
+							</button>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">
+								<span class="glyphicon glyphicon-arrow-left"></span>
+								[[#{message.annuler}]]
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<form th:action="@{/ami/parametre/nom/edition}"
+			th:object="${editionNomForm}" method="post">
+			<div class="modal fade" id="modalEditerNom" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" th:text="#{message.modifierMonNom}"></h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label class="control-label" th:text="#{message.nouveauNom}"></label>
+								<input type="text" class="form-control" th:field="*{nom}">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-success">
+								<span class="glyphicon glyphicon-ok"></span>
+								[[#{message.modifier}]]
+							</button>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">
+								<span class="glyphicon glyphicon-arrow-left"></span>
+								[[#{message.annuler}]]
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- layout:fragment -->
+
+</body>
+</html>
