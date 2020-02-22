@@ -28,6 +28,13 @@
 				class="glyphicon glyphicon-ok-sign"></span>
 			[[${messageNomEnregistreAvecSucces}]]
 		</div>
+		<div th:if="${messageMotDePasseEnregistreAvecSucces}"
+			class="alert alert-success alert-dismissible fade in">
+			<a class="close" data-dismiss="alert"><span
+				class="glyphicon glyphicon-remove"></span></a><span
+				class="glyphicon glyphicon-ok-sign"></span>
+			[[${messageMotDePasseEnregistreAvecSucces}]]
+		</div>
 		<form th:object="${amiParametreData}">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -74,10 +81,11 @@
 									<input type="text" class="form-control" th:field="*{email}"
 										readonly>
 									<div class="input-group-btn">
-										<a class="btn btn-default" role="button" data-toggle="modal"
-											data-target="#modalEditerEmail"><span
-											class="glyphicon glyphicon-edit"></span>
-											[[#{message.editer}]]</a>
+										<button type="button" class="btn btn-default disabled"
+											id="popoverFonctionnaliteBientotDisponible">
+											<span class="glyphicon glyphicon-edit"></span>
+											[[#{message.editer}]]
+										</button>
 									</div>
 								</div>
 							</div>
@@ -85,10 +93,12 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label class="control-label" th:text="#{message.motDePasse}"></label>
-								<a class="btn btn-default form-control" role="button"
-									data-toggle="modal" data-target="#modalModifierMotDePasse"><span
-									class="glyphicon glyphicon-edit"></span>
-									[[#{message.changerMotDePasse}]]</a>
+								<button type="button"
+									class="btn btn-default form-control disabled"
+									id="popoverFonctionnaliteBientotDisponible">
+									<span class="glyphicon glyphicon-edit"></span>
+									[[#{message.changerMotDePasse}]]
+								</button>
 							</div>
 						</div>
 					</div>

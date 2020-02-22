@@ -141,6 +141,28 @@
 		</div>
 	</div>
 
+	<div id="popoverFonctionnaliteBientotDisponibleTemplate"
+		hidden="hidden">
+		<div class="popover">
+			<div class="arrow"></div>
+			<div class="popover-content"></div>
+		</div>
+	</div>
+	<div id="popoverFonctionnaliteBientotDisponibleContent" hidden="hidden">
+		<div class='row row-no-gutters'>
+			<div class='col-lg-12 text-center'>
+				<img th:alt='#{message.information}'
+					th:src='@{/img/help_about_icon_24_24.png}'>
+			</div>
+		</div>
+		<div class='row row-no-gutters'>
+			<div class='col-lg-12 text-center'>
+				<p class='text-info no-bottom-padding-margin'
+					th:text="#{message.fonctionnaliteBientotDisponible}"></p>
+			</div>
+		</div>
+	</div>
+
 	<footer></footer>
 
 	<script th:src="@{/js/jquery-3.4.1.js}"></script>
@@ -179,6 +201,20 @@
 														.html(),
 												content : $(
 														"#popoverTopoEnPretEtatNonModifiableContent")
+														.html(),
+												placement : "auto",
+												html : true,
+												container : 'body'
+											});
+							$('[id="popoverFonctionnaliteBientotDisponible"]')
+									.popover(
+											{
+												trigger : 'hover',
+												template : $(
+														"#popoverFonctionnaliteBientotDisponibleTemplate")
+														.html(),
+												content : $(
+														"#popoverFonctionnaliteBientotDisponibleContent")
 														.html(),
 												placement : "auto",
 												html : true,
