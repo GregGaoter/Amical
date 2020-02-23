@@ -23,4 +23,8 @@ public class ServiceRechercheCommentaire implements Recherche<Commentaire, Objec
 				Sort.by(Sort.Direction.DESC, "date"));
 	}
 
+	public Commentaire findById(Long commentaireId) {
+		return commentaireRepository.findById(commentaireId).orElse(null);
+	}
+
 }

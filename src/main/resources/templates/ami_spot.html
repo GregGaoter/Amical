@@ -268,9 +268,21 @@
 						<div class="vertical-spacer"></div>
 						<blockquote th:each="commentaire:${listeCommentaires}">
 							<p th:text="${commentaire.commentaire}"></p>
-							<footer>[[${commentaire.utilisateur.prenom}]]
+							<footer>
+								[[${commentaire.utilisateur.prenom}]]
 								[[${commentaire.utilisateur.nom}]], le
-								[[${commentaire.dateString}]]</footer>
+								[[${commentaire.dateString}]]<span class="horizontal-spacer-20"
+									th:if="${isUtilisateurAdmin}"></span><span
+									th:if="${isUtilisateurAdmin}"><a
+									class="btn btn-default btn-xs" role="button"
+									th:href="@{'/admin/commentaire/'+${commentaire.id}+'/edition'}"><span
+										class="glyphicon glyphicon-edit"></span> [[#{message.editer}]]</a></span>
+								<span th:if="${isUtilisateurAdmin}"><a
+									class="btn btn-danger btn-xs" role="button"
+									th:href="@{'/admin/commentaire/'+${commentaire.id}+'/suppression'}"><span
+										class="glyphicon glyphicon-remove"></span>
+										[[#{message.supprimer}]]</a></span>
+							</footer>
 						</blockquote>
 					</div>
 				</div>

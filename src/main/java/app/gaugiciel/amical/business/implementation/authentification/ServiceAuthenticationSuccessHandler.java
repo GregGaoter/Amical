@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Service;
 
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
+import app.gaugiciel.amical.business.implementation.enumeration.RoleUtilisateur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheUtilisateur;
 import app.gaugiciel.amical.model.Utilisateur;
 
@@ -29,6 +30,8 @@ public class ServiceAuthenticationSuccessHandler implements AuthenticationSucces
 		Utilisateur utilisateur = serviceRechercheUtilisateur.findByEmail(authentication.getName());
 		session.setAttribute(NomModel.UTILISATEUR.label, utilisateur);
 		session.setAttribute(NomModel.AUTHENTIFICATION.label, utilisateur.getAuthentification());
+		session.setAttribute("isUtilisateurAdmin", authentication.getAuthorities().stream().anyMatch(
+				grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_" + RoleUtilisateur.ADMIN.name())));
 		response.sendRedirect("/ami/accueil");
 	}
 

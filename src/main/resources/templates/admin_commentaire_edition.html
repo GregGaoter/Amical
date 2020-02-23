@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{ami_layout.html}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title th:text="#{message.editerCommentaire}"></title>
+</head>
+<body class="body-without-nav-pills">
+
+	<div layout:fragment="content">
+		<form
+			th:action="@{'/admin/commentaire/'+${commentaire.id}+'/edition'}"
+			th:object="${editionCommentaireForm}" method="post">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title" th:text="#{message.modifierCommentaire}"></h3>
+				</div>
+				<div class="panel-body">
+					<div class="form-group" hidden="hidden">
+						<label class="control-label" th:text="#{message.id}"></label> <input
+							type="number" class="form-control cursor-disabled"
+							th:field="*{id}" readonly>
+					</div>
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('commentaire')} ? 'has-error has-feedback' : ''">
+						<label class="control-label"
+							th:text="#{message.commentaireAModifier}"></label>
+						<textarea class="form-control" rows="5" th:field="*{commentaire}"></textarea>
+						<span th:if="${#fields.hasErrors('commentaire')}"
+							class="glyphicon glyphicon-remove form-control-feedback"></span>
+						<span th:if="${#fields.hasErrors('commentaire')}"
+							th:errors="*{commentaire}" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="panel-footer text-center">
+					<button type="submit" class="btn btn-success">
+						<span class="glyphicon glyphicon-ok"></span>
+						[[#{message.modifier}]]
+					</button>
+					<a class="btn btn-default" role="button" th:href="${urlSpot}"><span
+						class="glyphicon glyphicon-arrow-left"></span>
+						[[#{message.annuler}]]</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- layout:fragment -->
+
+</body>
+</html>

@@ -165,7 +165,8 @@ public class AmiSpotController {
 				model.addAttribute("messageVoieEnregistreAvecSucces", messageSource.getMessage(
 						"message.voieEnregistreAvecSucces", new String[] { voie.getNom() }, Locale.getDefault()));
 			}
-			if (inputFlashMap.containsKey("nouveauCommentaireForm")) {
+			if (inputFlashMap.containsKey("nouveauCommentaireForm")
+					|| inputFlashMap.containsKey("editionCommentaireForm")) {
 				model.addAttribute("commentairesActive", "active");
 			} else {
 				model.addAttribute("informationsActive", "active");
@@ -198,7 +199,6 @@ public class AmiSpotController {
 		List<Commentaire> listeCommentaires = serviceRechercheCommentaire.findAllBySpot(spot);
 		listeCommentaires
 				.forEach(commentaire -> commentaire.setDateString(Utils.formaterTimestamp(commentaire.getDate())));
-		NouveauCommentaireForm nouveauCommentaireForm = new NouveauCommentaireForm();
 		model.addAttribute("secteurId", secteurId);
 		model.addAttribute("spot", spot);
 		model.addAttribute("listeSecteurs", listeSecteurs);
@@ -207,7 +207,7 @@ public class AmiSpotController {
 		model.addAttribute("mapNbSpits", mapNbSpits);
 		model.addAttribute("listeCommentaires", listeCommentaires);
 		model.addAttribute("nbCommentaires", listeCommentaires.size());
-		model.addAttribute("nouveauCommentaireForm", nouveauCommentaireForm);
+		model.addAttribute("nouveauCommentaireForm", new NouveauCommentaireForm());
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("pageSize", size);
 		model.addAttribute("spotActive", "active");
@@ -353,6 +353,7 @@ public class AmiSpotController {
 		model.addAttribute("uniteTertiaireLabels", CotationFranceUniteTertiaire.LABELS);
 		model.addAttribute("cheminPlan", ServiceStockagePlan.RESOURCE_HANDLER_PLAN);
 		model.addAttribute(NomModel.UTILISATEUR.label, session.getAttribute(NomModel.UTILISATEUR.label));
+		model.addAttribute("isUtilisateurAdmin", session.getAttribute("isUtilisateurAdmin"));
 	}
 
 }
