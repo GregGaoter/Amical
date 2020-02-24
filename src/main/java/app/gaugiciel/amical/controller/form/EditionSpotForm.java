@@ -103,6 +103,7 @@ public class EditionSpotForm {
 		spot.setRemarque(remarque);
 		spot.setLieuFrance(lieuFrance);
 		spot.setPlan(plan);
+		spot.setTagQ(tagQ);
 	}
 
 }

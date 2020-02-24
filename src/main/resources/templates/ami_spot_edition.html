@@ -111,7 +111,7 @@
 						</div>
 						<div class="form-group"
 							th:classappend="${#fields.hasErrors('tagQ')} ? 'has-error has-feedback' : ''"
-							hidden="hidden">
+							th:if="${isUtilisateurAdmin}">
 							<label class="control-label col-lg-1"
 								th:text="#{message.officiel}+(${editionSpotForm.isNotNull('tagQ')} ? ' *' : '')"></label>
 							<div class="col-lg-11">
