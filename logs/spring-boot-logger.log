@@ -195,3 +195,9 @@ Caused by: java.sql.SQLFeatureNotSupportedException: La fonction org.postgresql.
 2020-02-24 18:29:09,062 TRACE app.gaugiciel.amical.controller.visiteur.VisiteurAccueilController [http-nio-8080-exec-2] Start accueil()
 2020-02-24 18:29:43,268 INFO app.gaugiciel.amical.business.implementation.authentification.ServiceAuthenticationSuccessHandler [http-nio-8080-exec-10] Start onAuthenticationSuccess()
 2020-02-24 18:29:56,321 TRACE app.gaugiciel.amical.business.implementation.authentification.ServiceLogoutSuccessHandler [http-nio-8080-exec-8] Start onLogoutSuccess()
+2020-02-25 09:06:57,359 INFO org.springframework.boot.StartupInfoLogger [main] Starting AmicalApplication on LAPTOP-N0IRUO6Q with PID 4304 (C:\Users\gregg\Documents\openclassrooms\developpeur_applications_java\06_creer_site_communautaire_autour_escalade\eclipse_workplace\amical\target\classes started by gregg in C:\Users\gregg\Documents\openclassrooms\developpeur_applications_java\06_creer_site_communautaire_autour_escalade\eclipse_workplace\amical)
+2020-02-25 09:06:57,360 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.8.RELEASE, Spring v5.1.9.RELEASE
+2020-02-25 09:06:57,361 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2020-02-25 09:07:01,845 INFO org.springframework.boot.StartupInfoLogger [main] Started AmicalApplication in 4.779 seconds (JVM running for 5.646)
+2020-02-25 09:07:19,593 TRACE app.gaugiciel.amical.controller.visiteur.VisiteurAccueilController [http-nio-8080-exec-2] Start accueil()
+2020-02-25 09:10:49,158 TRACE app.gaugiciel.amical.business.implementation.authentification.ServiceAuthenticationSuccessHandler [http-nio-8080-exec-8] Start onAuthenticationSuccess()
