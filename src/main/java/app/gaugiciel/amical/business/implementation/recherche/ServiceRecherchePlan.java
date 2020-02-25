@@ -3,6 +3,8 @@ package app.gaugiciel.amical.business.implementation.recherche;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -16,6 +18,8 @@ import app.gaugiciel.amical.utilitaire.Utils;
 
 @Service
 public class ServiceRecherchePlan implements Recherche<Plan, Object> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceRecherchePlan.class);
 
 	@Autowired
 	private PlanRepository planRepository;

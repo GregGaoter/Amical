@@ -1,5 +1,7 @@
 package app.gaugiciel.amical.business.implementation.enregistrement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,8 @@ import app.gaugiciel.amical.repository.CommentaireRepository;
 
 @Service
 public class ServiceEnregistrementFormEditionCommentaire implements Enregistrement<EditionCommentaireForm> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceEnregistrementFormEditionCommentaire.class);
 
 	@Autowired
 	private ServiceRepositoryCommentaire serviceRepositoryCommentaire;

@@ -3,6 +3,8 @@ package app.gaugiciel.amical.controller.ami;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,8 @@ import app.gaugiciel.amical.controller.form.NouveauPlanForm;
 @Controller
 @ControllerAdvice
 public class AmiPlanController {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(AmiPlanController.class);
 
 	@Autowired
 	private NouveauPlanForm nouveauPlanForm;

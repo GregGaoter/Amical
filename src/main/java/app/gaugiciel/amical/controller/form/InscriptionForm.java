@@ -8,6 +8,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
@@ -21,6 +23,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class InscriptionForm {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(InscriptionForm.class);
 
 	public static final String PRENOM = "prenom";
 	public static final String NOM = "nom";

@@ -7,6 +7,8 @@ import java.util.Objects;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.controller.form.RechercheTopoForm;
@@ -20,6 +22,8 @@ import app.gaugiciel.amical.model.Utilisateur_;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class ManuelSpecification {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ManuelSpecification.class);
 
 	public static Specification<Manuel> nomContaining(String nom) {
 		return (root, query, builder) -> {

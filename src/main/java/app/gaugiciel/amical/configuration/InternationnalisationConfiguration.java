@@ -2,6 +2,8 @@ package app.gaugiciel.amical.configuration;
 
 import java.util.Locale;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
@@ -12,6 +14,8 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration
 public class InternationnalisationConfiguration implements WebMvcConfigurer {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(InternationnalisationConfiguration.class);
 
 	@Bean
 	public LocaleResolver localeResolver() {

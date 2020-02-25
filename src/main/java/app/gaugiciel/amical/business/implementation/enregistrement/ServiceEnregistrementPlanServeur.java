@@ -6,6 +6,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +21,8 @@ import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan
 
 @Service
 public class ServiceEnregistrementPlanServeur implements Enregistrement<MultipartFile> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceEnregistrementPlanServeur.class);
 
 	@Value(ServiceStockagePlan.URL_SERVEUR_PLAN)
 	private URL urlServeurPlan;

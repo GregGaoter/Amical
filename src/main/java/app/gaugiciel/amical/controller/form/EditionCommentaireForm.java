@@ -1,5 +1,7 @@
 package app.gaugiciel.amical.controller.form;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import app.gaugiciel.amical.model.Commentaire;
@@ -15,6 +17,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EditionCommentaireForm {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(EditionCommentaireForm.class);
 
 	public static final String ID = "id";
 	public static final String COMMENTAIRE = "commentaire";

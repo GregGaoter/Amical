@@ -3,6 +3,8 @@ package app.gaugiciel.amical.business.implementation.recherche;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +28,8 @@ import app.gaugiciel.amical.utilitaire.Utils;
 
 @Service
 public class ServiceRechercheSpot implements Recherche<Spot, RechercheSpotForm> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceRechercheSpot.class);
 
 	@Autowired
 	private SpotRepository spotRepository;

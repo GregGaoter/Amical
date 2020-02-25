@@ -2,12 +2,17 @@ package app.gaugiciel.amical.controller.utils.implementation.comparaison;
 
 import java.util.Objects;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import app.gaugiciel.amical.controller.form.SuppressionTopoForm;
 import app.gaugiciel.amical.controller.utils.contrat.ComparaisonField;
 
 @Component
 public class ComparaisonFieldInteger implements ComparaisonField<Integer> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ComparaisonFieldInteger.class);
 
 	@Override
 	public int comparer(Integer arg1, Integer arg2) {

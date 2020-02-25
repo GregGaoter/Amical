@@ -2,6 +2,8 @@ package app.gaugiciel.amical.controller.utils.implementation.validation;
 
 import java.util.Locale;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
@@ -15,6 +17,8 @@ import lombok.NoArgsConstructor;
 @Component
 @NoArgsConstructor
 public class ValidationFormInscription extends ValidationForm<InscriptionForm> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ValidationFormInscription.class);
 
 	@Autowired
 	private ServiceRechercheAuthentification serviceRechercheAuthentification;

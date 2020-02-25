@@ -3,6 +3,8 @@ package app.gaugiciel.amical.business.implementation.recherche;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import app.gaugiciel.amical.repository.SecteurRepository;
 
 @Service
 public class ServiceRechercheSecteur implements Recherche<Secteur, Object> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceRechercheSecteur.class);
 
 	@Autowired
 	private SecteurRepository secteurRepository;

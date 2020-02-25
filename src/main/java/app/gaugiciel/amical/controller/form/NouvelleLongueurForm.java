@@ -7,6 +7,8 @@ import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import app.gaugiciel.amical.model.Plan;
@@ -20,6 +22,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class NouvelleLongueurForm {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(NouvelleLongueurForm.class);
 
 	public static final String NOM_SPOT = "nomSpot";
 	public static final String NOM_SECTEUR = "nomSecteur";

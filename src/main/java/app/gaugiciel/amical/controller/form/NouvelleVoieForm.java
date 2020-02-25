@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import app.gaugiciel.amical.model.CotationFrance;
@@ -20,6 +22,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class NouvelleVoieForm {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(NouvelleVoieForm.class);
 
 	public static final String NOM_SPOT = "nomSpot";
 	public static final String NOM = "nom";

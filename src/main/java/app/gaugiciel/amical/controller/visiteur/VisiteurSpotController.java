@@ -7,6 +7,8 @@ import java.util.stream.IntStream;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +36,7 @@ import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheVo
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
 import app.gaugiciel.amical.controller.form.RechercheSpotForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheSpot;
+import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheTopo;
 import app.gaugiciel.amical.model.Commentaire;
 import app.gaugiciel.amical.model.Longueur;
 import app.gaugiciel.amical.model.Secteur;
@@ -44,6 +47,8 @@ import app.gaugiciel.amical.utilitaire.Utils;
 @Controller
 @ControllerAdvice
 public class VisiteurSpotController {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(VisiteurSpotController.class);
 
 	private final int PAGE_SIZE = 5;
 

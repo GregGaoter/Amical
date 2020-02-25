@@ -6,6 +6,8 @@ import java.util.Locale;
 
 import javax.validation.constraints.NotNull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
@@ -26,6 +28,8 @@ import lombok.NoArgsConstructor;
 @Component
 @NoArgsConstructor
 public class ValidationFormEditionTopo extends ValidationForm<EditionTopoForm> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ValidationFormEditionTopo.class);
 
 	@Autowired
 	private MessageSource messageSource;

@@ -1,5 +1,7 @@
 package app.gaugiciel.amical.repository.specification;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
@@ -11,6 +13,8 @@ import app.gaugiciel.amical.model.CotationFrance_;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class CotationFranceSpecification {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(CotationFranceSpecification.class);
 
 	public static Specification<CotationFrance> unitePrincipaleEqual(
 			CotationFranceUnitePrincipale unitePrincipale) {

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -46,6 +48,8 @@ import app.gaugiciel.amical.model.Voie;
 @Controller
 @ControllerAdvice
 public class AmiVoieController {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(AmiVoieController.class);
 
 	@Autowired
 	private ServiceRechercheSpot serviceRechercheSpot;

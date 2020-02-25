@@ -6,6 +6,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
@@ -23,6 +25,8 @@ import app.gaugiciel.amical.model.Voie_;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class SpotSpecification {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(SpotSpecification.class);
 
 	public static Specification<Spot> nomContaining(String nom) {
 		return (root, query, builder) -> {

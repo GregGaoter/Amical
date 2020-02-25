@@ -6,6 +6,8 @@ import java.util.stream.Stream;
 
 import javax.validation.constraints.NotNull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
@@ -22,6 +24,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SuppressionTopoForm {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(SuppressionTopoForm.class);
 
 	public static final String ID = "id";
 	private static final Map<String, Boolean> IS_NOT_NULL = new HashMap<>();

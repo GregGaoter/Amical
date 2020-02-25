@@ -7,6 +7,8 @@ import java.util.stream.Stream;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
@@ -24,6 +26,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RechercheSpotForm {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(RechercheSpotForm.class);
 
 	public static final String NOM_SPOT = "nomSpot";
 	public static final String LIEU_FRANCE_SPOT = "lieuFranceSpot";

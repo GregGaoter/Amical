@@ -3,6 +3,8 @@ package app.gaugiciel.amical.business.implementation.recherche;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +24,8 @@ import lombok.NonNull;
 
 @Service
 public class ServiceRechercheTopo implements Recherche<Manuel, RechercheTopoForm> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceRechercheTopo.class);
 
 	@Autowired
 	private ManuelRepository manuelRepository;

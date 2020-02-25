@@ -5,10 +5,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.paukov.combinatorics3.Generator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.gaugiciel.amical.business.contrat.Cotation;
+import app.gaugiciel.amical.business.implementation.conversion.ServiceConversionTimestampToInputDate;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
@@ -25,6 +28,8 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 public class ServiceCotationFrance implements Cotation {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceCotationFrance.class);
 
 	public static final List<ServiceCotationFrance> ALL_COTATIONS = Generator
 			.cartesianProduct(CotationFranceUnitePrincipale.LABELS, CotationFranceUniteSecondaire.LABELS,

@@ -18,12 +18,12 @@ import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 @Service
 public class ServiceLogoutSuccessHandler implements LogoutSuccessHandler {
 
-	private static final Logger logger = LoggerFactory.getLogger(ServiceLogoutSuccessHandler.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceLogoutSuccessHandler.class);
 
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
-		logger.trace("Start onLogoutSuccess()");
+		LOGGER.info("Start onLogoutSuccess()");
 		HttpSession session = request.getSession();
 		session.removeAttribute(NomModel.UTILISATEUR.label);
 		response.sendRedirect("/authentification?deconnexion");

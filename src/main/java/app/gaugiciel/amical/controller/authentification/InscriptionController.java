@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormInscription;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheUtilisateur;
+import app.gaugiciel.amical.controller.ami.AmiVoieController;
 import app.gaugiciel.amical.controller.form.InscriptionForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormInscription;
 import app.gaugiciel.amical.model.Utilisateur;
@@ -28,6 +31,8 @@ import app.gaugiciel.amical.model.Utilisateur;
 @Controller
 @ControllerAdvice
 public class InscriptionController {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(InscriptionController.class);
 
 	@Autowired
 	private InscriptionForm inscriptionForm;

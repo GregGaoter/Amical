@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import javax.validation.constraints.Size;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import app.gaugiciel.amical.utilitaire.Utils;
@@ -18,6 +20,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RechercheTopoForm {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(RechercheTopoForm.class);
 
 	public static final String NOM = "nom";
 	public static final String LIEU_FRANCE_TEMPLATE = "lieuFranceTemplate";

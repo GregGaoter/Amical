@@ -1,5 +1,7 @@
 package app.gaugiciel.amical.repository.specification;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.model.Authentification;
@@ -9,6 +11,8 @@ import app.gaugiciel.amical.model.PretEmpruntManuel_;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class PretEmpruntManuelSpecification {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(PretEmpruntManuelSpecification.class);
 
 	public static Specification<PretEmpruntManuel> preteurEqual(Authentification preteur) {
 		return (root, query, builder) -> {

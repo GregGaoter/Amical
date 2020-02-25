@@ -22,7 +22,7 @@ import app.gaugiciel.amical.model.Utilisateur;
 @Service
 public class ServiceAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-	private static final Logger logger = LoggerFactory.getLogger(ServiceAuthenticationSuccessHandler.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceAuthenticationSuccessHandler.class);
 
 	@Autowired
 	private ServiceRechercheUtilisateur serviceRechercheUtilisateur;
@@ -30,7 +30,7 @@ public class ServiceAuthenticationSuccessHandler implements AuthenticationSucces
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		logger.trace("Start onAuthenticationSuccess()");
+		LOGGER.info("Start {}()", "onAuthenticationSuccess");
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = serviceRechercheUtilisateur.findByEmail(authentication.getName());
 		session.setAttribute(NomModel.UTILISATEUR.label, utilisateur);

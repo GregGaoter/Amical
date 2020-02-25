@@ -6,10 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheTopo;
+
 @Controller
 public class VisiteurAccueilController {
 
-	private static final Logger logger = LoggerFactory.getLogger(VisiteurAccueilController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(VisiteurAccueilController.class);
 
 	@GetMapping(value = "/")
 	public String home() {
@@ -18,7 +20,7 @@ public class VisiteurAccueilController {
 
 	@GetMapping(value = "/visiteur/accueil")
 	public String accueil(Model model) {
-		logger.trace("Start accueil()");
+		LOGGER.info("Start {}()", "accueil");
 		model.addAttribute("accueilActive", "active");
 		return "visiteur_accueil";
 	}

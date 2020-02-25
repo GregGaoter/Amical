@@ -7,6 +7,8 @@ import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +24,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EditionSpotForm {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(EditionSpotForm.class);
 
 	public static final String ID = "id";
 	public static final String NOM = "nom";

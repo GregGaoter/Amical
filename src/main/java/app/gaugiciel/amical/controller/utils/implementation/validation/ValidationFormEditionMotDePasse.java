@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import javax.validation.constraints.NotNull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,8 @@ import lombok.NoArgsConstructor;
 @Component
 @NoArgsConstructor
 public class ValidationFormEditionMotDePasse extends ValidationForm<EditionMotDePasseForm> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ValidationFormEditionMotDePasse.class);
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;

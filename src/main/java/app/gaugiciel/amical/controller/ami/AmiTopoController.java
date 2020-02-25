@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
@@ -53,6 +55,8 @@ import app.gaugiciel.amical.model.Utilisateur;
 @Controller
 @ControllerAdvice
 public class AmiTopoController {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(AmiTopoController.class);
 
 	@Autowired
 	private HttpSession session;

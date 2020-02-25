@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,6 +43,8 @@ import app.gaugiciel.amical.model.Utilisateur;
 @Controller
 @ControllerAdvice
 public class AmiParametreController {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(AmiParametreController.class);
 
 	@Autowired
 	private HttpSession session;

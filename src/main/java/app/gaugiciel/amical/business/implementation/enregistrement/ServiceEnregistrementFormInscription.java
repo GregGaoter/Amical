@@ -3,6 +3,8 @@ package app.gaugiciel.amical.business.implementation.enregistrement;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ import lombok.Setter;
 
 @Service
 public class ServiceEnregistrementFormInscription implements Enregistrement<InscriptionForm> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceEnregistrementFormInscription.class);
 
 	@Autowired
 	private InscriptionForm inscriptionForm;

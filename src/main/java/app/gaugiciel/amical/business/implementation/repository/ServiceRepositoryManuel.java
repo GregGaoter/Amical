@@ -1,5 +1,7 @@
 package app.gaugiciel.amical.business.implementation.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,8 @@ import app.gaugiciel.amical.repository.ManuelRepository;
 
 @Service
 public class ServiceRepositoryManuel implements Repository<Manuel> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceRepositoryManuel.class);
 
 	@Autowired
 	private ManuelRepository manuelRepository;

@@ -1,5 +1,7 @@
 package app.gaugiciel.amical.repository.specification;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.model.Secteur;
@@ -7,6 +9,8 @@ import app.gaugiciel.amical.model.Secteur_;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class SecteurSpecification {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(SecteurSpecification.class);
 
 	public static Specification<Secteur> nomContaining(String nom) {
 		return (root, query, builder) -> {

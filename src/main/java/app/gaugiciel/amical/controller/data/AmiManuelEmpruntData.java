@@ -1,7 +1,10 @@
 package app.gaugiciel.amical.controller.data;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import app.gaugiciel.amical.controller.authentification.InscriptionController;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -14,6 +17,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AmiManuelEmpruntData {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(AmiManuelEmpruntData.class);
 
 	@NonNull
 	private Long idTopoDemandeEmprunt;

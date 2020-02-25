@@ -1,5 +1,7 @@
 package app.gaugiciel.amical.repository.specification;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.model.LieuFrance;
@@ -7,6 +9,8 @@ import app.gaugiciel.amical.model.LieuFrance_;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class LieuFranceSpecification {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(LieuFranceSpecification.class);
 
 	public static Specification<LieuFrance> regionContaining(String region) {
 		return (root, query, builder) -> {
