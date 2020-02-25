@@ -278,11 +278,34 @@
 									th:href="@{'/admin/commentaire/'+${commentaire.id}+'/edition'}"><span
 										class="glyphicon glyphicon-edit"></span> [[#{message.editer}]]</a></span>
 								<span th:if="${isUtilisateurAdmin}"><a
-									class="btn btn-danger btn-xs" role="button"
-									th:href="@{'/admin/commentaire/'+${commentaire.id}+'/suppression'}"><span
+									class="btn btn-danger btn-xs" role="button" data-toggle="modal"
+									th:data-target="'#modalSupprimerCommentaire'+${commentaire.id}"><span
 										class="glyphicon glyphicon-remove"></span>
 										[[#{message.supprimer}]]</a></span>
 							</footer>
+							<div class="modal fade"
+								th:id="'modalSupprimerCommentaire'+${commentaire.id}"
+								role="dialog">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-body">
+											<p
+												th:text="#{message.modalSupprimerCommentaire(${commentaire.utilisateur.prenom},${commentaire.utilisateur.nom},${commentaire.dateString})}"></p>
+										</div>
+										<div class="modal-footer">
+											<a class="btn btn-success" role="button"
+												th:href="@{'/admin/commentaire/'+${commentaire.id}+'/suppression'}"><span
+												class="glyphicon glyphicon-ok"></span>
+												[[#{message.supprimer}]]</a>
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">
+												<span class="glyphicon glyphicon-arrow-left"></span>
+												[[#{message.annuler}]]
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
 						</blockquote>
 					</div>
 				</div>

@@ -26,6 +26,7 @@ import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheCommentaire;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSpot;
+import app.gaugiciel.amical.business.implementation.repository.ServiceRepositoryCommentaire;
 import app.gaugiciel.amical.controller.form.EditionCommentaireForm;
 import app.gaugiciel.amical.controller.form.NouveauCommentaireForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionCommentaire;
@@ -52,6 +53,8 @@ public class AmiCommentaireController {
 	private ServiceEnregistrementFormEditionCommentaire serviceEnregistrementFormEditionCommentaire;
 	@Autowired
 	private ServiceRechercheCommentaire serviceRechercheCommentaire;
+	@Autowired
+	private ServiceRepositoryCommentaire serviceRepositoryCommentaire;
 
 	@PostMapping("/ami/spot/{spotId}/commentaire/nouveau")
 	public String checkNouveauCommentaireForm(@Valid NouveauCommentaireForm nouveauCommentaireForm,
@@ -127,6 +130,13 @@ public class AmiCommentaireController {
 				redirectAttributes.addFlashAttribute("editionCommentaireForm", true);
 			}
 		}
+		return (String) session.getAttribute(RedirectionUrl.SPOT.label);
+	}
+
+	@GetMapping("/admin/commentaire/{commentaireId}/suppression")
+	public String deleteCommentaire(@PathVariable Long commentaireId) {
+		Commentaire commentaire = serviceRechercheCommentaire.findById(commentaireId);
+		serviceRepositoryCommentaire.supprimer(commentaire);
 		return (String) session.getAttribute(RedirectionUrl.SPOT.label);
 	}
 
