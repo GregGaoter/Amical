@@ -67,17 +67,15 @@
 									[[#{message.deconnecter}]]</a></li>
 						</ul></li>
 					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#"><img
-							th:alt="#{message.drapeauFrance}"
-							th:src="@{/img/france_flag_icon_24_20.png}"> <span
+						data-toggle="dropdown">[[#{message.langue}]] <span
 							class="caret"></span></a>
 						<ul class="dropdown-menu dropdown-menu-content-width">
-							<li><a href="#" data-toggle="tooltip" data-placement="left"
-								th:title="#{message.francais}"><img
+							<li><a id="langFr" data-toggle="tooltip"
+								data-placement="left" th:title="#{message.francais}"><img
 									th:alt="#{message.drapeauFrance}"
 									th:src="@{/img/france_flag_icon_24_20.png}"></a></li>
-							<li><a href="#" data-toggle="tooltip" data-placement="left"
-								th:title="#{message.anglais}"><img
+							<li><a id="langEn" data-toggle="tooltip"
+								data-placement="left" th:title="#{message.anglais}"><img
 									th:alt="#{message.drapeauFrance}"
 									th:src="@{/img/united_kingdom_flag_icon_24_20.png}"></a></li>
 						</ul></li>
@@ -261,6 +259,12 @@
 										$(window).scrollTop(
 												openPanel.offset().top - 100);
 									});
+							$('#langFr').on('click', function() {
+								window.location.replace('?lang=fr');
+							});
+							$('#langEn').on('click', function() {
+								window.location.replace('?lang=en');
+							});
 						});
 	</script>
 	<script>
