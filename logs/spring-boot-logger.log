@@ -201,3 +201,41 @@ Caused by: java.sql.SQLFeatureNotSupportedException: La fonction org.postgresql.
 2020-02-25 09:07:01,845 INFO org.springframework.boot.StartupInfoLogger [main] Started AmicalApplication in 4.779 seconds (JVM running for 5.646)
 2020-02-25 09:07:19,593 TRACE app.gaugiciel.amical.controller.visiteur.VisiteurAccueilController [http-nio-8080-exec-2] Start accueil()
 2020-02-25 09:10:49,158 TRACE app.gaugiciel.amical.business.implementation.authentification.ServiceAuthenticationSuccessHandler [http-nio-8080-exec-8] Start onAuthenticationSuccess()
+2020-02-25 09:43:29,117 INFO org.springframework.boot.StartupInfoLogger [main] Starting AmicalApplication on LAPTOP-N0IRUO6Q with PID 6424 (C:\Users\gregg\Documents\openclassrooms\developpeur_applications_java\06_creer_site_communautaire_autour_escalade\eclipse_workplace\amical\target\classes started by gregg in C:\Users\gregg\Documents\openclassrooms\developpeur_applications_java\06_creer_site_communautaire_autour_escalade\eclipse_workplace\amical)
+2020-02-25 09:43:29,119 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.8.RELEASE, Spring v5.1.9.RELEASE
+2020-02-25 09:43:29,120 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2020-02-25 09:43:34,380 INFO org.springframework.boot.StartupInfoLogger [main] Started AmicalApplication in 5.627 seconds (JVM running for 6.614)
+2020-02-25 09:43:34,983 TRACE app.gaugiciel.amical.controller.visiteur.VisiteurAccueilController [http-nio-8080-exec-2] Start accueil()
+2020-02-25 09:43:40,884 TRACE app.gaugiciel.amical.business.implementation.authentification.ServiceAuthenticationSuccessHandler [http-nio-8080-exec-7] Start onAuthenticationSuccess()
+2020-02-25 09:53:27,292 INFO org.springframework.boot.StartupInfoLogger [main] Starting AmicalApplication on LAPTOP-N0IRUO6Q with PID 4040 (C:\Users\gregg\Documents\openclassrooms\developpeur_applications_java\06_creer_site_communautaire_autour_escalade\eclipse_workplace\amical\target\classes started by gregg in C:\Users\gregg\Documents\openclassrooms\developpeur_applications_java\06_creer_site_communautaire_autour_escalade\eclipse_workplace\amical)
+2020-02-25 09:53:27,293 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.8.RELEASE, Spring v5.1.9.RELEASE
+2020-02-25 09:53:27,294 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2020-02-25 09:53:31,323 INFO org.springframework.boot.StartupInfoLogger [main] Started AmicalApplication in 4.315 seconds (JVM running for 5.165)
+2020-02-25 09:53:35,992 TRACE app.gaugiciel.amical.business.implementation.authentification.ServiceLogoutSuccessHandler [http-nio-8080-exec-1] Start onLogoutSuccess()
+2020-02-25 09:53:50,978 TRACE app.gaugiciel.amical.business.implementation.authentification.ServiceAuthenticationSuccessHandler [http-nio-8080-exec-8] Start onAuthenticationSuccess()
+2020-02-25 10:02:51,844 INFO org.springframework.boot.StartupInfoLogger [main] Starting AmicalApplication on LAPTOP-N0IRUO6Q with PID 1980 (C:\Users\gregg\Documents\openclassrooms\developpeur_applications_java\06_creer_site_communautaire_autour_escalade\eclipse_workplace\amical\target\classes started by gregg in C:\Users\gregg\Documents\openclassrooms\developpeur_applications_java\06_creer_site_communautaire_autour_escalade\eclipse_workplace\amical)
+2020-02-25 10:02:51,847 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.8.RELEASE, Spring v5.1.9.RELEASE
+2020-02-25 10:02:51,848 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2020-02-25 10:02:56,357 INFO org.springframework.boot.StartupInfoLogger [main] Started AmicalApplication in 4.836 seconds (JVM running for 5.744)
+2020-02-25 10:02:58,504 TRACE app.gaugiciel.amical.business.implementation.authentification.ServiceLogoutSuccessHandler [http-nio-8080-exec-1] Start onLogoutSuccess()
+2020-02-25 10:03:03,064 TRACE app.gaugiciel.amical.business.implementation.authentification.ServiceAuthenticationSuccessHandler [http-nio-8080-exec-8] Start onAuthenticationSuccess()
+2020-02-25 10:12:42,884 TRACE app.gaugiciel.amical.business.implementation.authentification.ServiceLogoutSuccessHandler [http-nio-8080-exec-9] Start onLogoutSuccess()
+2020-02-25 10:13:06,523 TRACE app.gaugiciel.amical.business.implementation.authentification.ServiceAuthenticationSuccessHandler [http-nio-8080-exec-7] Start onAuthenticationSuccess()
+2020-02-25 10:13:27,636 TRACE app.gaugiciel.amical.business.implementation.authentification.ServiceLogoutSuccessHandler [http-nio-8080-exec-10] Start onLogoutSuccess()
+2020-02-25 10:13:48,078 TRACE app.gaugiciel.amical.business.implementation.authentification.ServiceAuthenticationSuccessHandler [http-nio-8080-exec-8] Start onAuthenticationSuccess()
+2020-02-25 11:24:43,509 INFO org.springframework.boot.StartupInfoLogger [main] Starting AmicalApplication on LAPTOP-N0IRUO6Q with PID 10560 (C:\Users\gregg\Documents\openclassrooms\developpeur_applications_java\06_creer_site_communautaire_autour_escalade\eclipse_workplace\amical\target\classes started by gregg in C:\Users\gregg\Documents\openclassrooms\developpeur_applications_java\06_creer_site_communautaire_autour_escalade\eclipse_workplace\amical)
+2020-02-25 11:24:43,511 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.8.RELEASE, Spring v5.1.9.RELEASE
+2020-02-25 11:24:43,512 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2020-02-25 11:24:48,766 INFO org.springframework.boot.StartupInfoLogger [main] Started AmicalApplication in 5.596 seconds (JVM running for 6.63)
+2020-02-25 11:24:55,383 TRACE app.gaugiciel.amical.controller.visiteur.VisiteurAccueilController [http-nio-8080-exec-2] Start accueil()
+2020-02-25 11:26:56,034 TRACE app.gaugiciel.amical.controller.visiteur.VisiteurAccueilController [http-nio-8080-exec-5] Start accueil()
+2020-02-25 11:27:01,194 TRACE app.gaugiciel.amical.controller.visiteur.VisiteurAccueilController [http-nio-8080-exec-2] Start accueil()
+2020-02-25 11:27:14,280 TRACE app.gaugiciel.amical.controller.visiteur.VisiteurAccueilController [http-nio-8080-exec-4] Start accueil()
+2020-02-25 11:27:22,793 TRACE app.gaugiciel.amical.controller.visiteur.VisiteurAccueilController [http-nio-8080-exec-8] Start accueil()
+2020-02-25 11:32:42,648 INFO org.springframework.boot.StartupInfoLogger [main] Starting AmicalApplication on LAPTOP-N0IRUO6Q with PID 15724 (C:\Users\gregg\Documents\openclassrooms\developpeur_applications_java\06_creer_site_communautaire_autour_escalade\eclipse_workplace\amical\target\classes started by gregg in C:\Users\gregg\Documents\openclassrooms\developpeur_applications_java\06_creer_site_communautaire_autour_escalade\eclipse_workplace\amical)
+2020-02-25 11:32:42,650 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.8.RELEASE, Spring v5.1.9.RELEASE
+2020-02-25 11:32:42,650 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2020-02-25 11:32:47,917 INFO org.springframework.boot.StartupInfoLogger [main] Started AmicalApplication in 5.606 seconds (JVM running for 6.617)
+2020-02-25 11:32:53,280 TRACE app.gaugiciel.amical.controller.visiteur.VisiteurAccueilController [http-nio-8080-exec-2] Start accueil()
+2020-02-25 11:32:56,726 TRACE app.gaugiciel.amical.controller.visiteur.VisiteurAccueilController [http-nio-8080-exec-4] Start accueil()
+2020-02-25 11:33:16,393 TRACE app.gaugiciel.amical.controller.visiteur.VisiteurAccueilController [http-nio-8080-exec-9] Start accueil()

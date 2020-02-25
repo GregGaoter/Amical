@@ -2,6 +2,7 @@
 .settings/
 target/
 logs/
+logs/spring-boot-logger.log
 .classpath
 .project
 HELP.md
