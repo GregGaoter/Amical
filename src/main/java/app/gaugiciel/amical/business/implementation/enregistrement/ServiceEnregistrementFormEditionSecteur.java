@@ -28,6 +28,7 @@ public class ServiceEnregistrementFormEditionSecteur implements Enregistrement<E
 
 	@Override
 	public void enregistrer(EditionSecteurForm editionSecteurForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		secteur = secteurRepository.findById(editionSecteurForm.getId()).orElseThrow();
 		editionSecteurForm.updateSecteur(secteur);
 		serviceRepositorySecteur.enregistrer(secteur);

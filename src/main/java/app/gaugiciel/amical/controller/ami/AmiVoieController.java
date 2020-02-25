@@ -75,6 +75,7 @@ public class AmiVoieController {
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/nouveau")
 	public String showNouvelleVoieForm(@PathVariable Long spotId, @PathVariable Long secteurId, Model model,
 			HttpServletRequest request) {
+		LOGGER.info("Start {}()", "showNouvelleVoieForm");
 		NouvelleVoieForm nouvelleVoieForm = new NouvelleVoieForm();
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
@@ -103,6 +104,7 @@ public class AmiVoieController {
 	public String checkNouvelleVoieForm(@Valid NouvelleVoieForm nouvelleVoieForm, @PathVariable Long spotId,
 			@PathVariable Long secteurId, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkNouvelleVoieForm");
 		if (!validationFormNouvelleVoie.isValide(nouvelleVoieForm)) {
 			validationFormNouvelleVoie.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
 		}
@@ -121,6 +123,7 @@ public class AmiVoieController {
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/nouveau/enregistrement")
 	public String saveNouvelleVoieForm(@PathVariable Long spotId, @PathVariable Long secteurId,
 			HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveNouvelleVoieForm");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
 			NouvelleVoieForm nouvelleVoieForm = (NouvelleVoieForm) inputFlashMap.get("nouvelleVoieForm");
@@ -135,6 +138,7 @@ public class AmiVoieController {
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}")
 	public String showVoie(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId,
 			Integer page, Integer size, Model model, HttpServletRequest request) {
+		LOGGER.info("Start {}()", "showVoie");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
 			if (inputFlashMap.containsKey("longueur")) {
@@ -170,6 +174,7 @@ public class AmiVoieController {
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/edition")
 	public String showEditionVoieForm(@PathVariable Long spotId, @PathVariable Long secteurId,
 			@PathVariable Long voieId, Model model) {
+		LOGGER.info("Start {}()", "showEditionVoieForm");
 		Voie voie = serviceRechercheVoie.findById(voieId);
 		EditionVoieForm editionVoieForm = EditionVoieForm.creer(voie);
 		String urlRedirection = "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId
@@ -189,6 +194,7 @@ public class AmiVoieController {
 	public String checkEditionVoieForm(@Valid EditionVoieForm editionVoieForm, @PathVariable Long spotId,
 			@PathVariable Long secteurId, @PathVariable Long voieId, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkEditionVoieForm");
 		Voie voie = serviceRechercheVoie.findById(voieId);
 		if (!validationFormEditionVoie.isValide(editionVoieForm)) {
 			validationFormEditionVoie.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
@@ -207,6 +213,7 @@ public class AmiVoieController {
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/edition/enregistrement")
 	public String saveEditionVoieForm(@PathVariable Long spotId, @PathVariable Long secteurId,
 			@PathVariable Long voieId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveEditionVoieForm");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
 			EditionVoieForm editionVoieForm = (EditionVoieForm) inputFlashMap.get("editionVoieForm");

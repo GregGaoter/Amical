@@ -15,6 +15,7 @@ public class PretEmpruntManuelSpecification {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PretEmpruntManuelSpecification.class);
 
 	public static Specification<PretEmpruntManuel> preteurEqual(Authentification preteur) {
+		LOGGER.info("Start {}()", "preteurEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(preteur)) {
 				return null;
@@ -24,6 +25,7 @@ public class PretEmpruntManuelSpecification {
 	}
 
 	public static Specification<PretEmpruntManuel> emprunteurEqual(Authentification emprunteur) {
+		LOGGER.info("Start {}()", "emprunteurEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(emprunteur)) {
 				return null;
@@ -33,6 +35,7 @@ public class PretEmpruntManuelSpecification {
 	}
 
 	public static Specification<PretEmpruntManuel> manuelEqual(Manuel manuel) {
+		LOGGER.info("Start {}()", "manuelEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(manuel)) {
 				return null;

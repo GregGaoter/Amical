@@ -19,6 +19,7 @@ public class ServiceRepositoryCommentaire implements Repository<Commentaire> {
 
 	@Override
 	public Commentaire enregistrer(Commentaire commentaire) {
+		LOGGER.info("Start {}()", "enregistrer");
 		return commentaireRepository.save(commentaire);
 	}
 
@@ -29,6 +30,7 @@ public class ServiceRepositoryCommentaire implements Repository<Commentaire> {
 
 	@Override
 	public void supprimer(Commentaire commentaire) {
+		LOGGER.info("Start {}()", "supprimer");
 		commentaireRepository.delete(commentaire);
 	}
 

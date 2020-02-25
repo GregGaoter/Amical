@@ -24,10 +24,12 @@ public class ServiceRechercheLieuFrance implements Recherche<LieuFrance, Object>
 	private LieuFranceRepository lieuFranceRepository;
 
 	public LieuFrance findById(Long id) {
+		LOGGER.info("Start {}()", "findById");
 		return lieuFranceRepository.findById(id).orElseThrow();
 	}
 
 	public List<String> rechercherLieuFrance(String lieuFrance) {
+		LOGGER.info("Start {}()", "rechercherLieuFrance");
 		List<LieuFrance> listeLieuFrance = lieuFranceRepository
 				.findAll(LieuFranceSpecification.lieuContaining(lieuFrance));
 		return listeLieuFrance.stream().sequential().limit(Utils.AUTO_COMPLETE_MAX_RESULTS)
@@ -35,6 +37,7 @@ public class ServiceRechercheLieuFrance implements Recherche<LieuFrance, Object>
 	}
 
 	public Optional<LieuFrance> findByNomComplet(String nomComplet) {
+		LOGGER.info("Start {}()", "findByNomComplet");
 		return lieuFranceRepository.findOne(LieuFranceSpecification.nomCompletEqual(nomComplet));
 	}
 

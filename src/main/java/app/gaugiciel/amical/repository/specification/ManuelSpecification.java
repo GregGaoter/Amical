@@ -26,6 +26,7 @@ public class ManuelSpecification {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ManuelSpecification.class);
 
 	public static Specification<Manuel> nomContaining(String nom) {
+		LOGGER.info("Start {}()", "nomContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(nom)) {
 				return null;
@@ -36,6 +37,7 @@ public class ManuelSpecification {
 	}
 
 	public static Specification<Manuel> lieuContaining(String lieu) {
+		LOGGER.info("Start {}()", "lieuContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(lieu)) {
 				return null;
@@ -53,6 +55,7 @@ public class ManuelSpecification {
 	}
 
 	public static Specification<Manuel> categorieEqual(String categorie) {
+		LOGGER.info("Start {}()", "categorieEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(categorie)) {
 				return null;
@@ -62,6 +65,7 @@ public class ManuelSpecification {
 	}
 
 	public static Specification<Manuel> etatEqual(String etat) {
+		LOGGER.info("Start {}()", "etatEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(etat)) {
 				return null;
@@ -71,6 +75,7 @@ public class ManuelSpecification {
 	}
 
 	public static Specification<Manuel> dateBetween(Timestamp t1, Timestamp t2) {
+		LOGGER.info("Start {}()", "dateBetween");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(t1) && !Utils.isValid(t2)) {
 				return null;
@@ -87,6 +92,7 @@ public class ManuelSpecification {
 	}
 
 	public static Specification<Manuel> auteurContaining(String auteur) {
+		LOGGER.info("Start {}()", "auteurContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(auteur)) {
 				return null;
@@ -97,6 +103,7 @@ public class ManuelSpecification {
 	}
 
 	public static Specification<Manuel> proprietaireContaining(String proprietaire) {
+		LOGGER.info("Start {}()", "proprietaireContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(proprietaire)) {
 				return null;
@@ -113,6 +120,7 @@ public class ManuelSpecification {
 	}
 
 	public static Specification<Manuel> proprietaireEqual(Authentification proprietaire) {
+		LOGGER.info("Start {}()", "proprietaireEqual");
 		return (root, query, builder) -> {
 			if (Objects.isNull(proprietaire)) {
 				return null;
@@ -122,6 +130,7 @@ public class ManuelSpecification {
 	}
 
 	public static Specification<Manuel> hasAll(RechercheTopoForm rechercheTopoForm) {
+		LOGGER.info("Start {}()", "hasAll");
 		if (rechercheTopoForm.estVide()) {
 			return null;
 		}

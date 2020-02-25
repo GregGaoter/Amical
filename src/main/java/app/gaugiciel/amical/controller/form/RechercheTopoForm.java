@@ -57,12 +57,14 @@ public class RechercheTopoForm {
 	private String proprietaireTemplate;
 
 	public boolean estVide() {
+		LOGGER.info("Start {}()", "estVide");
 		return !Utils.isValid(nom) && !Utils.isValid(lieuFranceTemplate) && !Utils.isValid(categorie)
 				&& !Utils.isValid(etat) && !Utils.isValid(dateParutionMinInput) && !Utils.isValid(dateParutionMaxInput)
 				&& !Utils.isValid(auteur) & !Utils.isValid(proprietaireTemplate);
 	}
 	
 	public void setObjets() {
+		LOGGER.info("Start {}()", "setObjets");
 		if(Utils.isValid(dateParutionMinInput)) {
 			
 		}

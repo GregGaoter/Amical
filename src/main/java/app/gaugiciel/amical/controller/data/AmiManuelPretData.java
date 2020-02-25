@@ -48,6 +48,7 @@ public class AmiManuelPretData {
 	public AmiManuelPretData getDemandePretData(@NonNull Long idTopoDemandePret, @NonNull String nomTopoDemandePret,
 			@NonNull String prenomDemandeurPret, @NonNull String nomDemandeurPret, @NonNull String emailDemandeurPret,
 			@NonNull String dateDemandePret) {
+		LOGGER.info("Start {}()", "getDemandePretData");
 		this.idTopoDemandePret = idTopoDemandePret;
 		this.nomTopoDemandePret = nomTopoDemandePret;
 		this.prenomDemandeurPret = prenomDemandeurPret;
@@ -60,6 +61,7 @@ public class AmiManuelPretData {
 	public AmiManuelPretData getPretEnCoursData(@NonNull Long idTopoPretEnCours, @NonNull String nomTopoPretEnCours,
 			@NonNull String prenomEmprunteur, @NonNull String nomEmprunteur, @NonNull String emailEmprunteur,
 			@NonNull String dateEmprunt) {
+		LOGGER.info("Start {}()", "getPretEnCoursData");
 		this.idTopoPretEnCours = idTopoPretEnCours;
 		this.nomTopoPretEnCours = nomTopoPretEnCours;
 		this.prenomEmprunteur = prenomEmprunteur;

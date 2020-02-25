@@ -22,6 +22,7 @@ public class ValidationFormEditionNom extends ValidationForm<EditionNomForm> {
 
 	@Override
 	public boolean isValide(@NotNull EditionNomForm editionNomForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		if (!Utils.isValid(editionNomForm.getNom())) {
 			listeFieldError.add(new FieldError(editionNomForm.getClass().getSimpleName(), EditionNomForm.NOM,

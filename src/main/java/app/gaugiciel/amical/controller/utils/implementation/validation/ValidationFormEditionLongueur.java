@@ -34,6 +34,7 @@ public class ValidationFormEditionLongueur extends ValidationForm<EditionLongueu
 
 	@Override
 	public boolean isValide(EditionLongueurForm editionLongueurForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		if (Utils.isValid(editionLongueurForm.getNomPlan())) {
 			Plan planForm = serviceRecherchePlan.findOne(editionLongueurForm.getNomPlan());

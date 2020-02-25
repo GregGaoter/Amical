@@ -32,6 +32,7 @@ public class ValidationFormRechercheSpot extends ValidationForm<RechercheSpotFor
 
 	@Override
 	public boolean isValide(@NotNull RechercheSpotForm spotForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		if (!spotForm.estCotationVide()) {
 			List<ServiceCotationFrance> allCotationsFromMin = ServiceCotationFrance

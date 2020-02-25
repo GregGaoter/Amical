@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import app.gaugiciel.amical.business.implementation.repository.ServiceRepositoryVoie;
-
 @Configuration
 public class ControllerConfiguration implements WebMvcConfigurer {
 	
@@ -15,6 +13,7 @@ public class ControllerConfiguration implements WebMvcConfigurer {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
+		LOGGER.info("Start {}()", "addViewControllers");
 		registry.addViewController("/authentification").setViewName("authentification");
 	}
 

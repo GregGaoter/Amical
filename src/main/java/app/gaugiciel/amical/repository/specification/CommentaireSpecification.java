@@ -14,6 +14,7 @@ public class CommentaireSpecification {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CommentaireSpecification.class);
 
 	public static Specification<Commentaire> spotEqual(Spot spot) {
+		LOGGER.info("Start {}()", "spotEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(spot)) {
 				return null;

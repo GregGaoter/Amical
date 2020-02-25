@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.gaugiciel.amical.business.contrat.Repository;
-import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheVoie;
 import app.gaugiciel.amical.model.Authentification;
 import app.gaugiciel.amical.repository.AuthentificationRepository;
 
@@ -20,6 +19,7 @@ public class ServiceRepositoryAuthentification implements Repository<Authentific
 
 	@Override
 	public Authentification enregistrer(Authentification authentification) {
+		LOGGER.info("Start {}()", "enregistrer");
 		return authentificationRepository.save(authentification);
 	}
 

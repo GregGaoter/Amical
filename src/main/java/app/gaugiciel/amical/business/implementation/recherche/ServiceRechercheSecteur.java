@@ -24,12 +24,14 @@ public class ServiceRechercheSecteur implements Recherche<Secteur, Object> {
 	private ServiceComparaisonSecteurByNom serviceComparaisonSecteurByNom;
 
 	public List<Secteur> findBySpotIdOrderByNom(Long spotId) {
+		LOGGER.info("Start {}()", "findBySpotIdOrderByNom");
 		List<Secteur> listeSecteurs = secteurRepository.findBySpot_id(spotId);
 		Collections.sort(listeSecteurs, serviceComparaisonSecteurByNom);
 		return listeSecteurs;
 	}
 
 	public Secteur findById(Long id) {
+		LOGGER.info("Start {}()", "findById");
 		return secteurRepository.findById(id).orElseThrow();
 	}
 

@@ -97,6 +97,7 @@ public class NouveauTopoForm {
 	}
 
 	public void setObjets(Timestamp dateTimeParution, Authentification authentification, LieuFrance lieuFrance) {
+		LOGGER.info("Start {}()", "setObjets");
 		this.dateTimeParution = dateTimeParution;
 		this.authentification = authentification;
 		this.lieuFrance = lieuFrance;

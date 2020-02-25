@@ -23,18 +23,22 @@ public class ServiceRecherchePretEmpruntManuel implements Recherche<PretEmpruntM
 	private PretEmpruntManuelRepository pretEmpruntManuelRepository;
 
 	public List<PretEmpruntManuel> findByPreteur(Authentification preteur) {
+		LOGGER.info("Start {}()", "findByPreteur");
 		return pretEmpruntManuelRepository.findAll(PretEmpruntManuelSpecification.preteurEqual(preteur));
 	}
 
 	public List<PretEmpruntManuel> findByEmprunteur(Authentification emprunteur) {
+		LOGGER.info("Start {}()", "findByEmprunteur");
 		return pretEmpruntManuelRepository.findAll(PretEmpruntManuelSpecification.emprunteurEqual(emprunteur));
 	}
 
 	public boolean existsByManuel(Manuel manuel) {
+		LOGGER.info("Start {}()", "existsByManuel");
 		return pretEmpruntManuelRepository.findOne(PretEmpruntManuelSpecification.manuelEqual(manuel)).isPresent();
 	}
 
 	public PretEmpruntManuel findByManuel(Manuel manuel) {
+		LOGGER.info("Start {}()", "findByManuel");
 		return pretEmpruntManuelRepository.findOne(PretEmpruntManuelSpecification.manuelEqual(manuel)).orElse(null);
 	}
 

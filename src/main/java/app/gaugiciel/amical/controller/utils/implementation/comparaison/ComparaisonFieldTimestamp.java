@@ -15,6 +15,7 @@ public class ComparaisonFieldTimestamp implements ComparaisonField<Timestamp> {
 
 	@Override
 	public int comparer(Timestamp t1, Timestamp t2) {
+		LOGGER.info("Start {}()", "comparer");
 		return t1.compareTo(t2);
 	}
 

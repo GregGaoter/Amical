@@ -19,6 +19,7 @@ public class ServiceRepositoryManuel implements Repository<Manuel> {
 
 	@Override
 	public Manuel enregistrer(Manuel manuel) {
+		LOGGER.info("Start {}()", "enregistrer");
 		return manuelRepository.save(manuel);
 	}
 
@@ -29,6 +30,7 @@ public class ServiceRepositoryManuel implements Repository<Manuel> {
 
 	@Override
 	public void supprimer(Manuel manuel) {
+		LOGGER.info("Start {}()", "supprimer");
 		manuelRepository.delete(manuel);
 	}
 

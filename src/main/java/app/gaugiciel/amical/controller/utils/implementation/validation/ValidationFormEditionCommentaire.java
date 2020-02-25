@@ -11,7 +11,6 @@ import org.springframework.validation.FieldError;
 
 import app.gaugiciel.amical.controller.form.EditionCommentaireForm;
 import app.gaugiciel.amical.controller.utils.contrat.ValidationForm;
-import app.gaugiciel.amical.controller.utils.implementation.comparaison.ComparaisonFieldTimestamp;
 import lombok.NoArgsConstructor;
 
 @Component
@@ -22,6 +21,7 @@ public class ValidationFormEditionCommentaire extends ValidationForm<EditionComm
 
 	@Override
 	public boolean isValide(@NotNull EditionCommentaireForm editionCommentaireForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		if (editionCommentaireForm.getCommentaire().length() > 2000) {
 			listeFieldError.add(new FieldError(editionCommentaireForm.getClass().getSimpleName(),

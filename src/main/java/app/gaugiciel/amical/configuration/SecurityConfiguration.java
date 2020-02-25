@@ -33,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-
+		LOGGER.info("Start {}()", "configure");
 		// La requête de la méthode usersByUsernameQuery doit obligatoirement contenir
 		// un username (principal), un mot de passe (credentials) et un booléen (actif)
 		auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery(
@@ -45,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
+		LOGGER.info("Start {}()", "configure");
 
 		http.csrf().disable();
 

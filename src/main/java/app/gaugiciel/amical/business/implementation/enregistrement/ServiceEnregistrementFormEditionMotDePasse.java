@@ -25,6 +25,7 @@ public class ServiceEnregistrementFormEditionMotDePasse implements Enregistremen
 
 	@Override
 	public void enregistrer(EditionMotDePasseForm editionMotDePasseForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		authentification = serviceRepositoryAuthentification.enregistrer(editionMotDePasseForm.getAuthentification());
 	}
 

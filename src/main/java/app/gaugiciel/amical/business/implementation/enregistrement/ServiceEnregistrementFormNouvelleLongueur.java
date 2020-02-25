@@ -30,6 +30,7 @@ public class ServiceEnregistrementFormNouvelleLongueur implements Enregistrement
 
 	@Override
 	public void enregistrer(NouvelleLongueurForm nouvelleLongueurForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		Plan plan = Utils.isValid(nouvelleLongueurForm.getNomPlan())
 				? planRepository.findByPlan(nouvelleLongueurForm.getNomPlan())
 				: null;

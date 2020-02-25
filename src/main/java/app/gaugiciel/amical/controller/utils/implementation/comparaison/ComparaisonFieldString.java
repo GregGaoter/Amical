@@ -14,6 +14,7 @@ public class ComparaisonFieldString implements ComparaisonField<String> {
 
 	@Override
 	public int comparer(String str1, String str2) {
+		LOGGER.info("Start {}()", "comparer");
 		String txt1 = StringUtils.stripAccents(str1);
 		String txt2 = StringUtils.stripAccents(str2);
 		return txt1.compareToIgnoreCase(txt2);

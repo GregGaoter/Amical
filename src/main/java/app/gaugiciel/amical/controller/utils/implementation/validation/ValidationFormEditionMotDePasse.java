@@ -27,6 +27,7 @@ public class ValidationFormEditionMotDePasse extends ValidationForm<EditionMotDe
 
 	@Override
 	public boolean isValide(@NotNull EditionMotDePasseForm editionMotDePasseForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		String ancienMotDePasse = editionMotDePasseForm.getAncienMotDePasse();
 		String nouveauMotDePasse = editionMotDePasseForm.getNouveauMotDePasse();

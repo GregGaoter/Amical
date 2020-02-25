@@ -21,6 +21,7 @@ public class ServiceRechercheCotationFrance implements Recherche<CotationFrance,
 	private CotationFranceRepository cotationFranceRepository;
 
 	public Optional<CotationFrance> findOne(Specification<CotationFrance> specificationCotationEqual) {
+		LOGGER.info("Start {}()", "findOne");
 		return cotationFranceRepository.findOne(specificationCotationEqual);
 	}
 

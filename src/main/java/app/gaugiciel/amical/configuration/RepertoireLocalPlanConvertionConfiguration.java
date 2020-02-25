@@ -16,6 +16,7 @@ public class RepertoireLocalPlanConvertionConfiguration implements Converter<Str
 
 	@Override
 	public File convert(String propriete) {
+		LOGGER.info("Start {}()", "convert");
 		return new File(propriete);
 	}
 

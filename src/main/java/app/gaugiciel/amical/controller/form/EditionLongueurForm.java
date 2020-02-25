@@ -106,6 +106,7 @@ public class EditionLongueurForm {
 	}
 
 	public static EditionLongueurForm creer(Longueur longueur) {
+		LOGGER.info("Start {}()", "creer");
 		return new EditionLongueurForm(longueur);
 	}
 
@@ -124,6 +125,7 @@ public class EditionLongueurForm {
 	}
 
 	public void updateLongueur(Longueur longueur) {
+		LOGGER.info("Start {}()", "updateLongueur");
 		longueur.setDescription(description);
 		longueur.setLongueur(this.longueur);
 		longueur.setNbSpits(nbSpits);

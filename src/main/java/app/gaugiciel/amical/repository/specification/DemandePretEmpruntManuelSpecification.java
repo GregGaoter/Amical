@@ -15,6 +15,7 @@ public class DemandePretEmpruntManuelSpecification {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DemandePretEmpruntManuelSpecification.class);
 
 	public static Specification<DemandePretEmpruntManuel> proprietaireEqual(Authentification proprietaire) {
+		LOGGER.info("Start {}()", "proprietaireEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(proprietaire)) {
 				return null;
@@ -24,6 +25,7 @@ public class DemandePretEmpruntManuelSpecification {
 	}
 
 	public static Specification<DemandePretEmpruntManuel> demandeurEqual(Authentification demandeur) {
+		LOGGER.info("Start {}()", "demandeurEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(demandeur)) {
 				return null;
@@ -33,6 +35,7 @@ public class DemandePretEmpruntManuelSpecification {
 	}
 
 	public static Specification<DemandePretEmpruntManuel> manuelIdEqual(Long manuelId) {
+		LOGGER.info("Start {}()", "manuelIdEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(manuelId)) {
 				return null;
@@ -42,6 +45,7 @@ public class DemandePretEmpruntManuelSpecification {
 	}
 
 	public static Specification<DemandePretEmpruntManuel> manuelEqual(Manuel manuel) {
+		LOGGER.info("Start {}()", "manuelEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(manuel)) {
 				return null;

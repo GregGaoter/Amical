@@ -44,6 +44,7 @@ public class ValidationFormEditionTopo extends ValidationForm<EditionTopoForm> {
 
 	@Override
 	public boolean isValide(@NotNull EditionTopoForm editionTopoForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		Timestamp dateTimeParution = serviceConversionInputDateToTimestamp
 				.convertir(editionTopoForm.getDateParutionInput());

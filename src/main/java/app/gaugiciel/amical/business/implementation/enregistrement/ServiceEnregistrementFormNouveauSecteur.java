@@ -29,6 +29,7 @@ public class ServiceEnregistrementFormNouveauSecteur implements Enregistrement<N
 
 	@Override
 	public void enregistrer(NouveauSecteurForm nouveauSecteurForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		Plan plan = planRepository.findByPlan(nouveauSecteurForm.getNomPlan());
 		secteur = serviceRepositorySecteur
 				.enregistrer(Secteur.creer(nouveauSecteurForm.getNom(), nouveauSecteurForm.getDescription(),

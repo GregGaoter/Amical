@@ -115,6 +115,7 @@ public class EditionVoieForm {
 	}
 
 	public static EditionVoieForm creer(Voie voie) {
+		LOGGER.info("Start {}()", "creer");
 		return new EditionVoieForm(voie);
 	}
 
@@ -123,6 +124,7 @@ public class EditionVoieForm {
 	}
 
 	public boolean estCotationVide() {
+		LOGGER.info("Start {}()", "estCotationVide");
 		return estNull(cotationUnitePrincipale) && estNull(cotationUniteSecondaire) && estNull(cotationUniteTertiaire);
 	}
 
@@ -131,6 +133,7 @@ public class EditionVoieForm {
 	}
 
 	public void updateVoie(Voie voie) {
+		LOGGER.info("Start {}()", "updateVoie");
 		voie.setCotationFrance(cotationFrance);
 		voie.setDescription(description);
 		voie.setHauteur(hauteur);

@@ -17,6 +17,7 @@ public class UrlPlanConvertionConfiguration implements Converter<String, URL> {
 
 	@Override
 	public URL convert(String propriete) {
+		LOGGER.info("Start {}()", "convert");
 		try {
 			return new URL(propriete);
 		} catch (MalformedURLException e) {

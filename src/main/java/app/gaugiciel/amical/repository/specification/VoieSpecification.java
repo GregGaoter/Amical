@@ -13,6 +13,7 @@ public class VoieSpecification {
 	private static final Logger LOGGER = LoggerFactory.getLogger(VoieSpecification.class);
 
 	public static Specification<Voie> nomContaining(String nom) {
+		LOGGER.info("Start {}()", "nomContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(nom)) {
 				return null;
@@ -23,6 +24,7 @@ public class VoieSpecification {
 	}
 
 	public static Specification<Voie> hauteurBetween(Integer min, Integer max) {
+		LOGGER.info("Start {}()", "hauteurBetween");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(min, max)) {
 				return null;
@@ -38,6 +40,7 @@ public class VoieSpecification {
 	}
 
 	public static Specification<Voie> secteurIdEqual(Long secteurId) {
+		LOGGER.info("Start {}()", "secteurIdEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(secteurId)) {
 				return null;

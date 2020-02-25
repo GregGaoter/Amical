@@ -13,6 +13,7 @@ public class PlanSpecification {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PlanSpecification.class);
 
 	public static Specification<Plan> planContaining(String plan) {
+		LOGGER.info("Start {}()", "planContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(plan)) {
 				return null;
@@ -23,6 +24,7 @@ public class PlanSpecification {
 	}
 
 	public static Specification<Plan> descriptionContaining(String description) {
+		LOGGER.info("Start {}()", "descriptionContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(description)) {
 				return null;
@@ -33,6 +35,7 @@ public class PlanSpecification {
 	}
 
 	public static Specification<Plan> allContaining(String template) {
+		LOGGER.info("Start {}()", "allContaining");
 		return Specification.where(planContaining(template)).or(descriptionContaining(template));
 	}
 

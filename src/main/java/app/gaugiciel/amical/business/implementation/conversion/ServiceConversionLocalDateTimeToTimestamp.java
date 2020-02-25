@@ -11,11 +11,12 @@ import app.gaugiciel.amical.business.contrat.Conversion;
 
 @Service
 public class ServiceConversionLocalDateTimeToTimestamp implements Conversion<LocalDateTime, Timestamp> {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceConversionLocalDateTimeToTimestamp.class);
 
 	@Override
 	public Timestamp convertir(LocalDateTime localDateTime) {
+		LOGGER.info("Start {}()", "convertir");
 		return Timestamp.valueOf(localDateTime.toString().replace("T", " "));
 	}
 

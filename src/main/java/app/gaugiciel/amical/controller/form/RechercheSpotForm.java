@@ -100,23 +100,27 @@ public class RechercheSpotForm {
 	}
 
 	public ServiceCotationFrance getCotationMin() {
+		LOGGER.info("Start {}()", "getCotationMin");
 		return ServiceCotationFrance.creer(CotationFranceUnitePrincipale.ofLabel(cotationMinVoieUnitePrincipale),
 				CotationFranceUniteSecondaire.ofLabel(cotationMinVoieUniteSecondaire),
 				CotationFranceUniteTertiaire.ofLabel(cotationMinVoieUniteTertiaire));
 	}
 
 	public ServiceCotationFrance getCotationMax() {
+		LOGGER.info("Start {}()", "getCotationMax");
 		return ServiceCotationFrance.creer(CotationFranceUnitePrincipale.ofLabel(cotationMaxVoieUnitePrincipale),
 				CotationFranceUniteSecondaire.ofLabel(cotationMaxVoieUniteSecondaire),
 				CotationFranceUniteTertiaire.ofLabel(cotationMaxVoieUniteTertiaire));
 	}
 
 	public boolean estVide() {
+		LOGGER.info("Start {}()", "estVide");
 		return estNull(nomSpot) && estNull(lieuFranceSpot) && estNull(isOfficielSpot) && estNull(nomSecteur)
 				&& estNull(nomVoie) && estCotationVide() && estNull(hauteurMinVoie) && estNull(hauteurMaxVoie);
 	}
 
 	public boolean estCotationVide() {
+		LOGGER.info("Start {}()", "estCotationVide");
 		return estNull(cotationMinVoieUnitePrincipale) && estNull(cotationMinVoieUniteSecondaire)
 				&& estNull(cotationMinVoieUniteTertiaire) && estNull(cotationMaxVoieUnitePrincipale)
 				&& estNull(cotationMaxVoieUniteSecondaire) && estNull(cotationMaxVoieUniteTertiaire);

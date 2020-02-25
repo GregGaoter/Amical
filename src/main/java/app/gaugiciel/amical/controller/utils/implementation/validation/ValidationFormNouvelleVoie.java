@@ -27,6 +27,7 @@ public class ValidationFormNouvelleVoie extends ValidationForm<NouvelleVoieForm>
 
 	@Override
 	public boolean isValide(@NotNull NouvelleVoieForm nouvelleVoieForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		if (!nouvelleVoieForm.estCotationVide() && !Utils.isValid(nouvelleVoieForm.getCotationUnitePrincipale())) {
 			listeFieldError.add(new FieldError(nouvelleVoieForm.getClass().getSimpleName(),

@@ -13,6 +13,7 @@ public class LieuFranceSpecification {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LieuFranceSpecification.class);
 
 	public static Specification<LieuFrance> regionContaining(String region) {
+		LOGGER.info("Start {}()", "regionContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(region)) {
 				return null;
@@ -23,6 +24,7 @@ public class LieuFranceSpecification {
 	}
 
 	public static Specification<LieuFrance> regionEqual(String region) {
+		LOGGER.info("Start {}()", "regionEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(region)) {
 				return null;
@@ -32,6 +34,7 @@ public class LieuFranceSpecification {
 	}
 
 	public static Specification<LieuFrance> departementContaining(String departement) {
+		LOGGER.info("Start {}()", "departementContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(departement)) {
 				return null;
@@ -43,6 +46,7 @@ public class LieuFranceSpecification {
 	}
 
 	public static Specification<LieuFrance> departementEqual(String departement) {
+		LOGGER.info("Start {}()", "departementEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(departement)) {
 				return null;
@@ -52,6 +56,7 @@ public class LieuFranceSpecification {
 	}
 
 	public static Specification<LieuFrance> codePostalContaining(String codePostal) {
+		LOGGER.info("Start {}()", "codePostalContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(codePostal)) {
 				return null;
@@ -63,6 +68,7 @@ public class LieuFranceSpecification {
 	}
 
 	public static Specification<LieuFrance> codePostalEqual(String codePostal) {
+		LOGGER.info("Start {}()", "codePostalEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(codePostal)) {
 				return null;
@@ -72,6 +78,7 @@ public class LieuFranceSpecification {
 	}
 
 	public static Specification<LieuFrance> villeContaining(String ville) {
+		LOGGER.info("Start {}()", "villeContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(ville)) {
 				return null;
@@ -82,6 +89,7 @@ public class LieuFranceSpecification {
 	}
 
 	public static Specification<LieuFrance> villeEqual(String ville) {
+		LOGGER.info("Start {}()", "villeEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(ville)) {
 				return null;
@@ -91,6 +99,7 @@ public class LieuFranceSpecification {
 	}
 
 	public static Specification<LieuFrance> lieuContaining(String lieu) {
+		LOGGER.info("Start {}()", "lieuContaining");
 		if (!Utils.isValid(lieu)) {
 			return null;
 		}
@@ -99,6 +108,7 @@ public class LieuFranceSpecification {
 	}
 
 	public static Specification<LieuFrance> nomCompletEqual(String nomComplet) {
+		LOGGER.info("Start {}()", "nomCompletEqual");
 		if (!Utils.isValid(nomComplet)) {
 			return null;
 		}

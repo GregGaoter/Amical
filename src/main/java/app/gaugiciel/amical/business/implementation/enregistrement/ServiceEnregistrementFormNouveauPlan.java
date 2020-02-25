@@ -25,6 +25,7 @@ public class ServiceEnregistrementFormNouveauPlan implements Enregistrement<Nouv
 
 	@Override
 	public void enregistrer(NouveauPlanForm nouveauPlanForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		plan = serviceRepositoryPlan
 				.enregistrer(Plan.creer(nouveauPlanForm.getNomFichier(), nouveauPlanForm.getDescription()));
 	}

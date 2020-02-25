@@ -29,6 +29,7 @@ public class SpotSpecification {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SpotSpecification.class);
 
 	public static Specification<Spot> nomContaining(String nom) {
+		LOGGER.info("Start {}()", "nomContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(nom)) {
 				return null;
@@ -39,6 +40,7 @@ public class SpotSpecification {
 	}
 
 	public static Specification<Spot> lieuContaining(String lieu) {
+		LOGGER.info("Start {}()", "lieuContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(lieu)) {
 				return null;
@@ -56,6 +58,7 @@ public class SpotSpecification {
 	}
 
 	public static Specification<Spot> officielEqual(Boolean tagQ) {
+		LOGGER.info("Start {}()", "officielEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(tagQ)) {
 				return null;
@@ -65,6 +68,7 @@ public class SpotSpecification {
 	}
 
 	public static Specification<Spot> nomSecteurContaining(String nomSecteur) {
+		LOGGER.info("Start {}()", "nomSecteurContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(nomSecteur)) {
 				return null;
@@ -83,6 +87,7 @@ public class SpotSpecification {
 	}
 
 	public static Specification<Spot> nomVoieContaining(String nomVoie) {
+		LOGGER.info("Start {}()", "nomVoieContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(nomVoie)) {
 				return null;
@@ -103,6 +108,7 @@ public class SpotSpecification {
 	}
 
 	public static Specification<Spot> cotationVoieEqual(List<ServiceCotationFrance> listeCotations) {
+		LOGGER.info("Start {}()", "cotationVoieEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(listeCotations)) {
 				return null;
@@ -133,6 +139,7 @@ public class SpotSpecification {
 	}
 
 	public static Specification<Spot> hauteurVoieBetween(Integer min, Integer max) {
+		LOGGER.info("Start {}()", "hauteurVoieBetween");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(min, max)) {
 				return null;
@@ -154,6 +161,7 @@ public class SpotSpecification {
 	}
 
 	public static Specification<Spot> hasAll(RechercheSpotForm rechercheSpotForm) {
+		LOGGER.info("Start {}()", "hasAll");
 		if (rechercheSpotForm.estVide()) {
 			return null;
 		}

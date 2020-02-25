@@ -23,7 +23,7 @@ public class ServiceLogoutSuccessHandler implements LogoutSuccessHandler {
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
-		LOGGER.info("Start onLogoutSuccess()");
+		LOGGER.info("Start {}()", "onLogoutSuccess");
 		HttpSession session = request.getSession();
 		session.removeAttribute(NomModel.UTILISATEUR.label);
 		response.sendRedirect("/authentification?deconnexion");

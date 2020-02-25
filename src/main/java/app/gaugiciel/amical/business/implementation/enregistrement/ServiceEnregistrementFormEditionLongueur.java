@@ -28,6 +28,7 @@ public class ServiceEnregistrementFormEditionLongueur implements Enregistrement<
 
 	@Override
 	public void enregistrer(EditionLongueurForm editionLongueurForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		longueur = longueurRepository.findById(editionLongueurForm.getId()).orElseThrow();
 		editionLongueurForm.updateLongueur(longueur);
 		serviceRepositoryLongueur.enregistrer(longueur);

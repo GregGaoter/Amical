@@ -25,6 +25,7 @@ public class ServiceRecherchePlan implements Recherche<Plan, Object> {
 	private PlanRepository planRepository;
 
 	public Plan findOne(String plan) {
+		LOGGER.info("Start {}()", "findOne");
 		Plan p = new Plan();
 		p.setPlan(plan);
 		ExampleMatcher exampleMatcher = ExampleMatcher.matching().withIgnorePaths("description");
@@ -32,6 +33,7 @@ public class ServiceRecherchePlan implements Recherche<Plan, Object> {
 	}
 
 	public List<String> rechercherPlan(String template) {
+		LOGGER.info("Start {}()", "rechercherPlan");
 		List<Plan> listePlans = planRepository.findAll(PlanSpecification.allContaining(template));
 		return listePlans.stream().sequential().limit(Utils.AUTO_COMPLETE_MAX_RESULTS).map(plan -> plan.getPlan())
 				.collect(Collectors.toList());

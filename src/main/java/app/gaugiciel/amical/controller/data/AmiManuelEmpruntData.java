@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import app.gaugiciel.amical.controller.authentification.InscriptionController;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -42,6 +41,7 @@ public class AmiManuelEmpruntData {
 
 	public AmiManuelEmpruntData getDemandeEmpruntData(@NonNull Long idTopoDemandeEmprunt,
 			@NonNull String nomTopoDemandeEmprunt, @NonNull String dateDemandeEmprunt) {
+		LOGGER.info("Start {}()", "getDemandeEmpruntData");
 		this.idTopoDemandeEmprunt = idTopoDemandeEmprunt;
 		this.nomTopoDemandeEmprunt = nomTopoDemandeEmprunt;
 		this.dateDemandeEmprunt = dateDemandeEmprunt;
@@ -51,6 +51,7 @@ public class AmiManuelEmpruntData {
 	public AmiManuelEmpruntData getEmpruntEnCoursData(@NonNull Long idTopoEmpruntEnCours,
 			@NonNull String nomTopoEmpruntEnCours, @NonNull String prenomProprietaire, @NonNull String nomProprietaire,
 			@NonNull String emailProprietaire, @NonNull String dateEmprunt) {
+		LOGGER.info("Start {}()", "getEmpruntEnCoursData");
 		this.idTopoEmpruntEnCours = idTopoEmpruntEnCours;
 		this.nomTopoEmpruntEnCours = nomTopoEmpruntEnCours;
 		this.prenomProprietaire = prenomProprietaire;

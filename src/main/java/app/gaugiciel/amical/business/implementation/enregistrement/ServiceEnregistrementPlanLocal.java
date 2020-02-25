@@ -22,6 +22,7 @@ public class ServiceEnregistrementPlanLocal implements Enregistrement<MultipartF
 
 	@Override
 	public void enregistrer(MultipartFile multipartFile) {
+		LOGGER.info("Start {}()", "enregistrer");
 		File fichierToSave = new File(repertoireLocalPlan + File.separator + multipartFile.getOriginalFilename());
 		try {
 			multipartFile.transferTo(fichierToSave);

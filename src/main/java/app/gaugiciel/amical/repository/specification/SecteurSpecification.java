@@ -13,6 +13,7 @@ public class SecteurSpecification {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SecteurSpecification.class);
 
 	public static Specification<Secteur> nomContaining(String nom) {
+		LOGGER.info("Start {}()", "nomContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(nom)) {
 				return null;

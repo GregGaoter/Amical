@@ -26,6 +26,7 @@ public class ValidationFormNouvelleLongueur extends ValidationForm<NouvelleLongu
 
 	@Override
 	public boolean isValide(@NotNull NouvelleLongueurForm nouvelleLongueurForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		if (nouvelleLongueurForm.getLongueur() != null && nouvelleLongueurForm.getLongueur() <= 0) {
 			listeFieldError

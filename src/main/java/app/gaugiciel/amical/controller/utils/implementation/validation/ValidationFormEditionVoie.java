@@ -50,6 +50,7 @@ public class ValidationFormEditionVoie extends ValidationForm<EditionVoieForm> {
 
 	@Override
 	public boolean isValide(EditionVoieForm editionVoieForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		if (Utils.isValid(editionVoieForm.getNomPlan())) {
 			Plan planForm = serviceRecherchePlan.findOne(editionVoieForm.getNomPlan());

@@ -45,18 +45,21 @@ public class ServiceEnregistrementFormInscription implements Enregistrement<Insc
 
 	@Override
 	public void enregistrer(InscriptionForm inscriptionForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		this.inscriptionForm = inscriptionForm;
 		enregistrerAuthentification();
 		enregistrerUtilisateur();
 	}
 
 	private void enregistrerAuthentification() {
+		LOGGER.info("Start {}()", "enregistrerAuthentification");
 		authentification = serviceRepositoryAuthentification.enregistrer(Authentification.creer(
 				inscriptionForm.getEmail(), passwordEncoder.encode(inscriptionForm.getMotDePasse()), true,
 				Stream.of(Role.creer(RoleUtilisateur.AMI.name())).collect(Collectors.toSet())));
 	}
 
 	private void enregistrerUtilisateur() {
+		LOGGER.info("Start {}()", "enregistrerUtilisateur");
 		utilisateur = serviceRepositoryUtilisateur
 				.enregistrer(Utilisateur.creer(inscriptionForm.getEmail(), inscriptionForm.getPrenom(),
 						inscriptionForm.getNom(), authentificationRepository.findByEmail(inscriptionForm.getEmail())));

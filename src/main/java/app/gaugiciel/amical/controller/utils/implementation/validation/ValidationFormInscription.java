@@ -27,6 +27,7 @@ public class ValidationFormInscription extends ValidationForm<InscriptionForm> {
 
 	@Override
 	public boolean isValide(InscriptionForm inscriptionForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		if (serviceRechercheAuthentification.existsByEmail(inscriptionForm.getEmail())) {
 			listeFieldError.add(new FieldError(inscriptionForm.getClass().getSimpleName(), InscriptionForm.EMAIL,

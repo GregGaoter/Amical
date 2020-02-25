@@ -42,24 +42,29 @@ public class ServiceRechercheSpot implements Recherche<Spot, RechercheSpotForm> 
 
 	@Override
 	public List<Spot> rechercher(RechercheSpotForm spotForm) {
+		LOGGER.info("Start {}()", "rechercher");
 		return spotRepository.findAll(SpotSpecification.hasAll(spotForm));
 	}
 
 	public Page<Spot> rechercher(RechercheSpotForm spotForm, Pageable pageable) {
+		LOGGER.info("Start {}()", "rechercher");
 		return spotRepository.findAll(SpotSpecification.hasAll(spotForm), pageable);
 	}
 
 	public Spot findById(Long id) {
+		LOGGER.info("Start {}()", "findById");
 		return spotRepository.findById(id).orElseThrow();
 	}
 
 	public List<String> rechercherNomSpot(String nomSpot) {
+		LOGGER.info("Start {}()", "rechercherNomSpot");
 		List<Spot> listeSpots = spotRepository.findAll(SpotSpecification.nomContaining(nomSpot));
 		return listeSpots.stream().sequential().limit(Utils.AUTO_COMPLETE_MAX_RESULTS).map(spot -> spot.getNom())
 				.collect(Collectors.toList());
 	}
 
 	public List<String> rechercherLieuSpot(String lieuSpot) {
+		LOGGER.info("Start {}()", "rechercherLieuSpot");
 		String lieuSpotNormalise = Utils.normaliser(lieuSpot);
 		List<LieuFrance> listeLieuFrance = lieuFranceRepository
 				.findAll(LieuFranceSpecification.lieuContaining(lieuSpot));
@@ -70,12 +75,14 @@ public class ServiceRechercheSpot implements Recherche<Spot, RechercheSpotForm> 
 	}
 
 	public List<String> rechercherNomSecteur(String nomSecteur) {
+		LOGGER.info("Start {}()", "rechercherNomSecteur");
 		List<Secteur> listeSecteur = secteurRepository.findAll(SecteurSpecification.nomContaining(nomSecteur));
 		return listeSecteur.stream().sequential().limit(Utils.AUTO_COMPLETE_MAX_RESULTS)
 				.map(secteur -> secteur.getNom()).collect(Collectors.toList());
 	}
 
 	public List<String> rechercherNomVoie(String nomVoie) {
+		LOGGER.info("Start {}()", "rechercherNomVoie");
 		List<Voie> listeVoie = voieRepository.findAll(VoieSpecification.nomContaining(nomVoie));
 		return listeVoie.stream().sequential().limit(Utils.AUTO_COMPLETE_MAX_RESULTS).map(voie -> voie.getNom())
 				.collect(Collectors.toList());

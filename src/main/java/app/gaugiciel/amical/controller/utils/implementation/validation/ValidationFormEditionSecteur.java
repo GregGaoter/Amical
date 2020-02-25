@@ -34,6 +34,7 @@ public class ValidationFormEditionSecteur extends ValidationForm<EditionSecteurF
 
 	@Override
 	public boolean isValide(EditionSecteurForm editionSecteurForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		if (Utils.isValid(editionSecteurForm.getNomPlan())) {
 			Plan planForm = serviceRecherchePlan.findOne(editionSecteurForm.getNomPlan());

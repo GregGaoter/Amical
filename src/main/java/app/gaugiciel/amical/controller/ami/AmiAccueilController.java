@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
-import app.gaugiciel.amical.configuration.UrlPlanConvertionConfiguration;
 
 @Controller
 @ControllerAdvice
@@ -25,6 +24,7 @@ public class AmiAccueilController {
 
 	@GetMapping(value = "/ami/accueil")
 	public String accueil(Model model) {
+		LOGGER.info("Start {}()", "accueil");
 		model.addAttribute("accueilActive", "active");
 		return "ami_accueil";
 	}

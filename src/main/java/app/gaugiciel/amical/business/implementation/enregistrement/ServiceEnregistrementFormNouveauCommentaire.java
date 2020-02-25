@@ -25,6 +25,7 @@ public class ServiceEnregistrementFormNouveauCommentaire implements Enregistreme
 
 	@Override
 	public void enregistrer(NouveauCommentaireForm nouveauCommentaireForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		commentaire = serviceRepositoryCommentaire.enregistrer(
 				Commentaire.creer(nouveauCommentaireForm.getCommentaire(), nouveauCommentaireForm.getDate(),
 						nouveauCommentaireForm.getUtilisateur(), nouveauCommentaireForm.getSpot()));

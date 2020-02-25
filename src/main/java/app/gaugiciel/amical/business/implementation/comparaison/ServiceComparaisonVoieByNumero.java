@@ -10,11 +10,12 @@ import app.gaugiciel.amical.model.Voie;
 
 @Service
 public class ServiceComparaisonVoieByNumero extends Comparaison implements Comparator<Voie> {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceComparaisonVoieByNumero.class);
 
 	@Override
 	public int compare(Voie v1, Voie v2) {
+		LOGGER.info("Start {}()", "compare");
 		return comparateurAlphaNumeric.compare(v1.getNumero(), v2.getNumero());
 	}
 

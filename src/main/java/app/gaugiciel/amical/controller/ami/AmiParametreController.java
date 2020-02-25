@@ -71,6 +71,7 @@ public class AmiParametreController {
 
 	@GetMapping("/ami/parametres")
 	public String showParametre(Model model, HttpServletRequest request) {
+		LOGGER.info("Start {}()", "showParametre");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
 			if (inputFlashMap.containsKey("messagePrenomEnregistreAvecSucces")) {
@@ -111,6 +112,7 @@ public class AmiParametreController {
 	@PostMapping("/ami/parametre/prenom/edition")
 	public String checkPrenom(@Valid EditionPrenomForm editionPrenomForm, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkPrenom");
 		if (!validationFormEditionPrenom.isValide(editionPrenomForm)) {
 			validationFormEditionPrenom.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
 		}
@@ -126,6 +128,7 @@ public class AmiParametreController {
 
 	@GetMapping("/ami/parametre/prenom/edition/enregistrement")
 	public String savePrenom(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "savePrenom");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
 			if (inputFlashMap.containsKey("editionPrenomForm")) {
@@ -141,6 +144,7 @@ public class AmiParametreController {
 	@PostMapping("/ami/parametre/nom/edition")
 	public String checkNom(@Valid EditionNomForm editionNomForm, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkNom");
 		if (!validationFormEditionNom.isValide(editionNomForm)) {
 			validationFormEditionNom.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
 		}
@@ -156,6 +160,7 @@ public class AmiParametreController {
 
 	@GetMapping("/ami/parametre/nom/edition/enregistrement")
 	public String saveNom(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveNom");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
 			if (inputFlashMap.containsKey("editionNomForm")) {
@@ -170,6 +175,7 @@ public class AmiParametreController {
 	@PostMapping("/ami/parametre/email/edition")
 	public String checkEmail(@Valid EditionEmailForm editionEmailForm, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkEmail");
 		if (!validationFormEditionEmail.isValide(editionEmailForm)) {
 			validationFormEditionEmail.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
 		}
@@ -186,6 +192,7 @@ public class AmiParametreController {
 
 	@GetMapping("/ami/parametre/email/edition/enregistrement")
 	public String saveEmail(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveEmail");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
 			if (inputFlashMap.containsKey("editionEmailForm")) {
@@ -200,6 +207,7 @@ public class AmiParametreController {
 	@PostMapping("/ami/parametre/motDePasse/edition")
 	public String checkMotDePasse(@Valid EditionMotDePasseForm editionMotDePasseForm, BindingResult bindingResult,
 			Model model, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkMotDePasse");
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(NomModel.UTILISATEUR.label);
 		Authentification authentification = utilisateur.getAuthentification();
 		editionMotDePasseForm.setAuthentification(authentification);
@@ -218,6 +226,7 @@ public class AmiParametreController {
 
 	@GetMapping("/ami/parametre/motDePasse/edition/enregistrement")
 	public String saveMotDePasse(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveMotDePasse");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
 			if (inputFlashMap.containsKey("editionMotDePasseForm")) {

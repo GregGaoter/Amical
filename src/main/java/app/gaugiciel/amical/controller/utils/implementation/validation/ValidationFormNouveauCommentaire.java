@@ -22,6 +22,7 @@ public class ValidationFormNouveauCommentaire extends ValidationForm<NouveauComm
 
 	@Override
 	public boolean isValide(@NotNull NouveauCommentaireForm nouveauCommentaireForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		if (!Utils.isValid(nouveauCommentaireForm.getCommentaire())) {
 			listeFieldError.add(new FieldError(nouveauCommentaireForm.getClass().getSimpleName(),

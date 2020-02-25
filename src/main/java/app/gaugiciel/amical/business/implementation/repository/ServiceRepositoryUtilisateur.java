@@ -19,6 +19,7 @@ public class ServiceRepositoryUtilisateur implements Repository<Utilisateur> {
 
 	@Override
 	public Utilisateur enregistrer(Utilisateur utilisateur) {
+		LOGGER.info("Start {}()", "enregistrer");
 		return utilisateurRepository.save(utilisateur);
 	}
 

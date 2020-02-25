@@ -102,6 +102,7 @@ public class AmiSpotController {
 
 	@GetMapping("/ami/spot/recherche")
 	public String showSpotForm(RechercheSpotForm spotForm, Model model) {
+		LOGGER.info("Start {}()", "showSpotForm");
 		spotForm.reinitialiser();
 		model.addAttribute("spotActive", "active");
 		return "ami_spot_recherche";
@@ -109,6 +110,7 @@ public class AmiSpotController {
 
 	@PostMapping("/ami/spot/recherche")
 	public String checkFormFindSpot(@Valid RechercheSpotForm spotForm, BindingResult bindingResult, Model model) {
+		LOGGER.info("Start {}()", "checkFormFindSpot");
 
 		this.spotForm = spotForm;
 
@@ -132,6 +134,7 @@ public class AmiSpotController {
 	@GetMapping("/ami/spot/recherche/resultat")
 	public String resultSpotForm(@ModelAttribute("spotForm") RechercheSpotForm spotForm,
 			@PageableDefault(size = TailleResultatRecherche.SPOT) Pageable pageable, Model model) {
+		LOGGER.info("Start {}()", "resultSpotForm");
 
 		Page<Spot> pageSpots = serviceRechercheSpot.rechercher(spotForm, pageable);
 
@@ -149,6 +152,7 @@ public class AmiSpotController {
 	@GetMapping("/ami/spot/{spotId}")
 	public String showSpot(@PathVariable Long spotId, @RequestParam(required = false) Long secteurId, Integer page,
 			Integer size, Model model, HttpServletRequest request) {
+		LOGGER.info("Start {}()", "showSpot");
 		Spot spot;
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
@@ -224,6 +228,7 @@ public class AmiSpotController {
 
 	@GetMapping("/ami/spot/{spotId}/edition")
 	public String showEditionSpotForm(@PathVariable Long spotId, Model model) {
+		LOGGER.info("Start {}()", "showEditionSpotForm");
 		Spot spot = serviceRechercheSpot.findById(spotId);
 		EditionSpotForm editionSpotForm = EditionSpotForm.creer(spot);
 		model.addAttribute("spot", spot);
@@ -238,6 +243,7 @@ public class AmiSpotController {
 	@PostMapping("/ami/spot/{spotId}/edition")
 	public String checkEditionSpotForm(@Valid EditionSpotForm editionSpotForm, @PathVariable Long spotId,
 			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkEditionSpotForm");
 		Spot spot = serviceRechercheSpot.findById(spotId);
 		if (!validationFormEditionSpot.isValide(editionSpotForm)) {
 			validationFormEditionSpot.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
@@ -254,6 +260,7 @@ public class AmiSpotController {
 	@GetMapping("/ami/spot/{spotId}/edition/enregistrement")
 	public String saveEditionSpotForm(@PathVariable Long spotId, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveEditionSpotForm");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
 			EditionSpotForm editionSpotForm = (EditionSpotForm) inputFlashMap.get("editionSpotForm");
@@ -267,6 +274,7 @@ public class AmiSpotController {
 
 	@GetMapping("/ami/spot/ajout")
 	public String showAjoutSpotForm(HttpServletRequest request, NouveauSpotForm ajoutSpotForm, Model model) {
+		LOGGER.info("Start {}()", "showAjoutSpotForm");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
 			Plan plan = (Plan) inputFlashMap.get("plan");
@@ -282,6 +290,7 @@ public class AmiSpotController {
 
 	@PostMapping("/ami/spot/ajout")
 	public String checkAjoutSpotForm(@Valid NouveauSpotForm ajoutSpotForm, BindingResult bindingResult) {
+		LOGGER.info("Start {}()", "checkAjoutSpotForm");
 		this.ajoutSpotForm = ajoutSpotForm;
 		if (bindingResult.hasErrors()) {
 			return "ami_spot_ajout";
@@ -291,6 +300,7 @@ public class AmiSpotController {
 
 	@RequestMapping(value = "/ami/spot/ajout", method = RequestMethod.POST, params = "supprimePlan")
 	public String supprimerPlanAjoutSpotForm(NouveauSpotForm ajoutSpotForm) {
+		LOGGER.info("Start {}()", "supprimerPlanAjoutSpotForm");
 		ajoutSpotForm.setPlan("");
 		return "ami_spot_ajout";
 	}
@@ -298,6 +308,7 @@ public class AmiSpotController {
 	@GetMapping(value = "/ami/spot/enregistrement")
 	public String saveAjoutSpotForm(@ModelAttribute("ajoutSpotForm") NouveauSpotForm ajoutSpotForm,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveAjoutSpotForm");
 		serviceEnregistrementFormAjoutSpot.enregistrer(ajoutSpotForm);
 		Spot spot = serviceEnregistrementFormAjoutSpot.getSpot();
 		redirectAttributes.addFlashAttribute("spot", spot);
@@ -306,6 +317,7 @@ public class AmiSpotController {
 
 	@PostMapping(value = "/ami/spot/ajout/supprimerPlan")
 	public String supprimerPlanAjoutSpotForm(NouveauSpotForm ajoutSpotForm, Model model) {
+		LOGGER.info("Start {}()", "supprimerPlanAjoutSpotForm");
 		ajoutSpotForm.setPlan("");
 		this.ajoutSpotForm = ajoutSpotForm;
 		model.addAttribute("ajoutSpotForm", ajoutSpotForm);

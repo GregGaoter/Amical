@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheTopo;
-
 @Controller
 public class VisiteurAccueilController {
 
@@ -15,6 +13,7 @@ public class VisiteurAccueilController {
 
 	@GetMapping(value = "/")
 	public String home() {
+		LOGGER.info("Start {}()", "home");
 		return "redirect:/visiteur/accueil";
 	}
 

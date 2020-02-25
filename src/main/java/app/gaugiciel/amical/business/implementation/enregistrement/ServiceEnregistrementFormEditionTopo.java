@@ -28,6 +28,7 @@ public class ServiceEnregistrementFormEditionTopo implements Enregistrement<Edit
 
 	@Override
 	public void enregistrer(EditionTopoForm editionTopoForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		manuel = manuelRepository.findById(editionTopoForm.getId()).orElseThrow();
 		editionTopoForm.updateTopo(manuel);
 		serviceRepositoryManuel.enregistrer(manuel);

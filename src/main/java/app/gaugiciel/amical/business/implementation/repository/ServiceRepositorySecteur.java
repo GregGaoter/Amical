@@ -19,6 +19,7 @@ public class ServiceRepositorySecteur implements Repository<Secteur> {
 
 	@Override
 	public Secteur enregistrer(Secteur secteur) {
+		LOGGER.info("Start {}()", "enregistrer");
 		return secteurRepository.save(secteur);
 	}
 

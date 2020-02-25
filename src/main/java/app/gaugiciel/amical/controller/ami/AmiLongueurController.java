@@ -71,6 +71,7 @@ public class AmiLongueurController {
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/nouveau")
 	public String showNouvelleLongueurForm(@PathVariable Long spotId, @PathVariable Long secteurId,
 			@PathVariable Long voieId, Model model, HttpServletRequest request) {
+		LOGGER.info("Start {}()", "showNouvelleLongueurForm");
 		NouvelleLongueurForm nouvelleLongueurForm = new NouvelleLongueurForm();
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
@@ -103,6 +104,7 @@ public class AmiLongueurController {
 	public String checkNouvelleLongueurForm(@Valid NouvelleLongueurForm nouvelleLongueurForm, @PathVariable Long spotId,
 			@PathVariable Long secteurId, @PathVariable Long voieId, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkNouvelleLongueurForm");
 		if (!validationFormNouvelleLongueur.isValide(nouvelleLongueurForm)) {
 			validationFormNouvelleLongueur.getListeFieldError()
 					.forEach(fieldError -> bindingResult.addError(fieldError));
@@ -125,6 +127,7 @@ public class AmiLongueurController {
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/nouveau/enregistrement")
 	public String saveNouvelleLongueurForm(@PathVariable Long spotId, @PathVariable Long secteurId,
 			@PathVariable Long voieId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveNouvelleLongueurForm");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
 			NouvelleLongueurForm nouvelleLongueurForm = (NouvelleLongueurForm) inputFlashMap
@@ -140,6 +143,7 @@ public class AmiLongueurController {
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/{longueurId}")
 	public String showLongueur(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId,
 			@PathVariable Long longueurId, Integer page, Integer size, Model model, HttpServletRequest request) {
+		LOGGER.info("Start {}()", "showLongueur");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
 			if (inputFlashMap.containsKey("longueur")) {
@@ -170,6 +174,7 @@ public class AmiLongueurController {
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/{longueurId}/edition")
 	public String showEditionLongueurForm(@PathVariable Long spotId, @PathVariable Long secteurId,
 			@PathVariable Long voieId, @PathVariable Long longueurId, Model model) {
+		LOGGER.info("Start {}()", "showEditionLongueurForm");
 		Longueur longueur = serviceRechercheLongueur.findById(longueurId);
 		EditionLongueurForm editionLongueurForm = EditionLongueurForm.creer(longueur);
 		String urlRedirection = "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId
@@ -190,6 +195,7 @@ public class AmiLongueurController {
 	public String checkEditionLongueurForm(@Valid EditionLongueurForm editionLongueurForm, @PathVariable Long spotId,
 			@PathVariable Long secteurId, @PathVariable Long voieId, @PathVariable Long longueurId,
 			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkEditionLongueurForm");
 		Longueur longueur = serviceRechercheLongueur.findById(longueurId);
 		Voie voie = longueur.getVoie();
 		Secteur secteur = voie.getSecteur();
@@ -218,6 +224,7 @@ public class AmiLongueurController {
 	public String saveEditionLongueurForm(@PathVariable Long spotId, @PathVariable Long secteurId,
 			@PathVariable Long voieId, @PathVariable Long longueurId, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveEditionLongueurForm");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
 			EditionLongueurForm editionLongueurForm = (EditionLongueurForm) inputFlashMap.get("editionLongueurForm");

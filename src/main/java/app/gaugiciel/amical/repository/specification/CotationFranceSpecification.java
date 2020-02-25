@@ -18,6 +18,7 @@ public class CotationFranceSpecification {
 
 	public static Specification<CotationFrance> unitePrincipaleEqual(
 			CotationFranceUnitePrincipale unitePrincipale) {
+		LOGGER.info("Start {}()", "unitePrincipaleEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(unitePrincipale)) {
 				return null;
@@ -31,6 +32,7 @@ public class CotationFranceSpecification {
 
 	public static Specification<CotationFrance> uniteSecondaireContaining(
 			CotationFranceUniteSecondaire uniteSecondaire) {
+		LOGGER.info("Start {}()", "uniteSecondaireContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(uniteSecondaire)) {
 				return null;
@@ -44,6 +46,7 @@ public class CotationFranceSpecification {
 
 	public static Specification<CotationFrance> uniteTertiaireEqual(
 			CotationFranceUniteTertiaire uniteTertiaire) {
+		LOGGER.info("Start {}()", "uniteTertiaireEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(uniteTertiaire)) {
 				return null;
@@ -56,6 +59,7 @@ public class CotationFranceSpecification {
 	}
 
 	public static Specification<CotationFrance> cotationEqual(ServiceCotationFrance cotation) {
+		LOGGER.info("Start {}()", "cotationEqual");
 		return Specification.where(unitePrincipaleEqual(cotation.getUnitePrincipale()))
 				.and(uniteSecondaireContaining(cotation.getUniteSecondaire()))
 				.and(uniteTertiaireEqual(cotation.getUniteTertiaire()));

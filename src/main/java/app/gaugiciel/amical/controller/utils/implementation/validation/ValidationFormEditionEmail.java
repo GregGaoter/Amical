@@ -27,6 +27,7 @@ public class ValidationFormEditionEmail extends ValidationForm<EditionEmailForm>
 
 	@Override
 	public boolean isValide(@NotNull EditionEmailForm editionEmailForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		if (!Utils.isValid(editionEmailForm.getEmail())) {
 			listeFieldError.add(new FieldError(editionEmailForm.getClass().getSimpleName(), EditionEmailForm.EMAIL,

@@ -84,6 +84,7 @@ public class EditionSpotForm {
 	}
 
 	public static EditionSpotForm creer(Spot spot) {
+		LOGGER.info("Start {}()", "creer");
 		return new EditionSpotForm(spot);
 	}
 
@@ -102,6 +103,7 @@ public class EditionSpotForm {
 	}
 
 	public void updateSpot(Spot spot) {
+		LOGGER.info("Start {}()", "updateSpot");
 		spot.setNom(nom);
 		spot.setDescription(description);
 		spot.setRemarque(remarque);

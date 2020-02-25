@@ -23,11 +23,13 @@ public class ServiceRechercheCommentaire implements Recherche<Commentaire, Objec
 	private CommentaireRepository commentaireRepository;
 
 	public List<Commentaire> findAllBySpot(Spot spot) {
+		LOGGER.info("Start {}()", "findAllBySpot");
 		return commentaireRepository.findAll(CommentaireSpecification.spotEqual(spot),
 				Sort.by(Sort.Direction.DESC, "date"));
 	}
 
 	public Commentaire findById(Long commentaireId) {
+		LOGGER.info("Start {}()", "findById");
 		return commentaireRepository.findById(commentaireId).orElse(null);
 	}
 

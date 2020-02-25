@@ -36,7 +36,6 @@ import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheVo
 import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan;
 import app.gaugiciel.amical.controller.form.RechercheSpotForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheSpot;
-import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheTopo;
 import app.gaugiciel.amical.model.Commentaire;
 import app.gaugiciel.amical.model.Longueur;
 import app.gaugiciel.amical.model.Secteur;
@@ -69,6 +68,7 @@ public class VisiteurSpotController {
 
 	@GetMapping("/visiteur/spot/recherche")
 	public String showSpotForm(RechercheSpotForm spotForm, Model model) {
+		LOGGER.info("Start {}()", "");
 		spotForm.reinitialiser();
 		model.addAttribute("spotActive", "active");
 		return "visiteur_spot_recherche";
@@ -76,6 +76,7 @@ public class VisiteurSpotController {
 
 	@PostMapping("/visiteur/spot/recherche")
 	public String checkFormFindSpot(@Valid RechercheSpotForm spotForm, BindingResult bindingResult, Model model) {
+		LOGGER.info("Start {}()", "");
 
 		this.spotForm = spotForm;
 
@@ -98,6 +99,7 @@ public class VisiteurSpotController {
 	@GetMapping("/visiteur/spot/recherche/resultat")
 	public String resultSpotForm(@ModelAttribute("spotForm") RechercheSpotForm spotForm,
 			@PageableDefault(size = PAGE_SIZE) Pageable pageable, Model model) {
+		LOGGER.info("Start {}()", "");
 
 		Page<Spot> pageSpots = serviceRechercheSpot.rechercher(spotForm, pageable);
 
@@ -115,6 +117,7 @@ public class VisiteurSpotController {
 	@GetMapping("/visiteur/spot/{spotId}")
 	public String showSpot(@PathVariable Long spotId, @RequestParam(required = false) Long secteurId, int page,
 			int size, Model model) {
+		LOGGER.info("Start {}()", "");
 		Spot spot = serviceRechercheSpot.findById(spotId);
 		List<Secteur> listeSecteurs = serviceRechercheSecteur.findBySpotIdOrderByNom(spotId);
 		Map<Long, List<Voie>> mapVoies = new HashMap<>();
@@ -157,12 +160,14 @@ public class VisiteurSpotController {
 	@GetMapping("/visiteur/spot/{spotId}/secteur/{secteurId}")
 	public String showSecteur(@PathVariable Long spotId, @PathVariable Long secteurId, int page, int size,
 			Model model) {
+		LOGGER.info("Start {}()", "");
 		return "redirect:/visiteur/spot/" + spotId + "?secteurId=" + secteurId + "&page=" + page + "&size=" + size;
 	}
 
 	@GetMapping("/visiteur/spot/{spotId}/secteur/{secteurId}/voie/{voieId}")
 	public String showVoie(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId, int page,
 			int size, Model model) {
+		LOGGER.info("Start {}()", "");
 		Voie voie = serviceRechercheVoie.findById(voieId);
 		Secteur secteur = serviceRechercheSecteur.findById(secteurId);
 		Spot spot = serviceRechercheSpot.findById(spotId);
@@ -180,6 +185,7 @@ public class VisiteurSpotController {
 	@GetMapping("/visiteur/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/{longueurId}")
 	public String showLongueur(@PathVariable Long spotId, @PathVariable Long secteurId, @PathVariable Long voieId,
 			@PathVariable Long longueurId, int page, int size, Model model) {
+		LOGGER.info("Start {}()", "");
 		Longueur longueur = serviceRechercheLongueur.findById(longueurId);
 		Voie voie = serviceRechercheVoie.findById(voieId);
 		Secteur secteur = serviceRechercheSecteur.findById(secteurId);

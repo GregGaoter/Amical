@@ -19,6 +19,7 @@ public class InternationnalisationConfiguration implements WebMvcConfigurer {
 
 	@Bean
 	public LocaleResolver localeResolver() {
+		LOGGER.info("Start {}()", "localeResolver");
 		SessionLocaleResolver slr = new SessionLocaleResolver();
 		slr.setDefaultLocale(Locale.FRANCE);
 		return slr;
@@ -26,6 +27,7 @@ public class InternationnalisationConfiguration implements WebMvcConfigurer {
 
 	@Bean
 	public LocaleChangeInterceptor localeChangeInterceptor() {
+		LOGGER.info("Start {}()", "localeChangeInterceptor");
 		LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
 		lci.setParamName("lang");
 		return lci;
@@ -33,6 +35,7 @@ public class InternationnalisationConfiguration implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		LOGGER.info("Start {}()", "addInterceptors");
 		registry.addInterceptor(localeChangeInterceptor());
 	}
 

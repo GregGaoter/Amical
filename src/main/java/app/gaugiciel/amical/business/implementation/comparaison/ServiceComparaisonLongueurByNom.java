@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import app.gaugiciel.amical.business.implementation.authentification.ServiceLogoutSuccessHandler;
 import app.gaugiciel.amical.model.Longueur;
 
 @Service
@@ -16,6 +15,7 @@ public class ServiceComparaisonLongueurByNom extends Comparaison implements Comp
 
 	@Override
 	public int compare(Longueur l1, Longueur l2) {
+		LOGGER.info("Start {}()", "compare");
 		return comparateurAlphaNumeric.compare(l1.getNom(), l2.getNom());
 	}
 

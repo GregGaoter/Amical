@@ -38,6 +38,7 @@ public class AmiPlanController {
 
 	@GetMapping(value = "/ami/plan/nouveau")
 	public String showNouveauPlanForm(Model model) {
+		LOGGER.info("Start {}()", "showNouveauPlanForm");
 		nouveauPlanForm.reinitialiser();
 		model.addAttribute("spotActive", "active");
 		return "ami_plan_nouveau";
@@ -46,6 +47,7 @@ public class AmiPlanController {
 	@PostMapping("/ami/plan/nouveau")
 	public String checkNouveauPlanForm(@Valid NouveauPlanForm nouveauPlanForm, BindingResult bindingResult,
 			Model model) {
+		LOGGER.info("Start {}()", "checkNouveauPlanForm");
 		this.nouveauPlanForm = nouveauPlanForm;
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("spotActive", "active");
@@ -58,6 +60,7 @@ public class AmiPlanController {
 
 	@GetMapping(value = "/ami/plan/nouveau/enregistrement")
 	public String saveNouveauPlanForm(RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveNouveauPlanForm");
 		serviceEnregistrementFormNouveauPlan.enregistrer(nouveauPlanForm);
 		redirectAttributes.addFlashAttribute("plan", serviceEnregistrementFormNouveauPlan.getPlan());
 		return (String) session.getAttribute(RedirectionUrl.PREVIOUS_URL.label);

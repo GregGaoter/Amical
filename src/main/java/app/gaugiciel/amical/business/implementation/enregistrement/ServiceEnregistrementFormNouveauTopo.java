@@ -25,6 +25,7 @@ public class ServiceEnregistrementFormNouveauTopo implements Enregistrement<Nouv
 
 	@Override
 	public void enregistrer(NouveauTopoForm nouveauTopoForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		manuel = serviceRepositoryManuel.enregistrer(Manuel.creer(nouveauTopoForm.getNom(),
 				nouveauTopoForm.getDateTimeParution(), nouveauTopoForm.getAuteur(), nouveauTopoForm.getDescription(),
 				nouveauTopoForm.getRemarque(), nouveauTopoForm.getEtat(), nouveauTopoForm.getCategorie(),

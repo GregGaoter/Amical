@@ -15,6 +15,7 @@ public class MessageSourceConfiguration {
 
 	@Bean
 	public MessageSource messageSource() {
+		LOGGER.info("Start {}()", "messageSource");
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 		messageSource.setBasename("classpath:messages");
 		messageSource.setDefaultEncoding("UTF-8");
@@ -23,6 +24,7 @@ public class MessageSourceConfiguration {
 
 	@Bean
 	public LocalValidatorFactoryBean getValidator() {
+		LOGGER.info("Start {}()", "getValidator");
 		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
 		bean.setValidationMessageSource(messageSource());
 		return bean;

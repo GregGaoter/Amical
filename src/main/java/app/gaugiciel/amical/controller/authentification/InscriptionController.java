@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormInscription;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheUtilisateur;
-import app.gaugiciel.amical.controller.ami.AmiVoieController;
 import app.gaugiciel.amical.controller.form.InscriptionForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormInscription;
 import app.gaugiciel.amical.model.Utilisateur;
@@ -31,7 +30,7 @@ import app.gaugiciel.amical.model.Utilisateur;
 @Controller
 @ControllerAdvice
 public class InscriptionController {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(InscriptionController.class);
 
 	@Autowired
@@ -45,6 +44,7 @@ public class InscriptionController {
 
 	@GetMapping(value = "/visiteur/inscription")
 	public String showInscriptionForm() {
+		LOGGER.info("Start {}()", "showInscriptionForm");
 		inscriptionForm.reinitialiser();
 		return "inscription";
 	}
@@ -52,6 +52,7 @@ public class InscriptionController {
 	@PostMapping("/visiteur/inscription")
 	public String checkInscriptionForm(@Valid InscriptionForm inscriptionForm, BindingResult bindingResult,
 			Model model) {
+		LOGGER.info("Start {}()", "checkInscriptionForm");
 		this.inscriptionForm = inscriptionForm;
 		if (!validationFormInscription.isValide(inscriptionForm)) {
 			validationFormInscription.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
@@ -64,6 +65,7 @@ public class InscriptionController {
 
 	@GetMapping(value = "/visiteur/inscription/enregistrement")
 	public String saveInscriptionForm(@ModelAttribute("inscriptionForm") InscriptionForm inscriptionForm, Model model) {
+		LOGGER.info("Start {}()", "saveInscriptionForm");
 		serviceEnregistrementFormInscription.enregistrer(inscriptionForm);
 		return "redirect:/visiteur/inscription/enregistrement/autoLogin";
 	}
@@ -72,6 +74,7 @@ public class InscriptionController {
 	public String autoLoginApresInscription(@ModelAttribute("inscriptionForm") InscriptionForm inscriptionForm,
 			HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException {
+		LOGGER.info("Start {}()", "autoLoginApresInscription");
 		try {
 			request.login(inscriptionForm.getEmail(), inscriptionForm.getMotDePasse());
 			HttpSession session = request.getSession();

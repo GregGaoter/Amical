@@ -33,18 +33,21 @@ public class ServiceRechercheTopo implements Recherche<Manuel, RechercheTopoForm
 	private UtilisateurRepository utilisateurRepository;
 
 	public List<String> rechercherNomManuel(String nomManuel) {
+		LOGGER.info("Start {}()", "rechercherNomManuel");
 		List<Manuel> listeManuels = manuelRepository.findAll(ManuelSpecification.nomContaining(nomManuel));
 		return listeManuels.stream().sequential().limit(Utils.AUTO_COMPLETE_MAX_RESULTS).map(manuel -> manuel.getNom())
 				.collect(Collectors.toList());
 	}
 
 	public List<String> rechercherNomAuteur(String nomAuteur) {
+		LOGGER.info("Start {}()", "rechercherNomAuteur");
 		List<Manuel> listeManuels = manuelRepository.findAll(ManuelSpecification.auteurContaining(nomAuteur));
 		return listeManuels.stream().sequential().limit(Utils.AUTO_COMPLETE_MAX_RESULTS)
 				.map(manuel -> manuel.getAuteur()).collect(Collectors.toList());
 	}
 
 	public List<String> rechercherProprietaire(String proprietaire) {
+		LOGGER.info("Start {}()", "rechercherProprietaire");
 		String proprietaireNormalise = Utils.normaliser(proprietaire);
 		List<Utilisateur> listeUtilisateurs = utilisateurRepository
 				.findAll(UtilisateurSpecification.proprietesContaining(proprietaire));
@@ -55,18 +58,22 @@ public class ServiceRechercheTopo implements Recherche<Manuel, RechercheTopoForm
 	}
 
 	public Page<Manuel> rechercher(RechercheTopoForm rechercheTopoForm, Pageable pageable) {
+		LOGGER.info("Start {}()", "rechercher");
 		return manuelRepository.findAll(ManuelSpecification.hasAll(rechercheTopoForm), pageable);
 	}
 
 	public Manuel findById(long manuelId) {
+		LOGGER.info("Start {}()", "findById");
 		return manuelRepository.findById(manuelId).orElse(null);
 	}
 
 	public long countProprietaire(@NonNull Authentification proprietaire) {
+		LOGGER.info("Start {}()", "countProprietaire");
 		return manuelRepository.count(ManuelSpecification.proprietaireEqual(proprietaire));
 	}
 
 	public List<Manuel> findByAuthentification(Authentification proprietaire) {
+		LOGGER.info("Start {}()", "findByAuthentification");
 		return manuelRepository.findAll(ManuelSpecification.proprietaireEqual(proprietaire));
 	}
 

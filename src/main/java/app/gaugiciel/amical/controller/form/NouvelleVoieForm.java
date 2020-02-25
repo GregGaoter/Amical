@@ -92,6 +92,7 @@ public class NouvelleVoieForm {
 	}
 
 	public boolean estCotationVide() {
+		LOGGER.info("Start {}()", "estCotationVide");
 		return estNull(cotationUnitePrincipale) && estNull(cotationUniteSecondaire) && estNull(cotationUniteTertiaire);
 	}
 

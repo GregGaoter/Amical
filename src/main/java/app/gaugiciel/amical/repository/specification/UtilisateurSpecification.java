@@ -13,6 +13,7 @@ public class UtilisateurSpecification {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurSpecification.class);
 
 	public static Specification<Utilisateur> emailContaining(String email) {
+		LOGGER.info("Start {}()", "emailContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(email)) {
 				return null;
@@ -25,6 +26,7 @@ public class UtilisateurSpecification {
 	}
 
 	public static Specification<Utilisateur> prenomContaining(String prenom) {
+		LOGGER.info("Start {}()", "prenomContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(prenom)) {
 				return null;
@@ -36,6 +38,7 @@ public class UtilisateurSpecification {
 	}
 
 	public static Specification<Utilisateur> nomContaining(String nom) {
+		LOGGER.info("Start {}()", "nomContaining");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(nom)) {
 				return null;
@@ -46,6 +49,7 @@ public class UtilisateurSpecification {
 	}
 
 	public static Specification<Utilisateur> proprietesContaining(String template) {
+		LOGGER.info("Start {}()", "proprietesContaining");
 		return Specification.where(emailContaining(template)).or(prenomContaining(template))
 				.or(nomContaining(template));
 	}

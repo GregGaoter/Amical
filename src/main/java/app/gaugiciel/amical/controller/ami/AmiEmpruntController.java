@@ -57,6 +57,7 @@ public class AmiEmpruntController {
 
 	@GetMapping("/ami/topo/emprunts")
 	public String showEmprunts(Model model) {
+		LOGGER.info("Start {}()", "showEmprunts");
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(NomModel.UTILISATEUR.label);
 		Authentification authentification = utilisateur.getAuthentification();
 		List<DemandePretEmpruntManuel> listeDemandesEmpruntsManuels = serviceRechercheDemandePretEmpruntManuel
@@ -99,6 +100,7 @@ public class AmiEmpruntController {
 
 	@GetMapping("/ami/topo/{topoId}/emprunt/annuler")
 	public String annulerEmprunt(@PathVariable long topoId, Model model) {
+		LOGGER.info("Start {}()", "annulerEmprunt");
 		DemandePretEmpruntManuel demandeEmpruntManuel = serviceRechercheDemandePretEmpruntManuel.findByManuelId(topoId);
 		serviceRepositoryDemandePretEmpruntManuel.supprimer(demandeEmpruntManuel);
 		Manuel topo = serviceRechercheManuel.findById(topoId);
@@ -109,6 +111,7 @@ public class AmiEmpruntController {
 
 	@PostMapping("/ami/topo/{topoId}/demandeEmprunt")
 	public String demanderEmprunt(@PathVariable long topoId, Model model) {
+		LOGGER.info("Start {}()", "demanderEmprunt");
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(NomModel.UTILISATEUR.label);
 		Authentification authentification = utilisateur.getAuthentification();
 		Manuel topo = serviceRechercheManuel.findById(topoId);

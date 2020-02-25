@@ -30,6 +30,7 @@ public class ValidationFormRechercheTopo extends ValidationForm<RechercheTopoFor
 
 	@Override
 	public boolean isValide(@NotNull RechercheTopoForm rechercheTopoForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		Timestamp dateParutionMin = serviceConversionInputDateToTimestamp
 				.convertir(rechercheTopoForm.getDateParutionMinInput());

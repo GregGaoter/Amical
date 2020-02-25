@@ -17,6 +17,7 @@ public class ResourceConfiguration implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		LOGGER.info("Start {}()", "addResourceHandlers");
 		registry.addResourceHandler("/plan/**").addResourceLocations(urlServeurPlan);
 	}
 

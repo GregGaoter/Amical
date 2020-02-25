@@ -24,10 +24,12 @@ public class ServiceRechercheVoie implements Recherche<Voie, Object> {
 	private ServiceComparaisonVoieByNumero serviceComparaisonVoieByNumero;
 
 	public Voie findById(Long id) {
+		LOGGER.info("Start {}()", "findById");
 		return voieRepository.findById(id).orElseThrow();
 	}
 
 	public List<Voie> findBySecteurIdOrderByNumero(Long secteurId) {
+		LOGGER.info("Start {}()", "findBySecteurIdOrderByNumero");
 		List<Voie> listeVoies = voieRepository.findBySecteur_id(secteurId);
 		Collections.sort(listeVoies, serviceComparaisonVoieByNumero);
 		return listeVoies;

@@ -71,6 +71,7 @@ public class EditionSecteurForm {
 	}
 
 	public static EditionSecteurForm creer(Secteur secteur) {
+		LOGGER.info("Start {}()", "creer");
 		return new EditionSecteurForm(secteur);
 	}
 
@@ -89,6 +90,7 @@ public class EditionSecteurForm {
 	}
 
 	public void updateSecteur(Secteur secteur) {
+		LOGGER.info("Start {}()", "updateSecteur");
 		secteur.setNom(nom);
 		secteur.setDescription(description);
 		secteur.setRemarque(remarque);

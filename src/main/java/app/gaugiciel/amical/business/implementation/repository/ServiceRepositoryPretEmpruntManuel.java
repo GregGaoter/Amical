@@ -19,6 +19,7 @@ public class ServiceRepositoryPretEmpruntManuel implements Repository<PretEmprun
 
 	@Override
 	public PretEmpruntManuel enregistrer(PretEmpruntManuel pretEmpruntManuel) {
+		LOGGER.info("Start {}()", "enregistrer");
 		return pretEmpruntManuelRepository.save(pretEmpruntManuel);
 	}
 
@@ -29,6 +30,7 @@ public class ServiceRepositoryPretEmpruntManuel implements Repository<PretEmprun
 
 	@Override
 	public void supprimer(PretEmpruntManuel pretEmpruntManuel) {
+		LOGGER.info("Start {}()", "supprimer");
 		pretEmpruntManuelRepository.delete(pretEmpruntManuel);
 	}
 

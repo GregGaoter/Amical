@@ -19,6 +19,7 @@ public class ServiceRepositoryCotationFrance implements Repository<CotationFranc
 
 	@Override
 	public CotationFrance enregistrer(CotationFrance cotationFrance) {
+		LOGGER.info("Start {}()", "enregistrer");
 		return cotationFranceRepository.save(cotationFrance);
 	}
 

@@ -28,6 +28,7 @@ public class ServiceEnregistrementFormEditionSpot implements Enregistrement<Edit
 
 	@Override
 	public void enregistrer(EditionSpotForm editionSpotForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		spot = spotRepository.findById(editionSpotForm.getId()).orElseThrow();
 		editionSpotForm.updateSpot(spot);
 		serviceRepositorySpot.enregistrer(spot);

@@ -34,6 +34,7 @@ public class EditionCommentaireForm {
 	}
 
 	public static EditionCommentaireForm creer(Commentaire commentaire) {
+		LOGGER.info("Start {}()", "creer");
 		return new EditionCommentaireForm(commentaire);
 	}
 

@@ -42,6 +42,7 @@ public class ServiceEnregistrementFormNouvelleVoie implements Enregistrement<Nou
 
 	@Override
 	public void enregistrer(NouvelleVoieForm nouvelleVoieForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		Plan plan = Utils.isValid(nouvelleVoieForm.getNomPlan())
 				? planRepository.findByPlan(nouvelleVoieForm.getNomPlan())
 				: null;

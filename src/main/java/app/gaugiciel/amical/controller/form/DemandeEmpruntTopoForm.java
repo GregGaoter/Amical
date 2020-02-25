@@ -6,11 +6,8 @@ import java.util.stream.Stream;
 
 import javax.validation.constraints.NotNull;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import app.gaugiciel.amical.controller.data.AmiManuelEmpruntData;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -25,8 +22,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DemandeEmpruntTopoForm {
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(DemandeEmpruntTopoForm.class);
 
 	public static final String ID = "id";
 	private static final Map<String, Boolean> IS_NOT_NULL = new HashMap<>();

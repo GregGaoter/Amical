@@ -59,6 +59,7 @@ public class AmiPretController {
 
 	@GetMapping("/ami/topo/prets")
 	public String showPrets(Model model) {
+		LOGGER.info("Start {}()", "showPrets");
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(NomModel.UTILISATEUR.label);
 		Authentification authentification = utilisateur.getAuthentification();
 		List<DemandePretEmpruntManuel> listeDemandesPretsManuels = serviceRechercheDemandePretEmpruntManuel
@@ -104,6 +105,7 @@ public class AmiPretController {
 
 	@GetMapping("/ami/topo/{topoId}/pret/accepte")
 	public String acceptPret(@PathVariable long topoId, Model model) {
+		LOGGER.info("Start {}()", "acceptPret");
 		DemandePretEmpruntManuel demandePretManuel = serviceRechercheDemandePretEmpruntManuel.findByManuelId(topoId);
 		serviceRepositoryPretEmpruntManuel.enregistrer(PretEmpruntManuel.creer(demandePretManuel.getProprietaire(),
 				demandePretManuel.getDemandeur(), demandePretManuel.getManuel(), Timestamp.from(Instant.now())));
@@ -116,6 +118,7 @@ public class AmiPretController {
 
 	@GetMapping("/ami/topo/{topoId}/pret/refuse")
 	public String refusePret(@PathVariable long topoId, Model model) {
+		LOGGER.info("Start {}()", "refusePret");
 		DemandePretEmpruntManuel demandePretManuel = serviceRechercheDemandePretEmpruntManuel.findByManuelId(topoId);
 		serviceRepositoryDemandePretEmpruntManuel.supprimer(demandePretManuel);
 		return (String) session.getAttribute(RedirectionUrl.PRETS.label);
@@ -123,6 +126,7 @@ public class AmiPretController {
 
 	@GetMapping("/ami/topo/{topoId}/pret/retour")
 	public String retourPret(@PathVariable long topoId, Model model) {
+		LOGGER.info("Start {}()", "retourPret");
 		Manuel topo = serviceRechercheManuel.findById(topoId);
 		PretEmpruntManuel pretManuel = serviceRecherchePretEmpruntManuel.findByManuel(topo);
 		serviceRepositoryPretEmpruntManuel.supprimer(pretManuel);

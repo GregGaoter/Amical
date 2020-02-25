@@ -85,6 +85,7 @@ public class AmiTopoController {
 	@GetMapping("/ami/topo/recherche")
 	public String showRechercheTopoForm(Model model, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "showRechercheTopoForm");
 		String urlRedirection = "redirect:/ami/topo/recherche";
 		model.addAttribute("rechercheTopoForm", new RechercheTopoForm());
 		model.addAttribute("topoActive", "active");
@@ -96,6 +97,7 @@ public class AmiTopoController {
 	@PostMapping("/ami/topo/recherche")
 	public String checkRechercheTopoForm(@Valid RechercheTopoForm rechercheTopoForm, BindingResult bindingResult,
 			Model model, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkRechercheTopoForm");
 		if (!validationFormRechercheTopo.isValide(rechercheTopoForm)) {
 			validationFormRechercheTopo.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
 		}
@@ -111,6 +113,7 @@ public class AmiTopoController {
 	@GetMapping("/ami/topo/recherche/resultat/taille/{taille}/page/{page}")
 	public String resultRechercheTopoForm(@PathVariable int taille, @PathVariable int page, Model model,
 			HttpServletRequest request) {
+		LOGGER.info("Start {}()", "resultRechercheTopoForm");
 		RechercheTopoForm rechercheTopoForm;
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
@@ -139,6 +142,7 @@ public class AmiTopoController {
 
 	@GetMapping("/ami/topo/{manuelId}/taille/{taille}/page/{page}")
 	public String showTopo(@PathVariable long manuelId, @PathVariable int taille, @PathVariable int page, Model model) {
+		LOGGER.info("Start {}()", "showTopo");
 		Manuel manuel = serviceRechercheTopo.findById(manuelId);
 		String urlRedirection = "redirect:/ami/topo/" + manuelId + "/taille/" + taille + "/page/" + page;
 		model.addAttribute("manuel", manuel);
@@ -154,6 +158,7 @@ public class AmiTopoController {
 
 	@GetMapping("/ami/topo/topos")
 	public String showToposUtilisateur(Model model, HttpServletRequest request) {
+		LOGGER.info("Start {}()", "showToposUtilisateur");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
 			if (inputFlashMap.containsKey("nomManuelSupprime")) {
@@ -175,6 +180,7 @@ public class AmiTopoController {
 
 	@GetMapping("/ami/topo/{manuelId}")
 	public String showTopoUtilisateur(@PathVariable long manuelId, Model model, HttpServletRequest request) {
+		LOGGER.info("Start {}()", "showTopoUtilisateur");
 		Manuel manuel;
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
@@ -201,6 +207,7 @@ public class AmiTopoController {
 
 	@GetMapping("/ami/topo/nouveau")
 	public String showNouveauTopoForm(Model model) {
+		LOGGER.info("Start {}()", "showNouveauTopoForm");
 		NouveauTopoForm nouveauTopoForm = new NouveauTopoForm();
 		Utilisateur proprietaireTopo = (Utilisateur) session.getAttribute(NomModel.UTILISATEUR.label);
 		nouveauTopoForm.setAuthentification(proprietaireTopo.getAuthentification());
@@ -223,6 +230,7 @@ public class AmiTopoController {
 	@PostMapping("/ami/topo/nouveau")
 	public String checkNouveauTopoForm(@Valid NouveauTopoForm nouveauTopoForm, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkNouveauTopoForm");
 		if (!validationFormNouveauTopo.isValide(nouveauTopoForm)) {
 			validationFormNouveauTopo.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
 		}
@@ -236,6 +244,7 @@ public class AmiTopoController {
 
 	@GetMapping("/ami/topo/nouveau/enregistrement")
 	public String saveNouveauTopoForm(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveNouveauTopoForm");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
 			if (inputFlashMap.containsKey("nouveauTopoForm")) {
@@ -250,6 +259,7 @@ public class AmiTopoController {
 
 	@GetMapping("/ami/topo/{manuelId}/edition")
 	public String showEditionTopoForm(@PathVariable long manuelId, Model model) {
+		LOGGER.info("Start {}()", "showEditionTopoForm");
 		Manuel manuel = serviceRechercheTopo.findById(manuelId);
 		EditionTopoForm editionTopoForm = EditionTopoForm.creer(manuel);
 		String urlRedirection = "redirect:/ami/topo/" + manuelId + "/edition";
@@ -273,6 +283,7 @@ public class AmiTopoController {
 	@PostMapping("/ami/topo/{manuelId}/edition")
 	public String checkEditionTopoForm(@Valid EditionTopoForm editionTopoForm, @PathVariable long manuelId,
 			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkEditionTopoForm");
 		Manuel manuel = serviceRechercheTopo.findById(manuelId);
 		if (!validationFormEditionTopo.isValide(editionTopoForm)) {
 			validationFormEditionTopo.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
@@ -295,6 +306,7 @@ public class AmiTopoController {
 	@GetMapping("/ami/topo/{manuelId}/edition/enregistrement")
 	public String saveEditionTopoForm(@PathVariable long manuelId, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveEditionTopoForm");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
 			if (inputFlashMap.containsKey("editionTopoForm")) {
@@ -309,6 +321,7 @@ public class AmiTopoController {
 	@PostMapping("/ami/topo/{manuelId}/suppression")
 	public String supprimerTopo(@Valid SuppressionTopoForm suppressionTopoForm, @PathVariable long manuelId,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "supprimerTopo");
 		Manuel manuel = serviceRechercheTopo.findById(manuelId);
 		String nomManuelSupprime = manuel.getNom();
 		serviceRepositoryManuel.supprimer(manuel);

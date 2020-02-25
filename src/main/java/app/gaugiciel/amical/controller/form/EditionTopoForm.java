@@ -108,6 +108,7 @@ public class EditionTopoForm {
 	}
 
 	public static EditionTopoForm creer(Manuel topo) {
+		LOGGER.info("Start {}()", "creer");
 		return new EditionTopoForm(topo);
 	}
 
@@ -126,12 +127,14 @@ public class EditionTopoForm {
 	}
 
 	public void setObjets(Timestamp dateTimeParution, Authentification authentification, LieuFrance lieuFrance) {
+		LOGGER.info("Start {}()", "setObjets");
 		this.dateTimeParution = dateTimeParution;
 		this.authentification = authentification;
 		this.lieuFrance = lieuFrance;
 	}
 
 	public void updateTopo(Manuel topo) {
+		LOGGER.info("Start {}()", "updateTopo");
 		topo.setAuteur(auteur);
 		topo.setCategorie(categorie);
 		topo.setDateTimeParution(dateTimeParution);

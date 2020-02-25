@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.gaugiciel.amical.business.contrat.Cotation;
-import app.gaugiciel.amical.business.implementation.conversion.ServiceConversionTimestampToInputDate;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
@@ -28,7 +27,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 public class ServiceCotationFrance implements Cotation {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceCotationFrance.class);
 
 	public static final List<ServiceCotationFrance> ALL_COTATIONS = Generator
@@ -54,13 +53,14 @@ public class ServiceCotationFrance implements Cotation {
 		return unitePrincipale.label + uniteSecondaire.label + uniteTertiaire.label;
 	}
 
-	public void setUnites(CotationFranceUnitePrincipale unitePrincipale,
-			CotationFranceUniteSecondaire uniteSecondaire, CotationFranceUniteTertiaire uniteTertiaire) {
+	public void setUnites(CotationFranceUnitePrincipale unitePrincipale, CotationFranceUniteSecondaire uniteSecondaire,
+			CotationFranceUniteTertiaire uniteTertiaire) {
 		creer(unitePrincipale, uniteSecondaire, uniteTertiaire);
 	}
 
 	public static final List<ServiceCotationFrance> getBetween(ServiceCotationFrance cotationMin,
 			ServiceCotationFrance cotationMax) {
+		LOGGER.info("Start {}()", "getBetween");
 		if (cotationMin.getUnitePrincipale().estVide() && !cotationMax.getUnitePrincipale().estVide()) {
 			return ALL_COTATIONS.subList(0, ALL_COTATIONS.indexOf(cotationMax));
 		}

@@ -44,6 +44,7 @@ public class ValidationFormEditionSpot extends ValidationForm<EditionSpotForm> {
 
 	@Override
 	public boolean isValide(@NotNull EditionSpotForm editionSpotForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		Optional<LieuFrance> optionalLieuFrance = serviceRechercheLieuFrance
 				.findByNomComplet(editionSpotForm.getLieuFranceNomComplet());

@@ -19,6 +19,7 @@ public class ServiceRepositoryPlan implements Repository<Plan> {
 
 	@Override
 	public Plan enregistrer(Plan plan) {
+		LOGGER.info("Start {}()", "enregistrer");
 		return planRepository.save(plan);
 	}
 

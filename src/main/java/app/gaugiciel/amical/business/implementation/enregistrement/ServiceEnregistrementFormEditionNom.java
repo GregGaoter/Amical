@@ -25,6 +25,7 @@ public class ServiceEnregistrementFormEditionNom implements Enregistrement<Editi
 
 	@Override
 	public void enregistrer(EditionNomForm editionNomForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		utilisateur = serviceRepositoryUtilisateur.enregistrer(editionNomForm.getUtilisateur());
 	}
 

@@ -10,11 +10,12 @@ import app.gaugiciel.amical.business.contrat.Conversion;
 
 @Service
 public class ServiceConversionTimestampToInputDate implements Conversion<Timestamp, String> {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceConversionTimestampToInputDate.class);
 
 	@Override
 	public String convertir(Timestamp timestamp) {
+		LOGGER.info("Start {}()", "convertir");
 		return timestamp != null ? timestamp.toString().split(" ")[0] : "";
 	}
 

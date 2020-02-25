@@ -61,6 +61,7 @@ public class AmiSecteurController {
 
 	@GetMapping("/ami/spot/{spotId}/secteur/nouveau")
 	public String showNouveauSecteurForm(@PathVariable Long spotId, Model model, HttpServletRequest request) {
+		LOGGER.info("Start {}()", "showNouveauSecteurForm");
 		nouveauSecteurForm.reinitialiser();
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
@@ -82,6 +83,7 @@ public class AmiSecteurController {
 	@PostMapping("/ami/spot/{spotId}/secteur/nouveau")
 	public String checkNouveauSecteurForm(@Valid NouveauSecteurForm nouveauSecteurForm, @PathVariable Long spotId,
 			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkNouveauSecteurForm");
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("spotActive", "active");
 			return "ami_secteur_nouveau";
@@ -93,6 +95,7 @@ public class AmiSecteurController {
 	@GetMapping("/ami/spot/{spotId}/secteur/nouveau/enregistrement")
 	public String saveNouveauSecteurForm(@PathVariable Long spotId, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveNouveauSecteurForm");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
 			NouveauSecteurForm nouveauSecteurForm = (NouveauSecteurForm) inputFlashMap.get("nouveauSecteurForm");
@@ -105,11 +108,13 @@ public class AmiSecteurController {
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}")
 	public String showSecteur(@PathVariable Long spotId, @PathVariable Long secteurId, Integer page, Integer size,
 			Model model) {
+		LOGGER.info("Start {}()", "showSecteur");
 		return "redirect:/ami/spot/" + spotId + "?secteurId=" + secteurId + "&page=" + page + "&size=" + size;
 	}
 
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/edition")
 	public String showEditionSecteurForm(@PathVariable Long spotId, @PathVariable Long secteurId, Model model) {
+		LOGGER.info("Start {}()", "showEditionSecteurForm");
 		Secteur secteur = serviceRechercheSecteur.findById(secteurId);
 		EditionSecteurForm editionSecteurForm = EditionSecteurForm.creer(secteur);
 		String urlRedirection = "redirect:/ami/spot/" + spotId + "/secteur/" + secteurId + "/edition";
@@ -127,6 +132,7 @@ public class AmiSecteurController {
 	public String checkEditionSecteurForm(@Valid EditionSecteurForm editionSecteurForm, @PathVariable Long spotId,
 			@PathVariable Long secteurId, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkEditionSecteurForm");
 		Secteur secteur = serviceRechercheSecteur.findById(secteurId);
 		if (!validationFormEditionSecteur.isValide(editionSecteurForm)) {
 			validationFormEditionSecteur.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
@@ -144,6 +150,7 @@ public class AmiSecteurController {
 	@GetMapping("/ami/spot/{spotId}/secteur/{secteurId}/edition/enregistrement")
 	public String saveEditionSecteurForm(@PathVariable Long spotId, @PathVariable Long secteurId,
 			HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveEditionSecteurForm");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null) {
 			EditionSecteurForm editionSecteurForm = (EditionSecteurForm) inputFlashMap.get("editionSecteurForm");

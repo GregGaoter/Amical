@@ -19,6 +19,7 @@ public class ServiceRepositoryVoie implements Repository<Voie> {
 
 	@Override
 	public Voie enregistrer(Voie voie) {
+		LOGGER.info("Start {}()", "enregistrer");
 		return voieRepository.save(voie);
 	}
 

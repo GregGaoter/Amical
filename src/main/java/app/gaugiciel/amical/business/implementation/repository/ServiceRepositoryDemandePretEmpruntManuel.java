@@ -19,6 +19,7 @@ public class ServiceRepositoryDemandePretEmpruntManuel implements Repository<Dem
 
 	@Override
 	public DemandePretEmpruntManuel enregistrer(DemandePretEmpruntManuel demandePretEmpruntManuel) {
+		LOGGER.info("Start {}()", "enregistrer");
 		return demandePretEmpruntManuelRepository.save(demandePretEmpruntManuel);
 	}
 
@@ -29,6 +30,7 @@ public class ServiceRepositoryDemandePretEmpruntManuel implements Repository<Dem
 
 	@Override
 	public void supprimer(DemandePretEmpruntManuel demandePretEmpruntManuel) {
+		LOGGER.info("Start {}()", "supprimer");
 		demandePretEmpruntManuelRepository.delete(demandePretEmpruntManuel);
 	}
 

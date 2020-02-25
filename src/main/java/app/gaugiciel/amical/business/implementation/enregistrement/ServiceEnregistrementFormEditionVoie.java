@@ -28,6 +28,7 @@ public class ServiceEnregistrementFormEditionVoie implements Enregistrement<Edit
 
 	@Override
 	public void enregistrer(EditionVoieForm editionVoieForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		voie = voieRepository.findById(editionVoieForm.getId()).orElseThrow();
 		editionVoieForm.updateVoie(voie);
 		serviceRepositoryVoie.enregistrer(voie);

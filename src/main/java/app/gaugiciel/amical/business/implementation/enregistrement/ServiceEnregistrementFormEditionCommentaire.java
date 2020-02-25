@@ -23,6 +23,7 @@ public class ServiceEnregistrementFormEditionCommentaire implements Enregistreme
 
 	@Override
 	public void enregistrer(EditionCommentaireForm editionCommentaireForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		Commentaire commentaire = commentaireRepository.findById(editionCommentaireForm.getId()).orElse(null);
 		commentaire.setCommentaire(editionCommentaireForm.getCommentaire());
 		serviceRepositoryCommentaire.enregistrer(commentaire);

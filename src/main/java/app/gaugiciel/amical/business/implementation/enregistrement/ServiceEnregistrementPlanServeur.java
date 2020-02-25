@@ -29,6 +29,7 @@ public class ServiceEnregistrementPlanServeur implements Enregistrement<Multipar
 
 	@Override
 	public void enregistrer(MultipartFile fichier) {
+		LOGGER.info("Start {}()", "enregistrer");
 		// try {
 		// URL url = new URL(urlServeurPlan + fichier.getOriginalFilename());
 		// } catch (MalformedURLException e) {

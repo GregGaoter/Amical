@@ -18,6 +18,7 @@ public class ServiceRechercheManuel implements Recherche<Manuel, Object> {
 	private ManuelRepository manuelRepository;
 
 	public Manuel findById(Long id) {
+		LOGGER.info("Start {}()", "findById");
 		return manuelRepository.findById(id).orElse(null);
 	}
 

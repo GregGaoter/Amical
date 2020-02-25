@@ -19,6 +19,7 @@ public class ServiceRepositoryLongueur implements Repository<Longueur> {
 
 	@Override
 	public Longueur enregistrer(Longueur longueur) {
+		LOGGER.info("Start {}()", "enregistrer");
 		return longueurRepository.save(longueur);
 	}
 

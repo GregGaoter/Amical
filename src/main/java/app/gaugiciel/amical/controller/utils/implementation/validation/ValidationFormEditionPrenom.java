@@ -22,6 +22,7 @@ public class ValidationFormEditionPrenom extends ValidationForm<EditionPrenomFor
 
 	@Override
 	public boolean isValide(@NotNull EditionPrenomForm editionPrenomForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		if (!Utils.isValid(editionPrenomForm.getPrenom())) {
 			listeFieldError.add(new FieldError(editionPrenomForm.getClass().getSimpleName(), EditionPrenomForm.PRENOM,

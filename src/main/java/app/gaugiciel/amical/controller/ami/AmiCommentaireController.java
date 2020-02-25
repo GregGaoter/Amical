@@ -64,6 +64,7 @@ public class AmiCommentaireController {
 	public String checkNouveauCommentaireForm(@Valid NouveauCommentaireForm nouveauCommentaireForm,
 			@PathVariable Long spotId, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkNouveauCommentaireForm");
 		Spot spot = serviceRechercheSpot.findById(spotId);
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(NomModel.UTILISATEUR.label);
 		nouveauCommentaireForm.setDate(Timestamp.from(Instant.now()));
@@ -84,6 +85,7 @@ public class AmiCommentaireController {
 	@GetMapping("/ami/spot/{spotId}/commentaire/enregistrement")
 	public String saveNouveauCommentaireForm(@PathVariable Long spotId, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveNouveauCommentaireForm");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
 			if (inputFlashMap.containsKey("nouveauCommentaireForm")) {
@@ -98,6 +100,7 @@ public class AmiCommentaireController {
 
 	@GetMapping("/admin/commentaire/{commentaireId}/edition")
 	public String showEditionCommentaireForm(@PathVariable Long commentaireId, Model model) {
+		LOGGER.info("Start {}()", "showEditionCommentaireForm");
 		Commentaire commentaire = serviceRechercheCommentaire.findById(commentaireId);
 		model.addAttribute("spotActive", "active");
 		model.addAttribute("commentaire", commentaire);
@@ -110,6 +113,7 @@ public class AmiCommentaireController {
 	public String checkEditionCommentaireForm(@Valid EditionCommentaireForm editionCommentaireForm,
 			@PathVariable Long commentaireId, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "checkEditionCommentaireForm");
 		if (!validationFormEditionCommentaire.isValide(editionCommentaireForm)) {
 			validationFormEditionCommentaire.getListeFieldError()
 					.forEach(fieldError -> bindingResult.addError(fieldError));
@@ -125,6 +129,7 @@ public class AmiCommentaireController {
 	@GetMapping("/admin/commentaire/{commentaireId}/edition/enregistrement")
 	public String saveEditionCommentaireForm(@PathVariable Long commentaireId, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
+		LOGGER.info("Start {}()", "saveEditionCommentaireForm");
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 		if (inputFlashMap != null && !inputFlashMap.isEmpty()) {
 			if (inputFlashMap.containsKey("editionCommentaireForm")) {
@@ -139,6 +144,7 @@ public class AmiCommentaireController {
 
 	@GetMapping("/admin/commentaire/{commentaireId}/suppression")
 	public String deleteCommentaire(@PathVariable Long commentaireId) {
+		LOGGER.info("Start {}()", "deleteCommentaire");
 		Commentaire commentaire = serviceRechercheCommentaire.findById(commentaireId);
 		serviceRepositoryCommentaire.supprimer(commentaire);
 		return (String) session.getAttribute(RedirectionUrl.SPOT.label);

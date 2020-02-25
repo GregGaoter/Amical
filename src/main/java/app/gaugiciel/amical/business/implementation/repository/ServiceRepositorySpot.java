@@ -19,6 +19,7 @@ public class ServiceRepositorySpot implements Repository<Spot> {
 
 	@Override
 	public Spot enregistrer(Spot spot) {
+		LOGGER.info("Start {}()", "enregistrer");
 		return spotRepository.save(spot);
 	}
 

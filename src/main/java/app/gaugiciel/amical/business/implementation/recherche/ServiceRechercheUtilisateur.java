@@ -18,6 +18,7 @@ public class ServiceRechercheUtilisateur implements Recherche<Utilisateur, Objec
 	private UtilisateurRepository utilisateurRepository;
 
 	public Utilisateur findByEmail(String email) {
+		LOGGER.info("Start {}()", "findByEmail");
 		return utilisateurRepository.findByAuthentification_email(email);
 	}
 

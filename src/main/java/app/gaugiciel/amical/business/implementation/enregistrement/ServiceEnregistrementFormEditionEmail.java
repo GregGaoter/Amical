@@ -25,6 +25,7 @@ public class ServiceEnregistrementFormEditionEmail implements Enregistrement<Edi
 
 	@Override
 	public void enregistrer(EditionEmailForm editionEmailForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		authentification = serviceRepositoryAuthentification.enregistrer(editionEmailForm.getAuthentification());
 	}
 

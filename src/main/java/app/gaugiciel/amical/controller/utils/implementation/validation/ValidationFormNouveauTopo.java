@@ -43,6 +43,7 @@ public class ValidationFormNouveauTopo extends ValidationForm<NouveauTopoForm> {
 
 	@Override
 	public boolean isValide(@NotNull NouveauTopoForm nouveauTopoForm) {
+		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
 		Timestamp dateTimeParution = serviceConversionInputDateToTimestamp
 				.convertir(nouveauTopoForm.getDateParutionInput());

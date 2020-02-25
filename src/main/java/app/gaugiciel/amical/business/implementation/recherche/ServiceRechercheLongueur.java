@@ -24,12 +24,14 @@ public class ServiceRechercheLongueur implements Recherche<Longueur, Object> {
 	private ServiceComparaisonLongueurByNom serviceComparaisonLongueurByNom;
 
 	public List<Longueur> findByVoieIdOrderByNom(Long voieId) {
+		LOGGER.info("Start {}()", "findByVoieIdOrderByNom");
 		List<Longueur> listeLongueur = longueurRepository.findByVoie_idOrderByNom(voieId);
 		Collections.sort(listeLongueur, serviceComparaisonLongueurByNom);
 		return listeLongueur;
 	}
 
 	public Longueur findById(Long id) {
+		LOGGER.info("Start {}()", "findById");
 		return longueurRepository.findById(id).orElseThrow();
 	}
 

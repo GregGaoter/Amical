@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.gaugiciel.amical.business.contrat.Enregistrement;
-import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLieuFrance;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRecherchePlan;
 import app.gaugiciel.amical.business.implementation.repository.ServiceRepositorySpot;
@@ -19,7 +18,7 @@ import lombok.Setter;
 
 @Service
 public class ServiceEnregistrementFormAjoutSpot implements Enregistrement<NouveauSpotForm> {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceEnregistrementFormAjoutSpot.class);
 
 	@Autowired
@@ -34,6 +33,7 @@ public class ServiceEnregistrementFormAjoutSpot implements Enregistrement<Nouvea
 
 	@Override
 	public void enregistrer(NouveauSpotForm ajoutSpotForm) {
+		LOGGER.info("Start {}()", "enregistrer");
 		LieuFrance lieuFrance = serviceRechercheLieuFrance.findByNomComplet(ajoutSpotForm.getLieuFrance())
 				.orElseThrow();
 		Plan plan = serviceRecherchePlan.findOne(ajoutSpotForm.getPlan());
