@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ce fichier permet de définir la structure du site -->
+
+<project xmlns="http://maven.apache.org/DECORATION/1.8.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd">
+
+
+	<!-- ======================================================= -->
+	<!-- Apparence du site -->
+	<!-- ======================================================= -->
+
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-fluido-skin</artifactId>
+		<version>1.5</version>
+	</skin>
+
+
+	<!-- ======================================================= -->
+	<!-- Logos -->
+	<!-- ======================================================= -->
+
+	<bannerLeft>
+		<name>Les amis de l'escalade</name>
+		<src>/images/logo_amical_pour_fond_clair_150_84.png</src>
+	</bannerLeft>
+	<bannerRight>
+		<name>OpenClassrooms</name>
+		<src>/images/logo_openclassrooms_190_84.png</src>
+	</bannerRight>
+
+
+	<!-- ======================================================= -->
+	<!-- Structure du site -->
+	<!-- ======================================================= -->
+
+	<body>
+
+		<!-- ===== Fil d'ariane ===== -->
+		<breadcrumbs>
+			<item name="Accueil" href="index.html" />
+		</breadcrumbs>
+
+		<!-- ===== Menus ===== -->
+		<menu ref="reports" inherit="top" />
+		<menu name="Documentation">
+			<item name="Projet" href="doc_projet.html" />
+			<item name="Spécifications fonctionnelles"
+				href="doc_spec_fonc_index.html" collapse="true">
+				<item name="Introduction" href="doc_spec_fonc_intro.html" />
+				<item name="Acteurs du système"
+					href="doc_spec_fonc_acteurs.html" />
+				<item name="Modules du système"
+					href="doc_spec_fonc_modules.html" />
+				<item name="Fonctionnalités du système"
+					href="doc_spec_fonc_fonc.html" />
+				<item name="Descriptif des fonctionnalités"
+					href="doc_spec_fonc_descr_fonc.html" />
+			</item>
+			<item name="Spécifications techniques"
+				href="doc_spec_tech_index.html" collapse="true">
+				<item name="Introduction" href="doc_spec_tech_intro.html" />
+				<item name="Diagramme de déploiement"
+					href="doc_spec_tech_diag_deploiement.html" />
+				<item name="Détails techniques"
+					href="doc_spec_tech_details.html" />
+				<item name="Architecture multi-tiers"
+					href="doc_spec_tech_architecture.html" />
+				<item name="Diagramme de classe"
+					href="doc_spec_tech_diag_classe.html" />
+				<item name="Domaine fonctionnel"
+					href="doc_spec_tech_domaine_fonc.html" />
+				<item name="Modèle physique de données"
+					href="doc_spec_tech_mod_phys_donnees.html" />
+			</item>
+			<item name="Scripts SQL" href="doc_scripts_sql.html" />
+		</menu>
+
+	</body>
+
+
+	<!-- ======================================================= -->
+	<!-- Position de la date de publication et de la version -->
+	<!-- ======================================================= -->
+
+	<publishDate position="right" />
+	<version position="right" />
+
+</project>
