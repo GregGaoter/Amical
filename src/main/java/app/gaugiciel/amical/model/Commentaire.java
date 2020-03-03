@@ -35,6 +35,11 @@ import lombok.ToString;
 public class Commentaire implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String DATE = "date";
+	public static final String UTILISATEUR = "utilisateur";
+	public static final String SPOT = "spot";
+	public static final String ID = "id";
+	public static final String COMMENTAIRE = "commentaire";
 
 	// Persistance
 	@Id

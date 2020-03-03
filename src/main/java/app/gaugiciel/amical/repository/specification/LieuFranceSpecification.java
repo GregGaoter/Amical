@@ -5,11 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.model.LieuFrance;
-import app.gaugiciel.amical.model.LieuFrance_;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class LieuFranceSpecification {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(LieuFranceSpecification.class);
 
 	public static Specification<LieuFrance> regionContaining(String region) {
@@ -18,7 +17,7 @@ public class LieuFranceSpecification {
 			if (!Utils.isValid(region)) {
 				return null;
 			}
-			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(LieuFrance_.REGION))),
+			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(LieuFrance.REGION))),
 					"%" + Utils.normaliser(region) + "%");
 		};
 	}
@@ -29,7 +28,7 @@ public class LieuFranceSpecification {
 			if (!Utils.isValid(region)) {
 				return null;
 			}
-			return builder.equal(root.get(LieuFrance_.REGION), region);
+			return builder.equal(root.get(LieuFrance.REGION), region);
 		};
 	}
 
@@ -40,7 +39,7 @@ public class LieuFranceSpecification {
 				return null;
 			}
 			return builder.like(
-					builder.function("unaccent", String.class, builder.upper(root.get(LieuFrance_.DEPARTEMENT))),
+					builder.function("unaccent", String.class, builder.upper(root.get(LieuFrance.DEPARTEMENT))),
 					"%" + Utils.normaliser(departement) + "%");
 		};
 	}
@@ -51,7 +50,7 @@ public class LieuFranceSpecification {
 			if (!Utils.isValid(departement)) {
 				return null;
 			}
-			return builder.equal(root.get(LieuFrance_.DEPARTEMENT), departement);
+			return builder.equal(root.get(LieuFrance.DEPARTEMENT), departement);
 		};
 	}
 
@@ -62,7 +61,7 @@ public class LieuFranceSpecification {
 				return null;
 			}
 			return builder.like(
-					builder.function("unaccent", String.class, builder.upper(root.get(LieuFrance_.CODE_POSTAL))),
+					builder.function("unaccent", String.class, builder.upper(root.get(LieuFrance.CODE_POSTAL))),
 					"%" + Utils.normaliser(codePostal) + "%");
 		};
 	}
@@ -73,7 +72,7 @@ public class LieuFranceSpecification {
 			if (!Utils.isValid(codePostal)) {
 				return null;
 			}
-			return builder.equal(root.get(LieuFrance_.CODE_POSTAL), codePostal);
+			return builder.equal(root.get(LieuFrance.CODE_POSTAL), codePostal);
 		};
 	}
 
@@ -83,7 +82,7 @@ public class LieuFranceSpecification {
 			if (!Utils.isValid(ville)) {
 				return null;
 			}
-			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(LieuFrance_.VILLE))),
+			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(LieuFrance.VILLE))),
 					"%" + Utils.normaliser(ville) + "%");
 		};
 	}
@@ -94,7 +93,7 @@ public class LieuFranceSpecification {
 			if (!Utils.isValid(ville)) {
 				return null;
 			}
-			return builder.equal(root.get(LieuFrance_.VILLE), ville);
+			return builder.equal(root.get(LieuFrance.VILLE), ville);
 		};
 	}
 

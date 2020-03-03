@@ -35,6 +35,15 @@ import lombok.Setter;
 public class Voie implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String SECTEUR = "secteur";
+	public static final String COTATION_FRANCE = "cotationFrance";
+	public static final String NUMERO = "numero";
+	public static final String DESCRIPTION = "description";
+	public static final String ID = "id";
+	public static final String NOM = "nom";
+	public static final String PLAN = "plan";
+	public static final String REMARQUE = "remarque";
+	public static final String HAUTEUR = "hauteur";
 
 	// Persistance
 	@Id

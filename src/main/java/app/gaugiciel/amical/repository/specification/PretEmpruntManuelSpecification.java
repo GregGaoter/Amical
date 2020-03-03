@@ -7,11 +7,10 @@ import org.springframework.data.jpa.domain.Specification;
 import app.gaugiciel.amical.model.Authentification;
 import app.gaugiciel.amical.model.Manuel;
 import app.gaugiciel.amical.model.PretEmpruntManuel;
-import app.gaugiciel.amical.model.PretEmpruntManuel_;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class PretEmpruntManuelSpecification {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(PretEmpruntManuelSpecification.class);
 
 	public static Specification<PretEmpruntManuel> preteurEqual(Authentification preteur) {
@@ -20,7 +19,7 @@ public class PretEmpruntManuelSpecification {
 			if (!Utils.isValid(preteur)) {
 				return null;
 			}
-			return builder.equal(root.get(PretEmpruntManuel_.PRETEUR), preteur);
+			return builder.equal(root.get(PretEmpruntManuel.PRETEUR), preteur);
 		};
 	}
 
@@ -30,7 +29,7 @@ public class PretEmpruntManuelSpecification {
 			if (!Utils.isValid(emprunteur)) {
 				return null;
 			}
-			return builder.equal(root.get(PretEmpruntManuel_.EMPRUNTEUR), emprunteur);
+			return builder.equal(root.get(PretEmpruntManuel.EMPRUNTEUR), emprunteur);
 		};
 	}
 
@@ -40,7 +39,7 @@ public class PretEmpruntManuelSpecification {
 			if (!Utils.isValid(manuel)) {
 				return null;
 			}
-			return builder.equal(root.get(PretEmpruntManuel_.MANUEL), manuel);
+			return builder.equal(root.get(PretEmpruntManuel.MANUEL), manuel);
 		};
 	}
 

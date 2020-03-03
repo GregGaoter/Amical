@@ -5,11 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.model.Voie;
-import app.gaugiciel.amical.model.Voie_;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class VoieSpecification {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(VoieSpecification.class);
 
 	public static Specification<Voie> nomContaining(String nom) {
@@ -18,7 +17,7 @@ public class VoieSpecification {
 			if (!Utils.isValid(nom)) {
 				return null;
 			}
-			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Voie_.NOM))),
+			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Voie.NOM))),
 					"%" + Utils.normaliser(nom) + "%");
 		};
 	}
@@ -30,12 +29,12 @@ public class VoieSpecification {
 				return null;
 			}
 			if (!Utils.isValid(min) && Utils.isValid(max)) {
-				return builder.between(root.get(Voie_.HAUTEUR), 0, max);
+				return builder.between(root.get(Voie.HAUTEUR), 0, max);
 			}
 			if (Utils.isValid(min) && !Utils.isValid(max)) {
-				return builder.between(root.get(Voie_.HAUTEUR), min, Integer.MAX_VALUE);
+				return builder.between(root.get(Voie.HAUTEUR), min, Integer.MAX_VALUE);
 			}
-			return builder.between(root.get(Voie_.HAUTEUR), min, max);
+			return builder.between(root.get(Voie.HAUTEUR), min, max);
 		};
 	}
 
@@ -45,7 +44,7 @@ public class VoieSpecification {
 			if (!Utils.isValid(secteurId)) {
 				return null;
 			}
-			return builder.equal(root.get(Voie_.SECTEUR), secteurId);
+			return builder.equal(root.get(Voie.SECTEUR), secteurId);
 		};
 	}
 

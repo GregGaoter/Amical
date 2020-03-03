@@ -33,6 +33,14 @@ import lombok.Setter;
 public class Longueur implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String LONGUEUR = "longueur";
+	public static final String VOIE = "voie";
+	public static final String DESCRIPTION = "description";
+	public static final String NB_SPITS = "nbSpits";
+	public static final String ID = "id";
+	public static final String NOM = "nom";
+	public static final String PLAN = "plan";
+	public static final String REMARQUE = "remarque";
 
 	// Persistance
 	@Id

@@ -37,6 +37,16 @@ import lombok.ToString;
 public class Manuel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String CATEGORIE = "categorie";
+	public static final String DATE_TIME_PARUTION = "dateTimeParution";
+	public static final String AUTHENTIFICATION = "authentification";
+	public static final String DESCRIPTION = "description";
+	public static final String ID = "id";
+	public static final String LIEU_FRANCE = "lieuFrance";
+	public static final String NOM = "nom";
+	public static final String ETAT = "etat";
+	public static final String REMARQUE = "remarque";
+	public static final String AUTEUR = "auteur";
 
 	// Persistance
 	@Id
@@ -103,8 +113,8 @@ public class Manuel implements Serializable {
 	private Authentification authentification;
 
 	// Persistance
-	//@OneToMany(mappedBy = "manuel", fetch = FetchType.LAZY)
-	//Set<PretEmpruntManuel> listePretsEmpruntsManuels = new HashSet<>();
+	// @OneToMany(mappedBy = "manuel", fetch = FetchType.LAZY)
+	// Set<PretEmpruntManuel> listePretsEmpruntsManuels = new HashSet<>();
 
 	// Persistance
 	@ManyToOne

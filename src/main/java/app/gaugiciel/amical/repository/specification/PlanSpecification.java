@@ -5,11 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.model.Plan;
-import app.gaugiciel.amical.model.Plan_;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class PlanSpecification {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(PlanSpecification.class);
 
 	public static Specification<Plan> planContaining(String plan) {
@@ -18,7 +17,7 @@ public class PlanSpecification {
 			if (!Utils.isValid(plan)) {
 				return null;
 			}
-			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Plan_.PLAN))),
+			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Plan.PLAN))),
 					"%" + Utils.normaliser(plan) + "%");
 		};
 	}
@@ -29,7 +28,7 @@ public class PlanSpecification {
 			if (!Utils.isValid(description)) {
 				return null;
 			}
-			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Plan_.DESCRIPTION))),
+			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Plan.DESCRIPTION))),
 					"%" + Utils.normaliser(description) + "%");
 		};
 	}

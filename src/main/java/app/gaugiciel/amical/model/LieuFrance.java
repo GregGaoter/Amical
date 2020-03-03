@@ -40,6 +40,12 @@ import lombok.ToString;
 public class LieuFrance implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String VILLE = "ville";
+	public static final String DEPARTEMENT = "departement";
+	public static final String ID = "id";
+	public static final String CODE_POSTAL = "codePostal";
+	public static final String REGION = "region";
+	public static final String PLAN = "plan";
 
 	// Persistance
 	@Id

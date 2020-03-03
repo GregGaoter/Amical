@@ -34,6 +34,11 @@ import lombok.ToString;
 public class Authentification implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String MOT_DE_PASSE = "motDePasse";
+	public static final String UTILISATEUR = "utilisateur";
+	public static final String ACTIF_Q = "actifQ";
+	public static final String EMAIL = "email";
+	public static final String LISTE_ROLES = "listeRoles";
 
 	// Persistance
 	@Id

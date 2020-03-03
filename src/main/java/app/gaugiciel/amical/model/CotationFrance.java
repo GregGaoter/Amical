@@ -35,6 +35,10 @@ import lombok.Setter;
 public class CotationFrance implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String UNITE_PRINCIPALE = "unitePrincipale";
+	public static final String UNITE_SECONDAIRE = "uniteSecondaire";
+	public static final String UNITE_TERTIAIRE = "uniteTertiaire";
+	public static final String ID = "id";
 
 	// Persistance
 	@Id

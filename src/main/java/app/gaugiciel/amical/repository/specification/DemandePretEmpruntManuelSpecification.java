@@ -6,12 +6,11 @@ import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.model.Authentification;
 import app.gaugiciel.amical.model.DemandePretEmpruntManuel;
-import app.gaugiciel.amical.model.DemandePretEmpruntManuel_;
 import app.gaugiciel.amical.model.Manuel;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class DemandePretEmpruntManuelSpecification {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(DemandePretEmpruntManuelSpecification.class);
 
 	public static Specification<DemandePretEmpruntManuel> proprietaireEqual(Authentification proprietaire) {
@@ -20,7 +19,7 @@ public class DemandePretEmpruntManuelSpecification {
 			if (!Utils.isValid(proprietaire)) {
 				return null;
 			}
-			return builder.equal(root.get(DemandePretEmpruntManuel_.PROPRIETAIRE), proprietaire);
+			return builder.equal(root.get(DemandePretEmpruntManuel.PROPRIETAIRE), proprietaire);
 		};
 	}
 
@@ -30,7 +29,7 @@ public class DemandePretEmpruntManuelSpecification {
 			if (!Utils.isValid(demandeur)) {
 				return null;
 			}
-			return builder.equal(root.get(DemandePretEmpruntManuel_.DEMANDEUR), demandeur);
+			return builder.equal(root.get(DemandePretEmpruntManuel.DEMANDEUR), demandeur);
 		};
 	}
 
@@ -40,7 +39,7 @@ public class DemandePretEmpruntManuelSpecification {
 			if (!Utils.isValid(manuelId)) {
 				return null;
 			}
-			return builder.equal(root.get(DemandePretEmpruntManuel_.MANUEL), manuelId);
+			return builder.equal(root.get(DemandePretEmpruntManuel.MANUEL), manuelId);
 		};
 	}
 
@@ -50,7 +49,7 @@ public class DemandePretEmpruntManuelSpecification {
 			if (!Utils.isValid(manuel)) {
 				return null;
 			}
-			return builder.equal(root.get(DemandePretEmpruntManuel_.MANUEL), manuel);
+			return builder.equal(root.get(DemandePretEmpruntManuel.MANUEL), manuel);
 		};
 	}
 

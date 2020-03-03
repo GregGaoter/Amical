@@ -32,6 +32,10 @@ import lombok.Setter;
 public class Utilisateur implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String AUTHENTIFICATION = "authentification";
+	public static final String AUTHENTIFICATION_EMAIL = "authentificationEmail";
+	public static final String PRENOM = "prenom";
+	public static final String NOM = "nom";
 
 	// Persistance
 	@Id

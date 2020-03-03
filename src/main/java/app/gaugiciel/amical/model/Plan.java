@@ -23,6 +23,8 @@ import lombok.ToString;
 public class Plan implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String DESCRIPTION = "description";
+	public static final String PLAN = "plan";
 
 	// Persistance
 	@Id

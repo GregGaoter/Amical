@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 import org.paukov.combinatorics3.Generator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.gaugiciel.amical.business.contrat.Cotation;
@@ -21,7 +20,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Service
-@NoArgsConstructor(onConstructor_ = { @Autowired })
+@NoArgsConstructor
 @AllArgsConstructor(staticName = "creer")
 @Getter
 @Setter

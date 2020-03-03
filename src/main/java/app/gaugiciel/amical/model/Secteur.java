@@ -35,6 +35,12 @@ import lombok.ToString;
 public class Secteur implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String SPOT = "spot";
+	public static final String DESCRIPTION = "description";
+	public static final String ID = "id";
+	public static final String NOM = "nom";
+	public static final String PLAN = "plan";
+	public static final String REMARQUE = "remarque";
 
 	// Persistance
 	@Id

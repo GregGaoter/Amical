@@ -9,15 +9,13 @@ import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUn
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
 import app.gaugiciel.amical.model.CotationFrance;
-import app.gaugiciel.amical.model.CotationFrance_;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class CotationFranceSpecification {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(CotationFranceSpecification.class);
 
-	public static Specification<CotationFrance> unitePrincipaleEqual(
-			CotationFranceUnitePrincipale unitePrincipale) {
+	public static Specification<CotationFrance> unitePrincipaleEqual(CotationFranceUnitePrincipale unitePrincipale) {
 		LOGGER.info("Start {}()", "unitePrincipaleEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(unitePrincipale)) {
@@ -25,7 +23,7 @@ public class CotationFranceSpecification {
 			}
 			return builder.like(
 					builder.function("unaccent", String.class,
-							builder.upper(root.get(CotationFrance_.UNITE_PRINCIPALE))),
+							builder.upper(root.get(CotationFrance.UNITE_PRINCIPALE))),
 					"%" + Utils.normaliser(unitePrincipale.label) + "%");
 		};
 	}
@@ -39,21 +37,19 @@ public class CotationFranceSpecification {
 			}
 			return builder.like(
 					builder.function("unaccent", String.class,
-							builder.upper(root.get(CotationFrance_.UNITE_SECONDAIRE))),
+							builder.upper(root.get(CotationFrance.UNITE_SECONDAIRE))),
 					"%" + Utils.normaliser(uniteSecondaire.label) + "%");
 		};
 	}
 
-	public static Specification<CotationFrance> uniteTertiaireEqual(
-			CotationFranceUniteTertiaire uniteTertiaire) {
+	public static Specification<CotationFrance> uniteTertiaireEqual(CotationFranceUniteTertiaire uniteTertiaire) {
 		LOGGER.info("Start {}()", "uniteTertiaireEqual");
 		return (root, query, builder) -> {
 			if (!Utils.isValid(uniteTertiaire)) {
 				return null;
 			}
 			return builder.like(
-					builder.function("unaccent", String.class,
-							builder.upper(root.get(CotationFrance_.UNITE_TERTIAIRE))),
+					builder.function("unaccent", String.class, builder.upper(root.get(CotationFrance.UNITE_TERTIAIRE))),
 					"%" + Utils.normaliser(uniteTertiaire.label) + "%");
 		};
 	}

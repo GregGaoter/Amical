@@ -5,11 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 
 import app.gaugiciel.amical.model.Utilisateur;
-import app.gaugiciel.amical.model.Utilisateur_;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class UtilisateurSpecification {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(UtilisateurSpecification.class);
 
 	public static Specification<Utilisateur> emailContaining(String email) {
@@ -20,7 +19,7 @@ public class UtilisateurSpecification {
 			}
 			return builder.like(
 					builder.function("unaccent", String.class,
-							builder.upper(root.get(Utilisateur_.AUTHENTIFICATION_EMAIL))),
+							builder.upper(root.get(Utilisateur.AUTHENTIFICATION_EMAIL))),
 					"%" + Utils.normaliser(email) + "%");
 		};
 	}
@@ -31,8 +30,7 @@ public class UtilisateurSpecification {
 			if (!Utils.isValid(prenom)) {
 				return null;
 			}
-			return builder.like(
-					builder.function("unaccent", String.class, builder.upper(root.get(Utilisateur_.PRENOM))),
+			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Utilisateur.PRENOM))),
 					"%" + Utils.normaliser(prenom) + "%");
 		};
 	}
@@ -43,7 +41,7 @@ public class UtilisateurSpecification {
 			if (!Utils.isValid(nom)) {
 				return null;
 			}
-			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Utilisateur_.NOM))),
+			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Utilisateur.NOM))),
 					"%" + Utils.normaliser(nom) + "%");
 		};
 	}

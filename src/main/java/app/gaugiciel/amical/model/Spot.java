@@ -34,6 +34,13 @@ import lombok.ToString;
 public class Spot implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String TAG_Q = "tagQ";
+	public static final String DESCRIPTION = "description";
+	public static final String ID = "id";
+	public static final String LIEU_FRANCE = "lieuFrance";
+	public static final String NOM = "nom";
+	public static final String PLAN = "plan";
+	public static final String REMARQUE = "remarque";
 
 	// Persistance
 	@Id

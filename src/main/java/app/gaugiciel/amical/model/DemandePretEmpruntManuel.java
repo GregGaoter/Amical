@@ -34,6 +34,11 @@ import lombok.Setter;
 public class DemandePretEmpruntManuel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String DATE = "date";
+	public static final String PROPRIETAIRE = "proprietaire";
+	public static final String MANUEL = "manuel";
+	public static final String ID = "id";
+	public static final String DEMANDEUR = "demandeur";
 
 	// Persistance
 	@Id

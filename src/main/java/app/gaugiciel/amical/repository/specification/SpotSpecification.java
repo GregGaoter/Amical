@@ -13,19 +13,14 @@ import org.springframework.data.jpa.domain.Specification;
 import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFrance;
 import app.gaugiciel.amical.controller.form.RechercheSpotForm;
 import app.gaugiciel.amical.model.CotationFrance;
-import app.gaugiciel.amical.model.CotationFrance_;
 import app.gaugiciel.amical.model.LieuFrance;
-import app.gaugiciel.amical.model.LieuFrance_;
 import app.gaugiciel.amical.model.Secteur;
-import app.gaugiciel.amical.model.Secteur_;
 import app.gaugiciel.amical.model.Spot;
-import app.gaugiciel.amical.model.Spot_;
 import app.gaugiciel.amical.model.Voie;
-import app.gaugiciel.amical.model.Voie_;
 import app.gaugiciel.amical.utilitaire.Utils;
 
 public class SpotSpecification {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(SpotSpecification.class);
 
 	public static Specification<Spot> nomContaining(String nom) {
@@ -34,7 +29,7 @@ public class SpotSpecification {
 			if (!Utils.isValid(nom)) {
 				return null;
 			}
-			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Spot_.NOM))),
+			return builder.like(builder.function("unaccent", String.class, builder.upper(root.get(Spot.NOM))),
 					"%" + Utils.normaliser(nom) + "%");
 		};
 	}
@@ -49,9 +44,9 @@ public class SpotSpecification {
 			Subquery<Long> subqueryLieuFrance = query.subquery(Long.class);
 			Root<LieuFrance> rootLieuFrance = subqueryLieuFrance.from(LieuFrance.class);
 
-			subqueryLieuFrance.select(rootLieuFrance.get(LieuFrance_.ID))
+			subqueryLieuFrance.select(rootLieuFrance.get(LieuFrance.ID))
 					.where(LieuFranceSpecification.lieuContaining(lieu).toPredicate(rootLieuFrance, query, builder));
-			query.where(root.get(Spot_.LIEU_FRANCE).in(subqueryLieuFrance));
+			query.where(root.get(Spot.LIEU_FRANCE).in(subqueryLieuFrance));
 
 			return query.getRestriction();
 		};
@@ -63,7 +58,7 @@ public class SpotSpecification {
 			if (!Utils.isValid(tagQ)) {
 				return null;
 			}
-			return tagQ ? builder.isTrue(root.get(Spot_.TAG_Q)) : builder.isFalse(root.get(Spot_.TAG_Q));
+			return tagQ ? builder.isTrue(root.get(Spot.TAG_Q)) : builder.isFalse(root.get(Spot.TAG_Q));
 		};
 	}
 
@@ -79,8 +74,8 @@ public class SpotSpecification {
 
 			Predicate critereNomSecteur = SecteurSpecification.nomContaining(nomSecteur).toPredicate(rootSecteur, query,
 					builder);
-			subquerySecteur.select(rootSecteur.get(Secteur_.SPOT)).where(critereNomSecteur);
-			query.where(root.get(Spot_.ID).in(subquerySecteur));
+			subquerySecteur.select(rootSecteur.get(Secteur.SPOT)).where(critereNomSecteur);
+			query.where(root.get(Spot.ID).in(subquerySecteur));
 
 			return query.getRestriction();
 		};
@@ -99,9 +94,9 @@ public class SpotSpecification {
 			Root<Voie> rootVoie = subqueryVoie.from(Voie.class);
 
 			Predicate critereNomVoie = VoieSpecification.nomContaining(nomVoie).toPredicate(rootVoie, query, builder);
-			subqueryVoie.select(rootVoie.get(Voie_.SECTEUR)).where(critereNomVoie);
-			subquerySecteur.select(rootSecteur.get(Secteur_.SPOT)).where(rootSecteur.get(Secteur_.ID).in(subqueryVoie));
-			query.where(root.get(Spot_.ID).in(subquerySecteur));
+			subqueryVoie.select(rootVoie.get(Voie.SECTEUR)).where(critereNomVoie);
+			subquerySecteur.select(rootSecteur.get(Secteur.SPOT)).where(rootSecteur.get(Secteur.ID).in(subqueryVoie));
+			query.where(root.get(Spot.ID).in(subquerySecteur));
 
 			return query.getRestriction();
 		};
@@ -128,11 +123,11 @@ public class SpotSpecification {
 						.toPredicate(rootCotation, query, builder);
 			}
 
-			subqueryCotation.select(rootCotation.get(CotationFrance_.ID)).where(builder.or(listePredicatesCotations));
-			subqueryVoie.select(rootVoie.get(Voie_.SECTEUR))
-					.where(rootVoie.get(Voie_.COTATION_FRANCE).in(subqueryCotation));
-			subquerySecteur.select(rootSecteur.get(Secteur_.SPOT)).where(rootSecteur.get(Secteur_.ID).in(subqueryVoie));
-			query.where(root.get(Spot_.ID).in(subquerySecteur));
+			subqueryCotation.select(rootCotation.get(CotationFrance.ID)).where(builder.or(listePredicatesCotations));
+			subqueryVoie.select(rootVoie.get(Voie.SECTEUR))
+					.where(rootVoie.get(Voie.COTATION_FRANCE).in(subqueryCotation));
+			subquerySecteur.select(rootSecteur.get(Secteur.SPOT)).where(rootSecteur.get(Secteur.ID).in(subqueryVoie));
+			query.where(root.get(Spot.ID).in(subquerySecteur));
 
 			return query.getRestriction();
 		};
@@ -152,9 +147,9 @@ public class SpotSpecification {
 
 			Predicate critereHauteurVoie = VoieSpecification.hauteurBetween(min, max).toPredicate(rootVoie, query,
 					builder);
-			subqueryVoie.select(rootVoie.get(Voie_.SECTEUR)).where(critereHauteurVoie);
-			subquerySecteur.select(rootSecteur.get(Secteur_.SPOT)).where(rootSecteur.get(Secteur_.ID).in(subqueryVoie));
-			query.where(root.get(Spot_.ID).in(subquerySecteur));
+			subqueryVoie.select(rootVoie.get(Voie.SECTEUR)).where(critereHauteurVoie);
+			subquerySecteur.select(rootSecteur.get(Secteur.SPOT)).where(rootSecteur.get(Secteur.ID).in(subqueryVoie));
+			query.where(root.get(Spot.ID).in(subquerySecteur));
 
 			return query.getRestriction();
 		};
