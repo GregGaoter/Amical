@@ -259,12 +259,34 @@
 										$(window).scrollTop(
 												openPanel.offset().top - 100);
 									});
-							$('#langFr').on('click', function() {
-								window.location.replace('?lang=fr');
-							});
-							$('#langEn').on('click', function() {
-								window.location.replace('?lang=en');
-							});
+							$('#langFr')
+									.on(
+											'click',
+											function() {
+												var re = new RegExp(
+														"[?&]lang=.*");
+												var urlTemp = window.location.href
+														.replace(re, '');
+												var separator = urlTemp
+														.indexOf("?") === -1 ? "?"
+														: "&";
+												window.location.href = urlTemp
+														+ separator + 'lang=fr';
+											});
+							$('#langEn')
+									.on(
+											'click',
+											function() {
+												var re = new RegExp(
+														"[?&]lang=.*");
+												var urlTemp = window.location.href
+														.replace(re, '');
+												var separator = urlTemp
+														.indexOf("?") === -1 ? "?"
+														: "&";
+												window.location.href = urlTemp
+														+ separator + 'lang=en';
+											});
 						});
 	</script>
 	<script>

@@ -138,10 +138,16 @@
 				$(window).scrollTop(openPanel.offset().top - 100);
 			});
 			$('#langFr').on('click', function() {
-				window.location.replace('?lang=fr');
+				var re = new RegExp("[?&]lang=.*");
+				var urlTemp = window.location.href.replace(re, '');
+				var separator = urlTemp.indexOf("?") === -1 ? "?" : "&";
+				window.location.href = urlTemp + separator + 'lang=fr';
 			});
 			$('#langEn').on('click', function() {
-				window.location.replace('?lang=en');
+				var re = new RegExp("[?&]lang=.*");
+				var urlTemp = window.location.href.replace(re, '');
+				var separator = urlTemp.indexOf("?") === -1 ? "?" : "&";
+				window.location.href = urlTemp + separator + 'lang=en';
 			});
 		});
 	</script>
