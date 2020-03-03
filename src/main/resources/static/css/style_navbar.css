@@ -12,6 +12,18 @@
 	padding-top: 52px;
 }
 
+@media screen and (max-width: 768px) {
+	.body-with-nav-pills {
+		padding-top: 296px;
+	}
+	.body-without-nav-pills {
+		padding-top: 310px;
+	}
+	.body-with-breadcrumb {
+		padding-top: 292px;
+	}
+}
+
 .navbar-brand {
 	padding: 0;
 }
