@@ -143,7 +143,7 @@
 							<h2 th:text="#{message.secteurs}"></h2>
 							<div class="horizontal-spacer-20"></div>
 							<a class="btn btn-default btn-lg" role="button"
-								th:href="@{'/ami/spot/'+${spot.id}+'/secteur/nouveau'}"><span
+								th:href="@{'/ami/spot/'+${spot.id}+'/secteur/nouveau?page='+${pageNumber}+'&size='+${pageSize}}"><span
 								class="glyphicon glyphicon-plus"></span>
 								[[#{message.nouveauSecteur}]]</a>
 						</div>

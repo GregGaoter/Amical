@@ -39,7 +39,7 @@ import app.gaugiciel.amical.model.Spot;
 @Controller
 @ControllerAdvice
 public class AmiSecteurController {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(AmiSecteurController.class);
 
 	@Autowired
@@ -60,7 +60,8 @@ public class AmiSecteurController {
 	private HttpSession session;
 
 	@GetMapping("/ami/spot/{spotId}/secteur/nouveau")
-	public String showNouveauSecteurForm(@PathVariable Long spotId, Model model, HttpServletRequest request) {
+	public String showNouveauSecteurForm(@PathVariable Long spotId, int page, int size, Model model,
+			HttpServletRequest request) {
 		LOGGER.info("Start {}()", "showNouveauSecteurForm");
 		nouveauSecteurForm.reinitialiser();
 		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
@@ -75,6 +76,8 @@ public class AmiSecteurController {
 		nouveauSecteurForm.setNomSpot(spot.getNom());
 		model.addAttribute("spotActive", "active");
 		model.addAttribute("spotId", spotId);
+		model.addAttribute("page", page);
+		model.addAttribute("size", size);
 		session.setAttribute(RedirectionUrl.SECTEUR_FORM.label, "redirect:/ami/spot/" + spotId + "/secteur/nouveau");
 		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, "redirect:/ami/spot/" + spotId + "/secteur/nouveau");
 		return "ami_secteur_nouveau";
