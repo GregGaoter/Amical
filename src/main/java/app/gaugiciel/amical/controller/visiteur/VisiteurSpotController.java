@@ -67,9 +67,10 @@ public class VisiteurSpotController {
 	private ServiceRechercheCommentaire serviceRechercheCommentaire;
 
 	@GetMapping("/visiteur/spot/recherche")
-	public String showSpotForm(RechercheSpotForm spotForm, Model model) {
+	public String showSpotForm(Model model) {
 		LOGGER.info("Start {}()", "showSpotForm");
 		spotForm.reinitialiser();
+		model.addAttribute("spotForm", spotForm);
 		model.addAttribute("spotActive", "active");
 		return "visiteur_spot_recherche";
 	}

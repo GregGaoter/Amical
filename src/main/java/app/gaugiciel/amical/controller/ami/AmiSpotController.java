@@ -66,7 +66,7 @@ import app.gaugiciel.amical.utilitaire.Utils;
 @Controller
 @ControllerAdvice
 public class AmiSpotController {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(AmiSpotController.class);
 
 	@Autowired
@@ -101,9 +101,10 @@ public class AmiSpotController {
 	private HttpSession session;
 
 	@GetMapping("/ami/spot/recherche")
-	public String showSpotForm(RechercheSpotForm spotForm, Model model) {
+	public String showSpotForm(Model model) {
 		LOGGER.info("Start {}()", "showSpotForm");
 		spotForm.reinitialiser();
+		model.addAttribute("spotForm", spotForm);
 		model.addAttribute("spotActive", "active");
 		return "ami_spot_recherche";
 	}
