@@ -29,7 +29,7 @@ Cette section présente quelques points techniques comme les technologies de dé
 
 | Dénomination | Description |
 | --- | --- |
-| Nom de domaine | www.lesamisdelescalade.org |
-| Hébergement | Scalingo |
+| Nom de domaine | www.oc-p6-amical.xyz |
+| Hébergement | Cloud Foundry |
 | Compatibilité navigateur web | Google Chrome, Microsoft Edge, Mozzilla FireFox, Opera |
 | Types d'appareils | Ordinateurs portables, ordinateurs de bureau |
