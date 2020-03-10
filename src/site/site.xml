@@ -47,6 +47,14 @@
 		<menu ref="reports" inherit="top" />
 		<menu name="Documentation">
 			<item name="Projet" href="doc_projet.html" />
+			<item name="Cahier des charges" href="doc_cdg_index.html"
+				collapse="true">
+				<item name="Fonctionnalités client" href="doc_cdg_fonc.html" />
+				<item name="Contraintes fonctionnelles"
+					href="doc_cdg_cont_fonc.html" />
+				<item name="Référentiel d'évaluation"
+					href="doc_cdg_ref_eval.html" />
+			</item>
 			<item name="Spécifications fonctionnelles"
 				href="doc_spec_fonc_index.html" collapse="true">
 				<item name="Introduction" href="doc_spec_fonc_intro.html" />
@@ -74,6 +82,15 @@
 					href="doc_spec_tech_domaine_fonc.html" />
 				<item name="Modèle physique de données"
 					href="doc_spec_tech_mod_phys_donnees.html" />
+			</item>
+			<item name="Déploiement" href="doc_depl_index.html"
+				collapse="true">
+				<item name="Application" href="doc_depl_app.html" />
+				<item name="Base de données" href="doc_depl_bdd.html" />
+				<item name="Ressources statiques externes"
+					href="doc_depl_src_stat.html" />
+				<item name="Site de documentation"
+					href="doc_depl_site_doc.html" />
 			</item>
 			<item name="Scripts SQL" href="doc_scripts_sql.html" />
 		</menu>

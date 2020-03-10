@@ -1,5 +1,29 @@
 # Application web Amical
 
-## Conditions requise
+## Application
 
-Pour créer et exécuter l'application, vous avez besoin de :  
+### Page d'accueil
+
+[https://amical-quick-kob-am.cfapps.io](https://amical-quick-kob-am.cfapps.io)
+
+### Authentifications
+
+Afin de pouvoir tester l'application, les comptes utilisateurs suivants sont fournis pour l'authentification.
+
+#### Utilisateur inscrit
+
+| Paramètre | Valeur |
+| --- | --- |
+| Adresse email | fabien.poulin52@protonmail.fr |
+| Mot de passe | ZnkVRvZVe |
+
+#### Membre de l'association
+
+| Paramètre | Valeur |
+| --- | --- |
+| Adresse email | segolene.deniau6@lycos.fr |
+| Mot de passe | dIcgxCy59CNVEsLW |
+
+## Site de documentation
+
+[https://amical-doc-shiny-raven-eu.cfapps.io](https://amical-doc-shiny-raven-eu.cfapps.io)
