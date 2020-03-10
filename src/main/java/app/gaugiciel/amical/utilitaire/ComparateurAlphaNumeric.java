@@ -172,7 +172,7 @@ public class ComparateurAlphaNumeric implements Comparator<String> {
 	 *         parameter is {@code null} or empty. When both are either {@code null}
 	 *         or empty or any combination of those, a {@code 0} will be returned.
 	 */
-	@SuppressWarnings("null")
+	// @SuppressWarnings("null")
 	@Override
 	public int compare(String s1, String s2) {
 		if ((s1 == null || s1.trim().isEmpty()) && (s2 != null && !s2.trim().isEmpty())) {
