@@ -5,6 +5,7 @@
 ### Page d'accueil
 
 [https://amical-quick-kob-am.cfapps.io](https://amical-quick-kob-am.cfapps.io)
+![Page accueil Amical](https://github.com/GregGaoter/Amical/blob/master/doc/capture_ecran/page_accueil.png)
 
 ### Authentifications
 
