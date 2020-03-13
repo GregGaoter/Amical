@@ -101,7 +101,7 @@ public class AmiLongueurController {
 	}
 
 	@PostMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/nouveau")
-	public String checkNouvelleLongueurForm(@Valid NouvelleLongueurForm nouvelleLongueurForm, @PathVariable Long spotId,
+	public String checkNouvelleLongueurForm(NouvelleLongueurForm nouvelleLongueurForm, @PathVariable Long spotId,
 			@PathVariable Long secteurId, @PathVariable Long voieId, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkNouvelleLongueurForm");
@@ -192,7 +192,7 @@ public class AmiLongueurController {
 	}
 
 	@PostMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/longueur/{longueurId}/edition")
-	public String checkEditionLongueurForm(@Valid EditionLongueurForm editionLongueurForm, @PathVariable Long spotId,
+	public String checkEditionLongueurForm(EditionLongueurForm editionLongueurForm, @PathVariable Long spotId,
 			@PathVariable Long secteurId, @PathVariable Long voieId, @PathVariable Long longueurId,
 			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkEditionLongueurForm");
