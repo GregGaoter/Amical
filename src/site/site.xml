@@ -70,18 +70,18 @@
 			<item name="Spécifications techniques"
 				href="doc_spec_tech_index.html" collapse="true">
 				<item name="Introduction" href="doc_spec_tech_intro.html" />
-				<item name="Diagramme de déploiement"
-					href="doc_spec_tech_diag_deploiement.html" />
-				<item name="Détails techniques"
-					href="doc_spec_tech_details.html" />
-				<item name="Architecture multi-tiers"
-					href="doc_spec_tech_architecture.html" />
 				<item name="Diagramme de classe"
 					href="doc_spec_tech_diag_classe.html" />
 				<item name="Domaine fonctionnel"
 					href="doc_spec_tech_domaine_fonc.html" />
 				<item name="Modèle physique de données"
 					href="doc_spec_tech_mod_phys_donnees.html" />
+				<item name="Diagramme de déploiement"
+					href="doc_spec_tech_diag_deploiement.html" />
+				<item name="Détails techniques"
+					href="doc_spec_tech_details.html" />
+				<item name="Architecture multi-tiers"
+					href="doc_spec_tech_architecture.html" />
 			</item>
 			<item name="Déploiement" href="doc_depl_index.html"
 				collapse="true">

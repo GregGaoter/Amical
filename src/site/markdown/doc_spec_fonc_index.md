@@ -6,8 +6,8 @@ Ce document fournit une vue d'ensemble des divers documents et liens qui font pa
 
 | Document | Description |
 | --- | --- |
-| [Introduction](specifications_fonctionnelles_introduction.html) | Ce document fournit l'introduction des spécifications fonctionnelles. |
-| [Acteurs du système](specifications_fonctionnelles_acteurs.html) | Ce document fournit les différents acteurs qui interagissent avec l'application. |
-| [Modules du système](specifications_fonctionnelles_modules.html) | Ce document fournit les différents modules du système. |
-| [Fonctionnalités du système](specifications_fonctionnelles_fonctionnalites.html) | Ce document fournit les différentes fonctionnalités du système. |
-| [Descriptif des fonctionnalités](specifications_fonctionnelles_descriptif_fonctionnalites.html) | Ce document fournit les users stories du système. |
+| [Introduction](doc_spec_fonc_intro.html) | Ce document fournit l'introduction des spécifications fonctionnelles. |
+| [Acteurs du système](doc_spec_fonc_acteurs.html) | Ce document fournit les différents acteurs qui interagissent avec l'application. |
+| [Modules du système](doc_spec_fonc_modules.html) | Ce document fournit les différents modules du système. |
+| [Fonctionnalités du système](doc_spec_fonc_fonc.html) | Ce document fournit les différentes fonctionnalités du système. |
+| [Descriptif des fonctionnalités](doc_spec_fonc_descr_fonc.html) | Ce document fournit les users stories du système. |

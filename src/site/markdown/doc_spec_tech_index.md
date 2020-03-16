@@ -6,10 +6,10 @@ Ce document fournit une vue d'ensemble des divers documents et liens qui font pa
 
 | Document | Description |
 | --- | --- |
-| [Introduction](specifications_techniques_introduction.html) | Ce document fournit l'introduction des spécifications fonctionnelles. |
-| [Diagramme de déploiement](specifications_techniques_diagramme_deploiement.html) | Ce document fournit le diagramme de déploiement de l'application web. |
-| [Détails techniques](specifications_techniques_details.html) | Ce document fournit à titre informatif quelques détails techniques de l'application. |
-| [Architecture](specifications_techniques_architecture.html) | Ce document fournit l'architecture multi-tiers de l'application web. |
-| [Diagramme de classe](specifications_techniques_diagramme_classe.html) | Ce document fournit le diagramme de classe axé conception orientée-objet. |
-| [Domaine fonctionnel](specifications_techniques_domaine_fonctionnel.html) | Ce document fournit le domaine fonctionnelle de l'application. |
-| [Modèle physique de données](specifications_techniques_modele_physique_donnees.html) | Ce document fournit le modèle physique de données pour la base de données. |
+| [Introduction](doc_spec_tech_intro.html) | Ce document fournit l'introduction des spécifications fonctionnelles. |
+| [Diagramme de classe](doc_spec_tech_diag_classe.html) | Ce document fournit le diagramme de classe axé conception orientée-objet. |
+| [Domaine fonctionnel](doc_spec_tech_domaine_fonc.html) | Ce document fournit le domaine fonctionnelle de l'application. |
+| [Modèle physique de données](doc_spec_tech_mod_phys_donnees.html) | Ce document fournit le modèle physique de données pour la base de données. |
+| [Diagramme de déploiement](doc_spec_tech_diag_deploiement.html) | Ce document fournit le diagramme de déploiement de l'application web. |
+| [Détails techniques](doc_spec_tech_details.html) | Ce document fournit à titre informatif quelques détails techniques de l'application. |
+| [Architecture multi-tiers](doc_spec_tech_architecture.html) | Ce document fournit l'architecture multi-tiers de l'application web. |
