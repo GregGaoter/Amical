@@ -1,5 +1,7 @@
 package app.gaugiciel.amical.business.implementation.enregistrement;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ import lombok.Setter;
 
 @Service
 public class ServiceEnregistrementFormNouvelleVoie implements Enregistrement<NouvelleVoieForm> {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceEnregistrementFormNouvelleVoie.class);
 
 	@Autowired
@@ -49,14 +51,22 @@ public class ServiceEnregistrementFormNouvelleVoie implements Enregistrement<Nou
 		String unitePrincipale = nouvelleVoieForm.getCotationUnitePrincipale();
 		String uniteSecondaire = nouvelleVoieForm.getCotationUniteSecondaire();
 		String uniteTertiaire = nouvelleVoieForm.getCotationUniteTertiaire();
-		CotationFrance cotationFrance = Utils.isValid(unitePrincipale) ? cotationFranceRepository
-				.findOne(CotationFranceSpecification.cotationEqual(
-						ServiceCotationFrance.creer(CotationFranceUnitePrincipale.ofLabel(unitePrincipale),
-								CotationFranceUniteSecondaire.ofLabel(uniteSecondaire),
-								CotationFranceUniteTertiaire.ofLabel(uniteTertiaire))))
-				.orElse(serviceRepositoryCotationFrance
-						.enregistrer(CotationFrance.creer(unitePrincipale, uniteSecondaire, uniteTertiaire)))
-				: null;
+		CotationFrance cotationFrance;
+		if (Utils.isValid(unitePrincipale)) {
+			Optional<CotationFrance> optionalCotationFrance = cotationFranceRepository
+					.findOne(CotationFranceSpecification.cotationEqual(
+							ServiceCotationFrance.creer(CotationFranceUnitePrincipale.ofLabel(unitePrincipale),
+									CotationFranceUniteSecondaire.ofLabel(uniteSecondaire),
+									CotationFranceUniteTertiaire.ofLabel(uniteTertiaire))));
+			if (optionalCotationFrance.isPresent()) {
+				cotationFrance = optionalCotationFrance.get();
+			} else {
+				cotationFrance = serviceRepositoryCotationFrance
+						.enregistrer(CotationFrance.creer(unitePrincipale, uniteSecondaire, uniteTertiaire));
+			}
+		} else {
+			cotationFrance = null;
+		}
 		voie = serviceRepositoryVoie.enregistrer(Voie.creer(nouvelleVoieForm.getNom(),
 				nouvelleVoieForm.getDescription(), nouvelleVoieForm.getRemarque(), nouvelleVoieForm.getNumero(),
 				nouvelleVoieForm.getHauteur(), nouvelleVoieForm.getSecteur(), plan, cotationFrance));

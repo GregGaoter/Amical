@@ -4,10 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
@@ -37,25 +33,14 @@ public class InscriptionForm {
 		IS_NOT_NULL.put(MOT_DE_PASSE_CONFIRMATION, true);
 	}
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 64, message = "{validation.size.interval}")
 	private String prenom;
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 64, message = "{validation.size.interval}")
 	private String nom;
 
-	@NotNull(message = "{validation.notnull}")
-	@Email(message = "{validation.email}")
-	@Size(min = 5, max = 64, message = "{validation.size.interval}")
 	private String email;
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 8, max = 16, message = "{validation.size.interval}")
 	private String motDePasse;
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 8, max = 16, message = "{validation.size.interval}")
 	private String motDePasseConfirmation;
 
 	public void reinitialiser() {

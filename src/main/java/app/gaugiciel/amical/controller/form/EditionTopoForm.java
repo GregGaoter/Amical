@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -27,7 +24,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EditionTopoForm {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(EditionTopoForm.class);
 
 	public static final String ID = "id";
@@ -55,34 +52,23 @@ public class EditionTopoForm {
 		IS_NOT_NULL.put(LIEU_FRANCE_INPUT, false);
 	}
 
-	@NotNull(message = "{validation.notnull}")
 	private Long id;
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 128, message = "{validation.size.interval}")
 	private String nom;
 
 	private String dateParutionInput;
 	private Timestamp dateTimeParution;
 
-	@Size(max = 128, message = "{validation.size.max}")
 	private String auteur;
 
-	@Size(max = 2000, message = "{validation.size.max}")
 	private String description;
 
-	@Size(max = 2000, message = "{validation.size.max}")
 	private String remarque;
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 64, message = "{validation.size.interval}")
 	private String etat;
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 64, message = "{validation.size.interval}")
 	private String categorie;
 
-	@NotNull(message = "{validation.notnull}")
 	private String authentificationEmailInput;
 	private Authentification authentification;
 

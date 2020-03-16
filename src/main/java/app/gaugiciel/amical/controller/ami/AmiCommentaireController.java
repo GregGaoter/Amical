@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +23,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionCommentaire;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormNouveauCommentaire;
+import app.gaugiciel.amical.business.implementation.enumeration.Erreur;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheCommentaire;
@@ -40,7 +40,7 @@ import app.gaugiciel.amical.model.Utilisateur;
 @Controller
 @ControllerAdvice
 public class AmiCommentaireController {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(AmiCommentaireController.class);
 
 	@Autowired
@@ -61,9 +61,8 @@ public class AmiCommentaireController {
 	private ServiceRepositoryCommentaire serviceRepositoryCommentaire;
 
 	@PostMapping("/ami/spot/{spotId}/commentaire/nouveau")
-	public String checkNouveauCommentaireForm(@Valid NouveauCommentaireForm nouveauCommentaireForm,
-			@PathVariable Long spotId, BindingResult bindingResult, Model model,
-			RedirectAttributes redirectAttributes) {
+	public String checkNouveauCommentaireForm(NouveauCommentaireForm nouveauCommentaireForm, @PathVariable Long spotId,
+			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkNouveauCommentaireForm");
 		Spot spot = serviceRechercheSpot.findById(spotId);
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(NomModel.UTILISATEUR.label);
@@ -72,10 +71,8 @@ public class AmiCommentaireController {
 		nouveauCommentaireForm.setUtilisateur(utilisateur);
 		redirectAttributes.addFlashAttribute("nouveauCommentaireForm", nouveauCommentaireForm);
 		if (!validationFormNouveauCommentaire.isValide(nouveauCommentaireForm)) {
-			validationFormNouveauCommentaire.getListeFieldError()
-					.forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormNouveauCommentaire.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			model.addAttribute("spotActive", "active");
 			return (String) session.getAttribute(RedirectionUrl.SPOT.label);
 		}
@@ -110,16 +107,16 @@ public class AmiCommentaireController {
 	}
 
 	@PostMapping("/admin/commentaire/{commentaireId}/edition")
-	public String checkEditionCommentaireForm(@Valid EditionCommentaireForm editionCommentaireForm,
-			@PathVariable Long commentaireId, BindingResult bindingResult, Model model,
-			RedirectAttributes redirectAttributes) {
+	public String checkEditionCommentaireForm(EditionCommentaireForm editionCommentaireForm,
+			@PathVariable Long commentaireId, Model model, RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkEditionCommentaireForm");
 		if (!validationFormEditionCommentaire.isValide(editionCommentaireForm)) {
-			validationFormEditionCommentaire.getListeFieldError()
-					.forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormEditionCommentaire.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
+			Commentaire commentaire = serviceRechercheCommentaire.findById(commentaireId);
+			commentaire.setCommentaire(editionCommentaireForm.getCommentaire());
 			model.addAttribute("spotActive", "active");
+			model.addAttribute("commentaire", commentaire);
 			return "admin_commentaire_edition";
 		}
 		redirectAttributes.addFlashAttribute("editionCommentaireForm", editionCommentaireForm);

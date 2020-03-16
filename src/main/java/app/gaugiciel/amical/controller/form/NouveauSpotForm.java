@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,24 +34,16 @@ public class NouveauSpotForm {
 		IS_NOT_NULL.put(PLAN, false);
 	}
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 128, message = "{validation.size.interval}")
 	private String nom;
 
-	@Size(max = 2000, message = "{validation.size.max}")
 	private String description;
 
-	@Size(max = 2000, message = "{validation.size.max}")
 	private String remarque;
 
-	@NotNull(message = "{validation.notnull}")
 	private Boolean tagQ;
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 256, message = "{validation.size.interval}")
 	private String lieuFrance;
 
-	@Size(max = 256, message = "{validation.size.max}")
 	private String plan;
 
 	private MultipartFile fichier;

@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -24,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EditionSpotForm {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(EditionSpotForm.class);
 
 	public static final String ID = "id";
@@ -46,28 +43,19 @@ public class EditionSpotForm {
 		IS_NOT_NULL.put(NOM_PLAN, false);
 	}
 
-	@NotNull(message = "{validation.notnull}")
 	private Long id;
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 128, message = "{validation.size.interval}")
 	private String nom;
 
-	@Size(max = 2000, message = "{validation.size.max}")
 	private String description;
 
-	@Size(max = 2000, message = "{validation.size.max}")
 	private String remarque;
 
-	@NotNull(message = "{validation.notnull}")
 	private Boolean tagQ;
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 256, message = "{validation.size.interval}")
 	private String lieuFranceNomComplet;
 	private LieuFrance lieuFrance;
 
-	@Size(max = 256, message = "{validation.size.max}")
 	private String nomPlan;
 	private Plan plan;
 

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +27,7 @@ import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregi
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.enumeration.Erreur;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLongueur;
@@ -103,14 +103,13 @@ public class AmiVoieController {
 	}
 
 	@PostMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/nouveau")
-	public String checkNouvelleVoieForm(@Valid NouvelleVoieForm nouvelleVoieForm, @PathVariable Long spotId,
+	public String checkNouvelleVoieForm(NouvelleVoieForm nouvelleVoieForm, @PathVariable Long spotId,
 			@PathVariable Long secteurId, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkNouvelleVoieForm");
 		if (!validationFormNouvelleVoie.isValide(nouvelleVoieForm)) {
-			validationFormNouvelleVoie.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormNouvelleVoie.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			Spot spot = serviceRechercheSpot.findById(spotId);
 			Secteur secteur = serviceRechercheSecteur.findById(secteurId);
 			model.addAttribute("spot", spot);
@@ -193,15 +192,14 @@ public class AmiVoieController {
 	}
 
 	@PostMapping("/ami/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/edition")
-	public String checkEditionVoieForm(@Valid EditionVoieForm editionVoieForm, @PathVariable Long spotId,
+	public String checkEditionVoieForm(EditionVoieForm editionVoieForm, @PathVariable Long spotId,
 			@PathVariable Long secteurId, @PathVariable Long voieId, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkEditionVoieForm");
 		Voie voie = serviceRechercheVoie.findById(voieId);
 		if (!validationFormEditionVoie.isValide(editionVoieForm)) {
-			validationFormEditionVoie.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormEditionVoie.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			model.addAttribute("spot", editionVoieForm.getSpot());
 			model.addAttribute("secteur", editionVoieForm.getSecteur());
 			model.addAttribute("voie", voie);

@@ -26,7 +26,7 @@ import lombok.Setter;
 @Component
 @NoArgsConstructor
 public class ValidationFormEditionSpot extends ValidationForm<EditionSpotForm> {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ValidationFormEditionSpot.class);
 
 	@Autowired
@@ -46,9 +46,29 @@ public class ValidationFormEditionSpot extends ValidationForm<EditionSpotForm> {
 	public boolean isValide(@NotNull EditionSpotForm editionSpotForm) {
 		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
-		Optional<LieuFrance> optionalLieuFrance = serviceRechercheLieuFrance
-				.findByNomComplet(editionSpotForm.getLieuFranceNomComplet());
-		if (optionalLieuFrance.isEmpty()) {
+		String nom = editionSpotForm.getNom();
+		if (nom.length() < 1 || nom.length() > 128) {
+			listeFieldError.add(new FieldError(editionSpotForm.getClass().getSimpleName(), EditionSpotForm.NOM,
+					messageSource.getMessage("validation.form.size.interval", new String[] { "1", "128" },
+							Locale.getDefault())));
+		}
+		if (editionSpotForm.getDescription().length() > 2000) {
+			listeFieldError.add(new FieldError(editionSpotForm.getClass().getSimpleName(), EditionSpotForm.DESCRIPTION,
+					messageSource.getMessage("validation.form.size.max", new String[] { "2000" },
+							Locale.getDefault())));
+		}
+		if (editionSpotForm.getRemarque().length() > 2000) {
+			listeFieldError.add(
+					new FieldError(editionSpotForm.getClass().getSimpleName(), EditionSpotForm.REMARQUE, messageSource
+							.getMessage("validation.form.size.max", new String[] { "2000" }, Locale.getDefault())));
+		}
+		if (!Utils.isValid(editionSpotForm.getTagQ())) {
+			listeFieldError.add(new FieldError(editionSpotForm.getClass().getSimpleName(), EditionSpotForm.TAG_Q,
+					messageSource.getMessage("validation.notnull", null, Locale.getDefault())));
+		}
+		String lieuFranceNomComplet = editionSpotForm.getLieuFranceNomComplet();
+		Optional<LieuFrance> optionalLieuFrance = serviceRechercheLieuFrance.findByNomComplet(lieuFranceNomComplet);
+		if (!Utils.isValid(lieuFranceNomComplet) || optionalLieuFrance.isEmpty()) {
 			listeFieldError.add(
 					new FieldError(editionSpotForm.getClass().getSimpleName(), EditionSpotForm.LIEU_FRANCE_NOM_COMPLET,
 							messageSource.getMessage("validation.lieuFranceNomComplet", null, Locale.getDefault())));

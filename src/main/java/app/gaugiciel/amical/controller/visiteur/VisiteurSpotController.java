@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +26,7 @@ import app.gaugiciel.amical.business.implementation.cotation.ServiceCotationFran
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.enumeration.Erreur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheCommentaire;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLongueur;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSecteur;
@@ -76,7 +75,7 @@ public class VisiteurSpotController {
 	}
 
 	@PostMapping("/visiteur/spot/recherche")
-	public String checkFormFindSpot(@Valid RechercheSpotForm spotForm, BindingResult bindingResult, Model model) {
+	public String checkFormFindSpot(RechercheSpotForm spotForm, BindingResult bindingResult, Model model) {
 		LOGGER.info("Start {}()", "checkFormFindSpot");
 
 		this.spotForm = spotForm;
@@ -85,9 +84,8 @@ public class VisiteurSpotController {
 				.map(field -> bindingResult.hasFieldErrors(field)).anyMatch(b -> true));
 
 		if (!validationFormSpot.isValide(spotForm)) {
-			validationFormSpot.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormSpot.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			return "visiteur_spot_recherche";
 		}
 

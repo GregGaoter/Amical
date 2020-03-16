@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Component
 @NoArgsConstructor
 public class ValidationFormEditionTopo extends ValidationForm<EditionTopoForm> {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ValidationFormEditionTopo.class);
 
 	@Autowired
@@ -46,6 +46,38 @@ public class ValidationFormEditionTopo extends ValidationForm<EditionTopoForm> {
 	public boolean isValide(@NotNull EditionTopoForm editionTopoForm) {
 		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
+		String nom = editionTopoForm.getNom();
+		if (nom.length() < 1 || nom.length() > 128) {
+			listeFieldError.add(new FieldError(editionTopoForm.getClass().getSimpleName(), EditionTopoForm.NOM,
+					messageSource.getMessage("validation.form.size.interval", new String[] { "1", "128" },
+							Locale.getDefault())));
+		}
+		if (editionTopoForm.getAuteur().length() > 128) {
+			listeFieldError.add(new FieldError(editionTopoForm.getClass().getSimpleName(), EditionTopoForm.AUTEUR,
+					messageSource.getMessage("validation.form.size.max", new String[] { "128" }, Locale.getDefault())));
+		}
+		if (editionTopoForm.getDescription().length() > 2000) {
+			listeFieldError.add(new FieldError(editionTopoForm.getClass().getSimpleName(), EditionTopoForm.DESCRIPTION,
+					messageSource.getMessage("validation.form.size.max", new String[] { "2000" },
+							Locale.getDefault())));
+		}
+		if (editionTopoForm.getRemarque().length() > 2000) {
+			listeFieldError.add(
+					new FieldError(editionTopoForm.getClass().getSimpleName(), EditionTopoForm.REMARQUE, messageSource
+							.getMessage("validation.form.size.max", new String[] { "2000" }, Locale.getDefault())));
+		}
+		String etat = editionTopoForm.getEtat();
+		if (etat.length() < 1 || etat.length() > 64) {
+			listeFieldError.add(new FieldError(editionTopoForm.getClass().getSimpleName(), EditionTopoForm.ETAT,
+					messageSource.getMessage("validation.form.size.interval", new String[] { "1", "64" },
+							Locale.getDefault())));
+		}
+		String categorie = editionTopoForm.getCategorie();
+		if (categorie.length() < 1 || categorie.length() > 64) {
+			listeFieldError.add(new FieldError(editionTopoForm.getClass().getSimpleName(), EditionTopoForm.CATEGORIE,
+					messageSource.getMessage("validation.form.size.interval", new String[] { "1", "64" },
+							Locale.getDefault())));
+		}
 		Timestamp dateTimeParution = serviceConversionInputDateToTimestamp
 				.convertir(editionTopoForm.getDateParutionInput());
 		Authentification authentification = serviceRechercheAuthentification

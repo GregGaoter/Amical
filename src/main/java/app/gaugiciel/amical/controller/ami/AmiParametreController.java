@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +25,7 @@ import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregi
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionMotDePasse;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionNom;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionPrenom;
+import app.gaugiciel.amical.business.implementation.enumeration.Erreur;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.controller.data.AmiParametreData;
@@ -43,7 +43,7 @@ import app.gaugiciel.amical.model.Utilisateur;
 @Controller
 @ControllerAdvice
 public class AmiParametreController {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(AmiParametreController.class);
 
 	@Autowired
@@ -110,13 +110,12 @@ public class AmiParametreController {
 	}
 
 	@PostMapping("/ami/parametre/prenom/edition")
-	public String checkPrenom(@Valid EditionPrenomForm editionPrenomForm, BindingResult bindingResult, Model model,
+	public String checkPrenom(EditionPrenomForm editionPrenomForm, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkPrenom");
 		if (!validationFormEditionPrenom.isValide(editionPrenomForm)) {
-			validationFormEditionPrenom.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormEditionPrenom.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			return (String) session.getAttribute(RedirectionUrl.PARAMETRES.label);
 		}
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(NomModel.UTILISATEUR.label);
@@ -142,13 +141,12 @@ public class AmiParametreController {
 	}
 
 	@PostMapping("/ami/parametre/nom/edition")
-	public String checkNom(@Valid EditionNomForm editionNomForm, BindingResult bindingResult, Model model,
+	public String checkNom(EditionNomForm editionNomForm, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkNom");
 		if (!validationFormEditionNom.isValide(editionNomForm)) {
-			validationFormEditionNom.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormEditionNom.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			return (String) session.getAttribute(RedirectionUrl.PARAMETRES.label);
 		}
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(NomModel.UTILISATEUR.label);
@@ -173,13 +171,11 @@ public class AmiParametreController {
 	}
 
 	@PostMapping("/ami/parametre/email/edition")
-	public String checkEmail(@Valid EditionEmailForm editionEmailForm, BindingResult bindingResult, Model model,
+	public String checkEmail(EditionEmailForm editionEmailForm, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkEmail");
 		if (!validationFormEditionEmail.isValide(editionEmailForm)) {
 			validationFormEditionEmail.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
 			return (String) session.getAttribute(RedirectionUrl.PARAMETRES.label);
 		}
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(NomModel.UTILISATEUR.label);
@@ -205,8 +201,8 @@ public class AmiParametreController {
 	}
 
 	@PostMapping("/ami/parametre/motDePasse/edition")
-	public String checkMotDePasse(@Valid EditionMotDePasseForm editionMotDePasseForm, BindingResult bindingResult,
-			Model model, RedirectAttributes redirectAttributes) {
+	public String checkMotDePasse(EditionMotDePasseForm editionMotDePasseForm, BindingResult bindingResult, Model model,
+			RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkMotDePasse");
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(NomModel.UTILISATEUR.label);
 		Authentification authentification = utilisateur.getAuthentification();
@@ -214,8 +210,6 @@ public class AmiParametreController {
 		if (!validationFormEditionMotDePasse.isValide(editionMotDePasseForm)) {
 			validationFormEditionMotDePasse.getListeFieldError()
 					.forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
 			return (String) session.getAttribute(RedirectionUrl.PARAMETRES.label);
 		}
 		authentification.setMotDePasse(passwordEncoder.encode(editionMotDePasseForm.getNouveauMotDePasse()));

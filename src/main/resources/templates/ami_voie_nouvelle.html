@@ -47,44 +47,44 @@
 							</div>
 						</div>
 						<div class="form-group"
-							th:classappend="${#fields.hasErrors('nom')} ? 'has-error has-feedback' : ''">
+							th:classappend="${nomErreur!=null} ? 'has-error has-feedback' : ''">
 							<label class="control-label col-lg-1"
 								th:text="#{message.nom}+(${nouvelleVoieForm.isNotNull('nom')} ? ' *' : '')"></label>
 							<div class="col-lg-11">
 								<input type="text" class="form-control" th:field="*{nom}">
-								<span th:if="${#fields.hasErrors('nom')}"
+								<span th:if="${nomErreur!=null}"
 									class="glyphicon glyphicon-remove form-control-feedback"></span>
-								<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"
+								<span th:if="${nomErreur!=null}" th:text="${nomErreur}"
 									class="text-danger"></span>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-lg-4">
 								<div class="form-group"
-									th:classappend="${#fields.hasErrors('numero')} ? 'has-error has-feedback' : ''">
+									th:classappend="${numeroErreur!=null} ? 'has-error has-feedback' : ''">
 									<label class="control-label col-lg-2"
 										th:text="#{message.numero}+(${nouvelleVoieForm.isNotNull('numero')} ? ' *' : '')"></label>
 									<div class="col-lg-10">
 										<input type="text" class="form-control" th:field="*{numero}">
-										<span th:if="${#fields.hasErrors('numero')}"
+										<span th:if="${numeroErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('numero')}"
-											th:errors="*{numero}" class="text-danger"></span>
+										<span th:if="${numeroErreur!=null}" th:text="${numeroErreur}"
+											class="text-danger"></span>
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-4">
 								<div class="form-group"
-									th:classappend="${#fields.hasErrors('cotationUnitePrincipale')} ? 'has-error has-feedback' : ''">
+									th:classappend="${cotationUnitePrincipaleErreur!=null} ? 'has-error has-feedback' : ''">
 									<label class="control-label col-lg-2"
-										th:classappend="${#fields.hasErrors('cotationUnitePrincipale')} ? text-danger : ''"
+										th:classappend="${cotationUnitePrincipaleErreur!=null} ? text-danger : ''"
 										th:text="#{message.cotation}"></label>
 									<div class="col-lg-10">
 										<div class="row row-no-gutters">
 											<div class="col-lg-4">
 												<select class="form-control select-no-left-right-padding"
 													th:field="*{cotationUnitePrincipale}"
-													th:classappend="${#fields.hasErrors('cotationUnitePrincipale')} ? has-error : ''">
+													th:classappend="${cotationUnitePrincipaleErreur!=null} ? has-error : ''">
 													<option th:each="l:${unitePrincipaleLabels}"
 														th:value="${l}" th:text="${l}"></option>
 												</select>
@@ -92,7 +92,7 @@
 											<div class="col-lg-4">
 												<select class="form-control select-no-left-right-padding"
 													th:field="*{cotationUniteSecondaire}"
-													th:classappend="${#fields.hasErrors('cotationUniteSecondaire')} ? has-error : ''">
+													th:classappend="${cotationUniteSecondaireErreur!=null} ? has-error : ''">
 													<option th:each="l:${uniteSecondaireLabels}"
 														th:value="${l}" th:text="${l}"></option>
 												</select>
@@ -100,35 +100,36 @@
 											<div class="col-lg-4">
 												<select class="form-control select-no-left-right-padding"
 													th:field="*{cotationUniteTertiaire}"
-													th:classappend="${#fields.hasErrors('cotationUniteTertiaire')} ? has-error : ''">
+													th:classappend="${cotationUniteTertiaireErreur!=null} ? has-error : ''">
 													<option th:each="l:${uniteTertiaireLabels}" th:value="${l}"
 														th:text="${l}"></option>
 												</select>
 											</div>
 										</div>
-										<span th:if="${#fields.hasErrors('cotationUnitePrincipale')}"
-											th:errors="*{cotationUnitePrincipale}" class="text-danger"></span>
+										<span th:if="${cotationUnitePrincipaleErreur!=null}"
+											th:text="${cotationUnitePrincipaleErreur}"
+											class="text-danger"></span>
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-4">
 								<div class="form-group"
-									th:classappend="${#fields.hasErrors('hauteur')} ? 'has-error has-feedback' : ''">
+									th:classappend="${hauteurErreur!=null} ? 'has-error has-feedback' : ''">
 									<label class="control-label col-lg-4"
 										th:text="#{message.hauteur} + ' ' + #{message.uniteMetre}+(${nouvelleVoieForm.isNotNull('hauteur')} ? ' *' : '')"></label>
 									<div class="col-lg-8">
 										<input type="number" class="form-control"
 											th:field="*{hauteur}"> <span
-											th:if="${#fields.hasErrors('hauteur')}"
+											th:if="${hauteurErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('hauteur')}"
-											th:errors="*{hauteur}" class="text-danger"></span>
+										<span th:if="${hauteurErreur!=null}"
+											th:text="${hauteurErreur}" class="text-danger"></span>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="form-group"
-							th:classappend="${#fields.hasErrors('nomPlan')} ? 'has-error has-feedback' : ''">
+							th:classappend="${nomPlanErreur!=null} ? 'has-error has-feedback' : ''">
 							<label class="control-label col-lg-1"
 								th:text="#{message.plan}+(${nouvelleVoieForm.isNotNull('nomPlan')} ? ' *' : '')"></label>
 							<div class="col-lg-11">
@@ -141,35 +142,35 @@
 											[[#{message.nouveauPlan}]]</a>
 									</div>
 								</div>
+								<span th:if="${nomPlanErreur!=null}"
+									class="glyphicon glyphicon-remove form-control-feedback"></span>
+								<span th:if="${nomPlanErreur!=null}" th:text="${nomPlanErreur}"
+									class="text-danger"></span>
 							</div>
-							<span th:if="${#fields.hasErrors('nomPlan')}"
-								class="glyphicon glyphicon-remove form-control-feedback"></span>
-							<span th:if="${#fields.hasErrors('nomPlan')}"
-								th:errors="*{nomPlan}" class="text-danger"></span>
 						</div>
 						<div class="form-group"
-							th:classappend="${#fields.hasErrors('description')} ? 'has-error has-feedback' : ''">
+							th:classappend="${descriptionErreur!=null} ? 'has-error has-feedback' : ''">
 							<label class="control-label col-lg-1"
 								th:text="#{message.description}+(${nouvelleVoieForm.isNotNull('description')} ? ' *' : '')"></label>
 							<div class="col-lg-11">
 								<textarea class="form-control" rows="5"
 									th:field="*{description}"></textarea>
-								<span th:if="${#fields.hasErrors('description')}"
+								<span th:if="${descriptionErreur!=null}"
 									class="glyphicon glyphicon-remove form-control-feedback"></span>
-								<span th:if="${#fields.hasErrors('description')}"
-									th:errors="*{description}" class="text-danger"></span>
+								<span th:if="${descriptionErreur!=null}"
+									th:text="${descriptionErreur}" class="text-danger"></span>
 							</div>
 						</div>
 						<div class="form-group"
-							th:classappend="${#fields.hasErrors('remarque')} ? 'has-error has-feedback' : ''">
+							th:classappend="${remarqueErreur!=null} ? 'has-error has-feedback' : ''">
 							<label class="control-label col-lg-1"
 								th:text="#{message.remarque}+(${nouvelleVoieForm.isNotNull('remarque')} ? ' *' : '')"></label>
 							<div class="col-lg-11">
 								<textarea class="form-control" rows="5" th:field="*{remarque}"></textarea>
-								<span th:if="${#fields.hasErrors('remarque')}"
+								<span th:if="${remarqueErreur!=null}"
 									class="glyphicon glyphicon-remove form-control-feedback"></span>
-								<span th:if="${#fields.hasErrors('remarque')}"
-									th:errors="*{remarque}" class="text-danger"></span>
+								<span th:if="${remarqueErreur!=null}"
+									th:text="${remarqueErreur}" class="text-danger"></span>
 							</div>
 						</div>
 					</div>

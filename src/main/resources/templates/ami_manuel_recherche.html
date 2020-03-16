@@ -27,57 +27,57 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group"
-										th:classappend="${#fields.hasErrors('nom')} ? 'has-error has-feedback' : ''">
+										th:classappend="${nomErreur!=null} ? 'has-error has-feedback' : ''">
 										<label class="control-label" th:text="#{message.nom}"></label>
 										<input type="text" id="nomManuel" class="form-control"
 											th:field="*{nom}"
-											th:placeholder="#{message.placeHolderNomSpot}"><span
-											th:if="${#fields.hasErrors('nom')}"
+											th:placeholder="#{message.placeHolderNomSpot}"> <span
+											th:if="${nomErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"
+										<span th:if="${nomErreur!=null}" th:text="${nomErreur}"
 											class="text-danger"></span>
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group"
-										th:classappend="${#fields.hasErrors('lieuFranceTemplate')} ? 'has-error has-feedback' : ''">
+										th:classappend="${lieuFranceTemplateErreur!=null} ? 'has-error has-feedback' : ''">
 										<label class="control-label" th:text="#{message.lieu}"></label>
 										<input type="text" id="lieuSpot" class="form-control"
 											th:placeholder="#{message.placeHolderLieu}"
-											th:field="*{lieuFranceTemplate}"><span
-											th:if="${#fields.hasErrors('lieuFranceTemplate')}"
+											th:field="*{lieuFranceTemplate}"> <span
+											th:if="${lieuFranceTemplateErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('lieuFranceTemplate')}"
-											th:errors="*{lieuFranceTemplate}" class="text-danger"></span>
+										<span th:if="${lieuFranceTemplateErreur!=null}"
+											th:text="${lieuFranceTemplateErreur}" class="text-danger"></span>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group"
-										th:classappend="${#fields.hasErrors('categorie')} ? 'has-error has-feedback' : ''">
+										th:classappend="${categorieErreur!=null} ? 'has-error has-feedback' : ''">
 										<label class="control-label" th:text="#{message.categorie}"></label>
 										<select class="form-control" th:field="*{categorie}"
-											th:classappend="${#fields.hasErrors('categorie')} ? has-error : ''">
+											th:classappend="${categorieErreur!=null} ? has-error : ''">
 											<option th:each="l:${categorieManuelLabels}" th:value="${l}"
 												th:text="${l}"></option>
-										</select><span th:if="${#fields.hasErrors('categorie')}"
+										</select> <span th:if="${categorieErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('categorie')}"
-											th:errors="*{categorie}" class="text-danger"></span>
+										<span th:if="${categorieErreur!=null}"
+											th:text="${categorieErreur}" class="text-danger"></span>
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group"
-										th:classappend="${#fields.hasErrors('etat')} ? 'has-error has-feedback' : ''">
+										th:classappend="${etatErreur!=null} ? 'has-error has-feedback' : ''">
 										<label class="control-label" th:text="#{message.etat}"></label>
 										<select class="form-control" th:field="*{etat}"
-											th:classappend="${#fields.hasErrors('etat')} ? has-error : ''">
+											th:classappend="${etatErreur!=null} ? has-error : ''">
 											<option th:each="l:${etatManuelLabels}" th:value="${l}"
 												th:text="${l}"></option>
-										</select><span th:if="${#fields.hasErrors('etat')}"
+										</select> <span th:if="${etatErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('etat')}" th:errors="*{etat}"
+										<span th:if="${etatErreur!=null}" th:text="${etatErreur}"
 											class="text-danger"></span>
 									</div>
 								</div>
@@ -86,47 +86,47 @@
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label class="control-label"
-											th:classappend="${#fields.hasErrors('dateParutionMinInput') or #fields.hasErrors('dateParutionMaxInput')} ? text-danger : ''"
+											th:classappend="${dateParutionMinInputErreur!=null or dateParutionMaxInputErreur!=null} ? text-danger : ''"
 											th:text="#{message.dateParution}"></label>
 										<div class="row">
 											<div class="col-lg-6">
 												<div class="input-group"
-													th:classappend="${#fields.hasErrors('dateParutionMinInput')} ? has-error : ''">
+													th:classappend="${dateParutionMinInputErreur!=null} ? has-error : ''">
 													<span class="input-group-addon" th:text="#{message.du}"></span>
 													<input type="date" class="form-control"
-														th:field="*{dateParutionMinInput}"><span
-														th:if="${#fields.hasErrors('dateParutionMinInput')}"
+														th:field="*{dateParutionMinInput}"> <span
+														th:if="${dateParutionMinInputErreur!=null}"
 														class="glyphicon glyphicon-remove form-control-feedback"></span>
 												</div>
-												<span th:if="${#fields.hasErrors('dateParutionMinInput')}"
-													th:errors="*{dateParutionMinInput}" class="text-danger"></span>
+												<span th:if="${dateParutionMinInputErreur!=null}"
+													th:text="${dateParutionMinInputErreur}" class="text-danger"></span>
 											</div>
 											<div class="col-lg-6">
 												<div class="input-group"
-													th:classappend="${#fields.hasErrors('dateParutionMaxInput')} ? has-error : ''">
+													th:classappend="${dateParutionMaxInputErreur!=null} ? has-error : ''">
 													<span class="input-group-addon" th:text="#{message.au}"></span>
 													<input type="date" class="form-control"
-														th:field="*{dateParutionMaxInput}"><span
-														th:if="${#fields.hasErrors('dateParutionMaxInput')}"
+														th:field="*{dateParutionMaxInput}"> <span
+														th:if="${dateParutionMaxInputErreur!=null}"
 														class="glyphicon glyphicon-remove form-control-feedback"></span>
 												</div>
-												<span th:if="${#fields.hasErrors('dateParutionMaxInput')}"
-													th:errors="*{dateParutionMaxInput}" class="text-danger"></span>
+												<span th:if="${dateParutionMaxInputErreur!=null}"
+													th:text="${dateParutionMaxInputErreur}" class="text-danger"></span>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group"
-										th:classappend="${#fields.hasErrors('auteur')} ? 'has-error has-feedback' : ''">
+										th:classappend="${auteurErreur!=null} ? 'has-error has-feedback' : ''">
 										<label class="control-label" th:text="#{message.auteur}"></label>
 										<input type="text" id="nomAuteur" class="form-control"
 											th:field="*{auteur}"
-											th:placeholder="#{message.placeHolderNomAuteurTopo}"><span
-											th:if="${#fields.hasErrors('auteur')}"
+											th:placeholder="#{message.placeHolderNomAuteurTopo}">
+										<span th:if="${auteurErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('auteur')}"
-											th:errors="*{auteur}" class="text-danger"></span>
+										<span th:if="${auteurErreur!=null}" th:text="${auteurErreur}"
+											class="text-danger"></span>
 									</div>
 								</div>
 							</div>

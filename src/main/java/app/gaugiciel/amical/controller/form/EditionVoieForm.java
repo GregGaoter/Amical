@@ -3,9 +3,6 @@ package app.gaugiciel.amical.controller.form;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -24,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EditionVoieForm {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(EditionVoieForm.class);
 
 	public static final String ID = "id";
@@ -56,42 +53,29 @@ public class EditionVoieForm {
 		IS_NOT_NULL.put(COTATION_UNITE_TERTIAIRE, false);
 	}
 
-	@NotNull(message = "{validation.notnull}")
 	private Long id;
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 128, message = "{validation.size.interval}")
 	private String nomSpot;
 	private Spot spot;
 
-	@Size(max = 128, message = "{validation.size.interval}")
 	private String nom;
 
-	@Size(max = 2000, message = "{validation.size.max}")
 	private String description;
 
-	@Size(max = 2000, message = "{validation.size.max}")
 	private String remarque;
 
-	@Size(max = 32, message = "{validation.size.max}")
 	private String numero;
 
-	// @Positive(message = "{validation.positive}")
 	private Double hauteur;
 
-	@NotNull(message = "{validation.notnull}")
 	private String nomSecteur;
 	private Secteur secteur;
 
-	@Size(max = 256, message = "{validation.size.max}")
 	private String nomPlan;
 	private Plan plan;
 
-	@Size(max = 1, message = "{validation.size.max}")
 	private String cotationUnitePrincipale;
-	@Size(max = 3, message = "{validation.size.max}")
 	private String cotationUniteSecondaire;
-	@Size(max = 1, message = "{validation.size.max}")
 	private String cotationUniteTertiaire;
 	private CotationFrance cotationFrance;
 

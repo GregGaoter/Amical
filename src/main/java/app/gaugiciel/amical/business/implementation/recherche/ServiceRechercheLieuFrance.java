@@ -17,7 +17,7 @@ import app.gaugiciel.amical.utilitaire.Utils;
 
 @Service
 public class ServiceRechercheLieuFrance implements Recherche<LieuFrance, Object> {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceRechercheLieuFrance.class);
 
 	@Autowired
@@ -38,7 +38,9 @@ public class ServiceRechercheLieuFrance implements Recherche<LieuFrance, Object>
 
 	public Optional<LieuFrance> findByNomComplet(String nomComplet) {
 		LOGGER.info("Start {}()", "findByNomComplet");
-		return lieuFranceRepository.findOne(LieuFranceSpecification.nomCompletEqual(nomComplet));
+		return Utils.isValid(nomComplet)
+				? lieuFranceRepository.findOne(LieuFranceSpecification.nomCompletEqual(nomComplet))
+				: null;
 	}
 
 }

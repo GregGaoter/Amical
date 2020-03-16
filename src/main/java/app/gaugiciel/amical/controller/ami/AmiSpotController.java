@@ -39,6 +39,7 @@ import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregi
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUnitePrincipale;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteSecondaire;
 import app.gaugiciel.amical.business.implementation.enumeration.CotationFranceUniteTertiaire;
+import app.gaugiciel.amical.business.implementation.enumeration.Erreur;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheCommentaire;
@@ -54,6 +55,7 @@ import app.gaugiciel.amical.controller.form.NouveauCommentaireForm;
 import app.gaugiciel.amical.controller.form.NouveauSpotForm;
 import app.gaugiciel.amical.controller.form.RechercheSpotForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionSpot;
+import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormNouveauSpot;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormRechercheSpot;
 import app.gaugiciel.amical.model.Commentaire;
 import app.gaugiciel.amical.model.Longueur;
@@ -92,6 +94,8 @@ public class AmiSpotController {
 	@Autowired
 	private ServiceRecherchePlan serviceRecherchePlan;
 	@Autowired
+	private ValidationFormNouveauSpot validationFormNouveauSpot;
+	@Autowired
 	private ValidationFormEditionSpot validationFormEditionSpot;
 	@Autowired
 	private ServiceRechercheCommentaire serviceRechercheCommentaire;
@@ -110,7 +114,7 @@ public class AmiSpotController {
 	}
 
 	@PostMapping("/ami/spot/recherche")
-	public String checkFormFindSpot(@Valid RechercheSpotForm spotForm, BindingResult bindingResult, Model model) {
+	public String checkFormFindSpot(RechercheSpotForm spotForm, BindingResult bindingResult, Model model) {
 		LOGGER.info("Start {}()", "checkFormFindSpot");
 
 		this.spotForm = spotForm;
@@ -119,9 +123,8 @@ public class AmiSpotController {
 				.map(field -> bindingResult.hasFieldErrors(field)).anyMatch(b -> true));
 
 		if (!validationFormSpot.isValide(spotForm)) {
-			validationFormSpot.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormSpot.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			model.addAttribute("spotActive", "active");
 			return "ami_spot_recherche";
 		}
@@ -242,14 +245,13 @@ public class AmiSpotController {
 	}
 
 	@PostMapping("/ami/spot/{spotId}/edition")
-	public String checkEditionSpotForm(@Valid EditionSpotForm editionSpotForm, @PathVariable Long spotId,
+	public String checkEditionSpotForm(EditionSpotForm editionSpotForm, @PathVariable Long spotId,
 			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkEditionSpotForm");
 		Spot spot = serviceRechercheSpot.findById(spotId);
 		if (!validationFormEditionSpot.isValide(editionSpotForm)) {
-			validationFormEditionSpot.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormEditionSpot.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			model.addAttribute("spot", spot);
 			model.addAttribute("spotActive", "active");
 			return "ami_spot_edition";
@@ -290,10 +292,13 @@ public class AmiSpotController {
 	}
 
 	@PostMapping("/ami/spot/ajout")
-	public String checkAjoutSpotForm(@Valid NouveauSpotForm ajoutSpotForm, BindingResult bindingResult) {
+	public String checkAjoutSpotForm(@Valid NouveauSpotForm ajoutSpotForm, BindingResult bindingResult, Model model) {
 		LOGGER.info("Start {}()", "checkAjoutSpotForm");
 		this.ajoutSpotForm = ajoutSpotForm;
-		if (bindingResult.hasErrors()) {
+		if (!validationFormNouveauSpot.isValide(ajoutSpotForm)) {
+			validationFormNouveauSpot.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
+			model.addAttribute("spotActive", "active");
 			return "ami_spot_ajout";
 		}
 		return "redirect:/ami/spot/enregistrement";

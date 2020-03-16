@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +23,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionSecteur;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormNouveauSecteur;
+import app.gaugiciel.amical.business.implementation.enumeration.Erreur;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheSecteur;
@@ -32,6 +32,7 @@ import app.gaugiciel.amical.business.implementation.stockage.ServiceStockagePlan
 import app.gaugiciel.amical.controller.form.EditionSecteurForm;
 import app.gaugiciel.amical.controller.form.NouveauSecteurForm;
 import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormEditionSecteur;
+import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormNouveauSecteur;
 import app.gaugiciel.amical.model.Plan;
 import app.gaugiciel.amical.model.Secteur;
 import app.gaugiciel.amical.model.Spot;
@@ -50,6 +51,8 @@ public class AmiSecteurController {
 	private ServiceEnregistrementFormNouveauSecteur serviceEnregistrementFormNouveauSecteur;
 	@Autowired
 	private ServiceRechercheSecteur serviceRechercheSecteur;
+	@Autowired
+	private ValidationFormNouveauSecteur validationFormNouveauSecteur;
 	@Autowired
 	private ValidationFormEditionSecteur validationFormEditionSecteur;
 	@Autowired
@@ -84,10 +87,12 @@ public class AmiSecteurController {
 	}
 
 	@PostMapping("/ami/spot/{spotId}/secteur/nouveau")
-	public String checkNouveauSecteurForm(@Valid NouveauSecteurForm nouveauSecteurForm, @PathVariable Long spotId,
+	public String checkNouveauSecteurForm(NouveauSecteurForm nouveauSecteurForm, @PathVariable Long spotId,
 			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkNouveauSecteurForm");
-		if (bindingResult.hasErrors()) {
+		if (!validationFormNouveauSecteur.isValide(nouveauSecteurForm)) {
+			validationFormNouveauSecteur.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			model.addAttribute("spotActive", "active");
 			return "ami_secteur_nouveau";
 		}
@@ -132,15 +137,14 @@ public class AmiSecteurController {
 	}
 
 	@PostMapping("/ami/spot/{spotId}/secteur/{secteurId}/edition")
-	public String checkEditionSecteurForm(@Valid EditionSecteurForm editionSecteurForm, @PathVariable Long spotId,
+	public String checkEditionSecteurForm(EditionSecteurForm editionSecteurForm, @PathVariable Long spotId,
 			@PathVariable Long secteurId, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkEditionSecteurForm");
 		Secteur secteur = serviceRechercheSecteur.findById(secteurId);
 		if (!validationFormEditionSecteur.isValide(editionSecteurForm)) {
-			validationFormEditionSecteur.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormEditionSecteur.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			model.addAttribute("spot", secteur.getSpot());
 			model.addAttribute("secteur", secteur);
 			model.addAttribute("spotActive", "active");

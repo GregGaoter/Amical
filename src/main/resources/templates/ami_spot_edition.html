@@ -39,33 +39,33 @@
 							</div>
 						</div>
 						<div class="form-group"
-							th:classappend="${#fields.hasErrors('nom')} ? 'has-error has-feedback' : ''">
+							th:classappend="${nomErreur!=null} ? 'has-error has-feedback' : ''">
 							<label class="control-label col-lg-1"
 								th:text="#{message.nom}+(${editionSpotForm.isNotNull('nom')} ? ' *' : '')"></label>
 							<div class="col-lg-11">
 								<input type="text" class="form-control" th:field="*{nom}">
-								<span th:if="${#fields.hasErrors('nom')}"
+								<span th:if="${nomErreur!=null}"
 									class="glyphicon glyphicon-remove form-control-feedback"></span>
-								<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"
+								<span th:if="${nomErreur!=null}" th:text="${nomErreur}"
 									class="text-danger"></span>
 							</div>
 						</div>
 						<div class="form-group"
-							th:classappend="${#fields.hasErrors('lieuFranceNomComplet')} ? 'has-error has-feedback' : ''">
+							th:classappend="${lieuFranceNomCompletErreur!=null} ? 'has-error has-feedback' : ''">
 							<label class="control-label col-lg-1"
 								th:text="#{message.lieu}+(${editionSpotForm.isNotNull('lieuFranceNomComplet')} ? ' *' : '')"></label>
 							<div class="col-lg-11">
 								<input type="text" class="form-control"
 									th:field="*{lieuFranceNomComplet}" id="lieuFrance"
 									th:placeholder="#{message.placeHolderLieu}"> <span
-									th:if="${#fields.hasErrors('lieuFranceNomComplet')}"
+									th:if="${lieuFranceNomCompletErreur!=null}"
 									class="glyphicon glyphicon-remove form-control-feedback"></span>
-								<span th:if="${#fields.hasErrors('lieuFranceNomComplet')}"
-									th:errors="*{lieuFranceNomComplet}" class="text-danger"></span>
+								<span th:if="${lieuFranceNomCompletErreur!=null}"
+									th:text="${lieuFranceNomCompletErreur}" class="text-danger"></span>
 							</div>
 						</div>
 						<div class="form-group"
-							th:classappend="${#fields.hasErrors('nomPlan')} ? 'has-error has-feedback' : ''">
+							th:classappend="${nomPlanErreur!=null} ? 'has-error has-feedback' : ''">
 							<label class="control-label col-lg-1"
 								th:text="#{message.plan}+(${editionSpotForm.isNotNull('nomPlan')} ? ' *' : '')"></label>
 							<div class="col-lg-11">
@@ -78,39 +78,39 @@
 											[[#{message.nouveauPlan}]]</a>
 									</div>
 								</div>
-								<span th:if="${#fields.hasErrors('nomPlan')}"
+								<span th:if="${nomPlanErreur!=null}"
 									class="glyphicon glyphicon-remove form-control-feedback"></span>
-								<span th:if="${#fields.hasErrors('nomPlan')}"
-									th:errors="*{nomPlan}" class="text-danger"></span>
+								<span th:if="${nomPlanErreur!=null}" th:text="${nomPlanErreur}"
+									class="text-danger"></span>
 							</div>
 						</div>
 						<div class="form-group"
-							th:classappend="${#fields.hasErrors('description')} ? 'has-error has-feedback' : ''">
+							th:classappend="${descriptionErreur!=null} ? 'has-error has-feedback' : ''">
 							<label class="control-label col-lg-1"
 								th:text="#{message.description}+(${editionSpotForm.isNotNull('description')} ? ' *' : '')"></label>
 							<div class="col-lg-11">
 								<textarea class="form-control" rows="5"
 									th:field="*{description}"></textarea>
-								<span th:if="${#fields.hasErrors('description')}"
+								<span th:if="${descriptionErreur!=null}"
 									class="glyphicon glyphicon-remove form-control-feedback"></span>
-								<span th:if="${#fields.hasErrors('description')}"
-									th:errors="*{description}" class="text-danger"></span>
+								<span th:if="${descriptionErreur!=null}"
+									th:text="${descriptionErreur}" class="text-danger"></span>
 							</div>
 						</div>
 						<div class="form-group"
-							th:classappend="${#fields.hasErrors('remarque')} ? 'has-error has-feedback' : ''">
+							th:classappend="${remarqueErreur!=null} ? 'has-error has-feedback' : ''">
 							<label class="control-label col-lg-1"
 								th:text="#{message.remarque}+(${editionSpotForm.isNotNull('remarque')} ? ' *' : '')"></label>
 							<div class="col-lg-11">
 								<textarea class="form-control" rows="5" th:field="*{remarque}"></textarea>
-								<span th:if="${#fields.hasErrors('remarque')}"
+								<span th:if="${remarqueErreur!=null}"
 									class="glyphicon glyphicon-remove form-control-feedback"></span>
-								<span th:if="${#fields.hasErrors('remarque')}"
-									th:errors="*{remarque}" class="text-danger"></span>
+								<span th:if="${remarqueErreur!=null}"
+									th:text="${remarqueErreur}" class="text-danger"></span>
 							</div>
 						</div>
 						<div class="form-group"
-							th:classappend="${#fields.hasErrors('tagQ')} ? 'has-error has-feedback' : ''"
+							th:classappend="${tagQErreur!=null} ? 'has-error has-feedback' : ''"
 							th:if="${isUtilisateurAdmin}">
 							<label class="control-label col-lg-1"
 								th:text="#{message.officiel}+(${editionSpotForm.isNotNull('tagQ')} ? ' *' : '')"></label>
@@ -118,10 +118,9 @@
 								<input id="toggle-event" type="checkbox" data-toggle="toggle"
 									th:data-on="#{message.oui}" th:data-off="#{message.non}"
 									data-onstyle="success" data-offstyle="warning"
-									th:field="*{tagQ}"> <span
-									th:if="${#fields.hasErrors('tagQ')}"
+									th:field="*{tagQ}"> <span th:if="${tagQErreur!=null}"
 									class="glyphicon glyphicon-remove form-control-feedback"></span>
-								<span th:if="${#fields.hasErrors('tagQ')}" th:errors="*{tagQ}"
+								<span th:if="${tagQErreur!=null}" th:text="${tagQErreur}"
 									class="text-danger"></span>
 							</div>
 						</div>

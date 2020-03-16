@@ -1,7 +1,6 @@
 package app.gaugiciel.amical.controller.ami;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,18 +16,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormNouveauPlan;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementPlanLocal;
+import app.gaugiciel.amical.business.implementation.enumeration.Erreur;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.controller.form.NouveauPlanForm;
+import app.gaugiciel.amical.controller.utils.implementation.validation.ValidationFormNouveauPlan;
 
 @Controller
 @ControllerAdvice
 public class AmiPlanController {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(AmiPlanController.class);
 
 	@Autowired
 	private NouveauPlanForm nouveauPlanForm;
+	@Autowired
+	private ValidationFormNouveauPlan validationFormNouveauPlan;
 	@Autowired
 	private ServiceEnregistrementFormNouveauPlan serviceEnregistrementFormNouveauPlan;
 	@Autowired
@@ -45,15 +48,15 @@ public class AmiPlanController {
 	}
 
 	@PostMapping("/ami/plan/nouveau")
-	public String checkNouveauPlanForm(@Valid NouveauPlanForm nouveauPlanForm, BindingResult bindingResult,
-			Model model) {
+	public String checkNouveauPlanForm(NouveauPlanForm nouveauPlanForm, BindingResult bindingResult, Model model) {
 		LOGGER.info("Start {}()", "checkNouveauPlanForm");
 		this.nouveauPlanForm = nouveauPlanForm;
-		if (bindingResult.hasErrors()) {
+		if (!validationFormNouveauPlan.isValide(nouveauPlanForm)) {
+			validationFormNouveauPlan.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			model.addAttribute("spotActive", "active");
 			return "ami_plan_nouveau";
 		}
-
 		serviceEnregistrementPlanLocal.enregistrer(nouveauPlanForm.getFichier());
 		return "redirect:/ami/plan/nouveau/enregistrement";
 	}

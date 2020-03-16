@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
@@ -30,7 +28,6 @@ public class DemandeEmpruntTopoForm {
 		IS_NOT_NULL.put(ID, true);
 	}
 
-	@NotNull(message = "{validation.notnull}")
 	@NonNull
 	private Long id;
 

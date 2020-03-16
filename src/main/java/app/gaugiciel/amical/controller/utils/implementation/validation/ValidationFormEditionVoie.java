@@ -30,7 +30,7 @@ import lombok.Setter;
 @Component
 @NoArgsConstructor
 public class ValidationFormEditionVoie extends ValidationForm<EditionVoieForm> {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ValidationFormEditionVoie.class);
 
 	@Autowired
@@ -52,6 +52,30 @@ public class ValidationFormEditionVoie extends ValidationForm<EditionVoieForm> {
 	public boolean isValide(EditionVoieForm editionVoieForm) {
 		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
+		String nomSpot = editionVoieForm.getNomSpot();
+		if (nomSpot.length() < 1 || nomSpot.length() > 128) {
+			listeFieldError.add(new FieldError(editionVoieForm.getClass().getSimpleName(), EditionVoieForm.NOM_SPOT,
+					messageSource.getMessage("validation.form.size.interval", new String[] { "1", "128" },
+							Locale.getDefault())));
+		}
+		if (editionVoieForm.getNom().length() > 128) {
+			listeFieldError.add(new FieldError(editionVoieForm.getClass().getSimpleName(), EditionVoieForm.NOM,
+					messageSource.getMessage("validation.form.size.max", new String[] { "128" }, Locale.getDefault())));
+		}
+		if (editionVoieForm.getDescription().length() > 2000) {
+			listeFieldError.add(new FieldError(editionVoieForm.getClass().getSimpleName(), EditionVoieForm.DESCRIPTION,
+					messageSource.getMessage("validation.form.size.max", new String[] { "2000" },
+							Locale.getDefault())));
+		}
+		if (editionVoieForm.getRemarque().length() > 2000) {
+			listeFieldError.add(
+					new FieldError(editionVoieForm.getClass().getSimpleName(), EditionVoieForm.REMARQUE, messageSource
+							.getMessage("validation.form.size.max", new String[] { "2000" }, Locale.getDefault())));
+		}
+		if (editionVoieForm.getNumero().length() > 32) {
+			listeFieldError.add(new FieldError(editionVoieForm.getClass().getSimpleName(), EditionVoieForm.NUMERO,
+					messageSource.getMessage("validation.form.size.max", new String[] { "32" }, Locale.getDefault())));
+		}
 		if (Utils.isValid(editionVoieForm.getNomPlan())) {
 			Plan planForm = serviceRecherchePlan.findOne(editionVoieForm.getNomPlan());
 			if (planForm == null) {

@@ -8,7 +8,6 @@ import java.util.stream.IntStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +32,7 @@ import app.gaugiciel.amical.business.implementation.constante.TailleResultatRech
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionTopo;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormNouveauTopo;
 import app.gaugiciel.amical.business.implementation.enumeration.CategorieManuel;
+import app.gaugiciel.amical.business.implementation.enumeration.Erreur;
 import app.gaugiciel.amical.business.implementation.enumeration.EtatManuel;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
@@ -55,7 +55,7 @@ import app.gaugiciel.amical.model.Utilisateur;
 @Controller
 @ControllerAdvice
 public class AmiTopoController {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(AmiTopoController.class);
 
 	@Autowired
@@ -89,20 +89,31 @@ public class AmiTopoController {
 		String urlRedirection = "redirect:/ami/topo/recherche";
 		model.addAttribute("rechercheTopoForm", new RechercheTopoForm());
 		model.addAttribute("topoActive", "active");
+		model.addAttribute("categorieManuelLabels", CategorieManuel.LABELS.stream()
+				.filter(label -> label != CategorieManuel.NULL.label).collect(Collectors.toList()));
+		model.addAttribute("etatManuelLabels",
+				EtatManuel.LABELS.stream()
+						.filter(label -> label != EtatManuel.NULL.label && label != EtatManuel.PRETE.label)
+						.collect(Collectors.toList()));
 		session.setAttribute(RedirectionUrl.RECHERCHE_TOPO_FORM.label, urlRedirection);
 		session.setAttribute(RedirectionUrl.PREVIOUS_URL.label, urlRedirection);
 		return "ami_manuel_recherche";
 	}
 
 	@PostMapping("/ami/topo/recherche")
-	public String checkRechercheTopoForm(@Valid RechercheTopoForm rechercheTopoForm, BindingResult bindingResult,
-			Model model, RedirectAttributes redirectAttributes) {
+	public String checkRechercheTopoForm(RechercheTopoForm rechercheTopoForm, BindingResult bindingResult, Model model,
+			RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkRechercheTopoForm");
 		if (!validationFormRechercheTopo.isValide(rechercheTopoForm)) {
-			validationFormRechercheTopo.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormRechercheTopo.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			model.addAttribute("topoActive", "active");
+			model.addAttribute("categorieManuelLabels", CategorieManuel.LABELS.stream()
+					.filter(label -> label != CategorieManuel.NULL.label).collect(Collectors.toList()));
+			model.addAttribute("etatManuelLabels",
+					EtatManuel.LABELS.stream()
+							.filter(label -> label != EtatManuel.NULL.label && label != EtatManuel.PRETE.label)
+							.collect(Collectors.toList()));
 			return "ami_manuel_recherche";
 		}
 		redirectAttributes.addFlashAttribute("rechercheTopoForm", rechercheTopoForm);
@@ -228,13 +239,18 @@ public class AmiTopoController {
 	}
 
 	@PostMapping("/ami/topo/nouveau")
-	public String checkNouveauTopoForm(@Valid NouveauTopoForm nouveauTopoForm, BindingResult bindingResult, Model model,
+	public String checkNouveauTopoForm(NouveauTopoForm nouveauTopoForm, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkNouveauTopoForm");
 		if (!validationFormNouveauTopo.isValide(nouveauTopoForm)) {
-			validationFormNouveauTopo.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormNouveauTopo.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
+			model.addAttribute("categorieManuelLabels", CategorieManuel.LABELS.stream()
+					.filter(label -> label != CategorieManuel.NULL.label).collect(Collectors.toList()));
+			model.addAttribute("etatManuelLabels",
+					EtatManuel.LABELS.stream()
+							.filter(label -> label != EtatManuel.NULL.label && label != EtatManuel.PRETE.label)
+							.collect(Collectors.toList()));
 			model.addAttribute("topoActive", "active");
 			return "ami_manuel_nouveau";
 		}
@@ -281,15 +297,16 @@ public class AmiTopoController {
 	}
 
 	@PostMapping("/ami/topo/{manuelId}/edition")
-	public String checkEditionTopoForm(@Valid EditionTopoForm editionTopoForm, @PathVariable long manuelId,
+	public String checkEditionTopoForm(EditionTopoForm editionTopoForm, @PathVariable long manuelId,
 			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkEditionTopoForm");
-		Manuel manuel = serviceRechercheTopo.findById(manuelId);
 		if (!validationFormEditionTopo.isValide(editionTopoForm)) {
-			validationFormEditionTopo.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormEditionTopo.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
+			Manuel manuel = serviceRechercheTopo.findById(manuelId);
 			model.addAttribute("manuel", manuel);
+			model.addAttribute("isDemandePretExist", serviceRechercheDemandePretEmpruntManuel.existsByManuel(manuel));
+			model.addAttribute("isPretExist", serviceRecherchePretEmpruntManuel.existsByManuel(manuel));
 			model.addAttribute("topoActive", "active");
 			model.addAttribute("categorieManuelLabels", CategorieManuel.LABELS.stream()
 					.filter(label -> label != CategorieManuel.NULL.label).collect(Collectors.toList()));
@@ -319,7 +336,7 @@ public class AmiTopoController {
 	}
 
 	@PostMapping("/ami/topo/{manuelId}/suppression")
-	public String supprimerTopo(@Valid SuppressionTopoForm suppressionTopoForm, @PathVariable long manuelId,
+	public String supprimerTopo(SuppressionTopoForm suppressionTopoForm, @PathVariable long manuelId,
 			RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "supprimerTopo");
 		Manuel manuel = serviceRechercheTopo.findById(manuelId);

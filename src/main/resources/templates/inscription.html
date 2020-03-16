@@ -34,74 +34,74 @@ Toutes les balises contenant th accèdent aux éléments de Thymeleaf -->
 						<form th:action="@{/visiteur/inscription}"
 							th:object="${inscriptionForm}" method="post">
 							<div class="form-group"
-								th:classappend="${#fields.hasErrors('prenom')} ? 'has-error has-feedback' : ''">
+								th:classappend="${prenomErreur!=null} ? 'has-error has-feedback' : ''">
 								<label class="control-label"
 									th:text="#{message.prenom}+(${inscriptionForm.isNotNull('prenom')} ? ' *' : '')"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-user"></i></span> <input type="text"
-										class="form-control" th:field="*{prenom}"><span
-										th:if="${#fields.hasErrors('prenom')}"
+										class="form-control" th:field="*{prenom}"> <span
+										th:if="${prenomErreur!=null}"
 										class="glyphicon glyphicon-remove form-control-feedback"></span>
 								</div>
-								<span th:if="${#fields.hasErrors('prenom')}"
-									th:errors="*{prenom}" class="text-danger"></span>
+								<span th:if="${prenomErreur!=null}" th:text="${prenomErreur}"
+									class="text-danger"></span>
 							</div>
 							<div class="form-group"
-								th:classappend="${#fields.hasErrors('nom')} ? 'has-error has-feedback' : ''">
+								th:classappend="${nomErreur!=null} ? 'has-error has-feedback' : ''">
 								<label class="control-label"
 									th:text="#{message.nom}+(${inscriptionForm.isNotNull('nom')} ? ' *' : '')"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-user"></i></span> <input type="text"
-										class="form-control" th:field="*{nom}"><span
-										th:if="${#fields.hasErrors('nom')}"
+										class="form-control" th:field="*{nom}"> <span
+										th:if="${nomErreur!=null}"
 										class="glyphicon glyphicon-remove form-control-feedback"></span>
 								</div>
-								<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"
+								<span th:if="${nomErreur!=null}" th:text="${nomErreur}"
 									class="text-danger"></span>
 							</div>
 							<div class="form-group"
-								th:classappend="${#fields.hasErrors('email')} ? 'has-error has-feedback' : ''">
+								th:classappend="${emailErreur!=null} ? 'has-error has-feedback' : ''">
 								<label class="control-label"
 									th:text="#{message.adresseEmail}+(${inscriptionForm.isNotNull('email')} ? ' *' : '')"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-envelope"></i></span> <input type="text"
-										class="form-control" th:field="*{email}"><span
-										th:if="${#fields.hasErrors('email')}"
+										class="form-control" th:field="*{email}"> <span
+										th:if="${emailErreur!=null}"
 										class="glyphicon glyphicon-remove form-control-feedback"></span>
 								</div>
-								<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+								<span th:if="${emailErreur!=null}" th:text="${emailErreur}"
 									class="text-danger"></span>
 							</div>
 							<div class="form-group"
-								th:classappend="${#fields.hasErrors('motDePasse')} ? 'has-error has-feedback' : ''">
+								th:classappend="${motDePasseErreur!=null} ? 'has-error has-feedback' : ''">
 								<label class="control-label"
 									th:text="#{message.motDePasse}+(${inscriptionForm.isNotNull('motDePasse')} ? ' *' : '')"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-lock"></i></span> <input type="password"
-										class="form-control" th:field="*{motDePasse}"><span
-										th:if="${#fields.hasErrors('motDePasse')}"
+										class="form-control" th:field="*{motDePasse}"> <span
+										th:if="${motDePasseErreur!=null}"
 										class="glyphicon glyphicon-remove form-control-feedback"></span>
 								</div>
-								<span th:if="${#fields.hasErrors('motDePasse')}"
-									th:errors="*{motDePasse}" class="text-danger"></span>
+								<span th:if="${motDePasseErreur!=null}"
+									th:text="${motDePasseErreur}" class="text-danger"></span>
 							</div>
 							<div class="form-group"
-								th:classappend="${#fields.hasErrors('motDePasseConfirmation')} ? 'has-error has-feedback' : ''">
+								th:classappend="${motDePasseConfirmationErreur!=null} ? 'has-error has-feedback' : ''">
 								<label class="control-label"
 									th:text="#{message.confirmationMotDePasse}+(${inscriptionForm.isNotNull('motDePasseConfirmation')} ? ' *' : '')"></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-lock"></i></span> <input type="password"
-										class="form-control" th:field="*{motDePasseConfirmation}"><span
-										th:if="${#fields.hasErrors('motDePasseConfirmation')}"
+										class="form-control" th:field="*{motDePasseConfirmation}">
+									<span th:if="${motDePasseConfirmationErreur!=null}"
 										class="glyphicon glyphicon-remove form-control-feedback"></span>
 								</div>
-								<span th:if="${#fields.hasErrors('motDePasseConfirmation')}"
-									th:errors="*{motDePasseConfirmation}" class="text-danger"></span>
+								<span th:if="${motDePasseConfirmationErreur!=null}"
+									th:text="${motDePasseConfirmationErreur}" class="text-danger"></span>
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon"><i

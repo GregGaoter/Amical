@@ -30,42 +30,42 @@
 									<div class="row">
 										<div class="col-lg-4">
 											<div class="form-group"
-												th:classappend="${#fields.hasErrors('nomSpot')} ? 'has-error has-feedback' : ''">
+												th:classappend="${nomSpotErreur!=null} ? 'has-error has-feedback' : ''">
 												<label class="control-label" th:text="#{message.nom}"></label>
 												<input type="text" id="nomSpot" class="form-control"
 													th:field="*{nomSpot}"
-													th:placeholder="#{message.placeHolderNomSpot}"><span
-													th:if="${#fields.hasErrors('nomSpot')}"
+													th:placeholder="#{message.placeHolderNomSpot}"> <span
+													th:if="${nomSpotErreur!=null}"
 													class="glyphicon glyphicon-remove form-control-feedback"></span>
-												<span th:if="${#fields.hasErrors('nomSpot')}"
-													th:errors="*{nomSpot}" class="text-danger"></span>
+												<span th:if="${nomSpotErreur!=null}"
+													th:text="${nomSpotErreur}" class="text-danger"></span>
 											</div>
 										</div>
 										<div class="col-lg-4">
 											<div class="form-group"
-												th:classappend="${#fields.hasErrors('lieuFranceSpot')} ? 'has-error has-feedback' : ''">
+												th:classappend="${lieuFranceSpotErreur!=null} ? 'has-error has-feedback' : ''">
 												<label class="control-label" th:text="#{message.lieu}"></label>
 												<input type="text" id="lieuSpot" class="form-control"
 													th:placeholder="#{message.placeHolderLieu}"
-													th:field="*{lieuFranceSpot}"><span
-													th:if="${#fields.hasErrors('lieuFranceSpot')}"
+													th:field="*{lieuFranceSpot}"> <span
+													th:if="${lieuFranceSpotErreur!=null}"
 													class="glyphicon glyphicon-remove form-control-feedback"></span>
-												<span th:if="${#fields.hasErrors('lieuFranceSpot')}"
-													th:errors="*{lieuFranceSpot}" class="text-danger"></span>
+												<span th:if="${lieuFranceSpotErreur!=null}"
+													th:text="${lieuFranceSpotErreur}" class="text-danger"></span>
 											</div>
 										</div>
 										<div class="col-lg-4">
 											<div class="form-group"
-												th:classappend="${#fields.hasErrors('isOfficielSpot')} ? 'has-error has-feedback' : ''">
+												th:classappend="${isOfficielSpotErreur!=null} ? 'has-error has-feedback' : ''">
 												<label for="officielSpot" th:text="#{message.officiel}"></label>
 												<select class="form-control" th:field="*{isOfficielSpot}">
 													<option th:value="null"></option>
 													<option th:value="true">[[#{message.oui}]]</option>
 													<option th:value="false">[[#{message.non}]]</option>
-												</select><span th:if="${#fields.hasErrors('isOfficielSpot')}"
+												</select> <span th:if="${isOfficielSpotErreur!=null}"
 													class="glyphicon glyphicon-remove form-control-feedback"></span>
-												<span th:if="${#fields.hasErrors('isOfficielSpot')}"
-													th:errors="*{isOfficielSpot}" class="text-danger"></span>
+												<span th:if="${isOfficielSpotErreur!=null}"
+													th:text="${isOfficielSpotErreur}" class="text-danger"></span>
 											</div>
 										</div>
 									</div>
@@ -78,15 +78,15 @@
 									<div class="row">
 										<div class="col-lg-4">
 											<div class="form-group"
-												th:classappend="${#fields.hasErrors('nomSecteur')} ? 'has-error has-feedback' : ''">
+												th:classappend="${nomSecteurErreur!=null} ? 'has-error has-feedback' : ''">
 												<label class="control-label" th:text="#{message.nom}"></label>
 												<input type="text" class="form-control" id="nomSecteur"
 													th:field="*{nomSecteur}"
-													th:placeholder="#{message.placeHolderNomSecteur}"><span
-													th:if="${#fields.hasErrors('nomSecteur')}"
+													th:placeholder="#{message.placeHolderNomSecteur}">
+												<span th:if="${nomSecteurErreur!=null}"
 													class="glyphicon glyphicon-remove form-control-feedback"></span>
-												<span th:if="${#fields.hasErrors('nomSecteur')}"
-													th:errors="*{nomSecteur}" class="text-danger"></span>
+												<span th:if="${nomSecteurErreur!=null}"
+													th:text="${nomSecteurErreur}" class="text-danger"></span>
 											</div>
 										</div>
 									</div>
@@ -98,21 +98,21 @@
 									<div class="row">
 										<div class="col-lg-4">
 											<div class="form-group"
-												th:classappend="${#fields.hasErrors('nomVoie')} ? 'has-error has-feedback' : ''">
+												th:classappend="${nomVoieErreur!=null} ? 'has-error has-feedback' : ''">
 												<label class="control-label" th:text="#{message.nom}"></label>
 												<input type="text" class="form-control" id="nomVoie"
 													th:field="*{nomVoie}"
-													th:placeholder="#{message.placeHolderNomVoie}"><span
-													th:if="${#fields.hasErrors('nomVoie')}"
+													th:placeholder="#{message.placeHolderNomVoie}"> <span
+													th:if="${nomVoieErreur!=null}"
 													class="glyphicon glyphicon-remove form-control-feedback"></span>
-												<span th:if="${#fields.hasErrors('nomVoie')}"
-													th:errors="*{nomVoie}" class="text-danger"></span>
+												<span th:if="${nomVoieErreur!=null}"
+													th:text="${nomVoieErreur}" class="text-danger"></span>
 											</div>
 										</div>
 										<div class="col-lg-4">
 											<div class="form-group">
 												<label class="control-label"
-													th:classappend="${spotForm.isFieldsCotationValid==false} or ${#fields.hasErrors('listeCotations')} ? text-danger : ''"
+													th:classappend="${spotForm.isFieldsCotationValid==false} or ${listeCotationsErreur!=null} ? text-danger : ''"
 													th:text="#{message.cotation}"></label>
 												<div class="row">
 													<div class="col-lg-6">
@@ -123,48 +123,51 @@
 																	<select
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMinVoieUnitePrincipale}"
-																		th:classappend="${#fields.hasErrors('cotationMinVoieUnitePrincipale')} ? has-error : ''">
+																		th:classappend="${cotationMinVoieUnitePrincipaleErreur!=null} ? has-error : ''">
 																		<option th:each="l:${unitePrincipaleLabels}"
 																			th:value="${l}" th:text="${l}"></option>
 																	</select> <span
-																		th:if="${#fields.hasErrors('cotationMinVoieUnitePrincipale')}"
-																		th:errors="*{cotationMinVoieUnitePrincipale}"></span>
+																		th:if="${cotationMinVoieUnitePrincipaleErreur!=null}"
+																		th:text="${cotationMinVoieUnitePrincipaleErreur}"
+																		class="text-danger"></span>
 																</div>
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMinVoieUniteSecondaire}"
-																		th:classappend="${#fields.hasErrors('cotationMinVoieUniteSecondaire')} ? has-error : ''">
+																		th:classappend="${cotationMinVoieUniteSecondaireErreur!=null} ? has-error : ''">
 																		<option th:each="l:${uniteSecondaireLabels}"
 																			th:value="${l}" th:text="${l}"></option>
 																	</select> <span
-																		th:if="${#fields.hasErrors('cotationMinVoieUniteSecondaire')}"
-																		th:errors="*{cotationMinVoieUniteSecondaire}"></span>
+																		th:if="${cotationMinVoieUniteSecondaireErreur!=null}"
+																		th:text="${cotationMinVoieUniteSecondaireErreur}"
+																		class="text-danger"></span>
 																</div>
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMinVoieUniteTertiaire}"
-																		th:classappend="${#fields.hasErrors('cotationMinVoieUniteTertiaire')} ? has-error : ''">
+																		th:classappend="${cotationMinVoieUniteTertiaireErreur!=null} ? has-error : ''">
 																		<option th:each="l:${uniteTertiaireLabels}"
 																			th:value="${l}" th:text="${l}"></option>
 																	</select> <span
-																		th:if="${#fields.hasErrors('cotationMinVoieUniteTertiaire')}"
-																		th:errors="*{cotationMinVoieUniteTertiaire}"></span>
+																		th:if="${cotationMinVoieUniteTertiaireErreur!=null}"
+																		th:text="${cotationMinVoieUniteTertiaireErreur}"
+																		class="text-danger"></span>
 																</div>
 															</div>
 														</div>
 													</div>
 													<div class="col-lg-6">
 														<div class="input-group"
-															th:classappend="${#fields.hasErrors('listeCotations')} ? has-error : ''">
+															th:classappend="${listeCotationsErreur!=null} ? has-error : ''">
 															<span class="input-group-addon" th:text="#{message.max}"></span>
 															<div class="row row-no-gutters">
 																<div class="col-lg-4">
 																	<select
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMaxVoieUnitePrincipale}"
-																		th:classappend="${#fields.hasErrors('cotationMaxVoieUnitePrincipale')} ? has-error : ''">
+																		th:classappend="${cotationMaxVoieUnitePrincipaleErreur!=null} ? has-error : ''">
 																		<option th:each="l:${unitePrincipaleLabels}"
 																			th:value="${l}" th:text="${l}"></option>
 																	</select>
@@ -173,7 +176,7 @@
 																	<select
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMaxVoieUniteSecondaire}"
-																		th:classappend="${#fields.hasErrors('cotationMaxVoieUniteSecondaire')} ? has-error : ''">
+																		th:classappend="${cotationMaxVoieUniteSecondaireErreur!=null} ? has-error : ''">
 																		<option th:each="l:${uniteSecondaireLabels}"
 																			th:value="${l}" th:text="${l}"></option>
 																	</select>
@@ -182,7 +185,7 @@
 																	<select
 																		class="form-control select-no-left-right-padding"
 																		th:field="*{cotationMaxVoieUniteTertiaire}"
-																		th:classappend="${#fields.hasErrors('cotationMaxVoieUniteTertiaire')} ? has-error : ''">
+																		th:classappend="${cotationMaxVoieUniteTertiaireErreur!=null} ? has-error : ''">
 																		<option th:each="l:${uniteTertiaireLabels}"
 																			th:value="${l}" th:text="${l}"></option>
 																	</select>
@@ -197,51 +200,52 @@
 																<div class="row row-no-gutters">
 																	<div class="col-lg-4 text-center">
 																		<span
-																			th:if="${#fields.hasErrors('cotationMaxVoieUnitePrincipale')}"
-																			class="text-danger" th:text="#{message.puceUn}"></span>
+																			th:if="${cotationMaxVoieUnitePrincipaleErreur!=null}"
+																			th:text="#{message.puceUn}" class="text-danger"></span>
 																	</div>
 																	<div class="col-lg-4 text-center">
 																		<span
-																			th:if="${#fields.hasErrors('cotationMaxVoieUniteSecondaire')}"
-																			class="text-danger" th:text="#{message.puceDeux}"></span>
+																			th:if="${cotationMaxVoieUniteSecondaireErreur!=null}"
+																			th:text="#{message.puceDeux}" class="text-danger"></span>
 																	</div>
 																	<div class="col-lg-4 text-center">
 																		<span
-																			th:if="${#fields.hasErrors('cotationMaxVoieUniteTertiaire')}"
-																			class="text-danger" th:text="#{message.puceTrois}"></span>
+																			th:if="${cotationMaxVoieUniteTertiaireErreur!=null}"
+																			th:text="#{message.puceTrois}" class="text-danger"></span>
 																	</div>
 																</div>
 															</div>
 															<div class="row row-no-gutters"
-																th:if="${#fields.hasErrors('cotationMaxVoieUnitePrincipale')}">
+																th:if="${cotationMaxVoieUnitePrincipaleErreur!=null}">
 																<div class="col-lg-1 text-danger"
 																	th:text="#{message.puceUn}"></div>
 																<div class="col-lg-11 no-bottom-top-padding">
-																	<span th:errors="*{cotationMaxVoieUnitePrincipale}"
+																	<span th:text="${cotationMaxVoieUnitePrincipaleErreur}"
 																		class="text-danger"></span>
 																</div>
 															</div>
 															<div class="row row-no-gutters"
-																th:if="${#fields.hasErrors('cotationMaxVoieUniteSecondaire')}">
+																th:if="${cotationMaxVoieUniteSecondaireErreur!=null}">
 																<div class="col-lg-1 text-danger"
 																	th:text="#{message.puceDeux}"></div>
 																<div class="col-lg-11">
-																	<span th:errors="*{cotationMaxVoieUniteSecondaire}"
+																	<span th:text="${cotationMaxVoieUniteSecondaireErreur}"
 																		class="text-danger"></span>
 																</div>
 															</div>
 															<div class="row row-no-gutters"
-																th:if="${#fields.hasErrors('cotationMaxVoieUniteTertiaire')}">
+																th:if="${cotationMaxVoieUniteTertiaireErreur!=null}">
 																<div class="col-lg-1 text-danger"
 																	th:text="#{message.puceTrois}"></div>
 																<div class="col-lg-11">
-																	<span th:errors="*{cotationMaxVoieUniteTertiaire}"
+																	<span th:text="${cotationMaxVoieUniteTertiaireErreur}"
 																		class="text-danger"></span>
 																</div>
 															</div>
 														</div>
-														<div th:if="${#fields.hasErrors('listeCotations')}">
-															<span th:errors="*{listeCotations}" class="text-danger"></span>
+														<div th:if="${listeCotationsErreur!=null}">
+															<span th:text="${listeCotationsErreur}"
+																class="text-danger"></span>
 														</div>
 													</div>
 												</div>
@@ -250,32 +254,32 @@
 										<div class="col-lg-4">
 											<div class="form-group">
 												<label class="control-label"
-													th:classappend="${#fields.hasErrors('hauteurMinVoie') or #fields.hasErrors('hauteurMaxVoie')} ? text-danger : ''"
+													th:classappend="${hauteurMinVoieErreur!=null or hauteurMaxVoieErreur!=null} ? text-danger : ''"
 													th:text="#{message.hauteur} + ' ' + #{message.uniteMetre}"></label>
 												<div class="row">
 													<div class="col-lg-6">
 														<div class="input-group"
-															th:classappend="${#fields.hasErrors('hauteurMinVoie')} ? has-error : ''">
+															th:classappend="${hauteurMinVoieErreur!=null} ? has-error : ''">
 															<span class="input-group-addon" th:text="#{message.min}"></span>
 															<input type="number" class="form-control"
-																th:field="*{hauteurMinVoie}"><span
-																th:if="${#fields.hasErrors('hauteurMinVoie')}"
+																th:field="*{hauteurMinVoie}"> <span
+																th:if="${hauteurMinVoieErreur!=null}"
 																class="glyphicon glyphicon-remove form-control-feedback"></span>
 														</div>
-														<span th:if="${#fields.hasErrors('hauteurMinVoie')}"
-															th:errors="*{hauteurMinVoie}" class="text-danger"></span>
+														<span th:if="${hauteurMinVoieErreur!=null}"
+															th:text="${hauteurMinVoieErreur}" class="text-danger"></span>
 													</div>
 													<div class="col-lg-6">
 														<div class="input-group"
-															th:classappend="${#fields.hasErrors('hauteurMaxVoie')} ? has-error : ''">
+															th:classappend="${hauteurMaxVoieErreur!=null} ? has-error : ''">
 															<span class="input-group-addon" th:text="#{message.max}"></span>
 															<input type="number" class="form-control"
-																th:field="*{hauteurMaxVoie}"><span
-																th:if="${#fields.hasErrors('hauteurMaxVoie')}"
+																th:field="*{hauteurMaxVoie}"> <span
+																th:if="${hauteurMaxVoieErreur!=null}"
 																class="glyphicon glyphicon-remove form-control-feedback"></span>
 														</div>
-														<span th:if="${#fields.hasErrors('hauteurMaxVoie')}"
-															th:errors="*{hauteurMaxVoie}" class="text-danger"></span>
+														<span th:if="${hauteurMaxVoieErreur!=null}"
+															th:text="${hauteurMaxVoieErreur}" class="text-danger"></span>
 													</div>
 												</div>
 											</div>

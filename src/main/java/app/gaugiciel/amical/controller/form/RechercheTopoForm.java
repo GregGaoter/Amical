@@ -2,8 +2,6 @@ package app.gaugiciel.amical.controller.form;
 
 import java.sql.Timestamp;
 
-import javax.validation.constraints.Size;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RechercheTopoForm {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(RechercheTopoForm.class);
 
 	public static final String NOM = "nom";
@@ -32,16 +30,12 @@ public class RechercheTopoForm {
 	public static final String AUTEUR = "auteur";
 	public static final String PROPRIETAIRE_TEMPLATE = "proprietaireTemplate";
 
-	@Size(max = 128, message = "{validation.size.max}")
 	private String nom;
 
-	@Size(max = 64, message = "{validation.size.max}")
 	private String lieuFranceTemplate;
 
-	@Size(max = 64, message = "{validation.size.max}")
 	private String categorie;
 
-	@Size(max = 64, message = "{validation.size.max}")
 	private String etat;
 
 	private String dateParutionMinInput;
@@ -50,10 +44,8 @@ public class RechercheTopoForm {
 	private String dateParutionMaxInput;
 	private Timestamp dateParutionMax;
 
-	@Size(max = 128, message = "{validation.size.max}")
 	private String auteur;
 
-	@Size(max = 64, message = "{validation.size.max}")
 	private String proprietaireTemplate;
 
 	public boolean estVide() {
@@ -62,11 +54,11 @@ public class RechercheTopoForm {
 				&& !Utils.isValid(etat) && !Utils.isValid(dateParutionMinInput) && !Utils.isValid(dateParutionMaxInput)
 				&& !Utils.isValid(auteur) & !Utils.isValid(proprietaireTemplate);
 	}
-	
+
 	public void setObjets() {
 		LOGGER.info("Start {}()", "setObjets");
-		if(Utils.isValid(dateParutionMinInput)) {
-			
+		if (Utils.isValid(dateParutionMinInput)) {
+
 		}
 	}
 

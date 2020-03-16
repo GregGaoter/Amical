@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +23,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormEditionLongueur;
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormNouvelleLongueur;
+import app.gaugiciel.amical.business.implementation.enumeration.Erreur;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.enumeration.RedirectionUrl;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheLongueur;
@@ -44,7 +44,7 @@ import app.gaugiciel.amical.model.Voie;
 @Controller
 @ControllerAdvice
 public class AmiLongueurController {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(AmiLongueurController.class);
 
 	@Autowired
@@ -106,10 +106,8 @@ public class AmiLongueurController {
 			RedirectAttributes redirectAttributes) {
 		LOGGER.info("Start {}()", "checkNouvelleLongueurForm");
 		if (!validationFormNouvelleLongueur.isValide(nouvelleLongueurForm)) {
-			validationFormNouvelleLongueur.getListeFieldError()
-					.forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormNouvelleLongueur.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			Spot spot = serviceRechercheSpot.findById(spotId);
 			Secteur secteur = serviceRechercheSecteur.findById(secteurId);
 			Voie voie = serviceRechercheVoie.findById(voieId);
@@ -204,10 +202,8 @@ public class AmiLongueurController {
 		editionLongueurForm.setSecteur(secteur);
 		editionLongueurForm.setSpot(spot);
 		if (!validationFormEditionLongueur.isValide(editionLongueurForm)) {
-			validationFormEditionLongueur.getListeFieldError()
-					.forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormEditionLongueur.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			model.addAttribute("spot", editionLongueurForm.getSpot());
 			model.addAttribute("secteur", editionLongueurForm.getSecteur());
 			model.addAttribute("voie", editionLongueurForm.getVoie());

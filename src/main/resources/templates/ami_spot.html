@@ -248,15 +248,15 @@
 							th:action="@{'/ami/spot/'+${spot.id}+'/commentaire/nouveau'}"
 							th:object="${nouveauCommentaireForm}" method="post">
 							<div class="form-group"
-								th:classappend="${#fields.hasErrors('commentaire')} ? 'has-error has-feedback' : ''">
+								th:classappend="${commentaireErreur!=null} ? 'has-error has-feedback' : ''">
 								<label class="control-label"
 									th:text="#{message.ajouterNouveauCommentaire}"></label>
 								<textarea class="form-control" rows="5"
 									th:field="*{commentaire}"></textarea>
-								<span th:if="${#fields.hasErrors('commentaire')}"
+								<span th:if="${commentaireErreur!=null}"
 									class="glyphicon glyphicon-remove form-control-feedback"></span>
-								<span th:if="${#fields.hasErrors('commentaire')}"
-									th:errors="*{commentaire}" class="text-danger"></span>
+								<span th:if="${commentaireErreur!=null}"
+									th:text="${commentaireErreur}" class="text-danger"></span>
 							</div>
 							<div class="text-right">
 								<button type="submit" class="btn btn-primary btn-lg">

@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import app.gaugiciel.amical.business.implementation.enregistrement.ServiceEnregistrementFormInscription;
+import app.gaugiciel.amical.business.implementation.enumeration.Erreur;
 import app.gaugiciel.amical.business.implementation.enumeration.NomModel;
 import app.gaugiciel.amical.business.implementation.recherche.ServiceRechercheUtilisateur;
 import app.gaugiciel.amical.controller.form.InscriptionForm;
@@ -50,14 +50,12 @@ public class InscriptionController {
 	}
 
 	@PostMapping("/visiteur/inscription")
-	public String checkInscriptionForm(@Valid InscriptionForm inscriptionForm, BindingResult bindingResult,
-			Model model) {
+	public String checkInscriptionForm(InscriptionForm inscriptionForm, BindingResult bindingResult, Model model) {
 		LOGGER.info("Start {}()", "checkInscriptionForm");
 		this.inscriptionForm = inscriptionForm;
 		if (!validationFormInscription.isValide(inscriptionForm)) {
-			validationFormInscription.getListeFieldError().forEach(fieldError -> bindingResult.addError(fieldError));
-		}
-		if (bindingResult.hasErrors()) {
+			validationFormInscription.getListeFieldError().forEach(fieldError -> model
+					.addAttribute(fieldError.getField() + Erreur.SUFFIXE.label, fieldError.getDefaultMessage()));
 			return "inscription";
 		}
 		return "redirect:/visiteur/inscription/enregistrement";

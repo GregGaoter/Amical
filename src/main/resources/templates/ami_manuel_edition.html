@@ -32,136 +32,136 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group"
-										th:classappend="${#fields.hasErrors('nom')} ? 'has-error has-feedback' : ''">
+										th:classappend="${nomErreur!=null} ? 'has-error has-feedback' : ''">
 										<label class="control-label"
 											th:text="#{message.nom}+(${editionTopoForm.isNotNull('nom')} ? ' *' : '')"></label>
-										<input type="text" class="form-control" th:field="*{nom}"><span
-											th:if="${#fields.hasErrors('nom')}"
+										<input type="text" class="form-control" th:field="*{nom}">
+										<span th:if="${nomErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"
+										<span th:if="${nomErreur!=null}" th:text="${nomErreur}"
 											class="text-danger"></span>
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group"
-										th:classappend="${#fields.hasErrors('lieuFranceInput')} ? 'has-error has-feedback' : ''">
+										th:classappend="${lieuFranceInputErreur!=null} ? 'has-error has-feedback' : ''">
 										<label class="control-label"
 											th:text="#{message.lieu}+(${editionTopoForm.isNotNull('lieuFranceInput')} ? ' *' : '')"></label>
 										<input type="text" id="lieuFrance" class="form-control"
 											th:placeholder="#{message.placeHolderLieu}"
-											th:field="*{lieuFranceInput}"><span
-											th:if="${#fields.hasErrors('lieuFranceInput')}"
+											th:field="*{lieuFranceInput}"> <span
+											th:if="${lieuFranceInputErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('lieuFranceInput')}"
-											th:errors="*{lieuFranceInput}" class="text-danger"></span>
+										<span th:if="${lieuFranceInputErreur!=null}"
+											th:text="${lieuFranceInputErreur}" class="text-danger"></span>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="form-group"
-										th:classappend="${#fields.hasErrors('categorie')} ? 'has-error has-feedback' : ''">
+										th:classappend="${categorieErreur!=null} ? 'has-error has-feedback' : ''">
 										<label class="control-label"
 											th:text="#{message.categorie}+(${editionTopoForm.isNotNull('categorie')} ? ' *' : '')"></label>
 										<select class="form-control" th:field="*{categorie}"
-											th:classappend="${#fields.hasErrors('categorie')} ? has-error : ''">
+											th:classappend="${categorieErreur!=null} ? has-error : ''">
 											<option th:each="l:${categorieManuelLabels}" th:value="${l}"
 												th:text="${l}"></option>
-										</select><span th:if="${#fields.hasErrors('categorie')}"
+										</select> <span th:if="${categorieErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('categorie')}"
-											th:errors="*{categorie}" class="text-danger"></span>
+										<span th:if="${categorieErreur!=null}"
+											th:text="${categorieErreur}" class="text-danger"></span>
 									</div>
 								</div>
 								<div class="col-lg-4">
 									<div class="form-group"
-										th:classappend="${#fields.hasErrors('etat')} ? 'has-error has-feedback' : ''">
+										th:classappend="${etatErreur!=null} ? 'has-error has-feedback' : ''">
 										<label class="control-label"
 											th:text="#{message.etat}+(${editionTopoForm.isNotNull('etat')} ? ' *' : '')"></label>
 										<div th:if="${isPretExist || isDemandePretExist}"
 											id="popoverTopoEnPretEtatNonModifiable">
 											<div class="overlap"></div>
 											<select class="form-control" th:field="*{etat}"
-												th:classappend="${#fields.hasErrors('etat')} ? has-error : ''"
-												id="popoverTopoEnPretEtatNonModifiable" disabled>
+												th:classappend="${etatErreur!=null} ? has-error : ''"
+												id="popoverTopoEnPretEtatNonModifiable">
 												<option th:each="l:${etatManuelLabels}" th:value="${l}"
 													th:text="${l}"></option>
 											</select>
 										</div>
 										<select class="form-control" th:field="*{etat}"
-											th:classappend="${#fields.hasErrors('etat')} ? has-error : ''"
+											th:classappend="${etatErreur!=null} ? has-error : ''"
 											th:if="${!isPretExist && !isDemandePretExist}">
 											<option th:each="l:${etatManuelLabels}" th:value="${l}"
 												th:text="${l}"></option>
-										</select><span th:if="${#fields.hasErrors('etat')}"
+										</select> <span th:if="${etatErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('etat')}" th:errors="*{etat}"
+										<span th:if="${etatErreur!=null}" th:text="${etatErreur}"
 											class="text-danger"></span>
 									</div>
 								</div>
 								<div class="col-lg-4">
 									<div class="form-group">
 										<label class="control-label"
-											th:classappend="${#fields.hasErrors('dateParutionInput')} ? text-danger : ''"
+											th:classappend="${dateParutionInputErreur!=null} ? text-danger : ''"
 											th:text="#{message.dateParution}+(${editionTopoForm.isNotNull('dateParutionInput')} ? ' *' : '')"></label>
 										<input type="date" class="form-control"
-											th:field="*{dateParutionInput}"><span
-											th:if="${#fields.hasErrors('dateParutionInput')}"
+											th:field="*{dateParutionInput}"> <span
+											th:if="${dateParutionInputErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('dateParutionInput')}"
-											th:errors="*{dateParutionInput}" class="text-danger"></span>
+										<span th:if="${dateParutionInputErreur!=null}"
+											th:text="${dateParutionInputErreur}" class="text-danger"></span>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group"
-										th:classappend="${#fields.hasErrors('auteur')} ? 'has-error has-feedback' : ''">
+										th:classappend="${auteurErreur!=null} ? 'has-error has-feedback' : ''">
 										<label class="control-label"
 											th:text="#{message.auteur}+(${editionTopoForm.isNotNull('auteur')} ? ' *' : '')"></label>
-										<input type="text" class="form-control" th:field="*{auteur}"><span
-											th:if="${#fields.hasErrors('auteur')}"
+										<input type="text" class="form-control" th:field="*{auteur}">
+										<span th:if="${auteurErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span th:if="${#fields.hasErrors('auteur')}"
-											th:errors="*{auteur}" class="text-danger"></span>
+										<span th:if="${auteurErreur!=null}" th:text="${auteurErreur}"
+											class="text-danger"></span>
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group"
-										th:classappend="${#fields.hasErrors('authentificationEmailInput')} ? 'has-error has-feedback' : ''">
+										th:classappend="${authentificationEmailInputErreur!=null} ? 'has-error has-feedback' : ''">
 										<label class="control-label"
 											th:text="#{message.proprietaire}+(${editionTopoForm.isNotNull('authentificationEmailInput')} ? ' *' : '')"></label>
 										<input type="text" class="form-control cursor-disabled"
-											th:field="*{authentificationEmailInput}" readonly><span
-											th:if="${#fields.hasErrors('authentificationEmailInput')}"
+											th:field="*{authentificationEmailInput}" readonly> <span
+											th:if="${authentificationEmailInputErreur!=null}"
 											class="glyphicon glyphicon-remove form-control-feedback"></span>
-										<span
-											th:if="${#fields.hasErrors('authentificationEmailInput')}"
-											th:errors="*{authentificationEmailInput}" class="text-danger"></span>
+										<span th:if="${authentificationEmailInputErreur!=null}"
+											th:text="${authentificationEmailInputErreur}"
+											class="text-danger"></span>
 									</div>
 								</div>
 							</div>
 							<div class="line-spacer">
 								<div class="form-group"
-									th:classappend="${#fields.hasErrors('description')} ? 'has-error has-feedback' : ''">
+									th:classappend="${descriptionErreur!=null} ? 'has-error has-feedback' : ''">
 									<label class="control-label"
 										th:text="#{message.description}+(${editionTopoForm.isNotNull('description')} ? ' *' : '')"></label>
 									<textarea class="form-control" th:field="*{description}"
 										rows="5"></textarea>
-									<span th:if="${#fields.hasErrors('description')}"
+									<span th:if="${descriptionErreur!=null}"
 										class="glyphicon glyphicon-remove form-control-feedback"></span>
-									<span th:if="${#fields.hasErrors('description')}"
-										th:errors="*{description}" class="text-danger"></span>
+									<span th:if="${descriptionErreur!=null}"
+										th:text="${descriptionErreur}" class="text-danger"></span>
 								</div>
 								<div class="form-group"
-									th:classappend="${#fields.hasErrors('remarque')} ? 'has-error has-feedback' : ''">
+									th:classappend="${remarqueErreur!=null} ? 'has-error has-feedback' : ''">
 									<label class="control-label"
 										th:text="#{message.remarque}+(${editionTopoForm.isNotNull('remarque')} ? ' *' : '')"></label>
 									<textarea class="form-control" th:field="*{remarque}" rows="5"></textarea>
-									<span th:if="${#fields.hasErrors('remarque')}"
+									<span th:if="${remarqueErreur!=null}"
 										class="glyphicon glyphicon-remove form-control-feedback"></span>
-									<span th:if="${#fields.hasErrors('remarque')}"
-										th:errors="*{remarque}" class="text-danger"></span>
+									<span th:if="${remarqueErreur!=null}"
+										th:text="${remarqueErreur}" class="text-danger"></span>
 								</div>
 							</div>
 							<div class="row text-center">

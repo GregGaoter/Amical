@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import javax.validation.constraints.Size;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,10 +28,8 @@ public class NouveauPlanForm {
 
 	private MultipartFile fichier;
 
-	@Size(min = 3, max = 256, message = "{validation.size.interval}")
 	private String nomFichier;
 
-	@Size(max = 2000, message = "{validation.size.max}")
 	private String description;
 
 	public void reinitialiser() {

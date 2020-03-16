@@ -24,7 +24,7 @@
 				<div class="list-group">
 					<div class="list-group-item">
 						<div class="form-group"
-							th:classappend="${#fields.hasErrors('nomFichier')} ? 'has-error has-feedback' : ''">
+							th:classappend="${fichierErreur!=null} ? 'has-error has-feedback' : ''">
 							<label class="control-label col-lg-1"
 								th:text="#{message.plan}+(${nouveauPlanForm.isNotNull('fichier')} ? ' *' : '')"></label>
 							<div class="col-lg-11">
@@ -38,21 +38,21 @@
 											class="glyphicon glyphicon-remove"></span></span>
 									</span>
 								</div>
-								<span th:if="${#fields.hasErrors('nomFichier')}"
-									th:errors="*{nomFichier}" class="text-danger"></span>
+								<span th:if="${fichierErreur!=null}" th:text="${fichierErreur}"
+									class="text-danger"></span>
 							</div>
 						</div>
 						<div class="form-group"
-							th:classappend="${#fields.hasErrors('description')} ? 'has-error has-feedback' : ''">
+							th:classappend="${descriptionErreur!=null} ? 'has-error has-feedback' : ''">
 							<label class="control-label col-lg-1"
 								th:text="#{message.description}+(${nouveauPlanForm.isNotNull('description')} ? ' *' : '')"></label>
 							<div class="col-lg-11">
 								<textarea class="form-control" rows="5"
 									th:field="*{description}"></textarea>
-								<span th:if="${#fields.hasErrors('description')}"
+								<span th:if="${descriptionErreur!=null}"
 									class="glyphicon glyphicon-remove form-control-feedback"></span>
-								<span th:if="${#fields.hasErrors('description')}"
-									th:errors="*{description}" class="text-danger"></span>
+								<span th:if="${descriptionErreur!=null}"
+									th:text="${descriptionErreur}" class="text-danger"></span>
 							</div>
 						</div>
 					</div>

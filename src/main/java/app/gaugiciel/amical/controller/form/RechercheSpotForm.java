@@ -4,9 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -26,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RechercheSpotForm {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(RechercheSpotForm.class);
 
 	public static final String NOM_SPOT = "nomSpot";
@@ -47,42 +44,30 @@ public class RechercheSpotForm {
 			COTATION_MIN_VOIE_UNITE_SECONDAIRE, COTATION_MIN_VOIE_UNITE_TERTIAIRE, COTATION_MAX_VOIE_UNITE_PRINCIPALE,
 			COTATION_MAX_VOIE_UNITE_SECONDAIRE, COTATION_MAX_VOIE_UNITE_TERTIAIRE);
 
-	@Size(max = 128, message = "{validation.size.max}")
 	private String nomSpot;
 
-	@Size(max = 64, message = "{validation.size.max}")
 	private String lieuFranceSpot;
 
 	private Boolean isOfficielSpot;
 
-	@Size(max = 128, message = "{validation.size.max}")
 	private String nomSecteur;
 
-	@Size(max = 128, message = "{validation.size.max}")
 	private String nomVoie;
 
-	@Size(max = 1, message = "{validation.size.max}")
 	private String cotationMinVoieUnitePrincipale;
 
-	@Size(max = 3, message = "{validation.size.max}")
 	private String cotationMinVoieUniteSecondaire;
 
-	@Size(max = 1, message = "{validation.size.max}")
 	private String cotationMinVoieUniteTertiaire;
 
-	@Size(max = 1, message = "{validation.size.max}")
 	private String cotationMaxVoieUnitePrincipale;
 
-	@Size(max = 3, message = "{validation.size.max}")
 	private String cotationMaxVoieUniteSecondaire;
 
-	@Size(max = 1, message = "{validation.size.max}")
 	private String cotationMaxVoieUniteTertiaire;
 
-	@PositiveOrZero(message = "{validation.positiveorzero}")
 	private Integer hauteurMinVoie;
 
-	@PositiveOrZero(message = "{validation.positiveorzero}")
 	private Integer hauteurMaxVoie;
 
 	private List<ServiceCotationFrance> listeCotations;

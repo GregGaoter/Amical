@@ -21,7 +21,7 @@ import lombok.Setter;
 @Component
 @NoArgsConstructor
 public class ValidationFormEditionLongueur extends ValidationForm<EditionLongueurForm> {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ValidationFormEditionLongueur.class);
 
 	@Autowired
@@ -36,6 +36,31 @@ public class ValidationFormEditionLongueur extends ValidationForm<EditionLongueu
 	public boolean isValide(EditionLongueurForm editionLongueurForm) {
 		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
+		String nomSpot = editionLongueurForm.getNomSpot();
+		if (!Utils.isValid(nomSpot)) {
+			listeFieldError
+					.add(new FieldError(editionLongueurForm.getClass().getSimpleName(), EditionLongueurForm.NOM_SPOT,
+							messageSource.getMessage("validation.notnull", null, Locale.getDefault())));
+		}
+		if (nomSpot.length() < 1 || nomSpot.length() > 128) {
+			listeFieldError.add(new FieldError(editionLongueurForm.getClass().getSimpleName(),
+					EditionLongueurForm.NOM_SPOT, messageSource.getMessage("validation.form.size.interval",
+							new String[] { "1", "128" }, Locale.getDefault())));
+		}
+		if (editionLongueurForm.getNom().length() > 128) {
+			listeFieldError.add(new FieldError(editionLongueurForm.getClass().getSimpleName(), EditionLongueurForm.NOM,
+					messageSource.getMessage("validation.form.size.max", new String[] { "128" }, Locale.getDefault())));
+		}
+		if (editionLongueurForm.getDescription().length() > 2000) {
+			listeFieldError.add(new FieldError(editionLongueurForm.getClass().getSimpleName(),
+					EditionLongueurForm.DESCRIPTION, messageSource.getMessage("validation.form.size.max",
+							new String[] { "2000" }, Locale.getDefault())));
+		}
+		if (editionLongueurForm.getRemarque().length() > 2000) {
+			listeFieldError.add(new FieldError(editionLongueurForm.getClass().getSimpleName(),
+					EditionLongueurForm.REMARQUE, messageSource.getMessage("validation.form.size.max",
+							new String[] { "2000" }, Locale.getDefault())));
+		}
 		if (Utils.isValid(editionLongueurForm.getNomPlan())) {
 			Plan planForm = serviceRecherchePlan.findOne(editionLongueurForm.getNomPlan());
 			if (planForm == null) {

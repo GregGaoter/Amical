@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -25,7 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EditionLongueurForm {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(EditionLongueurForm.class);
 
 	public static final String ID = "id";
@@ -53,38 +50,27 @@ public class EditionLongueurForm {
 		IS_NOT_NULL.put(NOM_PLAN, false);
 	}
 
-	@NotNull(message = "{validation.notnull}")
 	private Long id;
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 128, message = "{validation.size.interval}")
 	private String nomSpot;
 	private Spot spot;
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 128, message = "{validation.size.interval}")
 	private String nomSecteur;
 	private Secteur secteur;
 
-	@NotNull(message = "{validation.notnull}")
-	@Size(min = 1, max = 128, message = "{validation.size.interval}")
 	private String nomVoie;
 	private Voie voie;
 
-	@Size(max = 128, message = "{validation.size.interval}")
 	private String nom;
 
-	@Size(max = 2000, message = "{validation.size.max}")
 	private String description;
 
-	@Size(max = 2000, message = "{validation.size.max}")
 	private String remarque;
 
 	private Double longueur;
 
 	private Integer nbSpits;
 
-	@Size(max = 256, message = "{validation.size.max}")
 	private String nomPlan;
 	private Plan plan;
 

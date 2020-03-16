@@ -17,16 +17,22 @@ import lombok.NoArgsConstructor;
 @Component
 @NoArgsConstructor
 public class ValidationFormEditionPrenom extends ValidationForm<EditionPrenomForm> {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ValidationFormEditionPrenom.class);
 
 	@Override
 	public boolean isValide(@NotNull EditionPrenomForm editionPrenomForm) {
 		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
-		if (!Utils.isValid(editionPrenomForm.getPrenom())) {
+		String prenom = editionPrenomForm.getPrenom();
+		if (!Utils.isValid(prenom)) {
 			listeFieldError.add(new FieldError(editionPrenomForm.getClass().getSimpleName(), EditionPrenomForm.PRENOM,
 					messageSource.getMessage("validation.notnull", null, Locale.getDefault())));
+		}
+		if (prenom.length() < 1 || prenom.length() > 64) {
+			listeFieldError.add(new FieldError(editionPrenomForm.getClass().getSimpleName(), EditionPrenomForm.PRENOM,
+					messageSource.getMessage("validation.form.size.interval", new String[] { "1", "64" },
+							Locale.getDefault())));
 		}
 		return listeFieldError.isEmpty();
 	}

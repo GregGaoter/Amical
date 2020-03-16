@@ -21,7 +21,7 @@ import lombok.Setter;
 @Component
 @NoArgsConstructor
 public class ValidationFormEditionSecteur extends ValidationForm<EditionSecteurForm> {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ValidationFormEditionSecteur.class);
 
 	@Autowired
@@ -36,6 +36,25 @@ public class ValidationFormEditionSecteur extends ValidationForm<EditionSecteurF
 	public boolean isValide(EditionSecteurForm editionSecteurForm) {
 		LOGGER.info("Start {}()", "isValide");
 		listeFieldError.clear();
+		if (editionSecteurForm.getNom().length() > 128) {
+			listeFieldError.add(new FieldError(editionSecteurForm.getClass().getSimpleName(), EditionSecteurForm.NOM,
+					messageSource.getMessage("validation.form.size.max", new String[] { "128" }, Locale.getDefault())));
+		}
+		if (editionSecteurForm.getDescription().length() > 2000) {
+			listeFieldError.add(new FieldError(editionSecteurForm.getClass().getSimpleName(),
+					EditionSecteurForm.DESCRIPTION, messageSource.getMessage("validation.form.size.max",
+							new String[] { "2000" }, Locale.getDefault())));
+		}
+		if (editionSecteurForm.getRemarque().length() > 2000) {
+			listeFieldError.add(new FieldError(editionSecteurForm.getClass().getSimpleName(),
+					EditionSecteurForm.REMARQUE, messageSource.getMessage("validation.form.size.max",
+							new String[] { "2000" }, Locale.getDefault())));
+		}
+		if (!Utils.isValid(editionSecteurForm.getNomSpot())) {
+			listeFieldError
+					.add(new FieldError(editionSecteurForm.getClass().getSimpleName(), EditionSecteurForm.NOM_SPOT,
+							messageSource.getMessage("validation.notnull", null, Locale.getDefault())));
+		}
 		if (Utils.isValid(editionSecteurForm.getNomPlan())) {
 			Plan planForm = serviceRecherchePlan.findOne(editionSecteurForm.getNomPlan());
 			if (planForm == null) {

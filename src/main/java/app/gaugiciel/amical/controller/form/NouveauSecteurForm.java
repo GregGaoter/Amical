@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.springframework.stereotype.Component;
 
 import app.gaugiciel.amical.model.Plan;
@@ -36,20 +33,15 @@ public class NouveauSecteurForm {
 		IS_NOT_NULL.put(NOM_PLAN, false);
 	}
 
-	@Size(max = 128, message = "{validation.size.interval}")
 	private String nom;
 
-	@Size(max = 2000, message = "{validation.size.max}")
 	private String description;
 
-	@Size(max = 2000, message = "{validation.size.max}")
 	private String remarque;
 
-	@NotNull(message = "{validation.notnull}")
 	private String nomSpot;
 	private Spot spot;
 
-	@Size(max = 256, message = "{validation.size.max}")
 	private String nomPlan;
 	private Plan plan;
 
