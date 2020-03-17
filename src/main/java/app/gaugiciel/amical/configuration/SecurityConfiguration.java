@@ -20,7 +20,7 @@ import app.gaugiciel.amical.business.implementation.authentification.ServiceLogo
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfiguration.class);
 
 	// Spécifié dans le fichier application.properties
