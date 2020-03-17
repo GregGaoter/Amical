@@ -90,7 +90,7 @@ Lancer `Nginx` :
 1.  Importer le projet Maven. Par exemple pour Eclipse :  
     `File -> Import... -> Maven -> Existing Maven Projects`
 2.  Exécuter l'application :  
-    `Amical -> src -> main -> java -> app -> gaugiciel -> amical`
+    `Amical/src/main/java/app/gaugiciel/amical`  
     `Click droit sur AmicalApplication.java -> Run As -> Java Application`
 3.  Depuis un navigateur Web, accéder à la page d'accueil :  
     `localhost:8080/`
